@@ -1,0 +1,12 @@
+name: dce_process
+title: dce_process
+username: nickchristie
+account: nickchristie
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 10201031
+bundleId: 8061083
+url: https://nickchristie.shinyapps.io/dce_process/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

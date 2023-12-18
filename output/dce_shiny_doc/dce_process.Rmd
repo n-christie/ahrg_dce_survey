@@ -1,0 +1,326 @@
+---
+title: "Discrete choice survey"
+output: 
+  html_document:
+    css: style.css
+    theme: flatly
+    highlight: tango
+    toc: true
+    toc_float: true
+runtime: shiny
+bibliography: DCE.bib
+link-citations: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Note:  A working document with the beginning of a potential paper:
+[Discrete choice](https://github.com/n-christie/ahrg_reloc_age_dce/blob/main/latex/elsvier/reloc_age_prospectus.pdf)
+
+
+This document outlines some of the steps needed for a successful implementation of a discrete choice experiment.
+The focus here is to present more of the practical aspects of implementation to aid in the experimental design and facilitate a fluid process.
+An understanding of the complete process, 
+will guide what is feasible, help fine-tune the research question(s), the experimental design,
+and aid in choosing attributes and levels.
+
+“it is important to note that (DCE) model specification and experimental design are intimately linked, not least because the types of models that can be estimated are determined by the experimental design.”… “ For that reason, consideration of the types of models one is interested in estimating …is important prior to creating the experimental design for a given DCE." [@lancsarDiscreteChoiceExperiments2017]
+
+
+
+
+
+<!-- # Respondents -->
+
+<!-- First, let's plot the location of the survey respondents on an interactive map for a bit of fun. -->
+
+$~$
+$~$
+
+```{r map, eval=FALSE, warning=FALSE, include=FALSE}
+library(leaflet)
+
+address_lat_lon <- readRDS("coords.rds") 
+
+leaflet(address_lat_lon,width = "100%" ) %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addMarkers(~lon, ~lat, popup="The birthplace of R",
+             clusterOptions = markerClusterOptions())
+```
+
+$~$
+$~$
+
+# Process in a nutshell
+
+Below summaries the steps we need to take in the process
+```{r , echo=FALSE, warning=FALSE}
+library(DiagrammeR)
+grViz("digraph flowchart {
+      # node definitions with substituted label text
+      node [fontname = Helvetica, shape = rectangle]        
+      tab1 [label = '@@1']
+      tab2 [label = '@@2']
+      tab3 [label = '@@3']
+      tab4 [label = '@@4']
+      tab5 [label = '@@5']
+
+      # edge definitions with the node IDs
+      tab1 -> tab2 -> tab3 -> tab4 -> tab5;
+      }
+
+      [1]: 'Select attributes and their levels'
+      [2]: 'Survey design - creates optimal mix/number of choice sets'
+      [3]: 'Administer survey - using choice sets from the design'
+      [4]: 'Analyze the data - estimate models'
+      [5]: 'Present/interpret the results - tables/figures on coeffcient sizes'
+      ")
+```
+
+
+# Properties of the attributes
+
+What should our attributes be and what levels should we assign to them? The research question should help guide the selection of attributes and levels.  This may be stating the obvious, but if the research question is broadly defined and stated in general terms, it becomes a very cloudy process in selecting appropriate attributes.
+
+What can we do to help move along this process?  One important step we can take is to consider the potential research question in less general terms of aims and explorations, and more along the lines of a testable hypothesis.
+
+Below are some attribute property guidelines taken from the literature. 
+
+* __Less is more__ - The greater number of attributes, the greater the cognitive difficulty of completing a DCE. [@manghamHowNotDesigning2009]
+
+* Less is more - Increased age would tend to exacerbate the cognitive burden of the DCE, highlighting the need to address the complexity of the experiment in order to obtain valid and reliable responses [@himmlerWhatWorksBetter2021]
+
+* Less is more - There should be fewer than 10 to ensure respondents are able to consider all attributes listed [@himmlerWhatWorksBetter2021]
+
+* Definitions of the attributes should not be ambiguous and should be __easily interpretable__ by the respondents. [@deshazoDesigningChoiceSets2002]
+
+* As we are asking respondents to make a choice that assumes a trade-off between the attributes, the attributes presented __should be viable options for all respondents__.
+
+* The experiments pivots around utility theory.  __All attributes and levels should have a positive utility__.
+
+* If the attributes are not realistic for the entire sample, we run into some issues.
+
+These last three points deserve particular attention.  It is important to keep in mind that the experiment design will create choice sets of every combination of attributes and levels. Regarding utility assumptions and viability concerns, we would like to avoid presenting choices to the respondents which are clearly biased.  In other words, we want to avoid any potential combination of attributes that creates an obvious "good" vs "bad" scenario where any rational actor would choose the "good" option, regardless of their individual utility preferences. 
+
+To ensure this, we should avoid attributes that are accessible to only particular segments of the population.  For example, "Is wheelchair accessible" would be a poor attribute as wheelchair users would certainly always choose this option, and non-wheelchair users would be gain no utility in choosing this option.
+
+We should also aim for all attributes and their levels to have positive utility, and dichotomous levels should be avoided.  Firstly, as every combination of attributes and levels will be presented in the survey, combinations with combined negative levels with make their way into the choice sets creating options which no rational actor would choose.  
+
+Second, as the experiment assumptions are situated in utility theory with trade-offs of utility, we want levels to contain some sort of utility to actually "trade off". An option with no utility will never be chosen and this works against the experiment.  
+
+
+# Test Run - attributes and their levels
+
+While selecting the levels and attributes is an essential step in the discrete choice experiment, there is a clear benefit in conducting a "test run", so to speak, in order to identify any hiccups in the process as a whole.
+
+The first consideration is  selecting the number of attributes, and the number of levels contained in each attribute. 
+The number of attributes and levels is important in estimating the required sample size needed to get reliable estimates from the experiments we wish to conduct.
+Literature on required sample size for DCE's is surprisingly sparse.
+
+It is probably due to the fact that having an adequate sample size depends on many factors such as the number of questions each respondent must answer, the number of attributes used in the modeling, and the number of levels in each attribute.
+Regardless,
+it is difficult to gleam a required sample size from what is found in the literature and we must look at other means to estimate this.
+
+One such way to get an estimate of required sample size is to simulate the experiment with various sample sizes and then compare the standard errors on the coefficients from each simulation.
+In other words,
+we can create an theoretical experiment design with a set number of attributes, levels, and number of questions to do some testing.  The following analysis does exactly this: chooses some attributes, levels, and number of questions to be answered by each respondent, and simulates a study.
+
+What is the point of all of this? This sets up the framework involved in completing our entire study.  By setting the framework up now, we can iron out any problems with implementation before the study actually takes place.
+
+A big bonus is that the models will be already set up once the data arrives.  Within hours of getting the data, we will have all models estimated and results summarized - saving time to focus on writing the text of our investigation. 
+
+Moving along, below are some attributes and levels chosen for the example simulation:
+
+### Attributes and descriptions
+```{r, echo=FALSE, warning=FALSE}
+
+library(kableExtra)
+first_col <- c(
+                "Distance to green area",
+                "Distance to shops",
+                "Distance to public transportaion",
+                "Balcony",
+                "Price")
+                
+                
+second_col <- c("1 = greenclose: within 5km <br> 2 = greenmed: within 10km <br> 3 = greenfar: within 15km",
+                "1 = shopsclose: within 5km <br> 2 = shopsmed: within 10km <br> 3 = shopsfar: within 15km",
+                "1 = transclose: within 5km <br> 2 = transmed: within 10km <br> 3 = transfar: within 15km",
+                "1 = balsmall:  5m2 <br> 2 = balmed: 10m2 <br> 3 = ballarge: 15m2",
+                "1 = 10% less than current costs <br> 2 = same as curent costs <br> 3 = 10% more than current costs"
+                
+)
+
+
+ data.frame(first_col, second_col) %>% 
+  kable(format = "html",
+        col.names = c( "Attribute"	,"Description and levels"),
+        align = "ll",
+        linesep = "\\addlinespace",
+        valign = "top",
+        booktabs = TRUE,
+        escape = FALSE) %>%
+  pack_rows(index = first_col)
+
+```
+
+$~$
+$~$
+
+### Experimental design
+
+With these attributes and levels, we can next estimate a design using a few different methods.
+The design reduces the amount of questions each respondent will have to answer.
+In a full-factorial design, each respondent would have to answer every single combination of attributes and levels to estimate the relative strength of each attribute/level.
+In practice,
+this would require a prohibitive number of questions for each respondent to answer.
+
+To address this issue,
+researchers have developed techniques to reduce the dimensionality.
+In other words,
+if we are looking at effects across the whole sample,
+we can drastically reduce the combinations of attribute-levels each respondent must answer by creating a custom set of specific questions each respondent must answer.
+Taken as a whole and combining all the answers of all of our respondents,
+we can capture the effects of the sample.
+
+From a full factorial design (every possible combination), the three common dimension reduction techniques are random, orthogonal, and efficient designs:
+
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("figures/design.jpg")
+```
+
+$~$
+$~$
+
+Choosing which method can wait at this point.
+For our purposes, we will create designs using all the methods, then decide on which we will use later.
+Utilizing the levels created above, we next estimate the designs to reduce the number of questions respondents must answer.  I picked the number of questions each respondent to answer to be a lagom 10.
+
+Below is a snap shot of the results, in this case of the of a "Orthogonal" design:
+$~$
+$~$
+
+```{r, echo=FALSE, warning=FALSE}
+
+example <- data.frame(
+  stringsAsFactors = FALSE,
+                       respID = c(1L,1L,
+                                  1L,1L,1L,1L,1L,1L,1L,1L,1L,1L,1L,1L,
+                                  1L,1L,1L,1L,1L,1L),
+                          qID = c(1L,1L,
+                                  2L,2L,3L,3L,4L,4L,5L,5L,6L,6L,7L,7L,
+                                  8L,8L,9L,9L,10L,10L),
+                        altID = c(1L,2L,
+                                  1L,2L,1L,2L,1L,2L,1L,2L,1L,2L,1L,2L,
+                                  1L,2L,1L,2L,1L,2L),
+                        price = c(10L,0L,
+                                  10L,10L,10L,-10L,10L,-10L,10L,0L,0L,
+                                  10L,-10L,0L,10L,10L,10L,10L,10L,-10L),
+                   dist_green = c("5km",
+                                  "5km","10km","5km","5km","15km","10km",
+                                  "10km","5km","10km","5km","15km","15km",
+                                  "10km","10km","15km","15km","10km","10km",
+                                  "5km"),
+                   dist_shops = c("10km",
+                                  "5km","10km","10km","10km","15km","15km",
+                                  "5km","15km","10km","15km","5km","10km",
+                                  "15km","10km","15km","5km","15km","15km",
+                                  "15km"),
+                   dist_trans = c("15km",
+                                  "10km","15km","15km","15km","5km","10km",
+                                  "10km","15km","10km","10km","15km","5km",
+                                  "10km","5km","5km","15km","10km","10km",
+                                  "10km"),
+                      balcony = c("10m2",
+                                  "5m2","10m2","5m2","5m2","5m2","10m2",
+                                  "10m2","10m2","5m2","5m2","5m2","10m2",
+                                  "15m2","15m2","10m2","10m2","10m2","5m2",
+                                  "5m2")
+           )
+
+ kbl(example)%>%
+  kable_paper("hover", full_width = T)
+
+```
+
+$~$
+$~$
+
+
+where __respID__ is the number uniquely identifying each respondent.  Here, respondent number 1 is asked 10 questions (__qID__).
+Each question has two alternatives(__altID__).
+The values in columns: __price__ to __balocony__ are the levels selected by the experimental design which reduces the number of questions each respondent must answer leaving the attribute levels un-correlated.
+
+We would then need to create the questionaires using the data from these results.
+
+To exemplify how this works,
+the first question would contain the first two rows of the above table and the question would look like the following:
+
+$~$
+$~$
+
+
+```{r, echo=FALSE, warning=FALSE}
+data.frame(
+        stringsAsFactors = FALSE,
+             check.names = FALSE,
+        Attribute = c("Distance to green area" ,
+                      "Distance to shops",
+                      "Distance to transporatation","Size of balcony",
+                      "Price","Which do you chose?"),
+        'Option one' = c("5km" ,"10km", "15km", "10m2", "10% more", " "),
+        'Option two' = c("5km", "5km", "10km", "5m2", "same price", "X")
+) %>% 
+  kbl()%>%
+  kable_paper("hover", full_width = T)
+
+```
+
+$~$
+$~$
+
+Respondent number one would answer this question, along with 9 others specified in the same way from the above table.
+
+From the design experiment output, each respondent would take a survey based on the levels indicated in the design (the format being that of the above table)
+
+Once all respondents have taken the survey, the results can be analyzed.
+
+### Estimating sample size
+
+Instead of waiting for the survey to be conducted, we can next create some pretend selections - simulating the answers of the respondents.  We do this to check on the strength of our attributes in our model.  If our sample size is too small, the standard errors will be too large to identify any effects.
+
+In other words we can simulate some models to get an idea on what our desired sample size should be if we were using the above specifications.  
+
+The idea here is to estimate a great number of models and compare the standard errors of the coefficients from the models.  While not a precise method to calculate needed sample size, we should see a pattern: that the standard errors decrease ( a good thing when searching for significant effects) as we increase the sample size.
+
+First, I create designs using the Random, D-optimal, and Bayesian  (efficient) methods and then randomly simulate answers by the respondents in each design.  While these answers are chosen randomly,
+they provide some data to estimate the logistic regression models that we will be using in the analysis.
+
+I estimate the main logistic regression specification hundreds of times, using sample sizes from 50 individuals to 1500 individuals.  At each iteration, I capture the regression coefficients and their standard errors.
+
+Below summarizes the results from the simulations.
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("figures/se_coef.png")
+```
+
+$~$
+$~$
+
+Where the y-axis is the standard error on the respective coefficient and the x-axis represents the sample size of the model being estimated.
+As the sample size increases (moves to the right), we see the expected drop in standard errors.  The red horizontal line represents the value of 0.05 - the desired level to get 95% significance levels.  The three colors represent models using three different design methods (baysien, d-optimal, and random).
+
+What can we make of this data?  Well, it can give us a general idea of how many respondents we would need in this design (using 5 attributes, 3 levels, and 10 questions per respondent) to likely capture significant effects if they are present.
+Here, the series cross the line at around 800 individuals or less for each coefficient, suggesting that we should have a minimum of 800 respondents for these design specifications.
+
+
+As we should have well over that in our study, 5 attributes with 3 levels should be a comfortable number for our purposes.
+
+
+
+# References
+
+<div id="refs"></div>
