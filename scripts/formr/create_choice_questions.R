@@ -10,7 +10,7 @@ profiles <- cbc_profiles(
   price     = c("20% less","10% less", "Same","10% more", "20% more"), # relative to current
   dist_green = c("5km", "10km", "15km"),
   dist_shops = c("5km", "10km", "15km"),
-  dist_trans = c("5km", "10km", "15km"),
+  dist_trans = c("200m", "400m", "800m"),
   parking      = c('Garage', 'On street free', 'On street paid')
 )
 
