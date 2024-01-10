@@ -2,6 +2,7 @@ library(tidyverse)
 library(cbcTools)
 library("logitr")
 library(texreg)
+library(here)
 
 # Create attributes and their levels
 
@@ -47,69 +48,5 @@ dim(design_bayesian)
 
 cbc_balance(design_bayesian)
 
-# Simulate data  orthogonal
-
-data_dopt <- cbc_choices(
-  design = design_dopt,
-  obsID  = "obsID"
-)
-
-
-
-# Simulate data bayesian
-
-data_bay <- cbc_choices(
-  design = design_bayesian,
-  obsID  = "obsID"
-)
-
-
-
-# simulate data with restrictions
-
-data <- cbc_choices(
-  design = design,
-  obsID = "obsID",
-  priors = list(
-    price     = -0.1,
-    type      = c(0.1, 0.2),
-    freshness = c(0.1, 0.2)
-  )
-)
-
-
-
-
-# Estimate a model
-
-m1_dopt <- logitr(
-  data    = data_dopt,
-  outcome = "choice",
-  obsID   = "obsID",
-  pars    = c( "dist_green", "dist_shops","dist_trans","parking"),
-  scalePar = "price"
-)
-
-screenreg(m1_dopt)
-
-
-power_dopt <- cbc_power(
-  data    = data_dopt,
-  pars    = c("price", "dist_green", "dist_shops", "dist_trans", "parking"),
-  outcome = "choice",
-  obsID   = "obsID",
-  nbreaks = 10,
-  n_q     = 6
-)
-
-
-power_bay <- cbc_power(
-  data    = data_bay,
-  pars    = c("price", "dist_green", "dist_shops", "dist_trans", "parking"),
-  outcome = "choice",
-  obsID   = "obsID",
-  nbreaks = 10,
-  n_q     = 6
-)
-
-plot_compare_power(power_dopt, power_bay)
+# Save design
+write_csv(design_dopt, here("output/formr", "choice_questions.csv"))
