@@ -5,7 +5,7 @@ account: nickchristie
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 10201031
-bundleId: 8061083
+bundleId: 8137664
 url: https://nickchristie.shinyapps.io/dce_process/
 version: 1
 asMultiple: FALSE

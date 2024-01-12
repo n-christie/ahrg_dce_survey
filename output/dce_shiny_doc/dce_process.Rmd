@@ -29,6 +29,14 @@ and aid in choosing attributes and levels.
 “it is important to note that (DCE) model specification and experimental design are intimately linked, not least because the types of models that can be estimated are determined by the experimental design.”… “ For that reason, consideration of the types of models one is interested in estimating …is important prior to creating the experimental design for a given DCE." [@lancsarDiscreteChoiceExperiments2017]
 
 
+# Overall aim
+
+The overall aim is to explore the factors which matters most for the choice of another dwelling among people aged 55 years or more, interested in relocation. 
+
+Research questions:
+
+-	What are the preferences and the relative importance of housing attributes among the sample?
+-	What is their willingness to pay for these attributes?
 
 
 
