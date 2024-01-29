@@ -16,35 +16,59 @@ link-citations: yes
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Note:  A working document with the beginning of a potential paper:
-[Discrete choice](https://github.com/n-christie/ahrg_reloc_age_dce/blob/main/latex/elsvier/reloc_age_prospectus.pdf)
+$~$
+
+ <font size="5"> Take the [TEST SURVEY](http://37.27.25.127/reloc-discrete-choice) !! </font> 
+
+__Note__: Structure of the document is now oriented towards our specific project. Detailed explanations of attributes, levels, etc., can be found in the [Appendix](#appendix).
+
+__Note__:  A working document with the beginning of a potential paper:
+[Discrete choice](https://github.com/n-christie/ahrg_reloc_age_dce/blob/main/latex/elsvier/reloc_age_prospectus.pdf?raw=true)
 
 
-This document outlines some of the steps needed for a successful implementation of a discrete choice experiment.
-The focus here is to present more of the practical aspects of implementation to aid in the experimental design and facilitate a fluid process.
-An understanding of the complete process, 
-will guide what is feasible, help fine-tune the research question(s), the experimental design,
-and aid in choosing attributes and levels.
+$~$
 
-“it is important to note that (DCE) model specification and experimental design are intimately linked, not least because the types of models that can be estimated are determined by the experimental design.”… “ For that reason, consideration of the types of models one is interested in estimating …is important prior to creating the experimental design for a given DCE." [@lancsarDiscreteChoiceExperiments2017]
+# Overall aim and Purpose
+
+## Aim
+
+"The overall aim is to explore the factors which matters most for the choice of another dwelling among people aged 55 years or more, interested in relocation. "
 
 
-# Overall aim
 
-The overall aim is to explore the factors which matters most for the choice of another dwelling among people aged 55 years or more, interested in relocation. 
+### Suggestions for Aim
 
-Research questions:
+
+The overall aim is to explore differences in preferred housing attributes among rural and urban individuals aged 55 years or more who are interested in relocation.
+
+
+The overarching aim of this paper is to explore heterogeneous housing preferences of those aged 55 years or more and interested in relocation.
+
+
+
+## Research questions:
 
 -	What are the preferences and the relative importance of housing attributes among the sample?
 -	What is their willingness to pay for these attributes?
 
+### Suggestions for research questions:
 
+- Which housing attributes matter most for people aged 55 years or more who are interested in relocation?
+- Are there differences between urban and rural households in how they value these attributes?
+
+## Purpose
+
+### Suggestions for purpose:
+
+- As this study is conducted in the context of the broader RELOC-AGE project which
+examines the relationship between health, active ageing, and housing,
+the purpose is to provide stakeholders (urban planners, housing developers, etc) with a better understanding of which housing attributes are important for people aged 55 and older.
 
 <!-- # Respondents -->
 
 <!-- First, let's plot the location of the survey respondents on an interactive map for a bit of fun. -->
 
-$~$
+
 $~$
 
 ```{r map, eval=FALSE, warning=FALSE, include=FALSE}
@@ -58,12 +82,87 @@ leaflet(address_lat_lon,width = "100%" ) %>%
              clusterOptions = markerClusterOptions())
 ```
 
-$~$
+
+
+
+# Attributes and their levels
+
+Here we consider which attributes to include in the study and then choose appropriate levels for each attribute.
+We must decide on: __Attributes__, attribute __levels__, and __control attributes__.
+
+## Attributes
+
+Attributes in bold have been preliminarily chosen:
+
+Locational:
+
+- __distance to green areas__ (definition: parks, forests, beaches, ???)
+- __distance to public transportation__ (definition: distance to bus stop, train station, metro station, ???)
+- __distance to shopping area__ (definition: city center, mall, grocery store, shoping center, ???)
+  - could develop this into two or more other attributes: grocery stores, pharmacy, doctor, etc.
+  - @caplanMeasuringHeterogeneousPreferences2021 label this as "local destinations".
+- distance to family or friends (shown important in follow-up study)
+
+Other:
+
+- __Parking__ (deemed important in follow-up survey)
+- Attributes related to AAI?
+
+Price:
+
+- Purely proportional measures: -20%,-10%, same, 10%, 20% of current housing costs
+- Ask for current housing costs and calculated the difference for them ( like the survey is now - this can also be done post results and conducted if enough respondents provide the information)
+
+
+## Levels
+
+For locational attributes, the choice of levels should be measured in distance, either in meters or in time.  Choosing which measure should be based on respondent interpretability as well as practical application.  For example, the attribute distance could conceived in meters: 200m, 400m, 600m; or minutes walking; 1min walk, 5min walk, 10min walk.
+
+## Control attributes
+
+In the experiment we will also need to specify the "control" housing attributes which we communicate to the respondents.
+These should include all of the most important attributes for the respondents that are __not__ included in the study and we choose between implicitly or explicitly informing them that the apartments only differ between the listed attributes.  They may be presented in a sentence like the following:
+
 $~$
 
-# Process in a nutshell
+"Please consider which option is best for you.  Both apartments are 120 sq meters, have a balcony and elevator, and have the same commuting time.  The apartments are considered the same, only differing by the listed attributes."
 
-Below summaries the steps we need to take in the process
+$~$
+
+__Control attributes to be included:__
+
+- Size of apartment (80, 100, 120 sqm?)
+- Balcony and elevator (Deemed important from the follow up results)
+- Same commuting time for respondents who commute (daily commuting distance important for location choice)
+- Same Avgift?
+- Other ??
+
+$~$
+
+On a side note, the choice of controls might offer a continent way to integrate the findings from the follow-up study, something like:
+
+$~$
+
+"We control for the physical apartment attributes identified in (SOURCE) which were deemed most important for respondents.  By controlling for these attributes, we are able to present desirable hypothetical housing options which only differ by the attributes in our design, allowing for sharper tests and measruement of the locational attributes at hand." 
+
+$~$
+
+# Appendix
+
+This section outlines some of the steps needed for a successful implementation of a discrete choice experiment.
+The focus here is to present more of the practical aspects of implementation to aid in the experimental design and facilitate a fluid process.
+An understanding of the complete process, 
+will guide what is feasible, help fine-tune the research question(s), the experimental design,
+and aid in choosing attributes and levels.
+
+“it is important to note that (DCE) model specification and experimental design are intimately linked, not least because the types of models that can be estimated are determined by the experimental design.”… “ For that reason, consideration of the types of models one is interested in estimating …is important prior to creating the experimental design for a given DCE." [@lancsarDiscreteChoiceExperiments2017]
+
+## Process in a nutshell
+
+Below summaries the steps we need to take in the process.
+
+
+
 ```{r , echo=FALSE, warning=FALSE}
 library(DiagrammeR)
 grViz("digraph flowchart {
@@ -88,13 +187,18 @@ grViz("digraph flowchart {
 ```
 
 
-# Properties of the attributes
+## Properties of the attributes
 
 What should our attributes be and what levels should we assign to them? The research question should help guide the selection of attributes and levels.  This may be stating the obvious, but if the research question is broadly defined and stated in general terms, it becomes a very cloudy process in selecting appropriate attributes.
 
-What can we do to help move along this process?  One important step we can take is to consider the potential research question in less general terms of aims and explorations, and more along the lines of a testable hypothesis.
+What can we do to help move along this process?  One important step we can take is to consider the potential research question in less general terms of aims and explorations, and more along the lines of a testable hypothesis. 
+
+$~$
+$~$
 
 Below are some attribute property guidelines taken from the literature. 
+
+$~$
 
 * __Less is more__ - The greater number of attributes, the greater the cognitive difficulty of completing a DCE. [@manghamHowNotDesigning2009]
 
@@ -110,6 +214,8 @@ Below are some attribute property guidelines taken from the literature.
 
 * If the attributes are not realistic for the entire sample, we run into some issues.
 
+$~$
+
 These last three points deserve particular attention.  It is important to keep in mind that the experiment design will create choice sets of every combination of attributes and levels. Regarding utility assumptions and viability concerns, we would like to avoid presenting choices to the respondents which are clearly biased.  In other words, we want to avoid any potential combination of attributes that creates an obvious "good" vs "bad" scenario where any rational actor would choose the "good" option, regardless of their individual utility preferences. 
 
 To ensure this, we should avoid attributes that are accessible to only particular segments of the population.  For example, "Is wheelchair accessible" would be a poor attribute as wheelchair users would certainly always choose this option, and non-wheelchair users would be gain no utility in choosing this option.
@@ -118,8 +224,68 @@ We should also aim for all attributes and their levels to have positive utility,
 
 Second, as the experiment assumptions are situated in utility theory with trade-offs of utility, we want levels to contain some sort of utility to actually "trade off". An option with no utility will never be chosen and this works against the experiment.  
 
+## Survey design
 
-# Test Run - attributes and their levels
+With these attributes and levels, we can next estimate a design using a few different methods.
+The design reduces the amount of questions each respondent will have to answer.
+In a full-factorial design, each respondent would have to answer every single combination of attributes and levels to estimate the relative strength of each attribute/level.
+In practice,
+this would require a prohibitive number of questions for each respondent to answer.
+
+To address this issue,
+researchers have developed techniques to reduce the dimensionality.
+In other words,
+if we are looking at effects across the whole sample,
+we can drastically reduce the combinations of attribute-levels each respondent must answer by creating a custom set of specific questions each respondent must answer.
+Taken as a whole and combining all the answers of all of our respondents,
+we can capture the effects of the sample.
+
+From a full factorial design (every possible combination), the three common dimension reduction techniques are random, orthogonal, and efficient designs:
+
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("figures/design.jpg")
+```
+
+$~$
+$~$
+
+## Analyse the data
+
+Data results from the survey is analysed using standard methods found in the literature where the utility that an individual assigns to a particular choice alternative is estimated using a conditional logit model based on random utility theory.
+The utility of an alternative is represented as:
+
+\begin{equation}
+U_{ij} = V_{ij} + \varepsilon_{ij}
+\end{equation}
+
+\noindent where $U_{ij}$ is the total utility that respondent \textit{i} associates with choice alternative \textit{j} and $V_{ij}$ is the systematic utility, which is a function of the attributes of the alternative and the preferences of the respondent.
+$\varepsilon_{ij}$ is the random error term, representing unobserved factors and individual-specific preferences.
+The systematic utility, \( V_{ij} \), is modelled as a linear function of attribute levels:
+
+\begin{equation}
+V_{ij} = \beta_1 X_{ij1} + \beta_2 X_{ij2} + \ldots + \beta_k X_{ijk}
+\end{equation}
+
+\noindent where $\beta_1$, $\beta_2$, $\ldots$, $\beta_k$  are the coefficients representing the part-worth utilities of the attribute levels and $X_{ij1}$, $X_{ij2}$, $\ldots$, $X_{ijk}$ are the levels of the attributes for choice alternative \textit{j} in scenario \textit{i}.
+
+\vspace{2mm}
+
+\noindent The probability that respondent \( i \) chooses alternative \( j \) from a set of alternatives is modeled using the choice probability as follows:
+
+\begin{equation}
+P_{ij} = \frac{e^{V_{ij}}}{\sum_{l=1}^{J} e^{V_{il}}}
+\end{equation}
+
+\noindent where $P_{ij}$  is the probability that respondent \textit{i} chooses alternative \textit{j}.
+\textit{J} is the total number of alternatives in the choice set.
+To estimate the coefficients (\( \beta \) values) in the systematic utility equation, maximum likelihood estimation is used.
+The likelihood function for the conditional logit model is maximized to find the best-fitting coefficients that maximize the probability of observing the actual choices made by respondents given the attributes of the alternatives.
+
+The estimated coefficients (\( \hat{\beta} \)) are used to further calculate willingness to pay and the relative importance of each attribute highlighting the trade-offs respondents are willing to make between attribute levels when choosing among alternatives.
+
+
+## Test Run 
 
 While selecting the levels and attributes is an essential step in the discrete choice experiment, there is a clear benefit in conducting a "test run", so to speak, in order to identify any hiccups in the process as a whole.
 
@@ -141,7 +307,7 @@ A big bonus is that the models will be already set up once the data arrives.  Wi
 
 Moving along, below are some attributes and levels chosen for the example simulation:
 
-### Attributes and descriptions
+### Test Run - Attributes & levels 
 ```{r, echo=FALSE, warning=FALSE}
 
 library(kableExtra)
@@ -177,33 +343,11 @@ second_col <- c("1 = greenclose: within 5km <br> 2 = greenmed: within 10km <br> 
 $~$
 $~$
 
-### Experimental design
-
-With these attributes and levels, we can next estimate a design using a few different methods.
-The design reduces the amount of questions each respondent will have to answer.
-In a full-factorial design, each respondent would have to answer every single combination of attributes and levels to estimate the relative strength of each attribute/level.
-In practice,
-this would require a prohibitive number of questions for each respondent to answer.
-
-To address this issue,
-researchers have developed techniques to reduce the dimensionality.
-In other words,
-if we are looking at effects across the whole sample,
-we can drastically reduce the combinations of attribute-levels each respondent must answer by creating a custom set of specific questions each respondent must answer.
-Taken as a whole and combining all the answers of all of our respondents,
-we can capture the effects of the sample.
-
-From a full factorial design (every possible combination), the three common dimension reduction techniques are random, orthogonal, and efficient designs:
+### Test Run - Survey design
 
 
-```{r, echo=FALSE, out.width="100%"}
-knitr::include_graphics("figures/design.jpg")
-```
 
-$~$
-$~$
-
-Choosing which method can wait at this point.
+Choosing which design method can wait at this point.
 For our purposes, we will create designs using all the methods, then decide on which we will use later.
 Utilizing the levels created above, we next estimate the designs to reduce the number of questions respondents must answer.  I picked the number of questions each respondent to answer to be a lagom 10.
 
@@ -327,6 +471,9 @@ Here, the series cross the line at around 800 individuals or less for each coeff
 
 As we should have well over that in our study, 5 attributes with 3 levels should be a comfortable number for our purposes.
 
+### Test Run - Results
+
+Results from this test experiment can be seen in the tables of the paper template: [Discrete choice](https://github.com/n-christie/ahrg_reloc_age_dce/blob/main/latex/elsvier/reloc_age_prospectus.pdf?raw=true)
 
 
 # References
