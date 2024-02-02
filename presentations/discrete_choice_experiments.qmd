@@ -1,0 +1,116 @@
+---
+title: "Discrete Choice Experiments"
+format: revealjs
+editor: source
+---
+
+
+## For today
+
+We'll take a look at Discrete Choice Experiments and see how they can be used in research.
+We'll be touching on such questions as:
+
+::: {.incremental}
+
+- Are Discrete Choice Experiments something I could use?
+- Are they hard to implement?
+- Why would I even want to use a Discrete Choice Experiment?
+- What the heck _is_ a Discrete Choice Experiment?
+
+:::
+
+
+::: {.notes}
+Speaker notes go here.
+:::
+
+## The aim today is to:
+
+- Learn about Discrete Choice Experiments - that's a mouthful, let's call them DCEs
+- Have a quick background on DCEs - where did they come from?
+- See how they work in practice
+- Test out a survey
+- Analyse the results
+- See other ways they are used in practice
+- Give you the tools to conduct them yourself.
+
+
+## Discrete Choice Experiments
+
+- A DCE is a research method used in various fields, including economics, marketing, and healthcare, to understand individuals' preferences and decision-making processes.
+
+- The primary goal of a DCE is to elicit and quantify individuals' preferences for different attributes or features of a product, service, or policy by presenting them with a series of choice scenarios.
+
+::: {.notes}
+Key word here is "elicit"
+:::
+
+## Choice experiments
+
+- DCE's fall into the more broader group of choice experiments.
+- When we make a choice, we show a preference.
+- Preferences can be construed as __stated__ or __revealed__.
+
+## Stated preferences
+
+- Definition: Stated preferences refer to the preferences that individuals explicitly state or declare in response to direct questioning or surveys.
+
+- Methodology: Researchers gather information by directly asking individuals about their preferences, opinions, or choices through interviews, surveys, or other data collection methods.
+
+- Applications: Stated preferences are commonly used in market research, policy analysis, and product development to understand consumer choices and inform decision-making processes.
+
+
+## Revealed preferences
+
+- Definition: Revealed preferences are inferred from individuals' actual behaviors and choices, providing insights into their true preferences based on observed actions rather than stated declarations.
+
+- Methodology: Researchers analyze real-world data, such as consumer purchasing behavior, travel patterns, or observed choices, to uncover implicit preferences.
+
+- Advantages: Revealed preferences offer a more accurate reflection of individuals' preferences as they are derived from observable actions, reducing biases associated with self-reporting.
+
+## Discrete Choice Experiments
+
+- DCE's are a type of revealed preference experiments. 
+- By asking respondents to choose between alternatives in a controlled experiment we can elicit preferences from the sample.
+
+## HTML WIDGETS
+
+```{r}
+library(leaflet)
+library(tidyverse)
+leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addMarkers(lat = c(55.7047,55.68,55.72), lng = c(13.1910,13.3,13.1),
+             popup="The birthplace of R")
+  
+
+```
+
+## Plotly
+```{r, echo=FALSE, results='asis', fig.height=4}
+library(ggplot2)
+library(plotly)
+p <- ggplot(data = diamonds, aes(x = cut, fill = clarity)) +
+            geom_bar(position = "dodge")
+ggplotly(p)
+```
+
+
+## Diagramme R
+```{r, echo=FALSE, results='asis', fig.height=4}
+library(DiagrammeR)
+grViz("
+  digraph {
+    layout = twopi
+    node [shape = circle]
+    A -> {B C D} 
+  }")
+```
+
+
+## Dygraphs
+```{r, echo=FALSE, results='asis'}
+library(dygraphs)
+dygraph(nhtemp, main = "New Haven Temperatures") %>% 
+  dyRangeSelector(dateWindow = c("1920-01-01", "1960-01-01"))
+```

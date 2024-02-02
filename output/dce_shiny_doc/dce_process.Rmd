@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 $~$
 
- <font size="5"> Take the [TEST SURVEY](http://37.27.25.127/reloc-discrete-choice) !! </font> 
+ <font size="5"> Take the [TEST SURVEY](http://37.27.25.127/reloc-age-dce) !! </font> 
 
 __Note__: Structure of the document is now oriented towards our specific project. Detailed explanations of attributes, levels, etc., can be found in the [Appendix](#appendix).
 
