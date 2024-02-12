@@ -20,6 +20,10 @@ $~$
 
  <font size="5"> Take the [TEST SURVEY](http://37.27.25.127/reloc-age-dce) !! </font> 
 
+
+ <font size="5"> See the preliminary [FEEDBACK](#feedback) !! </font> 
+ 
+ 
 __Note__: Structure of the document is now oriented towards our specific project. Detailed explanations of attributes, levels, etc., can be found in the [Appendix](#appendix).
 
 __Note__:  A working document with the beginning of a potential paper:
@@ -27,6 +31,363 @@ __Note__:  A working document with the beginning of a potential paper:
 
 
 $~$
+
+# Feedback
+
+## Descriptive data
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"}
+# Load libraries and data
+
+library(pacman)
+
+p_load(tidyverse, here, stringr, formr, logitr, cbcTools, texreg, likert, tidyr, haven, kableExtra, sjlabelled, summarytools)
+
+# load data
+
+
+survey_design <- readRDS("data/survey_design.rds")
+
+survey_df <- readRDS("data/ahrg_test.rds")
+```
+
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"}
+dfSum <- survey_df %>%
+  # dplyr::select(plantorelocate,
+  #               monthcost,
+  #               screenout,
+  #               income,
+  #               gender,
+  #               own,
+  #               education,
+  #               house,
+  #               feedback11, 
+  #               rating_button01,
+  #               rating_button0122
+  # ) |> 
+  mutate(plantorelocate = factor(plantorelocate, levels = 1:2,
+                                 labels = c("Yes","No")),
+         screenout = factor(screenout, levels = 1:3,
+                            labels = c("Only house","Only apt", "Both")),
+         gender = factor(gender, levels = 1:2,
+                         labels = c("Male","Female")),
+         education = factor(education, levels = 1:3,
+                            labels = c("Elementary","High School", "University")),
+         own = factor(own, levels = 1:3,
+                      labels = c("Hyresrätt","Bostadsrätt", "Äganderätt")),
+         house = factor(house, levels = 1:4,
+                        labels = c("Småhus","Flerbostadshus", "Övriga hus","Specialbostäder")),
+         feedback11 = factor(feedback11, levels = 1:3,
+                         labels = c("Mobile","Desktop", "Tablet"))
+         
+         
+         ) %>% 
+  as.data.frame()
+
+label(dfSum$plantorelocate) <- "Plan to relocate?"
+label(dfSum$monthcost) <- "Monthly costs"
+label(dfSum$income) <- "Monthly household income"
+label(dfSum$own) <- "Own house"
+label(dfSum$house) <- "Kind of house"
+label(dfSum$feedback11) <- "Kind of device"
+
+# generate the desc table
+ t1 <- table1::table1(~ plantorelocate + monthcost + income + own + house + feedback11 ,
+                           data = dfSum,
+                           na.rm = TRUE,
+                           digits = 1,
+                           format.number = TRUE,
+                           # extra.col=list(`P-value`=pvalue),
+                           caption = "Sample description") 
+
+ table1::t1flex(t1) |> 
+      flextable::fontsize(size = 11) |> 
+    flextable::padding(padding = 1, part = "all") 
+ 
+```
+
+
+## Overall impressions
+
+
+How would you rate the overall experience of taking this survey (nativigating the survey, clicking buttons, entering text, etc.)?
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"}
+like1 <- dfSum %>% 
+  select(rating_button01) %>% 
+  transmute("Overall Experience" = factor(rating_button01, levels = 1:5,
+                                  labels = c("Not the best",
+                                             "2",
+                                             "3",
+                                             "4",
+                                             "Seemless and enjoyable")
+                                  )
+         ) %>% 
+  as.data.frame() 
+library(plyr)
+
+plot(likert(like1),
+     legend.position = 'bottom',
+     text.size = 3,
+     plot.percents = TRUE) +  
+  theme(legend.text = element_text(size = rel(0.6)))
+
+```
+
+
+How was your experience with the number of choice sets (the 9 housing alternatives) to answer?
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"}
+
+like2 <- dfSum %>% 
+  select(rating_button0122) %>% 
+  transmute("No. of questions" =  factor(rating_button0122, levels = 1:5,
+                                  labels = c("too many",
+                                             "many but ok",
+                                             "could have done more",
+                                             "didn't think bout it",
+                                             "many more ok")
+                                  )
+         ) %>% 
+  as.data.frame() 
+
+
+plot(likert(like2),
+     legend.position = 'bottom',
+     text.size = 3,
+     plot.percents = TRUE) +  
+  theme(legend.text = element_text(size = rel(0.6)))
+
+```
+
+
+
+## Attributes
+
+How would you rate the relevancy of the attributes in a potential housing choice?
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"}
+like3 <- survey_df %>% 
+  transmute(dist_to_green = factor(rating_button02, levels = 1:5, labels = c("Not relevant","2","3","4","Highly relevant")),
+         dist_to_trans = factor(rating_button02_trans, levels = 1:5, labels = c("Not relevant","2","3","4","Highly relevant")),
+         dist_to_shops = factor(rating_button02_shops, levels = 1:5, labels = c("Not relevant","2","3","4","Highly relevant")),
+         cost = factor(rating_button02_price, levels = 1:5, labels = c("Not relevant","2","3","4","Highly relevant")),
+         parking = factor(rating_button02_park, levels = 1:5, labels = c("Not relevant","2","3","4","Highly relevant"))
+         ) %>% 
+  as.data.frame() 
+
+
+plot(likert(like3),
+     legend.position = 'bottom',
+     text.size = 3,
+     plot.percents = TRUE) +  
+  theme(legend.text = element_text(size = rel(0.6))) + 
+  labs(title = "")
+
+
+```
+
+How interpretable were the attributes?
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"}
+like4 <- survey_df %>% 
+  transmute(dist_to_green = factor(mc_dis, levels = 1:5, labels = c("Difficult","2","3","4","Easy")),
+         dist_to_trans = factor(mc_dis_trans, levels = 1:5, labels = c("Difficult","2","3","4","Easy")),
+         dist_to_shops = factor(mc_dis_shopw, levels = 1:5, labels = c("Difficult","2","3","4","Easy")),
+         cost = factor(mc_dis_price, levels = 1:5, labels = c("Difficult","2","3","4","Easy")),
+         parking = factor(mc_dis_park, levels = 1:5, labels = c("Difficult","2","3","4","Easy"))
+         ) %>% 
+  as.data.frame() 
+
+
+plot(likert(like4),
+     legend.position = 'bottom',
+     text.size = 3,
+     plot.percents = TRUE) +  
+  theme(legend.text = element_text(size = rel(0.6))) + 
+  labs(title = "")
+```
+
+Distance in time vs. distance in km?
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"}
+like5 <- survey_df %>% 
+  transmute(dist_to_green = factor(alt_distance_green, levels = 1:4,
+                                   labels = c("Dist in m/km fine",
+                                              "Time better (walking)",
+                                              "Time better (cycling)",
+                                              "Time better (driving)")),
+         dist_to_trans = factor(alt_distance_trans, levels = 1:4,
+                                labels = c("Dist in m/km fine",
+                                           "Time better (walking)",
+                                           "Time better (cycling)",
+                                           "Time better (driving)")),
+         dist_to_shops = factor(alt_distance_green_shops, levels = 1:4, labels = c("Dist in m/km fine","Time better (walking)","Time better (cycling)","Time better (driving)"))
+         ) %>% 
+  as.data.frame() 
+
+
+plot(likert(like5),
+     legend.position = 'bottom',
+     text.size = 3,
+     plot.percents = TRUE) +  
+  theme(legend.text = element_text(size = rel(0.6))) + 
+  labs(title = "")
+```
+
+Cost questions
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"}
+like6 <- survey_df %>% 
+  transmute(cost_better = factor(alt_distance_green_price, levels = 1:2, labels = c("Providing an estimate based on my initial input was good.",
+                                                              "Strictly relative in percentage terms better")),
+         cost_comfort = factor(price_goo, levels = 1:4, labels = c("Not at all","Indifferent","A little uncomfortable","Very uncomforatble")) ) %>% 
+  as.data.frame() 
+
+like6a <- like6 %>% 
+  select(cost_better)
+
+like6b <- like6 %>% 
+  select(cost_comfort)
+ 
+plot(likert(like6a),
+     legend.position = 'bottom',
+     text.size = 3,
+     plot.percents = TRUE) +  
+  theme(legend.text = element_text(size = rel(0.6))) + 
+  labs(title = "Which cost option would be best?")
+
+ 
+plot(likert(like6b),
+     legend.position = 'bottom',
+     text.size = 3,
+     plot.percents = TRUE) +  
+  theme(legend.text = element_text(size = rel(0.6))) + 
+  labs(title = "Cost questions made me uncomfortable")
+
+
+```
+
+
+
+
+## Comments
+
+Do you have any comments on the user experience?  Please share any comments or difficulties you had in taking the survey!
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"}
+
+survey_df %>% 
+  select(text_feedback) %>% 
+  na.omit %>% 
+  sjlabelled::label_to_colnames() %>%
+  as_tibble() %>% 
+knitr::kable(caption = "",
+             col.names = c("Comments")) %>% 
+  kable_styling((bootstrap_options = c("striped", "hover"))
+                ) %>% 
+  row_spec(1:7,
+           extra_css = "padding: 12px")
+```
+
+### Comments on the attributes
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"}
+
+c2 <- survey_df %>% 
+  select(yourstory) %>% 
+  na.omit %>% 
+  sjlabelled::label_to_colnames() %>%
+  as_tibble()
+
+ c2 %>% 
+knitr::kable(caption = "",
+             col.names = c("Comments - Distance to green areas")) %>% 
+  kable_styling((bootstrap_options = c("striped", "hover"))
+                ) %>% 
+  row_spec(1:nrow(c2),
+           extra_css = "padding: 12px")
+```
+
+$~$
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"}
+
+c3 <- survey_df %>% 
+  select(yourstory_trans) %>% 
+  na.omit %>% 
+  sjlabelled::label_to_colnames() %>%
+  as_tibble()
+
+ c3 %>% 
+knitr::kable(caption = "",
+             col.names = c("Comments - Distance to transportation")) %>% 
+  kable_styling((bootstrap_options = c("striped", "hover"))
+                ) %>% 
+  row_spec(1:nrow(c3),
+           extra_css = "padding: 12px")
+```
+
+$~$
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"}
+
+c4 <- survey_df %>% 
+  select(yourstory_shops) %>% 
+  na.omit %>% 
+  sjlabelled::label_to_colnames() %>%
+  as_tibble()
+
+ c4 %>% 
+knitr::kable(caption = "",
+             col.names = c("Comments - Distance to shops")) %>% 
+  kable_styling((bootstrap_options = c("striped", "hover"))
+                ) %>% 
+  row_spec(1:nrow(c4),
+           extra_css = "padding: 12px")
+```
+
+$~$
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"}
+
+c5 <- survey_df %>% 
+  select(yourstory_price) %>% 
+  na.omit %>% 
+  sjlabelled::label_to_colnames() %>%
+  as_tibble()
+
+ c5 %>% 
+knitr::kable(caption = "",
+             col.names = c("Comments - Cost")) %>% 
+  kable_styling((bootstrap_options = c("striped", "hover"))
+                ) %>% 
+  row_spec(1:nrow(c5),
+           extra_css = "padding: 12px")
+```
+
+$~$
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"}
+
+c6 <- survey_df %>% 
+  select(yourstory_park) %>% 
+  na.omit %>% 
+  sjlabelled::label_to_colnames() %>%
+  as_tibble()
+
+ c6 %>% 
+knitr::kable(caption = "",
+             col.names = c("Comments - Parking")) %>% 
+  kable_styling((bootstrap_options = c("striped", "hover"))
+                ) %>% 
+  row_spec(1:nrow(c6),
+           extra_css = "padding: 12px")
+```
+
+
 
 # Overall aim and Purpose
 
@@ -71,7 +432,7 @@ the purpose is to provide stakeholders (urban planners, housing developers, etc)
 
 $~$
 
-```{r map, eval=FALSE, warning=FALSE, include=FALSE}
+```{r map, eval=FALSE ,warning=FALSE, include=FALSE}
 library(leaflet)
 
 address_lat_lon <- readRDS("coords.rds") 
@@ -143,9 +504,10 @@ On a side note, the choice of controls might offer a continent way to integrate 
 
 $~$
 
-"We control for the physical apartment attributes identified in (SOURCE) which were deemed most important for respondents.  By controlling for these attributes, we are able to present desirable hypothetical housing options which only differ by the attributes in our design, allowing for sharper tests and measruement of the locational attributes at hand." 
+"We control for the physical apartment attributes identified in (SOURCE) which were deemed most important for respondents.  By controlling for these attributes, we are able to present desirable hypothetical housing options which only differ by the attributes in our design, allowing for sharper tests and measurement of the locational attributes at hand." 
 
 $~$
+
 
 # Appendix
 

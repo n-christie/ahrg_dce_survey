@@ -1,0 +1,121 @@
+---
+title: "AHRG Test survey results"
+format:
+  html:
+    grid:
+      margin-width: 350px
+  pdf: default
+reference-location: margin
+citation-location: margin
+---
+
+## Some initial figure
+
+```{r}
+#| echo: false
+#| warning: false
+library(pacman)
+
+p_load(tidyverse, here, stringr, formr, logitr, cbcTools, texreg, likert, tidyr, haven, kableExtra, sjlabelled, summarytools)
+
+# load data
+
+
+survey_design <- readRDS("~/ahrg_dce_survey/survey_design.rds")
+
+survey_df <- readRDS("~/ahrg_dce_survey/ahrg_test.rds")
+
+```
+
+## Descriptive data
+
+```{r}
+#| echo: false
+# Create descriptive tables. ----
+
+dfSum <- survey_df %>%
+  dplyr::select(plantorelocate,
+                monthcost,
+                screenout,
+                income,
+                gender,
+                own,
+                education,
+                house,
+                feedback11
+  ) |> 
+  mutate(plantorelocate = factor(plantorelocate, levels = 1:2,
+                                 labels = c("Yes","No")),
+         screenout = factor(screenout, levels = 1:3,
+                            labels = c("Only house","Only apt", "Both")),
+         gender = factor(gender, levels = 1:2,
+                         labels = c("Male","Female")),
+         education = factor(education, levels = 1:3,
+                            labels = c("Elementary","High School", "University")),
+         own = factor(own, levels = 1:3,
+                      labels = c("Hyresrätt","Bostadsrätt", "Äganderätt")),
+         house = factor(house, levels = 1:4,
+                        labels = c("Småhus","Flerbostadshus", "Övriga hus","Specialbostäder")),
+         feedback11 = factor(feedback11, levels = 1:3,
+                         labels = c("Mobile","Desktop", "Tablet"))
+         
+         
+         ) %>% 
+  as.data.frame()
+
+label(dfSum$plantorelocate) <- "Plan to relocate?"
+label(dfSum$monthcost) <- "Monthly costs"
+label(dfSum$income) <- "Monthly household income"
+label(dfSum$own) <- "Own house"
+label(dfSum$house) <- "Kind of house"
+label(dfSum$feedback11) <- "Kind of device"
+
+# generate the desc table
+ t1 <- table1::table1(~ plantorelocate + monthcost + income + own + house + feedback11 ,
+                           data = dfSum,
+                           na.rm = TRUE,
+                           digits = 1,
+                           format.number = TRUE,
+                           # extra.col=list(`P-value`=pvalue),
+                           caption = "Sample description") 
+
+ table1::t1flex(t1) |> 
+      flextable::fontsize(size = 11) |> 
+    flextable::padding(padding = 1, part = "all") 
+ 
+
+
+```
+
+
+
+```{r}
+#| echo: false
+#| label: fig-margin
+#| fig-cap: "Gender"
+#| column: margin
+#| message: false
+
+survey_df %>% 
+  transmute(gender = factor(gender, levels = 1:2, labels = c("Male","Female"))) %>% 
+  ggplot( aes(x = "", fill = gender)) +
+  geom_bar(width = 1) + coord_polar("y", start=0) +
+  theme_void() +
+  labs(fill = "")
+
+```
+
+
+```{r}
+#| echo: false
+#| 
+survey_df %>% 
+  select(text_feedback) %>% 
+  na.omit %>% 
+  sjlabelled::label_to_colnames() %>%
+  as.data.frame() %>% 
+knitr::kable(caption = "Do you have any comments on the user experience?  Please share any comments or difficulties you had in taking the survey!",
+             col.names = c("Comment"))
+
+
+```
