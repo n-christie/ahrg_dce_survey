@@ -14,6 +14,15 @@ profiles <- cbc_profiles(
   parking      = c('Garage', 'On street free', 'On street paid')
 )
 
+swe_profiles <- cbc_profiles(
+  price     = c(-20,-10,0,10,20), # relative to current
+  dist_green = c("5km", "10km", "15km"),
+  dist_shops = c("500 meters", "5km", "15km"),
+  dist_trans = c("200", "400", "800"),
+  parking      = c('Garage', 'Förhyrd plats i området', 'gratis områdets parkering')
+)
+
+
 nrow(profiles)
 
 # Create design
@@ -30,6 +39,13 @@ design_dopt <- cbc_design(
   method   = 'orthogonal'
 )
 
+swe_design_dopt <- cbc_design(
+  profiles = swe_profiles,
+  n_resp   = 800, # Number of respondents
+  n_alts   = 2,   # Number of alternatives per question
+  n_q      = 9,   # Number of questions per respondent
+  method   = 'orthogonal'
+)
 
 # Random design
 
@@ -101,3 +117,4 @@ plot_compare_power(power_dopt,power_rand) +
 
 # Save design
 write_csv(design_dopt, here("output/formr", "choice_questions.csv"))
+write_csv(swe_design_dopt, here("output/formr", "swe_choice_questions.csv"))

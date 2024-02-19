@@ -1,0 +1,209 @@
+---
+title: "Introduction to Overleaf"
+format: revealjs
+---
+
+## Welcome to the workshop!
+
+::: {.incremental}
+
+- Will take a look at Overleaf and how to use it.
+- Hands on - you'll be able to understand and use Overleaf by today.
+- Many "rabbit" holes to go down and get lost in.
+- Let's not do that.  Instead, we'll focus is on making it work. For you. Today
+
+:::
+
+
+
+::: {.notes}
+We have 45 min.  let's make the most of it!
+:::
+
+## Itineraty
+
+::: {.incremental}
+
+- Background and history
+- The basics to get you going.
+- Examples
+- Resources
+- What the heck _is_ Overleaf?
+
+:::
+
+
+::: {.notes}
+Speaker notes go here.
+:::
+
+
+
+# Qverlea... Latex!
+
+
+
+- I thought we were talking about Overleaf, what's with the tomfoolery?!
+- Overleaf is simply a online tool that let's you use Latex easily on the web.
+- It takes some of the complications out of dealing with Latex, which is neat.
+- So while the presentation is on Overleaf, ...we really mean Latex.
+
+:::
+
+## So why Latex?
+
+::: {.incremental}
+
+- You can have high quality, publication-ready documents with minimal effort.
+- Yes, minimal effort.
+- It does some things very well - such as complex tables, formulas, and formatting more complex documents.
+- It allows you to make very polished documents - "The clothes make the woman!"
+
+:::
+
+## Latex - who's it for?
+
+::: {.incremental}
+
+- More for complex or formatted documents - journal articles, theses, dissertations, books, etc.
+- There is a learning curve but we now have tools - it has never been easier!
+![](latex_overleaf_files/latex_word.gif){.absolute bottom=0 right=0 width="350" height="300"}
+- ![](latex_overleaf_files/chatgpt.jpg){.absolute left=0  width="300" height="250"}
+
+- ![](latex_overleaf_files/google.jpg){.absolute right=400 bottom=0  width="300" height="250"}
+:::
+
+## Latex and Overleaf
+
+- History and background of Latex
+- Overleaf
+
+## From single file to folder
+
+- Word: all the data is in a single file.
+- Latex: all the data is in a folder
+- When you compile the document it takes all the data and renders the document
+
+## Let's get started!
+
+- Sign up - it's free in its basic usage.
+
+
+## Producing a sample document
+
+- We'll start with a simple blank document
+
+## Our first document {auto-animate="true"}
+
+-   I see code - RUN! RUN! RUN!
+
+``` latex
+\documentclass{article}
+\begin{document}
+
+\end{document}
+```
+
+
+
+## Some text {auto-animate="true"}
+
+-   I see code - RUN! RUN! RUN!
+
+``` latex
+\documentclass{article}
+\begin{document}
+First document. This is a simple example, with no 
+extra parameters or packages included.
+\end{document}
+```
+
+
+::: {.notes}
+Speaker notes go here.
+:::
+
+
+## What did we just do?
+
+``` latex{code-line-numbers="1|2|5|3-4|2,5"}
+\documentclass{article}
+\begin{document}
+First document. This is a simple example, with no 
+extra parameters or packages included.
+\end{document}
+```
+## Let's continue {auto-animate="true"}
+
+## Our first section {auto-animate="true"}
+
+-   Let's add some sections
+
+``` latex{}
+\documentclass{article}
+
+\begin{document}
+
+First document. This is a simple example, with no 
+extra parameters or packages included.
+
+\end{document}
+
+```
+
+::: footer
+
+:::
+
+
+
+## Some sections {auto-animate="true"}
+
+-   Let's add some sections
+
+``` latex{code-line-numbers="5|10"}
+\documentclass{article}
+
+\begin{document}
+
+\section{Introduction}
+
+First document. This is a simple example, with no 
+extra parameters or packages included.
+
+\section{Conclusion}
+
+Here we conclude the document
+
+\end{document}
+
+```
+
+
+::: {.notes}
+Speaker notes go here.
+:::
+
+## Hands on
+
+- In practice: start with a skeleton document and fill in as you go
+  - Copy and paste your text into the template
+  - Add your bibliography
+  - Edit your references
+  - Add tables
+  
+
+## Resources
+
+- Overleaf itself (Many tutorials available)
+- Chatgpt (Seriously, it's so good)!
+- Someone has had your question before, search for it!
+- Tables: "Excel2latex" addin. - a life saver for tables
+- Resource manager.
+
+::: footer
+Download the addin here: [Excel2latex](https://ctan.org/pkg/excel2latex?lang=en)
+:::
+
+
+

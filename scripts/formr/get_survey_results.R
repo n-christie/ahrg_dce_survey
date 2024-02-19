@@ -136,7 +136,8 @@ df_survey <- s_data_p4 %>%
 df_merged <- survey_design %>% 
   inner_join(df_survey,
              by = c("respID" ,"qID")) %>% 
-  mutate(choice = if_else(altID == chosen, 1, 0)) %>% 
+  mutate(choice = if_else(altID == chosen, 1, 0),
+         price = factor(price, levels = c("0","-20","-10","10","20"))) %>% 
   select(profileID:parking, choice)
 
 
@@ -151,4 +152,4 @@ m1_dopt <- logitr(
 )
 
 summary(m1_dopt)
-screenreg(m1_dopt)
+htmlreg(m1_dopt)
