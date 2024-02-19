@@ -3,6 +3,7 @@ title: "Discrete Choice Experiments"
 format: 
   revealjs:
     multiplex: true
+    self_contained: true
 editor: source
 ---
 
