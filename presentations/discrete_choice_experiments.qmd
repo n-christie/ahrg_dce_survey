@@ -92,6 +92,15 @@ leaflet(address_lat_lon,width = "100%" ) %>%
              clusterOptions = markerClusterOptions())
 ```
 
+## Aim and RQ's
+
+- "The overarching aim of this paper is to explore heterogeneous housing preferences of those aged 55 years or more and interested in relocation"
+- 
+
+
+## Attributes and levels
+
+
 
 
 ## HTML WIDGETS
