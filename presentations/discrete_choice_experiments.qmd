@@ -1,13 +1,15 @@
 ---
 title: "Discrete Choice Experiments"
-format: revealjs
+format: 
+  revealjs:
+    multiplex: true
 editor: source
 ---
 
 
-## For today
+# For today
 
-We'll take a look at Discrete Choice Experiments and see how they can be used in research.
+We'll take a look at Discrete Choice Experiments and see how we are implementing one in our project.
 We'll be touching on such questions as:
 
 ::: {.incremental}
@@ -28,14 +30,13 @@ Speaker notes go here.
 
 - Learn about Discrete Choice Experiments - that's a mouthful, let's call them DCEs
 - Have a quick background on DCEs - where did they come from?
-- See how they work in practice
-- Test out a survey
-- Analyse the results
-- See other ways they are used in practice
-- Give you the tools to conduct them yourself.
+- See how they work in practice 
+- How we are using them
+- Participate in an updated survey
+- Feedback and discussion
 
 
-## Discrete Choice Experiments
+# Discrete Choice Experiments
 
 - A DCE is a research method used in various fields, including economics, marketing, and healthcare, to understand individuals' preferences and decision-making processes.
 
@@ -72,6 +73,25 @@ Key word here is "elicit"
 
 - DCE's are a type of revealed preference experiments. 
 - By asking respondents to choose between alternatives in a controlled experiment we can elicit preferences from the sample.
+
+
+
+# RELOC-AGE
+
+- Around 1900 Respondents across Sweden
+
+```{r map, eval=TRUE ,warning=FALSE, include=TRUE}
+library(leaflet)
+
+address_lat_lon <- readRDS("discrete_choice_experiments_files/coords.rds") 
+
+leaflet(address_lat_lon,width = "100%" ) %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addMarkers(~lon, ~lat, popup="The birthplace of R",
+             clusterOptions = markerClusterOptions())
+```
+
+
 
 ## HTML WIDGETS
 
