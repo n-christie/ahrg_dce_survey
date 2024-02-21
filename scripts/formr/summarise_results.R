@@ -6,9 +6,9 @@ p_load(tidyverse, here, stringr, formr, logitr, cbcTools, texreg, likert, tidyr,
 # load data
 
 
-survey_design <- readRDS("data/survey_design.rds")
+survey_design_swe <- readRDS(here("data/formr","survey_design_swe.rds"))
 
-survey_df <- readRDS("data/ahrg_test.rds")
+survey_df <- readRDS(here("data/formr", "ahrg_test.rds"))
 
 # Sum stats ---- 
 

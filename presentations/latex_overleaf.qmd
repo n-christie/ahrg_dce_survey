@@ -190,8 +190,22 @@ Speaker notes go here.
   - Copy and paste your text into the template
   - Add your bibliography
   - Edit your references
-  - Add tables
+  - Add tables/figures
   
+## Intergration into your workflow
+
+- Many programs let you export results directly in Latex format!
+- Stata: outreg2, estout/esttab, tabout, dtable
+- R: kableExtra, stargazer, texreg
+- SPSS: no native support -> export and edit in Excel
+- Set it up once and you'll never have to fuss with that descriptive table again.
+
+## Reference managers
+
+- Latex reads a ".bib" file to see what your references are
+- All the reference managers have the ability to export a bib file
+- Easily intergrate all your refs into the document
+
 
 ## Resources
 
@@ -205,5 +219,12 @@ Speaker notes go here.
 Download the addin here: [Excel2latex](https://ctan.org/pkg/excel2latex?lang=en)
 :::
 
+## Final comments
+
+- Overleaf is a handy tool for creating those polished/professional looking documents.
+- Simple document? Just use word...
+- Many features you'll need to pay for in Overleaf
+- After experimenting - consider running Latex on your own computer.
+- Very similar to using Overleaf but you can use more tools (connect with Github for version control, automatic bibs/tables/figures, etc)
 
 

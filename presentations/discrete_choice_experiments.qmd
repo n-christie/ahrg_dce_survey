@@ -2,9 +2,12 @@
 title: "Discrete Choice Experiments"
 format: 
   revealjs:
+    theme: simple
     multiplex: true
     self_contained: true
 editor: source
+bibliography: DCE.bib
+suppress-bibliography: false
 ---
 
 # Today's agenda {.smaller}
@@ -15,7 +18,6 @@ We'll take a look at our latest progress implementing a discrete choice experime
 ::: incremental
 -   Update on the project
 -   Learn about Discrete Choice Experiments - that's a mouthful, let's call them DCEs
--   A quick background on DCEs
 -   Attributes and levels – the assumptions and traps we’re trying to avoid.
 -   Revisit the survey from the researcher perspective
 -   Take an updated survey
@@ -29,7 +31,7 @@ We'll take a look at our latest progress implementing a discrete choice experime
 
 # RELOC-AGE 
 
-```{r, echo=FALSE, results='asis', fig.height=2}
+```{r, echo=FALSE, results='asis'}
 library(DiagrammeR)
 DiagrammeR::grViz("digraph {
   
@@ -52,11 +54,11 @@ Exact sample sizes depend on variations in missing data
 :::
 
 
-## Sample description {.scrollable}
+## Sample description 
 
 ::: {.panel-tabset}
 
-## Location {.scrollable}
+## Location 
 
 ```{r map, eval=TRUE ,warning=FALSE, include=TRUE, widget.layout.height = "calc(100vh - 90px)"}
 library(leaflet)
@@ -91,11 +93,13 @@ leaflet(address_lat_lon,width = "100%" ) %>%
 - We know little about the preferred attributes dealing with ___location___.
 - Where do people want to be situated?
 - Does proximtiy to certain services or location matter?
-- If so, which are most important?
+- If so, which locational attributes are most important?
 :::
 
 
 ## Aim and RQ's
+
+Potential candidates...
 
 ::: incremental
 - "The overall aim is to explore the factors which matters most for the choice of another dwelling among people aged 55 years or more, interested in relocation.”
@@ -107,7 +111,6 @@ leaflet(address_lat_lon,width = "100%" ) %>%
 # Discrete Choice Experiments
 
 -   A DCE is a research method used in various fields, including economics, marketing, and healthcare, to understand individuals' preferences and decision-making processes.
-
 -   The primary goal of a DCE is to elicit and quantify individuals' preferences for different attributes or features of a product, service, or policy by presenting them with a series of choice scenarios.
 
 ::: notes
@@ -123,7 +126,6 @@ Key word here is "elicit"
 ## Stated vs. revealed preferences
 
 -   Stated: Researchers gather information by directly asking individuals about their preferences, opinions, or choices through interviews, surveys, or other data collection methods.
-
 -   Revealed: Researchers analyze real-world data, such as consumer purchasing behavior, travel patterns, or **observed choices**, to uncover implicit preferences.
 
 ## Revealed preferences - advantages
@@ -132,77 +134,80 @@ Key word here is "elicit"
 
 ## Discrete Choice Experiments
 
--   DCE's are a type of revealed preference experiments.
--   By asking (forcing) respondents to choose between alternatives in a controlled experiment we can elicit preferences from the sample.
+-   Discrete choice models operate within a framework of rational choice; that is, it is assumed that when confronted with a discrete set of options, people choose the option of maximal benefit or utility.
+-   It follows that the choice is a function of the utility found in each attributes found in options presented.
+-   By asking (forcing) many respondents to choose between alternatives in a controlled experiment we can elicit preferences from the population.
+-   We can then perform statistical inference about the functional parameters. 
+
+## Examples
+
+- Marketing 
+- Transportation
+
 
 ## Example
 
 ![](discrete_choice_experiments_files/dce.png)
 
-# Slide
+## Process in a nutshell
 
 
-::: incremental
--
--
--
--
+```{r , echo=FALSE, warning=FALSE}
+library(DiagrammeR)
+grViz("digraph flowchart {
+      # node definitions with substituted label text
+      node [fontname = Helvetica, shape = rectangle]        
+      tab1 [label = '@@1']
+      tab2 [label = '@@2']
+      tab3 [label = '@@3']
+      tab4 [label = '@@4']
+      tab5 [label = '@@5']
 
-:::
+      # edge definitions with the node IDs
+      tab1 -> tab2 -> tab3 -> tab4 -> tab5;
+      }
 
-::: notes
-Speaker notes go here
-:::
+      [1]: 'Select attributes and their levels'
+      [2]: 'Survey design - creates optimal mix/number of choice sets'
+      [3]: 'Administer survey - using choice sets from the design'
+      [4]: 'Analyze the data - estimate models'
+      [5]: 'Present/interpret the results - tables/figures on coeffcient sizes'
+      ")
+```
 
+## Attributes - Properties{.smaller}
 
+Below are some attribute property guidelines taken from the literature. 
 
+The greater number of attributes, the greater the cognitive difficulty of completing a DCE. [@manghamHowNotDesigning2009]
 
--   
+* Increased age would tend to exacerbate the cognitive burden of the DCE, highlighting the need to address the complexity of the experiment in order to obtain valid and reliable responses [@himmlerWhatWorksBetter2021]
+
+* There should be no more than 10 to ensure respondents are able to consider all attributes listed [@himmlerWhatWorksBetter2021]
+
+* Definitions of the attributes should not be ambiguous and should be __easily interpretable__ by the respondents. [@deshazoDesigningChoiceSets2002]
+
+* the attributes presented should be viable options for all respondents ( Or at least for  __most__ ).
+
+* The experiments pivots around utility theory.  __All attributes and levels should have a positive utility__.
 
 ## Attributes and levels
 
-- Attributes
-  - Are the attributes well-defined?
-- Levels
-  - Distance in km or time walking?
-  - Apartments in Sweden - make sense 15km away from shops?
+-   _Distance to green areas_ - 5km, 10km,15km
+-   _Distance to services_ - 5km, 10km,15km
+-   _Distance to transportation_ - 5km, 10km,15km
+-   _Parking_ -
+-   _Cost_ - -20%, -10%, Same, 10%, 20%
 
-# Feedback and disccusion
+
+# Take the [UPDATED SURVEY (In Swedish)!](http://37.27.25.127/reloc-age-dce-swe)
+
+# Break
 
 ## Feedback Results
 
+## Discussion - Talking points
+
+## References
 
 
-## HTML WIDGETS
-
-```{r}
-library(leaflet)
-library(tidyverse)
-leaflet() %>%
-  addTiles() %>%  # Add default OpenStreetMap map tiles
-  addMarkers(lat = c(55.7047,55.68,55.72), lng = c(13.1910,13.3,13.1))
-  
-
-```
-
-## Plotly
-
-```{r, echo=FALSE, results='asis', fig.height=4}
-library(ggplot2)
-library(plotly)
-p <- ggplot(data = diamonds, aes(x = cut, fill = clarity)) +
-            geom_bar(position = "dodge")
-ggplotly(p)
-```
-
-## Diagramme R
-
-
-
-## Dygraphs
-
-```{r, echo=FALSE, results='asis'}
-library(dygraphs)
-dygraph(nhtemp, main = "New Haven Temperatures") %>% 
-  dyRangeSelector(dateWindow = c("1920-01-01", "1960-01-01"))
-```

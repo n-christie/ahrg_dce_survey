@@ -17,6 +17,7 @@ formr::formr_connect(credentials$email,
 # get survey data ----
 
 survey_design <- read_csv("https://github.com/n-christie/ahrg_dce_survey/blob/main/output/formr/choice_questions.csv?raw=true")
+survey_design_swe <- read_csv("https://github.com/n-christie/ahrg_dce_survey/blob/main/output/formr/swe_choice_questions.csv?raw=true")
 
 s_data_p1 <- formr::formr_results("reloc_dce_p1",
                                   host = "http://37.27.25.127")
@@ -41,8 +42,9 @@ survey_df <- s_data_p1 %>%
             join_by(session))
 
 
-saveRDS(survey_df, file = "ahrg_test.rds")
-saveRDS(survey_design, file = "survey_design.rds")
+saveRDS(survey_df, file = here("data/formr", "ahrg_test.rds"))
+saveRDS(survey_design, file = here("data/formr", "survey_design.rds"))
+saveRDS(survey_design_swe, file = here("data/formr", "survey_design_swe.rds"))
 
 # prepare tables/figures for shinydoc ----
 
