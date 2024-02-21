@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="discrete_choice_experiments_files/libs/clipboard/clipboard.min.js"></script>
+<script src="discrete_choice_experiments_files/libs/quarto-html/tabby.min.js"></script>
+<script src="discrete_choice_experiments_files/libs/quarto-html/popper.min.js"></script>
+<script src="discrete_choice_experiments_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="discrete_choice_experiments_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="discrete_choice_experiments_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="discrete_choice_experiments_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="discrete_choice_experiments_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.3.353">
+
+  <title>Discrete Choice Experiments</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="discrete_choice_experiments_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="discrete_choice_experiments_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="discrete_choice_experiments_files/libs/revealjs/dist/theme/quarto.css">
+  <link href="discrete_choice_experiments_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="discrete_choice_experiments_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="discrete_choice_experiments_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="discrete_choice_experiments_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-titled.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-titled) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-titled .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-titled .callout-title  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-titled.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-titled.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-title {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-title {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-title {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-titled .callout-body > .callout-content > :last-child {
+    margin-bottom: 0.5rem;
+  }
+
+  .callout.callout-titled .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-titled) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-title {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-title {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-title {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-title {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-title {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script src="discrete_choice_experiments_files/libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+  <script src="discrete_choice_experiments_files/libs/viz-1.8.2/viz.js"></script>
+  <link href="discrete_choice_experiments_files/libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+  <script src="discrete_choice_experiments_files/libs/grViz-binding-1.0.10/grViz.js"></script>
+  <script src="discrete_choice_experiments_files/libs/jquery-3.5.1/jquery.min.js"></script>
+  <link href="discrete_choice_experiments_files/libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+  <script src="discrete_choice_experiments_files/libs/leaflet-1.3.1/leaflet.js"></script>
+  <link href="discrete_choice_experiments_files/libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+  <script src="discrete_choice_experiments_files/libs/proj4-2.6.2/proj4.min.js"></script>
+  <script src="discrete_choice_experiments_files/libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+  <link href="discrete_choice_experiments_files/libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+  <script src="discrete_choice_experiments_files/libs/leaflet-binding-2.1.2/leaflet.js"></script>
+  <script src="discrete_choice_experiments_files/libs/plotly-binding-4.10.2/plotly.js"></script>
+  <script src="discrete_choice_experiments_files/libs/typedarray-0.1/typedarray.min.js"></script>
+  <link href="discrete_choice_experiments_files/libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+  <script src="discrete_choice_experiments_files/libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+  <link href="discrete_choice_experiments_files/libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+  <script src="discrete_choice_experiments_files/libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+  <link href="discrete_choice_experiments_files/libs/dygraphs-1.1.1/dygraph.css" rel="stylesheet">
+  <script src="discrete_choice_experiments_files/libs/dygraphs-1.1.1/dygraph-combined.js"></script>
+  <script src="discrete_choice_experiments_files/libs/dygraphs-1.1.1/shapes.js"></script>
+  <script src="discrete_choice_experiments_files/libs/moment-2.8.4/moment.js"></script>
+  <script src="discrete_choice_experiments_files/libs/moment-timezone-0.2.5/moment-timezone-with-data.js"></script>
+  <script src="discrete_choice_experiments_files/libs/moment-fquarter-1.0.0/moment-fquarter.min.js"></script>
+  <script src="discrete_choice_experiments_files/libs/dygraphs-binding-1.1.1.6/dygraphs.js"></script>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Discrete Choice Experiments</h1>
+
+<div class="quarto-title-authors">
+</div>
+
+</section>
+<section id="todays-agenda" class="title-slide slide level1 smaller center">
+<h1>Today’s agenda</h1>
+<p>We’ll take a look at our latest progress implementing a discrete choice experiment while covering a couple of related topics:</p>
+<div>
+<ul>
+<li class="fragment">Update on the project</li>
+<li class="fragment">Learn about Discrete Choice Experiments - that’s a mouthful, let’s call them DCEs</li>
+<li class="fragment">A quick background on DCEs</li>
+<li class="fragment">Attributes and levels – the assumptions and traps we’re trying to avoid.</li>
+<li class="fragment">Revisit the survey from the researcher perspective</li>
+<li class="fragment">Take an updated survey</li>
+<li class="fragment">Discussion and feedback</li>
+</ul>
+</div>
+<aside class="notes">
+
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section>
+<section id="reloc-age" class="title-slide slide level1 center">
+<h1>RELOC-AGE</h1>
+<div class="cell-output-display">
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-bb27f209a3664db25c98" style="width:960px;height:192px;"></div>
+<script type="application/json" data-for="htmlwidget-bb27f209a3664db25c98">{"x":{"diagram":"digraph {\n  \ngraph[layout = dot, rankdir = LR]\n\n\na   [label = \"Baseline\nSpring 2021\nn=1964\"] \nb [label = \"Follow-up\nSpring 2022\nn=1254\"] \nc  [label = \"2nd follow-up\nSpring 2024\nn=???\", color = red, fontcolor = red] \n\n\na -> b -> c\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+<aside class="notes">
+<p>Exact sample sizes depend on variations in missing data</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="sample-description" class="slide level2 scrollable">
+<h2>Sample description</h2>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Location</a></li><li><a href="#tabset-1-2">Descriptives</a></li><li><a href="#tabset-1-3">Housing attributes</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<div class="cell" data-widget.layout.height="calc(100vh - 90px)">
+<div class="cell-output-display">
+<div id="htmlwidget-a27283a6a8b6f2bf895f" style="width:100%;height:480px;" class="leaflet html-widget "></div>
+<script type="application/json" data-for="htmlwidget-a27283a6a8b6f2bf895f">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[[56.1702477,56.1629165,56.2092508,57.6335555,59.6151861,56.3085173,65.60385049999999,59.4386592,55.5988757,59.6087758,56.15836479999999,56.1872006,57.558647,56.02113989999999,58.0622753,56.2094069,59.34575899999999,56.8794377,59.40830049999999,56.4268637,56.2075761,56.1731825,57.5845177,56.1731825,56.211991,56.15879349999999,56.1429896,56.2927063,56.2927063,67.12600549999999,56.1862239,56.2114245,59.25855059999999,58.39669259999999,60.6584432,59.2243141,56.2462731,56.1889115,55.7105776,56.1657612,59.3266759,55.5983635,59.48329560000001,59.82231429999999,57.6752221,56.2008428,56.2025453,56.2123331,56.0464674,56.6092385,56.2091615,56.2677069,56.20192309999999,56.1684626,56.7026646,59.2678514,59.6074576,56.2012274,56.1735224,55.7073834,55.5993854,59.595449,59.49553960000001,57.67416979999999,56.1875198,57.652148,55.3492682,56.18128129999999,58.644352,57.74726399999999,56.1728185,59.8141737,56.3323544,56.1715175,57.7113275,59.2666962,56.25913490000001,59.3963142,55.5974344,56.210434,56.20820620000001,56.20820620000001,56.0243276,56.1964583,55.6256135,56.1877366,56.1866493,56.2835134,56.1813138,56.1916776,56.2320862,56.2320862,58.3625011,57.73080530000001,59.3598899,56.1734157,59.3598899,63.83101860000001,56.1714726,58.4338014,56.17224969999999,56.1729125,56.16703469999999,56.16703469999999,59.35100199999999,null,56.1661289,55.6172343,59.29369920000001,59.30868199999999,57.6832783,59.3037374,59.42878700000001,56.17099899999999,56.1885068,56.2674544,56.2295999,56.1718894,56.1718894,56.1955091,56.1845886,56.1675078,59.3527142,59.5936903,56.1966478,56.1745427,56.2,56.19630249999999,59.40420630000001,57.6310204,57.89577600000001,56.2285614,56.2100826,59.4609528,55.93432319999999,59.60679930000001,56.1745976,56.1899123,57.6732762,59.32169349999999,57.933333,60.6362389,59.2438027,56.2000448,57.6093355,56.1657686,56.2124849,57.6001998,56.1702477,56.1813138,59.75447819999999,56.1897382,56.1897382,56.2095352,59.4628264,57.68341739999999,57.89115099999999,56.20126459999999,58.5806424,56.19780859999999,58.5491774,55.5921624,56.2070303,56.20126459999999,57.7038664,57.63835770000001,56.17107559999999,59.6555354,59.37764999999999,56.0479295,57.8036784,55.5950595,56.1715659,56.1715659,56.2120477,56.1675347,59.86283859999999,59.81887880000001,59.8028283,57.1061467,59.4213294,56.20463119999999,59.21994909999999,57.6959129,57.85228659999999,56.2232802,59.1137563,56.0516543,59.2719598,55.7946244,56.1890012,57.7011816,55.5230833,56.1757226,56.1669254,55.6935288,56.55714200000001,56.1690321,56.2023826,59.2100591,56.17261,57.7091603,56.1578007,57.7139694,56.2608605,56.17255400000001,55.61178690000001,56.183524,56.00364399999999,59.2956452,58.35268250000001,56.1996794,56.3944446,59.4775028,56.2608605,58.6029607,57.66831449999999,56.1886081,59.2468982,57.4504814,56.2779852,56.17099899999999,56.0438443,59.6341601,56.16873589999999,56.1640672,59.36878729999999,56.17334719999999,56.17334719999999,56.1805244,55.6269211,59.2073126,56.1878569,55.7726204,56.1968094,56.0611599,57.776494,56.0510376,56.2028076,56.0537498,59.2854618,56.2671398,59.343801,56.1728061,56.2028076,56.16153199999999,56.1889374,56.1889374,56.16774299999999,59.5224718,55.590415,59.47688049999999,58.1387369,56.22897469999999,56.1708132,57.69301300000001,57.6479762,58.44198019999999,58.2052012,59.7674596,56.0469796,56.17099899999999,59.39388009999999,56.2792695,56.2084634,56.16861160000001,56.389052,64.7488151,56.1732163,56.173316,55.79553869999999,56.1960412,58.5512561,56.1727655,56.1727655,57.8573937,56.2011731,56.1723013,56.20437519999999,57.3973993,56.16304390000001,56.26818970000001,57.6980192,58.33106470000001,56.1731428,55.5779671,59.36933010000001,59.5886638,56.1710834,59.28036629999999,56.1966641,56.18585909999999,57.6157711,56.072303,57.56921560000001,59.8919186,56.200608,57.6212664,57.630321,56.6426853,56.1702477,57.73228940000001,56.17468909999999,57.942041,55.58693239999999,56.687659,55.6137539,57.6192177,64.7191591,57.6312095,55.6026897,56.3535652,59.36060709999999,56.1182244,59.15568690000001,55.6126114,59.4759349,64.75591779999999,56.73504,58.5864187,55.8883857,59.4650759,57.7239972,57.4081076,56.172904,56.4225595,57.5536785,56.6759869,56.18569790000001,56.176185,59.3069722,56.46700629999999,63.8065211,59.5956546,57.95570170000001,56.2039909,55.5870184,59.4863309,64.75723499999999,56.2031916,64.75988099999999,59.3256703,56.1903055,55.907238,56.2370609,63.8011132,58.00081119999999,57.84830150000001,55.603289,58.3451515,55.4395233,57.8905878,57.8693375,56.1654772,59.4487214,58.21036099999999,57.9231004,58.35851909999999,57.87083619999999,57.62325449999999,59.5635423,63.83666019999999,59.30689819999999,56.1770029,58.5786111,55.73811569999999,57.697004,59.45386980000001,55.6731375,59.87788629999999,58.3575786,55.5985041,59.4242338,57.67104930000001,55.51240499999999,59.43102519999999,59.14238289999999,57.618924,56.0000995,55.7777006,58.39314539999999,56.0527632,60.6594634,58.3956262,59.3561626,59.3871789,57.7120785,59.4054509,56.6797343,55.5945261,57.64845239999999,59.2700853,57.4021794,60.647025,57.2812542,55.5576856,59.415957,55.5594164,59.2509823,55.40947629999999,55.6332494,57.6242956,57.9001561,55.4321371,55.600518,57.5945977,55.4329323,55.4295243,56.8934162,55.432249,59.33757319999999,55.62872249999999,56.7054994,58.0607478,59.6055965,55.55657429999999,55.5564347,59.9555918,56.0681629,59.6151708,57.6720603,59.2910195,59.3987461,56.3573303,59.2213232,59.33813259999999,57.6813966,59.41139659999999,59.61318850000001,57.7774739,56.6919335,59.2026838,59.1813879,55.5972118,56.0218181,59.3800914,57.86540650000001,59.22789829999999,59.3442483,55.7795475,59.36335330000001,59.35092909999999,56.6634447,59.60495820000001,57.5500638,64.7255376,59.3042105,59.6237013,57.29090069999999,55.4347687,57.69594619999999,56.6794638,59.45736909999999,59.6073007,55.82193040000001,57.7828254,59.30259969999999,55.6612201,55.5965414,64.74463679999999,64.76025659999999,59.6179779,56.88233289999999,55.6634756,59.4352721,58.57117599999999,59.44703169999999,59.3603285,57.6985964,57.6892038,57.69462839999999,59.4836746,59.86980570000001,58.47244000000001,57.8116419,57.7925737,59.3117168,57.7058736,59.4860846,57.6647688,59.23313940000001,59.32571120000001,59.4497225,59.3305129,57.8031657,67.8490915,59.2950268,55.6658024,59.412806,59.1592339,57.6860861,55.61427219999999,57.89679280000001,57.6636794,59.3094897,59.847177,59.30788229999999,59.3753835,59.237682,57.7329698,56.1241189,58.6663678,59.44209739999999,57.6562983,55.5992724,59.35181470000001,56.8801909,57.78165329999999,62.43362440000001,56.91571270000001,56.6515886,59.3559542,55.760635,59.61341950000001,55.61613999999999,57.86852570000001,59.1880988,56.6823698,56.0313725,57.6336636,59.3451862,59.33558519999999,59.2046179,59.3083166,59.6306526,59.358737,57.68275370000001,57.64034210000001,55.5980989,59.6074059,59.1816377,59.3440327,59.5809545,55.5828522,55.5163254,59.30826989999999,55.6308269,61.6948409,59.5081157,57.74970479999999,56.255029,59.3306473,57.79564409999999,59.3405308,55.9058224,56.0536144,64.7508606,58.59012800000001,55.5715328,59.2763131,59.33145759999999,58.601987,57.7057032,59.3433116,58.4421481,57.9237048,57.7120567,56.2914154,59.379734,57.6981911,57.6594139,64.7602723,56.031938,56.68041909999999,56.045928,59.766667,59.33526029999999,57.69575390000001,59.40051690000001,64.7581137,59.3465344,57.864281,55.5678402,57.6585113,59.86151539999999,58.5491774,57.7783687,57.680889,59.6038514,57.7872351,59.24638530000001,58.34307030000001,59.32092609999999,56.2007714,59.4215701,57.0431269,59.35434840000001,59.3929515,57.1083807,59.36838039999999,57.1050681,62.4214841,57.6609922,55.70005949999999,59.3324173,59.24671309999999,55.6019144,58.8957838,57.99493789999999,59.41450030000001,55.5991942,59.3641162,56.2365575,59.84886040000001,59.17283649999999,57.0989157,55.67876,59.51575459999999,56.00371560000001,60.6613929,59.3716983,58.059996,58.12031109999999,58.35597629999999,56.6375979,57.7201093,63.82409389999999,59.3865781,67.1386997,57.6411889,62.3918493,65.58651949999999,58.058992,59.43911,57.8693375,57.4649946,57.8000614,57.69754059999999,56.6651092,59.2902078,62.4738973,57.5480722,59.6508001,57.70715139999999,59.296646,59.3452692,59.76780979999999,59.3140575,59.27952269999999,57.681718,55.6131344,55.6877042,58.222051,62.887899,59.2897947,59.3631541,62.2874271,57.6963239,59.86727440000001,57.7280831,59.6534011,57.78036179999999,58.6322458,59.36546730000001,59.33384059999999,55.7198374,60.0712012,59.3160414,63.8310318,58.37843789999999,59.83113720000001,59.25603699999999,55.83289120000001,59.8756057,59.4026348,57.6379058,59.4531785,57.68275370000001,56.4225633,57.4176916,59.4226736,55.5947879,57.6411889,59.5711136,58.9342817,57.36272139999999,59.84837479999999,55.5522747,59.35784699999999,64.7558621,57.7194044,57.1195593,64.75138849999999,58.3898356,56.669268,58.60825899999999,58.1053971,57.6542341,58.5828969,59.31022470000001,58.3455773,59.3942302,59.4249451,57.69461,57.6824519,59.61957839999999,59.62522740000001,57.74290629999999,55.6082914,55.6333466,55.6035458,57.695517,64.7486833,57.69054449999999,56.6643257,58.0634999,57.780532,62.37990869999999,57.64845239999999,57.6978752,55.5849181,58.3565136,60.14470139999999,58.7725808,57.85179360000001,55.4750034,55.5991722,59.364306,55.5790033,56.6806481,59.33341059999999,57.6893003,56.6946123,57.7074797,64.72583299999999,55.6133573,59.2764003,58.75284389999999,56.0719447,57.6989746,55.59016339999999,55.6001596,58.3580121,59.3455285,56.031401,59.2804368,55.5715111,59.1696612,57.6422308,57.6569158,56.8665914,59.33383389999999,57.66831449999999,59.278046,56.6654,59.8485768,59.28934659999999,57.72518319999999,55.9253402,59.3426308,59.4069253,55.6038759,56.0449581,59.178177,59.3483849,59.3234842,59.40025919999999,64.0581751,57.72147409999999,55.4291145,62.37924690000001,57.7740453,57.8515886,57.733187,62.38459189999999,57.71056100000001,58.27257030000001,57.8743152,59.4965883,59.27129350000001,57.5741929,59.62915239999999,59.59951410000001,57.6992643,59.3869582,64.75189000000002,58.1814857,57.778803,57.6959877,63.1700767,59.4014265,55.40471840000001,57.6814066,59.4312336,57.70665380000001,56.0624407,55.6936427,59.3392043,63.8314593,57.7753171,58.23939550000001,57.7053477,56.55383519999999,57.7035245,59.2358486,58.11043300000001,59.6042442,56.0313605,59.34391100000001,59.60542089999999,57.8640688,56.19942589999999,55.4412639,59.29806230000001,55.6179818,59.60063539999999,59.3109555,59.4617535,57.7402177,55.7284242,57.76988919999999,59.2446967,55.7934679,59.53933499999999,56.7443901,59.36911939999999,55.4355209,59.34762039999999,55.5956209,55.6035751,57.78550680000001,55.4421754,59.28404980000001,55.49871959999999,57.654945,55.5863826,59.3569533,57.4793777,59.3270945,57.7189745,59.44668169999999,58.4099477,56.3514965,59.48732990000001,55.5163604,58.49871640000001,55.4355816,59.5958406,60.5888538,60.88104130000001,59.34187290000001,55.5845687,59.35739289999999,57.6939049,55.6478363,58.48129729999999,56.0415228,57.6771963,63.83114209999999,57.79921210000001,57.7393787,57.67613579999999,55.58762609999999,55.5907669,56.1845836,58.6661883,59.5358564,59.3443204,57.7693526,55.6014402,57.6867507,57.72025840000001,56.19943430000001,55.4700877,63.15685629999999,59.2543206,55.6133308,55.5937587,64.4804304,59.34241249999999,59.33852330000001,58.7313237,62.37750810000001,59.34483,58.29150739999999,55.5553944,57.6979406,57.7021429,57.75654979999999,59.1898014,55.5355541,59.38153519999999,59.2828972,55.5778731,59.4312383,55.4653383,59.3412893,60.6463412,55.5320093,57.7818547,57.8609046,57.6919128,55.6343543,57.6930389,56.0506971,59.34821169999999,58.7459994,59.62268539999999,57.731382,59.3880923,57.7749606,55.4284985,56.6634271,59.32627319999999,55.6025437,59.3360444,57.73925190000001,59.38124799999999,56.9069502,63.8052505,58.064178,57.69915260000001,55.59337009999999,56.6600653,58.57721890000001,58.04871110000001,55.6975054,57.6863233,59.7897517,59.79026399999999,59.3365994,59.5160757,57.7775188,59.2715405,56.0686224,59.82611120000001,59.2824972,57.87392209999999,58.583316,58.3575708,59.07652659999999,58.1076186,57.88491259999999,59.379316,59.38497899999999,58.40043319999999,62.3824784,63.8054151,57.5990376,59.34444549999999,59.3867664,62.936422,59.3597649,56.8667949,57.6989557,59.21247100000001,63.8222502,59.6033856,59.3750543,59.82465670000001,55.6427339,58.0613782,64.59046839999999,59.4583653,58.371647,59.1424622,57.7017948,59.3755485,59.345128,57.6344738,57.7427935,64.7573944,57.8061133,56.2805717,55.5829043,59.3060675,59.3778551,59.2801438,57.6439594,55.8197608,59.36893989999999,59.7530223,64.7536606,56.6601317,58.2214625,58.4998099,55.6001162,59.61114740000001,58.3848754,56.1240007,59.3081394,57.1053225,59.3107467,57.31979519999999,57.66586,57.6157189,56.87578329999999,55.545481,55.5928313,59.85375269999999,59.36541690000001,55.641065,57.7129077,59.38578799999999,59.540099,57.6995769,57.7236265,59.3786081,55.51119989999999,59.3632125,55.5980988,59.3134568,59.3025354,56.6773097,55.597632,56.04121079999999,58.385744,57.693514,55.63259619999999,55.5811037,58.6595354,59.2422763,55.789848,58.7531239,57.873855,57.6784411,55.72429990000001,56.3264924,57.7567324,59.87013229999999,55.6128643,55.57848869999999,55.5975762,59.6033856,59.38462490000001,57.68306319999999,59.37124859999999,56.0595891,55.60314260000001,57.7539201,59.5864771,59.33090379999999,59.6289951,56.6706102,59.3644678,57.7086397,59.40107330000001,56.0410947,57.47807269999999,56.07376009999999,56.02466270000001,57.627846,55.43996319999999,59.52601669999999,59.3592854,57.0309739,58.4685502,59.3138387,57.7934388,55.76355479999999,55.6070316,57.756431,55.4493289,55.4325557,55.43608159999999,59.6263252,55.752352,57.75771559999999,59.2718518,59.3154267,57.7274007,59.3584371,58.5914435,59.3146894,59.2762067,55.60030399999999,58.4057959,59.4343864,64.7640136,55.55632079999999,57.77925819999999,58.32628800000001,67.8287582,59.37398469999999,63.81613520000001,57.79137559999999,59.41136040000001,59.69155449999999,59.4020511,55.5240872,57.74048669999999,58.1428592,55.6813395,57.7143878,55.5686472,59.8475825,59.41950920000001,55.5965516,59.2898385,null,56.0511463,59.6302199,57.549444,56.4348519,59.4269593,57.83584889999999,57.9841406,55.4367005,63.8228754,59.3518482,59.28821439999999,55.7899583,57.6931247,57.638181,56.0962669,58.39783740000001,58.39735439999999,59.80406780000001,55.5869349,56.07376009999999,55.43114019999999,59.1268057,56.668327,55.5946329,55.4758785,59.86408050000001,55.4331851,67.8592043,55.6126114,59.43439670000001,58.6673369,57.6976924,63.69732430000001,56.9130665,58.5928196,55.6125362,59.2764003,56.1672239,60.686372,56.7493022,55.6069034,55.9970642,59.7323217,56.0411217,58.4679659,56.34330929999999,59.4263039,55.4763056,55.6122456,53.6091,56.0500498,57.7203178,55.5960729,55.59383949999999,56.695206,63.8302381,58.0463003,56.040206,56.6706577,56.67942069999999,59.62611779999999,59.628644,56.0700837,59.3459121,55.5867827,58.067542,59.68446590000001,59.33950549999999,58.76037019999999,57.6921413,55.7719241,56.0654012,55.59980520000001,59.4041821,55.6175594,63.1748843,57.7039337,55.4347637,55.4930511,59.6263252,57.67136359999999,59.42467009999999,63.8258313,55.6128169,59.34128009999999,55.5947964,57.7803643,55.6911808,55.5742513,59.50115069999999,55.43215069999999,59.3373075,59.46772840000001,57.62209269999999,59.33610419999999,59.7293235,57.7523844,55.527006,59.6009286,59.791439,58.60133680000001,59.2796694,59.22042150000001,56.2875786,59.3315515,55.96525099999999,58.6914711,56.2475002,59.37673339999999,58.35697399999999,59.3970723,56.4234965,56.6775821,55.6027326,55.82664940000001,55.76978990000001,60.6506361,57.7505542,59.30540889999999,59.84707,55.5842606,57.7718192,58.03386330000001,59.86785330000001,59.6117325,62.3864155,59.33523039999999,59.3597649,57.7231848,55.4374961,59.2482078,55.6126114,58.40982409999999,59.8677388,59.4468877,59.61741019999999,59.3685908,55.5841097,59.23700280000001,55.4345313,58.0325879,59.3074348,55.6132427,55.4374961,57.745862,55.789848,59.21568199999999,57.7530636,56.0194896,57.708291,55.590832,56.0235137,59.6042356,59.493424,55.6133308,59.3444145,57.75367869999999,55.59767009999999,57.6564574,59.3571637,59.3390634,58.369877,59.34531279999999,59.4205676,57.65681900000001,59.3730835,58.98630799999999,59.3090533,57.8920791,57.79163990000001,59.38477100000001,57.6258,57.7083447,55.61229669999999,62.4038728,55.5869349,57.5556031,55.718887,59.4146007,59.28663019999999,55.6167621,55.5866665,55.5607859,55.44177930000001,63.8204345,56.19656939999999,57.4289484,59.36893989999999,56.0270834,57.66031,59.4081852,55.7645006,57.70231829999999,59.4432598,59.37272549999999,57.6807184,59.8473184,59.23529259999999,57.0876737,56.06746829999999,55.58095179999999,57.6319881,59.34348900000001,55.7646697,59.33652939999999,56.05042719999999,55.6222219,57.72414059999999,59.553753,57.7002392,55.5923282,55.6126114,57.873855,56.9306791,59.3725424,57.70820699999999,67.1379,56.0041514,64.7486938,59.3271775,57.66456399999999,59.4343864,59.6077248,62.4023994,62.50601460000001,59.6263252,55.5204245,59.33392120000001,58.7101119,59.3397832,55.4067529,59.3450644,58.3775872,58.5827556,58.34284899999999,59.6123734,56.670523,55.5950712,57.65753050000001,59.734149,58.34756179999999,55.5824741,55.5618738,55.7889955,57.8742464,56.2883443,58.06897569999999,59.3595576,55.4728102,59.2420991,56.2694627,62.42992439999999,59.3392505,59.35309160000001,56.6528834,59.34292749999999,64.6904684,56.26182,59.652408,55.57533040000001,59.3422585,59.4277179,58.39678790000001,59.28599680000001,59.3318092,55.58839150000001,55.79700459999999,57.62750589999999,57.9255829,55.4141711,56.0732235,57.82053679999999,59.46226960000001,58.3437104,58.9881263,65.58977519999999,57.87436749999999,59.2500739,55.42983779999999,64.7647692,56.6603326,58.5834042,57.7168612,55.5916837,55.4279502,56.1620979,59.3953661,59.2608627,64.75850389999999,56.77800749999999,59.35615979999999,57.7031333,57.7397698,55.5859639,55.8396221,56.1343857,55.43352369999999,55.5954701,56.1247282,55.5553336,55.7196819,58.3036172,55.59965570000001,57.8738534,59.6263252,55.60476449999999,59.6651476,55.7264943,55.6040557,55.598943,58.37734150000001,58.3605452,56.1459215,57.9985884,56.3350461,59.43031269999999,58.59486270000001,59.6196463,57.691846,58.66667649999999,59.29641530000001,56.2332683,57.6928628,57.2905719,59.6281746,60.03444889999999,58.59186529999999,56.8755511,57.7441297,59.7489862,59.20171269999999,57.7993598,58.3954874,59.3366605,59.4285475,57.79757230000001,55.7163441,57.6705714,55.4177861,59.4619207,56.0597073,56.8762622,57.6187236,67.1397693,58.3426759,56.0527222,57.2886081,59.33400400000001,55.6043969,59.6174561,59.3985601,55.60950459999999,57.64170829999999,56.1966073,59.47774620000001,56.9088947,55.5934408,55.71179069999999,59.3700358,55.7003971,56.245748,57.7791344,55.5541873,59.6203218,59.3309763,59.85856380000001,57.6651174,59.4317626,56.0626616,56.2272596,59.3668323,56.55383519999999,59.3739492,59.3290397,57.10039639999999,55.7318906,57.586025,56.6788077,57.7208855,58.67763229999999,58.6718714,57.6487735,58.6969198,57.6988658,58.5862329,63.83291149999999,55.5533765,57.69691109999999,58.3847244,57.6499037,59.9338893,59.20261239999999,57.6459591,59.46864540000001,57.6517727,59.52257179999999,55.6967645,55.63557669999999,59.34512040000001,57.7211947,59.6263252,59.42357980000001,60.47527219999999,59.2699065,57.6659202,59.3673732,59.4331402,57.37882080000001,55.5711907,58.47103629999999,55.4292509,59.43423170000001,55.60028879999999,59.3306473,57.664458,59.28934659999999,59.3580386,55.5942056,56.6637065,57.7006228,59.3767895,57.77012969999999,59.410065,65.5795797,59.33391040000001,57.73206519999999,55.697021,55.60028879999999,57.5945881,59.85757340000001,57.72103440000001,59.3840866,57.0965066,55.6156783,56.1053819,63.9043977,57.9468593,59.61684279999999,56.2467498,56.2607744,55.66331,57.7116095,55.5763156,59.2004028,56.65756560000001,55.9965608,55.5955333,59.304343,56.0448282,57.6995184,57.69758780000001,63.7064682,55.6306081,55.5701609,56.0432453,59.44164920000001,58.41857090000001,57.6988658,58.39000540000001,59.5525987,59.7625591,59.3597649,58.76004269999999,59.3670038,55.55542459999999,55.47079129999999,55.789848,59.1675714,58.9560177,59.21146220000001,67.85795229999999,57.7713454,59.4124924,59.6033856,59.4273495,59.3219904,58.3797283,59.3276333,57.64015740000001,58.22019479999999,56.6447096,55.58875339999999,59.30958469999999,57.7405356,55.4295051,55.5967007,59.3344616,57.7435061,56.7014827,59.34221549999999,55.59646979999999,58.3450863,57.7177488,64.72340939999999,58.3726368,62.3913836,57.72103440000001,57.6124654,58.59046649999999,56.24583329999999,56.6731811,57.6794329,57.6973005,57.87279869999999,57.7399952,59.3597649,59.4260735,57.7228321,59.33427270000001,56.04981369999999,55.42983779999999,56.0494868,55.59937309999999,59.34492789999999,57.7001348,57.6869198,55.9930466,59.3822411,58.3613808,58.58006049999999,58.1428592,57.7552253,58.38681150000001,56.1966385,57.68000860000001,57.70095759999999,56.2467319,58.5818906,59.4438282,58.3469533,56.2346831,55.5900663,55.5998562,55.3792337,63.796573,58.77429629999999,56.6672264,57.8015932,59.5811613,57.6890763,65.5786868,57.873855,59.60803989999999,57.102649,58.34549930000001,67.85480849999999,61.301452,57.3866401,55.6079057,59.5290195,55.6376709,57.7480593,59.353463,56.1753412,56.0007193,59.4993946,59.3590404,55.4360562,57.66517210000001,59.447058,59.1748649,55.98460249999999,59.3644565,58.34932629999999,59.3443791,55.9703069,64.7488257,56.4370657,55.5956191,59.3457789,58.3573627,56.1902297,55.3798396,59.1639106,59.3418002,57.75799139999999,59.3600011,63.1812328,59.43600979999999,55.6678656,59.6236476,57.72148790000001,58.6229607,56.0780997,59.2326233,59.33062380000001,59.3597649,64.6892946,55.6158211,58.37220960000001,59.33352259999999,55.9242518,55.57618919999999,59.22239949999999,57.7613668,59.60990049999999,57.7179008,57.64227609999999,55.6969293,59.85986020000001,67.87134499999999,56.17586559999999,55.6035078,59.3597176,55.4420397,57.7530714,59.3361436,55.4106025,55.5861915,57.861723,55.8672292,57.656761,58.06442249999999,64.87854059999999,56.5532529,59.3545252,56.3092084,55.6007648,59.5868823,59.2912896,56.6498961,55.591993,57.8738534,55.4326449,59.3456973,59.8667658,55.72833559999999,59.62604949999999,56.6498961,56.23399939999999,56.00474269999999,56.6620199,63.8532729,56.3845842,59.3197327,59.2580453,57.5680783,58.2898468,56.174685,58.39206319999999,58.6960195,57.6777767,60.37343259999999,59.6223288,57.7285908,59.1765066,59.3597649,64.7489417,57.72098159999999,57.7214627,58.3741781,59.34580599999999,55.4068225,59.2437038,65.5766318,57.70459279999999,59.44345939999999,55.5114207,57.6763766,59.27002819999999,63.8352132,56.16505780000001,56.504578,57.69125459999999,59.56220939999999,59.1581637,57.10114129999999,59.3161054,59.8691949,57.6731442,57.1134248,57.88417150000001,57.6743067,55.5959216,59.5999613,55.5906501,56.0584289,59.36531929999999,56.4225633,56.423635,55.9628603,59.315504,62.4243059,64.74983379999999,57.62635419999999,57.7702237,65.87064359999999,57.71372040000001,57.7119757,59.7475081,57.727407,59.64423919999999,57.1143812,57.0987181,56.04121079999999,58.40245899999999,57.7212467,58.0431875,59.2607444,61.7167888,59.391747,63.83216179999999,56.0413289,55.4348597,57.7444884,null,59.32932349999999,55.5981379,55.5956004,59.2631502,59.30262399999999,59.2373297,59.2665028,59.2897151,59.129062,59.28643429999999,null,59.24981340000001,59.28023549999999,59.0650819,59.26760350000001,59.5063149,58.84456789999999,59.2732281,59.3460146,59.27440299999999,59.1761783,59.2562452,59.27272550000001,59.2767957,59.26611409999999,59.27806400000001,59.2414068,59.26576169999999,59.2844413,59.53492259999999,59.2656058,59.2702002,59.27471500000001,59.2738883,59.2483142,59.31011170000001,59.270053,59.2747541,59.2930352,59.27406819999999,59.29955769999999,59.2680184,59.25697410000001,59.2681975,59.5916651,59.27380230000001,58.629297,59.33077290000001,59.2889068,59.2914427,59.27949789999999,59.31761909999999,59.2793514,59.2695004,59.3150388,59.2622102,59.32599380000001,59.3415118,59.17642569999999,59.22578610000001,59.264285,60.3524893,59.2821555,59.2863862,59.4156923,59.3504486,59.26635439999999,59.28201490000001,59.27108729999999,59.2885302,62.09895269999999,59.2745536,59.2650878,59.2805753,59.31261809999999,59.3627396,59.2434296,59.2507123,59.26807650000001,59.2752626,59.4389792,59.06599609999999,59.2569947,59.2885965,59.32033759999999,59.26631070000001,59.2783763,59.27131049999999,57.6429039,59.2738744,59.3026954,59.17402,59.23844839999999,59.26484960000001,59.2702081,59.31486,59.26954180000001,59.30371329999999,59.31064199999999,59.30673789999999,59.3301155,59.2714677,59.1378678,59.39186660000001,59.2583526,59.7127766,59.281932,59.2672944,59.2752626,59.27897160000001,59.5064031,59.2686403,59.2839099,57.56124269999999,59.26576169999999,59.27170489999999,59.18884980000001,59.254586,59.27471500000001,59.3046344,59.27244349999999,59.242498,59.2763457,59.2790524,59.27417060000001,59.3284152,59.2841937,59.43721999999999,61.7935268,59.3683,59.2549931,59.26296459999999,59.25455290000001,59.25723989999999,59.3105005,59.2909918,59.27380230000001,59.2777883,59.3204106,59.2752626,58.8526604,59.2891736,59.27680960000001,59.16115869999999,59.25493709999999,59.8681569,59.27332319999999,59.2842286,59.27772239999999,59.2928967,59.39799029999999,59.2781963,59.27878570000001,59.2742215,59.2738956,56.1679113,56.1877366,56.1715946,56.1875971,56.1715946,56.1903055,56.1888522,56.1679762,56.1847839,57.7597439,59.39554820000001,59.2140278,57.722112],[14.8588521,14.8908367,14.8360931,18.3056178,17.8027232,14.7359506,22.1168644,18.1014337,12.9784281,16.5381896,14.9385576,14.8750599,12.6986329,12.7375718,11.8576185,14.8470274,18.063707,14.8082367,16.4925332,12.8445438,14.8639625,14.8620245,12.0707186,14.8620245,14.871455,14.9239307,14.6445495,14.8598401,14.8598401,20.6812086,14.874291,14.7450526,15.2253448,13.8430248,17.1309228,18.2394314,12.8842295,14.7453601,13.2272555,14.8794014,18.3076773,12.9964823,17.7577728,17.6098943,11.9312131,15.2549371,14.8563965,14.8484632,12.6945121,16.6471129,14.8462976,14.5380949,14.8339727,14.8667938,16.3383636,17.8183953,16.5291626,14.8513095,14.8611636,13.1924998,13.0914248,16.4748822,18.0658975,12.0025131,14.7444228,12.0440528,13.2644904,14.8600241,16.0288584,11.920427,14.8643087,17.7002491,12.7628184,14.8835745,12.8419264,17.9867544,14.7657217,17.8165103,12.9788907,15.2760229,15.2830025,15.2830025,14.1629209,14.7416341,13.6956834,14.8743286,14.8642824,14.5258055,14.9080547,14.8542142,14.8468299,14.8468299,15.5644778,11.7655588,17.9556433,14.8656808,17.9556433,20.205626,14.8633113,11.2830155,14.8615695,14.8598616,14.8643537,14.8643537,17.9810929,null,14.8650558,13.5110278,18.2594673,18.1368149,11.9266681,18.1517061,17.9532184,14.8577525,14.8753253,14.5468145,15.1150425,14.8847232,14.8847232,14.7420102,14.865801,14.866453,17.8908306,16.4747606,14.7420014,14.861576,14.833333,14.7443811,17.7825517,11.8880115,11.9532059,14.8314959,14.8446082,17.9130123,13.5615377,16.5253738,14.8585332,14.7605911,11.8910531,17.8868253,12.216667,23.5074103,18.0769144,14.7415834,18.3041915,14.8674451,14.8312771,12.0850015,14.8588521,14.9080547,18.7098332,14.8696583,14.8696583,14.8490761,18.0319452,14.0888197,11.9627054,14.7382487,16.1414221,14.7507028,13.0805629,13.0595391,14.8500302,14.7382487,12.9408173,11.7764154,14.8677966,12.5730875,17.7984065,12.7056625,11.907281,13.0207098,14.8788235,14.8788235,14.8374016,14.8674538,17.6292533,17.7073105,17.6481798,12.2597508,16.1122158,14.8563114,17.6481063,12.0062674,14.1382734,14.853843,17.5505368,14.5271202,17.9757776,13.1275268,14.754885,11.7384018,13.2173925,14.8759729,14.8780967,13.2025791,14.1251225,14.8613046,14.8371454,18.2036062,14.8558451,11.9291471,14.6765131,12.0304503,14.7816132,14.8614332,12.982126,14.852654,12.7379076,18.0974338,12.3209138,14.8340726,12.7799066,17.7553036,14.7816132,16.2723173,18.333313,14.8572859,18.0799224,12.0442627,14.5333107,14.8577525,14.2754448,16.5463524,14.8676252,14.6822016,17.8702001,14.5678078,14.5678078,12.5562947,13.4959061,17.7662928,14.760794,13.1006195,14.8491219,12.6816356,14.1786087,12.7010936,14.8303925,14.1560713,15.2119685,14.5196258,18.090493,14.8568224,14.8303925,14.9592545,14.7565084,14.7565084,14.8654456,15.9869089,14.2049503,17.8971086,11.5791978,12.7354266,14.8511241,11.9219466,12.0313839,11.3077317,14.615247,17.4710121,12.7210649,14.8577525,16.4777234,14.52491,14.8534512,14.8650234,14.8657772,20.9678906,14.8587765,14.8595805,13.0913184,14.7450622,14.5014966,14.8601368,14.8601368,14.1331615,15.5365459,14.8589279,14.859491,11.9893669,14.886807,14.7676309,18.3656456,11.7894215,14.8623479,12.949819,16.5202738,15.2309603,14.857042,17.9945168,15.6228213,14.8685392,18.2666347,14.695952,12.0724045,17.6455433,14.8519935,11.8847876,11.8975218,16.4675866,14.8588521,11.7783716,14.8634578,11.8469678,13.0911624,16.3461739,12.9746927,18.3114582,20.6840279,11.9337926,12.9744634,14.587478,16.5141356,13.0091889,17.6502434,12.9802168,18.1005542,20.9576675,14.53985,16.1738581,12.8120051,18.0407344,11.9318984,11.9498235,14.8637431,12.8437749,11.9549383,16.3576908,14.8534853,14.8567085,18.1745362,14.6831575,20.343472,16.4860772,19.2500206,14.9466185,12.9306102,18.3171009,20.9588191,14.8560397,21.0268265,17.92488,14.7438027,14.2713297,14.5182267,20.3134256,14.4874747,11.79062,13.09,16.7040202,13.8195582,11.96062,11.9817404,14.8781065,17.8043161,11.9014722,11.8962588,12.3204814,18.8749407,18.2938773,16.4700177,20.2805752,15.1796193,12.5620772,16.204116,13.4363348,11.9076151,17.9534869,13.0674055,17.6345293,11.2247055,12.9978392,18.0462588,11.9792964,13.0790862,17.8099592,18.4285738,11.894294,12.7370346,13.1099289,13.8223723,12.6875277,17.1394375,15.6232563,16.5110369,17.0496894,12.0154583,17.8172616,16.2256103,13.090885,18.3090197,15.2083945,12.0006952,17.1361416,13.6271963,13.0910783,17.86714,14.3493811,18.1846921,12.9412753,13.1937958,12.0259012,11.7464232,13.8174012,12.9809055,11.9385156,13.7897443,13.9546495,14.8242465,13.7824282,18.2717134,13.5086245,12.7429478,11.8632972,16.5708606,12.9927213,12.9351778,17.8995199,12.7295147,16.5360762,11.9124575,18.0961047,17.9416692,12.8253247,17.886985,18.0025123,11.9322378,17.7983469,16.5820974,14.180656,16.3547775,18.206751,17.4163961,12.9940635,12.7199239,17.8946856,11.9488548,18.0892967,17.9229346,13.108792,17.8760854,18.0641335,16.356779,16.5104875,11.9935159,21.0867637,18.1905104,16.597788,13.5281838,13.8123726,12.2176103,12.7248178,18.0945197,16.5957313,12.9837058,14.175482,18.0810133,13.1124523,13.0414972,20.943702,20.9471703,16.531621,14.8046953,13.1050996,18.3405501,16.1717403,18.0696668,16.4658474,12.0159662,11.9812207,11.9709096,17.7592177,17.6400166,16.3278732,11.9792378,14.1475582,18.0276882,14.1331119,18.3159571,12.0404172,17.9812266,17.7733182,18.0759327,18.047182,14.148479,20.244531,17.9534959,13.3547995,17.8222308,18.1429311,11.6504947,12.9860393,12.0552772,12.0306668,18.0497784,17.651518,18.0278527,16.5220373,18.1047376,11.9167312,15.5489828,16.1795321,18.0094938,11.9078797,12.9822808,17.9028933,16.6641167,14.1934334,17.3810406,14.8025771,12.7832625,17.989655,13.0055516,16.5492116,13.548396,11.924668,17.6378544,16.3476577,12.7522774,18.3039899,17.9325421,18.0891114,17.6269661,18.0193129,17.8560042,17.9709182,11.9785213,18.3049977,12.9975065,16.5300455,17.4075338,18.0600831,18.8780501,12.9959325,13.0010045,17.9810601,13.493072,13.1258039,18.0659902,11.955148,12.883407,17.917033,11.9952207,18.0292561,13.5084999,12.7254156,20.940722,16.1877174,12.9365149,17.9960864,18.0298652,16.2449549,11.9281121,18.0668629,11.3015771,12.5386745,12.0119896,13.7097126,13.5015315,11.9460367,12.0219088,20.9466885,12.7400625,12.8541101,14.5180872,13.45,18.0309049,11.9062493,17.9917663,20.9796506,18.0594119,11.9498592,12.9935542,12.0373055,17.6140945,13.0805629,14.1815375,11.878129,16.5424842,14.1261954,18.2578557,11.9296107,17.9675016,12.5739106,17.8231867,12.4125785,18.0867221,17.8455909,12.2572721,17.9817083,12.2594435,16.5977923,11.9134517,13.1981518,18.404054,18.032562,13.0916946,11.0086378,11.540394,17.9532364,13.0447054,17.8659218,12.870576,17.6508869,18.1921403,16.9274477,13.0624336,18.0604313,12.7599112,17.2125028,18.0532309,11.8310577,11.6848821,12.321953,16.4656276,12.9105368,20.2666425,17.844947,20.6469786,18.3033215,17.2921943,22.1534402,11.8297467,17.94148,11.9817404,11.9663222,12.0698687,11.9074651,16.3676104,18.0619074,17.3087811,11.9511412,16.5428652,11.9621089,18.5116372,18.0852633,17.0808877,18.0658433,18.0662867,11.9698967,12.9784686,13.1731837,11.9182903,18.2132658,18.2532205,17.907433,17.4484063,11.9079536,17.6033382,12.8968556,16.5449169,14.1576928,13.4378399,17.8340803,18.0288539,13.5221696,15.01448,18.0713304,20.2812753,11.9504424,17.6515382,17.9721773,12.9216866,17.6747382,18.3467101,11.906622,17.7954332,11.9785213,12.8482894,12.0229905,16.4665082,13.0124279,18.3033215,17.5052036,11.1730633,12.1461878,17.6521758,13.0968646,18.0865029,20.8869593,12.0158319,12.2729986,20.9786019,13.863277,12.8096555,16.1583861,11.5095991,12.015251,16.1765391,18.0853266,11.9315787,16.4931069,17.8250122,11.9553558,11.9740765,17.7456882,16.5561949,12.0807576,13.0442207,13.0847534,12.9941781,11.9714037,20.9498244,11.9663238,16.3642751,11.8168251,14.1678979,17.3170958,18.3090197,11.9397959,12.9321751,12.3249131,16.1688917,16.9904323,11.9005942,13.0300404,12.9815711,17.9343368,13.5294519,16.2349593,18.087734,11.648054,16.3482766,11.9249704,21.0854331,12.9907152,18.1387218,17.0091593,12.7060372,11.9575831,12.9314369,12.965293,12.3090868,18.1057014,14.1491655,18.0618589,13.0196109,18.1380487,18.2972732,11.9079843,14.8172582,18.0859153,18.333313,15.196876,16.3593353,17.6508076,17.8054791,12.0893855,13.552781,17.8961528,18.3253973,13.0067446,12.7207117,17.427816,17.9964391,18.0014872,17.8538383,20.8533819,12.9095599,13.8249843,17.3444236,14.1357819,12.0329292,11.9163706,17.3036029,11.7691314,11.4314872,11.9781921,17.9453219,17.7092385,12.0960902,16.5780634,16.5928767,11.9100354,17.8422527,20.9577194,12.107908,12.043629,11.9418295,14.6498528,13.4891314,12.849881,11.9664845,17.9336236,11.7127375,12.6905112,13.1926985,18.0041965,20.2661321,14.2876292,11.672324,11.9614064,16.1810694,11.9581133,18.2951061,11.676497,16.5268976,12.7531,18.0486465,16.5259316,11.8981323,12.5527077,13.8240858,18.0773326,12.9892252,16.5847875,18.0493933,18.3017655,11.984118,13.1652289,14.155754,18.2650087,13.0867571,18.061987,15.9045254,17.8340413,13.9390828,18.0974715,12.9851254,13.0902088,14.1358954,13.8083755,18.0905035,13.0045387,12.0109727,12.976137,17.9984207,11.9604175,18.0101029,12.0264508,18.0272817,15.5896638,12.8252657,17.9206686,13.2186146,15.5213858,13.7962583,16.4835901,15.6316625,13.4051202,18.0603413,12.9739484,18.0857337,11.951968,13.1944475,16.317864,12.6917102,11.9836364,20.2696242,12.0526583,12.1071048,11.9940653,12.9254872,12.9217122,13.0624337,17.0810899,16.7278756,17.9634395,14.1554463,12.9796481,11.9166214,12.033192,12.5573065,13.0221449,17.2668603,15.2253325,12.9762858,12.980052,20.8593048,18.0974584,17.9846678,17.1437853,17.2906233,18.0822776,12.3129339,12.9107719,11.9392114,11.9209977,16.6439275,17.8244243,13.0742739,18.005915,17.9099817,12.9528021,16.4944873,13.0248405,18.0629463,17.1403547,13.0752835,12.2479698,13.4193581,11.9562184,13.4950052,11.9505788,12.7320434,18.0493059,17.0096275,16.5815628,13.0101001,18.0402324,13.6746783,13.8190554,16.35083,17.9640612,12.9809011,18.014219,11.7835248,17.9921197,14.786132,20.3007089,11.8283039,13.3007362,13.245282,12.7793529,16.1660981,11.8251973,13.1886061,12.2217189,17.6371907,17.648836,13.0846194,17.9431277,14.1782613,18.0214277,14.3264588,17.6175221,18.0032302,11.96918,16.1761892,13.7898505,15.9646631,11.8320253,11.9936322,17.0160956,16.4796618,15.6466964,17.2881325,20.3469153,18.2448162,18.0642385,13.4534389,17.764641,17.9028086,14.7999992,11.9417807,18.1711244,20.243208,16.5598658,16.557061,17.6176985,13.1906111,11.8556535,18.6826488,18.0918861,12.3508148,15.1404521,11.7404854,18.012966,18.0823009,18.3007045,12.055304,21.0199787,12.0710031,12.835969,12.9249189,18.0870858,13.4854894,18.0777729,11.9156275,13.0360218,18.0166456,18.7032682,21.0081922,16.3405641,11.9222057,13.1588306,13.0251114,18.0805952,15.5771647,12.9604639,18.0684476,12.2521538,18.1729963,12.1712426,11.8986275,15.026505,14.8055838,14.3426366,13.0749276,17.6451143,17.948149,13.212229,12.0130226,17.8901536,18.0608595,12.0163067,11.7360101,16.5071218,13.2292495,17.975173,12.9964833,18.0635941,18.1081729,12.7721657,12.997548,12.6915305,13.838415,12.0056378,13.4982453,13.0710669,16.1776715,18.2354673,13.1140847,17.0007164,11.9696463,11.9000534,13.1663092,13.3311742,11.9872202,17.6467781,12.9794218,12.9649815,13.0000917,16.5598658,18.0776823,11.9787131,16.5098045,12.6945645,12.9774117,11.9795294,18.104957,16.483367,16.5838707,16.3520935,17.9459215,11.658649,13.4968236,12.6925887,11.9613949,13.2333449,12.7491333,11.951834,13.810497,17.885049,17.9635173,16.4513221,15.7636187,18.0885014,14.1442462,13.0022231,13.0162622,16.6461115,13.7260254,13.8346901,13.7945919,17.7177473,13.1987825,16.6369759,17.9898985,18.1280993,12.8962624,17.9034424,16.1816718,17.9919546,18.1395829,12.9980023,13.8365056,17.8154825,20.916973,13.0061127,14.1718948,15.1369912,20.7216762,13.5157355,20.2926618,11.9991353,18.021762,16.2422363,17.7919465,12.9036913,12.1221679,11.8220189,13.0609635,12.0546587,12.9461186,17.6511552,17.9545617,13.0025084,17.8129659,null,12.6895176,16.4965087,11.9316588,12.8352053,17.8106626,12.2963931,11.562829,13.817497,20.2869475,18.0090238,18.0261627,13.1134746,11.9477743,18.294884,12.6612096,13.8595162,15.6356873,17.6256553,12.9293787,13.2333449,13.8188046,15.1451129,12.7331889,12.9847697,13.0296846,17.6313522,13.7837079,20.2544084,12.9802168,18.0609669,16.3424247,11.9462174,20.3786168,12.5083145,16.1910927,12.9798647,18.1387218,12.7285448,13.720966,12.7279324,12.9922592,12.959258,18.84363,12.6921838,16.3556131,13.6628735,17.9554369,13.0326598,12.9809564,10.1005,12.7048802,11.9067584,12.9989603,12.9738496,16.4932794,20.2491711,11.5971156,14.1659752,16.3487768,16.3469232,16.5721521,16.5539617,12.6937448,18.1072771,12.9301938,11.8297578,16.0492407,18.0907858,17.0138178,11.9545285,13.0934732,12.7217222,12.9730269,18.3335463,12.9900714,14.6727608,11.9814632,13.8245058,13.053344,17.7177473,11.9270427,18.0664238,20.2732964,12.9818316,17.8971597,13.0000173,16.6299461,13.1782676,12.9564192,17.9431198,13.8455958,18.0254975,18.0898994,11.9453177,18.1010528,17.8077012,11.9249661,12.9360394,16.4578593,17.6438864,16.1325397,18.1232643,18.206339,13.2773157,18.0295327,12.7676293,11.2587138,12.8670878,16.5175448,12.414276,17.8699715,12.8555973,12.8633989,13.0150626,13.2944763,13.0829673,17.1560657,12.2334084,18.0306394,17.651636,12.9976132,14.1569685,11.7500963,17.6801971,16.5113097,17.3109068,18.0401822,17.9028086,12.9393063,13.8313824,18.2465728,12.9802168,15.6323324,17.6311087,18.2760202,16.5346431,17.8932799,12.9741173,18.3318047,13.9479327,11.7413045,18.1217243,12.9735181,13.8313824,12.2463975,13.1140847,17.9121643,11.9790001,12.7397748,11.7153127,12.9211212,12.759089,16.570379,17.738169,12.9762858,18.0545267,12.1588104,12.9985136,11.9076721,17.9656079,17.9601368,14.007855,18.1080825,16.4554722,11.91099,17.0280076,16.2043605,18.0805611,11.7442273,12.1502692,17.9191519,11.8871747,11.9798014,12.9809227,17.2486495,12.9293787,12.7930375,13.3466354,17.9449404,17.9758784,12.9782135,14.2305298,12.9763934,13.8083668,20.2876995,12.5593492,14.0957849,18.0166456,12.7359759,11.9187176,18.0136793,12.9950608,11.957277,18.1313783,17.9393516,11.8778842,13.1274604,18.1079471,12.2461558,12.7009041,13.071547,12.0164729,18.0361389,13.0017148,17.961977,12.6871399,13.5102691,11.7215752,16.5006003,12.9423572,13.0040826,12.9802168,11.9696463,12.3660298,17.8401428,12.9729098,20.6593618,12.7580527,20.987448,18.0095212,12.0392777,17.8154825,16.5126187,17.2596762,17.5073245,17.7177473,13.0009159,18.0464993,13.8213327,17.9397131,12.9670176,18.1083263,12.3052433,16.1873133,11.9290801,16.5543537,16.346351,12.9589224,12.0275903,17.6961,11.9272972,13.0777746,12.9794867,13.1076696,11.9702192,12.8131611,11.8181695,17.9027396,13.0356642,17.9537605,12.5807438,17.3399881,16.2667857,17.8859474,12.7977842,17.8975048,21.240494,12.8745582,16.5288889,12.9871346,18.1724427,17.8333395,15.6608426,18.0623918,17.9845471,13.0832528,13.1373754,11.9428718,12.0969366,12.9576681,12.8515486,11.9954322,18.0759759,11.929413,17.3526877,22.1586146,11.9697361,17.9805886,13.8042876,20.8894849,12.7843128,16.1810421,12.8233954,12.921654,13.8150582,15.5945149,17.8618995,18.0483283,20.9878596,13.0611905,18.085479,11.9161007,12.0637577,12.9268899,13.4960211,13.0466505,13.8399115,13.0076964,12.9682056,12.9192865,13.0163197,12.2810579,12.9995833,11.9696366,17.7177473,12.9944113,17.8483742,13.0195715,13.0094612,12.9962426,15.7102146,11.9222091,12.5804235,11.5433084,12.9671249,18.3422,16.1671614,17.8555094,11.9536753,16.1792746,18.0755919,12.8702702,11.9784893,13.5291341,16.2453167,17.5435801,16.189936,14.8052952,12.0473004,18.3743491,17.8294601,13.4328148,15.613889,17.6904082,18.0717329,14.1270963,13.0193794,11.9116568,12.8603545,18.0778443,12.6985344,14.8013106,12.4346097,20.6889759,11.9289982,12.6854893,16.4861986,17.9234082,13.0156792,16.5695741,17.8896583,12.9945713,11.8814192,12.5607038,18.2946183,14.8647071,12.9682315,13.1894083,16.5072145,13.1890358,12.863881,14.1568866,14.3501005,18.3262476,18.0224211,17.6389267,11.9223512,17.9335268,12.7242802,12.6738383,17.9908288,16.1810694,16.5215234,17.9243933,12.2501654,14.1076137,12.0661999,16.3511403,12.9041954,16.3652004,17.0667868,12.1230475,11.2333193,11.9408509,16.1801719,20.2670984,12.9234767,11.9427467,15.6936556,11.8775106,10.7426434,17.7520593,11.880796,18.0948241,12.1018622,17.9039332,13.1973556,13.0611786,18.0817565,12.0267439,17.7177473,18.0877868,15.3734,18.124204,11.9017884,17.9803218,16.9635951,16.5523794,12.9673733,16.3502006,13.8044949,18.0606484,13.0408882,17.917033,12.1198529,17.8054791,16.538129,12.9862152,16.3517247,11.9933171,17.8127962,12.0347571,17.836804,22.1392212,18.023315,11.9161452,13.18179,13.0408882,11.9501909,17.6507305,12.0264949,13.4949216,12.2512997,13.0566336,12.7603147,20.5406573,12.1235269,16.5734601,12.8585981,12.8692132,13.1024966,12.0241671,12.9693058,18.1964052,12.7964932,12.7487639,12.9745421,18.1137666,12.7154052,11.9850751,11.9477476,20.3712884,13.6595319,12.9924026,14.2744736,18.038004,15.6181246,11.9408509,13.8334661,18.0321389,18.6773459,17.9028086,17.0057809,17.9543514,12.9090139,13.0320319,13.1140847,17.7960509,11.17927,17.9124817,20.2211102,14.1323936,17.8650154,16.5598658,17.8434994,13.4771312,12.3248032,18.012933,11.8745949,11.9242864,16.2963672,12.9195858,18.1040872,12.0681615,13.8200308,12.9601172,17.9518789,11.8203989,16.3543309,18.0890955,13.0073888,11.7334354,11.9316513,21.0925625,11.9300887,17.3026542,12.0264949,11.7767186,16.1829746,12.8876008,12.840805,11.9819637,11.947913,11.981693,11.9663117,17.9028086,18.0964146,11.9406469,18.0239499,12.6955943,13.8042876,12.6877802,13.0087826,17.9165865,11.9704563,11.9832411,12.7471423,15.8476735,13.8211066,16.1971901,11.8220189,11.8412586,13.8444199,12.559271,11.9922616,12.0184428,12.8860644,16.1870412,18.0691575,11.9500185,12.8614916,12.9381607,12.9988171,13.1522321,20.3224296,17.0867083,16.3495465,13.4108732,18.0977089,11.9078764,22.1096546,11.9696463,16.5359804,12.2730155,11.9361115,20.223333,17.064723,12.0172428,12.9790749,18.0849957,13.2114803,12.9399228,18.0964451,12.5712095,12.7422356,17.9435034,17.9035454,13.7912312,12.0103189,18.0781794,18.179636,12.804531,18.0034438,11.3368939,18.0622806,12.7633114,20.9624774,12.8256118,12.9820504,18.035859,12.2737746,13.0298237,13.1833023,18.1425608,18.0896385,16.6418274,16.5241605,14.6169736,18.0912853,13.3637033,16.5093503,12.0263861,11.2824037,12.6991255,17.9906558,18.0524576,17.9028086,21.2457961,12.9762556,11.9414673,18.0900317,13.4753177,13.0461835,18.152715,12.2746434,16.5448091,12.1307778,11.9346128,13.1892664,17.6164758,20.2039201,12.558057,13.007197,18.0917982,13.8113821,11.9219313,18.0759595,12.9847907,12.9296604,12.1857884,12.824352,11.9073559,11.8266623,20.7931878,13.9584297,18.0884108,12.780131,12.9818117,15.2422566,17.9723639,16.4645993,13.062297,11.9696366,13.8221238,18.0433728,17.6392854,13.0048438,17.7263371,16.4645993,12.543823,12.7344271,16.3490367,20.3308272,12.7416577,18.0611036,18.11508,11.9405058,12.3433519,14.8625165,13.865697,11.2478834,11.8812657,16.1689024,16.5439433,11.7726229,18.1673052,17.9028086,20.9622087,11.8945424,12.0262241,15.6769507,18.038199,12.9701,18.2404581,22.1102702,12.6538705,18.0688398,13.2418253,11.9289521,17.98773,20.2237061,15.5899551,13.0422348,11.9587397,17.5181839,18.1413332,12.2504344,18.0393549,17.631192,11.8872449,12.2595215,11.9610834,11.8986751,12.9603059,16.4634575,12.9240998,12.7363725,17.0323408,12.8482894,12.6273003,12.7814803,18.0414206,17.339939,20.9487703,11.9498458,12.256862,22.7412183,12.0347697,12.0086265,16.5221989,12.0056851,16.5061197,12.2733375,12.2588085,12.6915305,15.6079386,11.9474645,11.8217275,18.0162535,17.0993206,16.4838671,20.2063972,12.6906741,13.9417337,12.1061719,null,18.0685808,12.9580227,12.9947786,15.2318757,15.1601878,15.1826932,15.1905386,15.1670999,15.4736837,15.1956696,null,15.155525,15.2214612,15.0832402,15.1926793,15.0361819,15.0262119,15.1729877,15.2313988,15.2015387,14.8788594,15.2401827,15.1918954,15.2080278,15.2307842,15.208415,15.1955911,15.2557492,15.2431682,13.4761238,15.1097072,15.2240706,15.2068951,15.2055351,15.1688817,15.1885142,15.2241971,15.187161,15.1684297,15.1706796,15.160312,15.2086857,15.2385231,15.2045694,15.1987848,15.2480812,14.388158,14.5353213,15.1685482,15.1822195,15.1886271,15.3985304,15.2436866,15.2223963,14.11452,15.2401526,14.5764638,15.2327335,14.8709161,15.2496372,15.3042816,17.5320119,15.2203503,15.2442211,15.2402766,15.2254671,15.2135815,15.2208321,15.2378503,15.1810323,16.7356271,15.1996294,15.2215486,15.2098123,15.1776096,15.0387515,14.9117339,14.950656,15.2228922,15.2134105,15.24136,15.1079814,15.216318,15.2031166,13.4713817,15.192631,15.2211518,15.2216292,14.7111472,15.1728687,15.1833635,15.5424718,15.2438538,15.2050312,15.1859885,18.1250163,15.2086566,15.1918956,15.1821165,15.1889821,17.9136878,15.1880903,15.1346171,15.2435033,15.237092,14.5273393,15.2267571,15.2111232,15.2134105,15.2212733,14.9673078,15.2056944,15.1523778,18.3063182,15.2557492,15.2209063,15.2377582,15.2276075,15.2068951,18.0041164,15.1920972,15.084153,15.219892,15.2070848,15.1698199,14.5326512,15.2333117,15.5877223,16.1987637,15.2280964,15.2041006,15.2312766,15.2279758,15.226879,14.4707531,15.1615361,15.2480812,15.195247,14.1086669,15.2134105,14.9411972,15.1721199,15.2086305,15.5280692,15.2051604,17.6125485,15.2045651,15.246668,15.1978786,15.184393,14.4649541,15.1671138,15.208773,15.2192872,15.168266,14.8685982,14.8743286,14.8647829,14.8585575,14.8647829,14.7438027,14.7521336,14.8669988,14.8513856,11.8196528,17.8198092,17.6362219,11.8952269],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"Respondents",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[53.6091,67.87134499999999],"lng":[10.1005,23.5074103]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+<div id="tabset-1-2">
+<p><img data-src="discrete_choice_experiments_files/sum_stat.png"></p>
+</div>
+<div id="tabset-1-3">
+<p><img data-src="discrete_choice_experiments_files/attributes.png"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="development-of-the-research-aim" class="slide level2">
+<h2>Development of the research aim</h2>
+<div>
+<ul>
+<li class="fragment">We know many physical housing attributes that respondents find important (balcony, elevator, single floor, etc.)</li>
+<li class="fragment">We know little about the preferred attributes dealing with <strong><em>location</em></strong>.</li>
+<li class="fragment">Where do people want to be situated?</li>
+<li class="fragment">Does proximtiy to certain services or location matter?</li>
+<li class="fragment">If so, which are most important?</li>
+</ul>
+</div>
+</section>
+<section id="aim-and-rqs" class="slide level2">
+<h2>Aim and RQ’s</h2>
+<div>
+<ul>
+<li class="fragment">“The overall aim is to explore the factors which matters most for the choice of another dwelling among people aged 55 years or more, interested in relocation.”</li>
+<li class="fragment">“The overarching aim of this paper is to explore heterogeneous locational preferences of those aged 55 years or more and interested in relocation”</li>
+</ul>
+</div>
+</section></section>
+<section>
+<section id="discrete-choice-experiments" class="title-slide slide level1 center">
+<h1>Discrete Choice Experiments</h1>
+<ul>
+<li><p>A DCE is a research method used in various fields, including economics, marketing, and healthcare, to understand individuals’ preferences and decision-making processes.</p></li>
+<li><p>The primary goal of a DCE is to elicit and quantify individuals’ preferences for different attributes or features of a product, service, or policy by presenting them with a series of choice scenarios.</p></li>
+</ul>
+<aside class="notes">
+<p>Key word here is “elicit”</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="choice-experiments" class="slide level2">
+<h2>Choice experiments</h2>
+<ul>
+<li>DCE’s fall into the more broader group of choice experiments.</li>
+<li>When we make a choice, we show a <strong>preference</strong>.</li>
+<li>Preferences can be construed as <strong>stated</strong> or <strong>revealed</strong>.</li>
+</ul>
+</section>
+<section id="stated-vs.-revealed-preferences" class="slide level2">
+<h2>Stated vs.&nbsp;revealed preferences</h2>
+<ul>
+<li><p>Stated: Researchers gather information by directly asking individuals about their preferences, opinions, or choices through interviews, surveys, or other data collection methods.</p></li>
+<li><p>Revealed: Researchers analyze real-world data, such as consumer purchasing behavior, travel patterns, or <strong>observed choices</strong>, to uncover implicit preferences.</p></li>
+</ul>
+</section>
+<section id="revealed-preferences---advantages" class="slide level2">
+<h2>Revealed preferences - advantages</h2>
+<ul>
+<li>Advantages: Revealed preferences offer a more accurate reflection of individuals’ preferences as they are derived from observable actions, reducing biases associated with self-reporting.</li>
+</ul>
+</section>
+<section id="discrete-choice-experiments-1" class="slide level2">
+<h2>Discrete Choice Experiments</h2>
+<ul>
+<li>DCE’s are a type of revealed preference experiments.</li>
+<li>By asking (forcing) respondents to choose between alternatives in a controlled experiment we can elicit preferences from the sample.</li>
+</ul>
+</section>
+<section id="example" class="slide level2">
+<h2>Example</h2>
+
+<img data-src="discrete_choice_experiments_files/dce.png" class="r-stretch"></section></section>
+<section>
+<section id="slide" class="title-slide slide level1 center">
+<h1>Slide</h1>
+<div>
+<ul>
+<li class="fragment"></li>
+<li class="fragment"></li>
+<li class="fragment"></li>
+<li class="fragment"></li>
+</ul>
+</div>
+<aside class="notes">
+<p>Speaker notes go here</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<ul>
+<li></li>
+</ul>
+</section>
+<section id="attributes-and-levels" class="slide level2">
+<h2>Attributes and levels</h2>
+<ul>
+<li>Attributes
+<ul>
+<li>Are the attributes well-defined?</li>
+</ul></li>
+<li>Levels
+<ul>
+<li>Distance in km or time walking?</li>
+<li>Apartments in Sweden - make sense 15km away from shops?</li>
+</ul></li>
+</ul>
+</section></section>
+<section>
+<section id="feedback-and-disccusion" class="title-slide slide level1 center">
+<h1>Feedback and disccusion</h1>
+
+</section>
+<section id="feedback-results" class="slide level2">
+<h2>Feedback Results</h2>
+</section>
+<section id="html-widgets" class="slide level2">
+<h2>HTML WIDGETS</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-e5f28619ac4a06330d30" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-e5f28619ac4a06330d30">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[[55.7047,55.68,55.72],[13.191,13.3,13.1],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[55.68,55.72],"lng":[13.1,13.3]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="plotly" class="slide level2">
+<h2>Plotly</h2>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-aaef1644403d38c21632" style="width:960px;height:384px;"></div>
+<script type="application/json" data-for="htmlwidget-aaef1644403d38c21632">{"x":{"data":[{"orientation":"v","width":[0.11250000000000004,0.11249999999999982,0.11249999999999982,0.11249999999999982,0.11250000000000071],"base":[0,0,0,0,0],"x":[0.60625000000000007,1.6062500000000002,2.6062500000000002,3.6062500000000002,4.6062500000000002],"y":[210,96,84,205,146],"text":["count:  210<br />cut: Fair<br />clarity: I1","count:   96<br />cut: Good<br />clarity: I1","count:   84<br />cut: Very Good<br />clarity: I1","count:  205<br />cut: Premium<br />clarity: I1","count:  146<br />cut: Ideal<br />clarity: I1"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(68,1,84,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"I1","legendgroup":"I1","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.11250000000000004,0.11249999999999982,0.11249999999999982,0.11249999999999982,0.11250000000000071],"base":[0,0,0,0,0],"x":[0.71875,1.71875,2.71875,3.71875,4.71875],"y":[466,1081,2100,2949,2598],"text":["count:  466<br />cut: Fair<br />clarity: SI2","count: 1081<br />cut: Good<br />clarity: SI2","count: 2100<br />cut: Very Good<br />clarity: SI2","count: 2949<br />cut: Premium<br />clarity: SI2","count: 2598<br />cut: Ideal<br />clarity: SI2"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(70,51,126,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"SI2","legendgroup":"SI2","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.11250000000000004,0.11249999999999982,0.11249999999999982,0.11249999999999982,0.11250000000000071],"base":[0,0,0,0,0],"x":[0.83125000000000004,1.83125,2.8312499999999998,3.8312499999999998,4.8312499999999998],"y":[408,1560,3240,3575,4282],"text":["count:  408<br />cut: Fair<br />clarity: SI1","count: 1560<br />cut: Good<br />clarity: SI1","count: 3240<br />cut: Very Good<br />clarity: SI1","count: 3575<br />cut: Premium<br />clarity: SI1","count: 4282<br />cut: Ideal<br />clarity: SI1"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(54,92,141,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"SI1","legendgroup":"SI1","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.11250000000000004,0.11249999999999982,0.11249999999999982,0.11249999999999982,0.11250000000000071],"base":[0,0,0,0,0],"x":[0.94374999999999998,1.9437500000000001,2.9437500000000001,3.9437500000000001,4.9437499999999996],"y":[261,978,2591,3357,5071],"text":["count:  261<br />cut: Fair<br />clarity: VS2","count:  978<br />cut: Good<br />clarity: VS2","count: 2591<br />cut: Very Good<br />clarity: VS2","count: 3357<br />cut: Premium<br />clarity: VS2","count: 5071<br />cut: Ideal<br />clarity: VS2"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(39,127,142,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"VS2","legendgroup":"VS2","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.11249999999999993,0.11249999999999982,0.11249999999999982,0.11250000000000071,0.11250000000000071],"base":[0,0,0,0,0],"x":[1.0562499999999999,2.0562499999999999,3.0562499999999999,4.0562500000000004,5.0562500000000004],"y":[170,648,1775,1989,3589],"text":["count:  170<br />cut: Fair<br />clarity: VS1","count:  648<br />cut: Good<br />clarity: VS1","count: 1775<br />cut: Very Good<br />clarity: VS1","count: 1989<br />cut: Premium<br />clarity: VS1","count: 3589<br />cut: Ideal<br />clarity: VS1"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(31,161,135,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"VS1","legendgroup":"VS1","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.11249999999999982,0.11249999999999982,0.11249999999999982,0.11250000000000071,0.11250000000000071],"base":[0,0,0,0,0],"x":[1.16875,2.1687500000000002,3.1687500000000002,4.1687500000000002,5.1687500000000002],"y":[69,286,1235,870,2606],"text":["count:   69<br />cut: Fair<br />clarity: VVS2","count:  286<br />cut: Good<br />clarity: VVS2","count: 1235<br />cut: Very Good<br />clarity: VVS2","count:  870<br />cut: Premium<br />clarity: VVS2","count: 2606<br />cut: Ideal<br />clarity: VVS2"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(74,193,109,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"VVS2","legendgroup":"VVS2","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.11249999999999982,0.11249999999999982,0.11249999999999982,0.11250000000000071,0.11250000000000071],"base":[0,0,0,0,0],"x":[1.28125,2.28125,3.28125,4.28125,5.28125],"y":[17,186,789,616,2047],"text":["count:   17<br />cut: Fair<br />clarity: VVS1","count:  186<br />cut: Good<br />clarity: VVS1","count:  789<br />cut: Very Good<br />clarity: VVS1","count:  616<br />cut: Premium<br />clarity: VVS1","count: 2047<br />cut: Ideal<br />clarity: VVS1"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(159,218,58,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"VVS1","legendgroup":"VVS1","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.11249999999999982,0.11249999999999982,0.11249999999999982,0.11250000000000071,0.11250000000000071],"base":[0,0,0,0,0],"x":[1.3937499999999998,2.3937499999999998,3.3937499999999998,4.3937499999999998,5.3937499999999998],"y":[9,71,268,230,1212],"text":["count:    9<br />cut: Fair<br />clarity: IF","count:   71<br />cut: Good<br />clarity: IF","count:  268<br />cut: Very Good<br />clarity: IF","count:  230<br />cut: Premium<br />clarity: IF","count: 1212<br />cut: Ideal<br />clarity: IF"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(253,231,37,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"IF","legendgroup":"IF","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":34.264840182648406,"r":7.3059360730593621,"b":48.219178082191803,"l":48.949771689497723},"plot_bgcolor":"rgba(235,235,235,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,5.5999999999999996],"tickmode":"array","ticktext":["Fair","Good","Very Good","Premium","Ideal"],"tickvals":[1,2,3,4,5],"categoryorder":"array","categoryarray":["Fair","Good","Very Good","Premium","Ideal"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716894984},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"cut","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-253.55000000000001,5324.5500000000002],"tickmode":"array","ticktext":["0","1000","2000","3000","4000","5000"],"tickvals":[0,1000,2000.0000000000002,3000,4000,5000],"categoryorder":"array","categoryarray":["0","1000","2000","3000","4000","5000"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"count","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716894984},"title":{"text":"clarity","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"670485d4917":{"x":{},"fill":{},"type":"bar"}},"cur_data":"670485d4917","visdat":{"670485d4917":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</section>
+<section id="diagramme-r" class="slide level2">
+<h2>Diagramme R</h2>
+</section>
+<section id="dygraphs" class="slide level2">
+<h2>Dygraphs</h2>
+<div class="cell-output-display">
+<div class="dygraphs html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-6ca655bfe2e9783ef8c7" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-6ca655bfe2e9783ef8c7">{"x":{"attrs":{"title":"New Haven Temperatures","labels":["year","V1"],"legend":"auto","retainDateWindow":false,"axes":{"x":{"pixelsPerLabel":60}},"showRangeSelector":true,"dateWindow":["1920-01-01T00:00:00.000Z","1960-01-01T00:00:00.000Z"],"rangeSelectorHeight":40,"rangeSelectorPlotFillColor":" #A7B1C4","rangeSelectorPlotStrokeColor":"#808FAB","interactionModel":"Dygraph.Interaction.defaultModel"},"scale":"yearly","annotations":[],"shadings":[],"events":[],"format":"date","data":[["1912-01-01T00:00:00.000Z","1913-01-01T00:00:00.000Z","1914-01-01T00:00:00.000Z","1915-01-01T00:00:00.000Z","1916-01-01T00:00:00.000Z","1917-01-01T00:00:00.000Z","1918-01-01T00:00:00.000Z","1919-01-01T00:00:00.000Z","1920-01-01T00:00:00.000Z","1921-01-01T00:00:00.000Z","1922-01-01T00:00:00.000Z","1923-01-01T00:00:00.000Z","1924-01-01T00:00:00.000Z","1925-01-01T00:00:00.000Z","1926-01-01T00:00:00.000Z","1927-01-01T00:00:00.000Z","1928-01-01T00:00:00.000Z","1929-01-01T00:00:00.000Z","1930-01-01T00:00:00.000Z","1931-01-01T00:00:00.000Z","1932-01-01T00:00:00.000Z","1933-01-01T00:00:00.000Z","1934-01-01T00:00:00.000Z","1935-01-01T00:00:00.000Z","1936-01-01T00:00:00.000Z","1937-01-01T00:00:00.000Z","1938-01-01T00:00:00.000Z","1939-01-01T00:00:00.000Z","1940-01-01T00:00:00.000Z","1941-01-01T00:00:00.000Z","1942-01-01T00:00:00.000Z","1943-01-01T00:00:00.000Z","1944-01-01T00:00:00.000Z","1945-01-01T00:00:00.000Z","1946-01-01T00:00:00.000Z","1947-01-01T00:00:00.000Z","1948-01-01T00:00:00.000Z","1949-01-01T00:00:00.000Z","1950-01-01T00:00:00.000Z","1951-01-01T00:00:00.000Z","1952-01-01T00:00:00.000Z","1953-01-01T00:00:00.000Z","1954-01-01T00:00:00.000Z","1955-01-01T00:00:00.000Z","1956-01-01T00:00:00.000Z","1957-01-01T00:00:00.000Z","1958-01-01T00:00:00.000Z","1959-01-01T00:00:00.000Z","1960-01-01T00:00:00.000Z","1961-01-01T00:00:00.000Z","1962-01-01T00:00:00.000Z","1963-01-01T00:00:00.000Z","1964-01-01T00:00:00.000Z","1965-01-01T00:00:00.000Z","1966-01-01T00:00:00.000Z","1967-01-01T00:00:00.000Z","1968-01-01T00:00:00.000Z","1969-01-01T00:00:00.000Z","1970-01-01T00:00:00.000Z","1971-01-01T00:00:00.000Z"],[49.9,52.3,49.4,51.1,49.4,47.9,49.8,50.9,49.3,51.9,50.8,49.6,49.3,50.6,48.4,50.7,50.9,50.6,51.5,52.8,51.8,51.1,49.8,50.2,50.4,51.6,51.8,50.9,48.8,51.7,51,50.6,51.7,51.5,52.1,51.3,51,54,51.4,52.7,53.1,54.6,52,52,50.9,52.6,50.2,52.6,51.6,51.9,50.5,50.9,51.7,51.4,51.7,50.8,51.9,51.8,51.9,53]]},"evals":["attrs.interactionModel"],"jsHooks":[]}</script>
+</div>
+<div class="footer footer-default">
+
+</div>
+</section></section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="discrete_choice_experiments_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="discrete_choice_experiments_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="discrete_choice_experiments_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="discrete_choice_experiments_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="discrete_choice_experiments_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="discrete_choice_experiments_files/libs/revealjs/plugin/multiplex/socket.io.js"></script>
+  <script src="discrete_choice_experiments_files/libs/revealjs/plugin/multiplex/multiplex.js"></script>
+  <script src="discrete_choice_experiments_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="discrete_choice_experiments_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="discrete_choice_experiments_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="discrete_choice_experiments_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="discrete_choice_experiments_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'smaller': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'multiplex': {"secret":null,"id":"e5b2a3b5e708af9d","url":"https://reveal-multiplex.glitch.me/"},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        text: function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn) {
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        };
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>
