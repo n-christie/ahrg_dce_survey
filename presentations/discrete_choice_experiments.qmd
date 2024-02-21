@@ -7,32 +7,102 @@ format:
 editor: source
 ---
 
-# Discrete choice experiments
+# Today's agenda {.smaller}
 
-We'll take a look at Discrete Choice Experiments and how we are implementing one in the upcoming follow-up survey. We'll be touching on such questions as:
+We'll take a look at our latest progress implementing a discrete choice experiment while covering a couple of related topics:
+
 
 ::: incremental
--   Are Discrete Choice Experiments something I could use?
--   How do you conduct a DCE?
--   Why would I even want to use a Discrete Choice Experiment?
--   What the heck ***is*** a Discrete Choice Experiment?
--   How are we using them in our survey?
--   How we can make our survey better
+-   Update on the project
+-   Learn about Discrete Choice Experiments - that's a mouthful, let's call them DCEs
+-   A quick background on DCEs
+-   Attributes and levels – the assumptions and traps we’re trying to avoid.
+-   Revisit the survey from the researcher perspective
+-   Take an updated survey
+-   Discussion and feedback
 :::
 
 ::: notes
-We'll cover some best practices and need more feedback!
+
 :::
 
-## Today's aim:
+
+# RELOC-AGE 
+
+```{r, echo=FALSE, results='asis', fig.height=2}
+library(DiagrammeR)
+DiagrammeR::grViz("digraph {
+  
+graph[layout = dot, rankdir = LR]
+
+
+a   [label = 'Baseline\nSpring 2021\nn=1964'] 
+b [label = 'Follow-up\nSpring 2022\nn=1254'] 
+c  [label = '2nd follow-up\nSpring 2024\nn=???', color = red, fontcolor = red] 
+
+
+a -> b -> c
+}")
+```
+
+::: notes
+
+Exact sample sizes depend on variations in missing data
+
+:::
+
+
+## Sample description {.scrollable}
+
+::: {.panel-tabset}
+
+## Location {.scrollable}
+
+```{r map, eval=TRUE ,warning=FALSE, include=TRUE, widget.layout.height = "calc(100vh - 90px)"}
+library(leaflet)
+library(kableExtra)
+address_lat_lon <- readRDS("discrete_choice_experiments_files/coords.rds") 
+
+leaflet(address_lat_lon,width = "100%" ) %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addMarkers(~lon,
+             ~lat,
+             popup="Respondents",
+             #clusterOptions = markerClusterOptions()
+             ) 
+
+```
+
+
+## Descriptives {.scrollable}
+
+![](discrete_choice_experiments_files/sum_stat.png)
+
+## Housing attributes {.scrollable}
+
+![](discrete_choice_experiments_files/attributes.png)
+
+:::
+
+## Development of the research aim
 
 ::: incremental
--   Learn about Discrete Choice Experiments - that's a mouthful, let's call them DCEs
--   Have a quick background on DCEs - where did they come from?
--   Attributes and levels - things to consider
--   Participate in an updated survey
--   Feedback and discussion
+- We know many physical housing attributes that respondents find important (balcony, elevator, single floor, etc.)
+- We know little about the preferred attributes dealing with ___location___.
+- Where do people want to be situated?
+- Does proximtiy to certain services or location matter?
+- If so, which are most important?
 :::
+
+
+## Aim and RQ's
+
+::: incremental
+- "The overall aim is to explore the factors which matters most for the choice of another dwelling among people aged 55 years or more, interested in relocation.”
+- "The overarching aim of this paper is to explore heterogeneous locational preferences of those aged 55 years or more and interested in relocation"
+:::
+
+
 
 # Discrete Choice Experiments
 
@@ -65,11 +135,9 @@ Key word here is "elicit"
 -   DCE's are a type of revealed preference experiments.
 -   By asking (forcing) respondents to choose between alternatives in a controlled experiment we can elicit preferences from the sample.
 
-## The experiment
+## Example
 
-The
-
-
+![](discrete_choice_experiments_files/dce.png)
 
 # Slide
 
@@ -88,27 +156,22 @@ Speaker notes go here
 
 
 
-# RELOC-AGE
 
--   Around 1900 Respondents across Sweden
-
-```{r map, eval=TRUE ,warning=FALSE, include=TRUE}
-library(leaflet)
-
-address_lat_lon <- readRDS("discrete_choice_experiments_files/coords.rds") 
-
-leaflet(address_lat_lon,width = "100%" ) %>%
-  addTiles() %>%  # Add default OpenStreetMap map tiles
-  addMarkers(~lon, ~lat, popup="The birthplace of R",
-             clusterOptions = markerClusterOptions())
-```
-
-## Aim and RQ's
-
--   "The overarching aim of this paper is to explore heterogeneous housing preferences of those aged 55 years or more and interested in relocation"
 -   
 
 ## Attributes and levels
+
+- Attributes
+  - Are the attributes well-defined?
+- Levels
+  - Distance in km or time walking?
+  - Apartments in Sweden - make sense 15km away from shops?
+
+# Feedback and disccusion
+
+## Feedback Results
+
+
 
 ## HTML WIDGETS
 
@@ -117,8 +180,7 @@ library(leaflet)
 library(tidyverse)
 leaflet() %>%
   addTiles() %>%  # Add default OpenStreetMap map tiles
-  addMarkers(lat = c(55.7047,55.68,55.72), lng = c(13.1910,13.3,13.1),
-             popup="The birthplace of R")
+  addMarkers(lat = c(55.7047,55.68,55.72), lng = c(13.1910,13.3,13.1))
   
 
 ```
@@ -135,15 +197,7 @@ ggplotly(p)
 
 ## Diagramme R
 
-```{r, echo=FALSE, results='asis', fig.height=4}
-library(DiagrammeR)
-grViz("
-  digraph {
-    layout = twopi
-    node [shape = circle]
-    A -> {Abb C D} 
-  }")
-```
+
 
 ## Dygraphs
 

@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 $~$
 
- <font size="5"> Take the [TEST SURVEY](http://37.27.25.127/reloc-age-dce) !! </font> 
+ <font size="5"> Take the [TEST SURVEY](http://37.27.25.127/reloc-age-dce-swe) !! </font> 
 
 
  <font size="5"> See the preliminary [FEEDBACK](#feedback) !! </font> 

@@ -19,7 +19,7 @@ swe_profiles <- cbc_profiles(
   dist_green = c("5km", "10km", "15km"),
   dist_shops = c("500 meters", "5km", "15km"),
   dist_trans = c("200", "400", "800"),
-  parking      = c('Garage', 'Förhyrd plats i området', 'gratis områdets parkering')
+  parking      = c('Garage', 'gratis Områdesparkering', 'Betald områdesparkering')
 )
 
 
