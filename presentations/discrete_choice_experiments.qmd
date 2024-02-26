@@ -32,15 +32,15 @@ We will get to the survey - but focus today is more geared towards the experimen
 
 :::
 
-## What we're doing
+## What's the plan?
 
 ::: incremental
 
 - Experiment will be included in the 2024 RELOC-AGE Prospective follow-up survey
 - Yet to be determined exactly how we deliver this experiment
-- Link to complete after the main survey... or
+- Link to experiment after completing the main survey... or
 - Separate email to respondents at different time...
-- Should take about 10 min to complete.
+- Who are the respondents?
 
 :::
 
@@ -64,11 +64,11 @@ leaflet(address_lat_lon,width = "100%" ) %>%
 
 ## Descriptives 
 
-![](discrete_choice_experiments_files/sum_stat.png)
+![](discrete_choice_experiments_files/sum_stat.jpg)
 
 ## Housing attributes
 
-![](discrete_choice_experiments_files/attributes.png)
+![](discrete_choice_experiments_files/attributes.jpg)
 
 
 
@@ -134,23 +134,17 @@ Key word here is "elicit"
 
 ## Discrete Choice Experiments{.smaller}
 
+::: incremental
 -   Discrete choice models operate within a framework of rational choice; that is, it is assumed that when confronted with a discrete set of options, people choose the option of **maximal benefit or utility**.
 -   It follows that the choice is a function of the utility found in each attributes found in options presented.
--   By asking (forcing) many respondents to choose between alternatives in a controlled experiment we can elicit preferences from the **sample population.**
+-   By asking (forcing) many respondents to choose between alternatives in a __controlled experiment__ we can elicit preferences from the **sample population.**
 -   We can then perform statistical inference about the functional parameters. 
+::: 
 
 ## DCEs advantages
 
 - Mimics real life decision-making: reduces biases associated with self-reporting
 - Can implement an economic factor and to derive a "willingness to pay" estimate.
-
-## DCEs dis-advantages
-
-- main disadvantage is the cognitive difficulty with the many complex choices with the attributes and levels.
-- trade off between statistical efficiency and smaller number of choice sets.
--
-
-## Examples
 
 
 ## Example - Cancer treatment options
@@ -158,11 +152,31 @@ Key word here is "elicit"
 
 ## Example - Willingnes to pay for organic?
 
-![](discrete_choice_experiments_files/dce_meat.png)
+![](discrete_choice_experiments_files/dce_meat.jpg)
 
-## Example - our example
 
-![](discrete_choice_experiments_files/dce.png)
+## DCE's in Housing studies{.smaller}
+
+
+::: incremental
+- "Best living concepts for elderly homeowners: combining 
+a stated choice experiment with architectural design" [@ossokinaBestLivingConcepts2020]
+- "Reference-dependent housing choice behaviour:
+why are older people reluctant to move?" [@ossokinaReferencedependentHousingChoice2022a]
+- "Measuring heterogeneous preferences for residential amenities" [@caplanMeasuringHeterogeneousPreferences2021]
+ - "Rural residential preferences for house design and location: insights from
+a discrete choice experiment applied to Ireland"[@bullockRuralResidentialPreferences2011]
+::: 
+
+## Process
+
+::: incremental
+- Let's look next on how we can go about conducting a DCE.
+- Helpful for understanding our particular considerations
+- Keep in mind that we are designing a __Controlled Experiment__!
+- The aim is to present feasible alternatives with minimal bias in the choice sets.
+- The alternatives should only differ by the levels of the attributes.
+::: 
 
 ## Process in a nutshell
 
@@ -190,11 +204,18 @@ grViz("digraph flowchart {
       ")
 ```
 
+## Attributes and levels
+
+- Arguably the most difficult aspect of conducting a DCE.
+- How many attributes should we include?
+- What kind of attributes can we include?
+- What should the levels of the attributes be?
+
 ## Attributes - Properties{.smaller}
 
 Below are some attribute property guidelines taken from the literature. 
 
-The greater number of attributes, the greater the cognitive difficulty of completing a DCE. [@manghamHowNotDesigning2009]
+* The greater number of attributes, the greater the cognitive difficulty of completing a DCE. [@manghamHowNotDesigning2009]
 
 * Increased age would tend to exacerbate the cognitive burden of the DCE, highlighting the need to address the complexity of the experiment in order to obtain valid and reliable responses [@himmlerWhatWorksBetter2021]
 
@@ -206,42 +227,20 @@ The greater number of attributes, the greater the cognitive difficulty of comple
 
 * The experiments pivots around utility theory.  __All attributes and levels should have a positive utility__.
 
-## Moving towards relocation
-
-Now we've had a background on DCEs, let's look to what ***we're*** doing.  First the challenges:
-
-- Which attributes/levels should we choose?
-- How should we design the experiment?
-- Wait, can we even conduct the experiment?
-
-## Conducting the survey
-
-- Recall the problem with the full factorial design.
-- We can't ask respondents to complete 30+ choice sets
-- A consequence of the dimension-reduction method is we need to specify specific versions of the choice set for each respondent.
-- Our survey provider informed us they could not do this.
-
-## Self-hosting an opensource survey framework
-
-- Formr: an opensource survey framework built on R that allows users to conduct surveys for free.
-- It's popular
-- Too popular
-- Here's the code - good luck!
-- Not the aim for today
-
-##  
+## Attributes - rules of thumb{.smaller}
 
 
+- Regarding utility assumptions and viability concerns, we would like to avoid presenting choices to the respondents which are clearly biased.
 
+- In other words, we want to avoid any potential combination of attributes that creates an obvious "good" vs "bad" scenario where any rational actor would choose the "good" option, regardless of their individual utility preferences. 
 
+## Attributes - (more) rules of thumb{.smaller}
 
-## Attributes and levels
+- We should avoid attributes that are only relevant to particular segments of the sample.  For example, "Is wheelchair accessible" would be a poor attribute as wheelchair users would certainly always choose this option, and non-wheelchair users would be gain no utility in choosing this option.
 
--   _Distance to green areas_ - 5km, 10km,15km
--   _Distance to services_ - 5km, 10km,15km
--   _Distance to transportation_ - 5km, 10km,15km
--   _Parking_ -
--   _Cost_ - -20%, -10%, Same, 10%, 20%
+- Dichotomous levels should be avoided.  Firstly, as every combination of attributes and levels will be presented in the survey, combinations with combined negative levels with make their way into the choice sets creating options which no rational actor would choose.  
+
+- Second, as the experiment assumptions are situated in utility theory with trade-offs of utility, we want levels to contain some sort of utility to actually "trade off". An option with no utility will never be chosen and this works against the experiment.  
 
 ## Number of attribues and levels
 
@@ -282,31 +281,80 @@ Exact sample sizes depend on variations in missing data
 
 ## Standard errors - 
 
-![](discrete_choice_experiments_files/sample_size.png)
+![](discrete_choice_experiments_files/sample_size.jpg)
 
-## Attributes
 
-- Assumptions: (mostly) relevant to the population. (There are always exceptions)
-(e.g. over 90% of respondents indicated they have access to a car - parking should be relevant)
-- Commute times - likely very relevant to a sub-sample still in the workforce. Majority of our sample - no.
+## Survey design?{.smaller}
+
+::: incremental
+- We now have some guidelines and more information on attributes
+- What is the survey design?
+- Once we've selected our attributes and levels we need to consider how many choice sets each respondent will take.
+- If we have five attributes with 3 levels each, that's 5x5x5= **125** combinations!!!
+- We can't ask respondents to complete 125 choice sets!!
+- We can use some dimensional-reduction techniques to get the same statistical power without asking an unreasonable number of questions.
+::: 
+
+## Survey design - options
+
+![](discrete_choice_experiments_files/design.jpg)
+
+## Administer the survey
+
+
+- A consequence of the dimension-reduction method is we need to specify specific versions of the choice set for each respondent.
+- Our survey provider informed us they could not do this!
+
+## Self-hosting an opensource survey framework{.smaller}
+
+::: incremental
+- Formr: an opensource survey framework built on R that allows users to conduct very complex surveys for free.
+- It's popular
+- Too popular - no more users
+- The code for their framework is opensource.
+- Need to set up a server, database, functioning app, computational instance, website, interface, and learn at least the basics of a few programming languages...
+- We did that and now have a workable solution - If you're interested ask me later!
+::: 
+
+## Analyse the results
+::: incremental
+- Approach is to use a random utility model a la [@hensherAppliedChoiceAnalysis2015]:
+- Essentially, a multi-nominal logit model that we are familiar with.
+- Straight-forward to estimate
+- Check out the beginings of the [Discrete choice paper](https://github.com/n-christie/ahrg_reloc_age_dce/blob/main/latex/elsvier/reloc_age_prospectus.pdf?raw=true)
+:::
+
+## Now to our DCE!!
+
+Now we've had a background on DCEs, let's look to what ***we're*** doing.  First the challenges:
+
+- We need to decide on the attribute levels
+- We need to work on presenting and defining the attributes so it is clear to the respondents what they are "trading off".
+- We need to ensure the instructions are clear and that the experiment is well-defined.  It should be clear that the hypothetical alternatives only differ by the levels of the attributes and are the same in every other way.
+
+
+## Attributes - where we are at
+
+- Our approach has been to leverage previous housing studies 
+- While adding some attributes deemed important from the follow-up study.
+- The attributes and levels need to have certain properties to keep us in the Utility theory framework and create feasible choice sets.
+- We feel pretty confident with our attributes, we'd like help on the attribute levels!
+
+## Attributes and levels
+
+-   __Distance to green areas__ - 5km, 10km,15km
+-   __Distance to services__- 500m, 5km,15km
+-   __Distance to transportation__ - 200m, 400m, 800m
+-   __Parking__ - Gratis områdesparkering, Betald områdesparkering,  Garage: Betald parkeringsplats inomhus.
+-   __Cost__- -20%, -10%, Same, 10%, 20%
+
 
 ## Levels
 
 - Choice between geographical distance (meters or km) or time (5min walking distance)
 - Choice in levels - do they make sense?
-- Split on Km vs. time
-- 
-
-## Intial feedback
-
-- Positive experience with taking the survey
-- Most found the attributes relevant and interpretable
-
-
-- What are our assumptions?
-- Are they reasonable?
-- Are we missing an important attribute?
-
+- What are the most realistic distances for apartment buildings in Sweden?
+- It would be convenient if the levels are all the same across the attributes to better compare the results. Realistic?
 
 
 # Take the [UPDATED SURVEY (In Swedish)!](http://37.27.25.127/reloc-age-dce-swe)
@@ -316,9 +364,6 @@ Exact sample sizes depend on variations in missing data
 ## Feedback Results
 
 ## Discussion - Talking points
-
-- Taking the survey - 
-- Are our levels realistic to the majority of the sample?
 
 ## References
 
