@@ -28,7 +28,7 @@ We'll take a look at our latest progress towards implementing a discrete choice 
 
 ::: notes
 
-We will get to the survey - but focus today is more geared towards the experiment itself.  Since many of the details relate intimately with the survey design, it will be helpful for us to get a quick background to contextualize our particular example.
+We will get to the survey - but focus today is more geared towards the experiment itself.  Since many of the details relate intimately with the survey design, it will be helpful for us to get a little bit of a background to contextualize our study.
 
 :::
 
