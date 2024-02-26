@@ -3,6 +3,7 @@ title: "Discrete Choice Experiments"
 format: 
   revealjs:
     theme: simple
+    multiplex: true
     self_contained: true
 editor: source
 bibliography: DCE.bib
