@@ -7,15 +7,15 @@ library(here)
 # Create attributes and their levels
 
 profiles <- cbc_profiles(
-  price     = c(-20,-10,0,10,20), # relative to current
+  price     = c("0","-20","-10","10","20"), # relative to current
   dist_green = c("5km", "10km", "15km"),
   dist_shops = c("500 meters", "5km", "15km"),
   dist_trans = c("200", "400", "800"),
-  parking      = c('Garage', 'On street free', 'On street paid')
+  parking      = c('Garage', 'gratis Områdesparkering', 'Betald områdesparkering')
 )
 
 swe_profiles <- cbc_profiles(
-  price     = c(-20,-10,0,10,20), # relative to current
+  price     = c("0","-20","-10","10","20"), # relative to current
   dist_green = c("5km", "10km", "15km"),
   dist_shops = c("500 meters", "5km", "15km"),
   dist_trans = c("200", "400", "800"),
@@ -74,6 +74,13 @@ data_dopt <- cbc_choices(
   obsID  = "obsID"
 )
 
+swe_data_dopt <- cbc_choices(
+  design = swe_design_dopt,
+  obsID  = "obsID"
+)
+
+
+
 data_rand <- cbc_choices(
   design = design_random,
   obsID  = "obsID"
@@ -102,7 +109,17 @@ power_dopt <- cbc_power(
 )
 
 
+swe_power_dopt <- cbc_power(
+  data    = swe_data_dopt,
+  pars    = c("price", "dist_green", "dist_shops", "dist_trans", "parking"),
+  outcome = "choice",
+  obsID   = "obsID",
+  nbreaks = 10,
+  n_q     = 9
+)
+
 plot(power_dopt)
+plot(swe_power_dopt)
 
 plot_compare_power(power_dopt,power_rand) +
    geom_vline(xintercept = 600, linetype="dotted", 

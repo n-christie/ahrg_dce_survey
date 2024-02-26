@@ -35,8 +35,8 @@ mutate(plantorelocate = factor(plantorelocate, levels = 1:2,
                           labels = c("Elementary","High School", "University")),
        own = factor(own, levels = 1:3,
                     labels = c("Hyresrätt","Bostadsrätt", "Äganderätt")),
-       house = factor(house, levels = 1:4,
-                      labels = c("Småhus","Flerbostadshus", "Övriga hus","Specialbostäder")),
+       # house = factor(house, levels = 1:4,
+       #                labels = c("Småhus","Flerbostadshus", "Övriga hus","Specialbostäder")),
        feedback11 = factor(feedback11, levels = 1:3,
                            labels = c("Mobile","Desktop", "Tablet"))
        
@@ -48,11 +48,11 @@ label(dfSum$plantorelocate) <- "Plan to relocate?"
 label(dfSum$monthcost) <- "Monthly costs"
 label(dfSum$income) <- "Monthly household income"
 label(dfSum$own) <- "Own house"
-label(dfSum$house) <- "Kind of house"
+#label(dfSum$house) <- "Kind of house"
 label(dfSum$feedback11) <- "Kind of device"
 
 # generate the desc table
-t1 <- table1::table1(~ plantorelocate + monthcost + income + own + house + feedback11 ,
+t1 <- table1::table1(~ plantorelocate + monthcost + income   + feedback11 ,
                      data = dfSum,
                      na.rm = TRUE,
                      digits = 1,

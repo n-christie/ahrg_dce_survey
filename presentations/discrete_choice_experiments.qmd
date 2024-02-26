@@ -3,7 +3,6 @@ title: "Discrete Choice Experiments"
 format: 
   revealjs:
     theme: simple
-    multiplex: true
     self_contained: true
 editor: source
 bibliography: DCE.bib
@@ -12,53 +11,39 @@ suppress-bibliography: false
 
 # Today's agenda {.smaller}
 
-We'll take a look at our latest progress implementing a discrete choice experiment while covering a couple of related topics:
+We'll take a look at our latest progress towards implementing a discrete choice experiment while covering a couple of related topics:
 
 
 ::: incremental
--   Update on the project
--   Learn about Discrete Choice Experiments - that's a mouthful, let's call them DCEs
+
+-   Thanks everyone who helped test the first beta experiment!!
+-   Background on Discrete Choice Experiments - that's a mouthful, let's call them DCEs
 -   Attributes and levels – the assumptions and traps we’re trying to avoid.
--   Revisit the survey from the researcher perspective
--   Take an updated survey
+-   Revisit the survey - our decisions so far.
+-   Take an updated survey - nu på svenska!
+-   Break
 -   Discussion and feedback
 :::
 
 ::: notes
 
-:::
-
-
-# RELOC-AGE 
-
-```{r, echo=FALSE, results='asis'}
-library(DiagrammeR)
-DiagrammeR::grViz("digraph {
-  
-graph[layout = dot, rankdir = LR]
-
-
-a   [label = 'Baseline\nSpring 2021\nn=1964'] 
-b [label = 'Follow-up\nSpring 2022\nn=1254'] 
-c  [label = '2nd follow-up\nSpring 2024\nn=???', color = red, fontcolor = red] 
-
-
-a -> b -> c
-}")
-```
-
-::: notes
-
-Exact sample sizes depend on variations in missing data
+We will get to the survey - but focus today is more geared towards the experiment itself.  Since many of the details relate intimately with the survey design, it will be helpful for us to get a quick background to contextualize our particular example.
 
 :::
 
+## What we're doing
 
-## Sample description 
+::: incremental
 
-::: {.panel-tabset}
+- Experiment will be included in the 2024 RELOC-AGE Prospective follow-up survey
+- Yet to be determined exactly how we deliver this experiment
+- Link to complete after the main survey... or
+- Separate email to respondents at different time...
+- Should take about 10 min to complete.
 
-## Location 
+:::
+
+## RELOC-AGE Prospective 
 
 ```{r map, eval=TRUE ,warning=FALSE, include=TRUE, widget.layout.height = "calc(100vh - 90px)"}
 library(leaflet)
@@ -76,41 +61,51 @@ leaflet(address_lat_lon,width = "100%" ) %>%
 ```
 
 
-## Descriptives {.scrollable}
+## Descriptives 
 
 ![](discrete_choice_experiments_files/sum_stat.png)
 
-## Housing attributes {.scrollable}
+## Housing attributes
 
 ![](discrete_choice_experiments_files/attributes.png)
 
-:::
+
 
 ## Development of the research aim
 
 ::: incremental
-- We know many physical housing attributes that respondents find important (balcony, elevator, single floor, etc.)
-- We know little about the preferred attributes dealing with ___location___.
+- We know many physical housing attributes that respondents find important from follow-up survey (balcony, elevator, single floor, etc.)
+- We know less about the preferred attributes dealing with ___location___.
 - Where do people want to be situated?
-- Does proximtiy to certain services or location matter?
+- Does proximity to certain services or location matter?
 - If so, which locational attributes are most important?
 :::
 
+::: notes
+
+over half of respondents listed good parking facilities as important. 45% that the dwelling is close to public transportation.
+
+:::
 
 ## Aim and RQ's
 
-Potential candidates...
+Will get some fine tuning, but along the lines of...
 
 ::: incremental
 - "The overall aim is to explore the factors which matters most for the choice of another dwelling among people aged 55 years or more, interested in relocation.”
 - "The overarching aim of this paper is to explore heterogeneous locational preferences of those aged 55 years or more and interested in relocation"
+- In order to do this, we will conduct a Discrete Choice Experiment to elicit preferences of those surveyed.
+- So what exactly ___is___ a Discrete Choice Experiment??!!
+
 :::
 
+::: notes
+Which brings us to the experiments
+:::
 
+## Discrete Choice Experiments
 
-# Discrete Choice Experiments
-
--   A DCE is a research method used in various fields, including economics, marketing, and healthcare, to understand individuals' preferences and decision-making processes.
+-   Used in various fields, including economics, marketing, and healthcare, to understand individuals' preferences and decision-making processes.
 -   The primary goal of a DCE is to elicit and quantify individuals' preferences for different attributes or features of a product, service, or policy by presenting them with a series of choice scenarios.
 
 ::: notes
@@ -123,29 +118,48 @@ Key word here is "elicit"
 -   When we make a choice, we show a **preference**.
 -   Preferences can be construed as **stated** or **revealed**.
 
-## Stated vs. revealed preferences
+## Stated vs. revealed preferences{.smaller}
 
--   Stated: Researchers gather information by directly asking individuals about their preferences, opinions, or choices through interviews, surveys, or other data collection methods.
+
+::: incremental
+-   Stated: Researchers gather information by **directly** asking individuals about their preferences, opinions, or choices through interviews, surveys, or other data collection methods.
+- "Do you find the distance to public transportation (most) important when considering a new apartment?"
+
 -   Revealed: Researchers analyze real-world data, such as consumer purchasing behavior, travel patterns, or **observed choices**, to uncover implicit preferences.
 
-## Revealed preferences - advantages
+- "Thanks for participating in the experiment! From your actions, we observe that you found distance to transportation least important, compared to..."
+:::
 
--   Advantages: Revealed preferences offer a more accurate reflection of individuals' preferences as they are derived from observable actions, reducing biases associated with self-reporting.
 
-## Discrete Choice Experiments
+## Discrete Choice Experiments{.smaller}
 
--   Discrete choice models operate within a framework of rational choice; that is, it is assumed that when confronted with a discrete set of options, people choose the option of maximal benefit or utility.
+-   Discrete choice models operate within a framework of rational choice; that is, it is assumed that when confronted with a discrete set of options, people choose the option of **maximal benefit or utility**.
 -   It follows that the choice is a function of the utility found in each attributes found in options presented.
--   By asking (forcing) many respondents to choose between alternatives in a controlled experiment we can elicit preferences from the population.
+-   By asking (forcing) many respondents to choose between alternatives in a controlled experiment we can elicit preferences from the **sample population.**
 -   We can then perform statistical inference about the functional parameters. 
+
+## DCEs advantages
+
+- Mimics real life decision-making: reduces biases associated with self-reporting
+- Can implement an economic factor and to derive a "willingness to pay" estimate.
+
+## DCEs dis-advantages
+
+- main disadvantage is the cognitive difficulty with the many complex choices with the attributes and levels.
+- trade off between statistical efficiency and smaller number of choice sets.
+-
 
 ## Examples
 
-- Marketing 
-- Transportation
 
+## Example - Cancer treatment options
+![](discrete_choice_experiments_files/dce_patient.jpg)
 
-## Example
+## Example - Willingnes to pay for organic?
+
+![](discrete_choice_experiments_files/dce_meat.png)
+
+## Example - our example
 
 ![](discrete_choice_experiments_files/dce.png)
 
@@ -191,6 +205,35 @@ The greater number of attributes, the greater the cognitive difficulty of comple
 
 * The experiments pivots around utility theory.  __All attributes and levels should have a positive utility__.
 
+## Moving towards relocation
+
+Now we've had a background on DCEs, let's look to what ***we're*** doing.  First the challenges:
+
+- Which attributes/levels should we choose?
+- How should we design the experiment?
+- Wait, can we even conduct the experiment?
+
+## Conducting the survey
+
+- Recall the problem with the full factorial design.
+- We can't ask respondents to complete 30+ choice sets
+- A consequence of the dimension-reduction method is we need to specify specific versions of the choice set for each respondent.
+- Our survey provider informed us they could not do this.
+
+## Self-hosting an opensource survey framework
+
+- Formr: an opensource survey framework built on R that allows users to conduct surveys for free.
+- It's popular
+- Too popular
+- Here's the code - good luck!
+- Not the aim for today
+
+##  
+
+
+
+
+
 ## Attributes and levels
 
 -   _Distance to green areas_ - 5km, 10km,15km
@@ -198,6 +241,71 @@ The greater number of attributes, the greater the cognitive difficulty of comple
 -   _Distance to transportation_ - 5km, 10km,15km
 -   _Parking_ -
 -   _Cost_ - -20%, -10%, Same, 10%, 20%
+
+## Number of attribues and levels
+
+- Considering our sample size, how many attributes/level combinations should we use?
+- No sample size estimator here - there are many factors to consider.
+- How many respondents will we have?
+
+
+
+```{r, echo=FALSE, results='asis'}
+library(DiagrammeR)
+DiagrammeR::grViz("digraph {
+  
+graph[layout = dot, rankdir = LR]
+
+
+a   [label = 'Baseline\nSpring 2021\nn=1964'] 
+b [label = 'Follow-up\nSpring 2022\nn=1254'] 
+c  [label = '2nd follow-up\nSpring 2024\nn=???', color = red, fontcolor = red] 
+
+
+a -> b -> c
+}")
+```
+
+::: notes
+
+Exact sample sizes depend on variations in missing data
+
+:::
+
+
+## Number of attribues and levels
+
+- Considering our sample size, how many attributes/level combinations should we use?
+- No sample size estimator here - there are many factors to consider.
+- One way, simulate some answers and perform the analysis - what happens to the SE's?
+
+## Standard errors - 
+
+![](discrete_choice_experiments_files/sample_size.png)
+
+## Attributes
+
+- Assumptions: (mostly) relevant to the population. (There are always exceptions)
+(e.g. over 90% of respondents indicated they have access to a car - parking should be relevant)
+- Commute times - likely very relevant to a sub-sample still in the workforce. Majority of our sample - no.
+
+## Levels
+
+- Choice between geographical distance (meters or km) or time (5min walking distance)
+- Choice in levels - do they make sense?
+- Split on Km vs. time
+- 
+
+## Intial feedback
+
+- Positive experience with taking the survey
+- Most found the attributes relevant and interpretable
+
+
+- What are our assumptions?
+- Are they reasonable?
+- Are we missing an important attribute?
+
 
 
 # Take the [UPDATED SURVEY (In Swedish)!](http://37.27.25.127/reloc-age-dce-swe)
@@ -207,6 +315,9 @@ The greater number of attributes, the greater the cognitive difficulty of comple
 ## Feedback Results
 
 ## Discussion - Talking points
+
+- Taking the survey - 
+- Are our levels realistic to the majority of the sample?
 
 ## References
 

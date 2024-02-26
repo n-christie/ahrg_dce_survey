@@ -19,6 +19,9 @@ formr::formr_connect(credentials$email,
 survey_design <- read_csv("https://github.com/n-christie/ahrg_dce_survey/blob/main/output/formr/choice_questions.csv?raw=true")
 survey_design_swe <- read_csv("https://github.com/n-christie/ahrg_dce_survey/blob/main/output/formr/swe_choice_questions.csv?raw=true")
 
+s_data_screen <- formr::formr_results("reloc_dce_screen",
+                                      host = "http://37.27.25.127") 
+
 s_data_p1 <- formr::formr_results("reloc_dce_p1",
                                   host = "http://37.27.25.127")
 
@@ -39,7 +42,8 @@ survey_df <- s_data_p1 %>%
   left_join(s_data_p2,
             join_by(session)) %>% 
   left_join(s_data_p4,
-            join_by(session))
+            join_by(session)) %>% 
+  left_join(s_data_screen)
 
 
 saveRDS(survey_df, file = here("data/formr", "ahrg_test.rds"))
