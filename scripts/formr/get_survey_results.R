@@ -43,7 +43,8 @@ survey_df <- s_data_p1 %>%
             join_by(session)) %>% 
   left_join(s_data_p4,
             join_by(session)) %>% 
-  left_join(s_data_screen)
+  left_join(s_data_screen) %>% 
+  filter(created >= 2024-01-30 )
 
 
 saveRDS(survey_df, file = here("data/formr", "ahrg_test.rds"))
@@ -147,7 +148,6 @@ df_merged <- survey_design %>%
   select(profileID:parking, choice)
 
 
-
 # regression
 
 m1_dopt <- logitr(
@@ -158,4 +158,4 @@ m1_dopt <- logitr(
 )
 
 summary(m1_dopt)
-htmlreg(m1_dopt)
+screenreg(m1_dopt)
