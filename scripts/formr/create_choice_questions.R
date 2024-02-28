@@ -134,4 +134,4 @@ plot_compare_power(power_dopt,power_rand) +
 
 # Save design
 write_csv(design_dopt, here("output/formr", "choice_questions.csv"))
-write_csv(swe_design_dopt, here("output/formr", "swe_choice_questions.csv"))
+write_csv(swe_design_dopt, here("output/formr", "swe_choice_questions_01.csv"))
