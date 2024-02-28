@@ -6,24 +6,24 @@ library(here)
 
 # Create attributes and their levels
 
-profiles <- cbc_profiles(
-  price     = c("0","-20","-10","10","20"), # relative to current
-  dist_green = c("5km", "10km", "15km"),
-  dist_shops = c("500 meters", "5km", "15km"),
-  dist_trans = c("200", "400", "800"),
-  parking      = c('Garage', 'gratis Områdesparkering', 'Betald områdesparkering')
-)
+# profiles <- cbc_profiles(
+#   price     = c("0","-20","-10","10","20"), # relative to current
+#   dist_green = c("5km", "10km", "15km"),
+#   dist_shops = c("500 meters", "5km", "15km"),
+#   dist_trans = c("200", "400", "800"),
+#   parking      = c('reserverad garageplats', ' reserverad P-plats', 'ingen P-plats')
+# )
 
 swe_profiles <- cbc_profiles(
   price     = c("0","-20","-10","10","20"), # relative to current
   dist_green = c("5km", "10km", "15km"),
-  dist_shops = c("500 meters", "5km", "15km"),
+  dist_shops = c("5km", "10km", "15km"),
   dist_trans = c("200", "400", "800"),
-  parking      = c('Garage', 'gratis Områdesparkering', 'Betald områdesparkering')
+  parking      = c('reserverad garageplats', ' reserverad P-plats', 'ingen P-plats')
 )
 
 
-nrow(profiles)
+nrow(swe_profiles)
 
 # Create design
 
@@ -31,13 +31,13 @@ set.seed(5678)
 
 ## D opt design
 
-design_dopt <- cbc_design(
-  profiles = profiles,
-  n_resp   = 800, # Number of respondents
-  n_alts   = 2,   # Number of alternatives per question
-  n_q      = 9,   # Number of questions per respondent
-  method   = 'orthogonal'
-)
+# design_dopt <- cbc_design(
+#   profiles = profiles,
+#   n_resp   = 800, # Number of respondents
+#   n_alts   = 2,   # Number of alternatives per question
+#   n_q      = 9,   # Number of questions per respondent
+#   method   = 'orthogonal'
+# )
 
 swe_design_dopt <- cbc_design(
   profiles = swe_profiles,
@@ -50,7 +50,7 @@ swe_design_dopt <- cbc_design(
 # Random design
 
 design_random <- cbc_design(
-  profiles = profiles,
+  profiles = swe_profiles,
   n_resp   = 800, # Number of respondents
   n_alts   = 2,   # Number of alternatives per question
   n_q      = 9,   # Number of questions per respondent
@@ -61,7 +61,7 @@ design_random <- cbc_design(
 # Descriptives and simulation ----
 
 dim(design_dopt)
-cbc_balance(design_dopt)
+cbc_balance(swe_design_dopt)
 
 
 dim(design_random)
