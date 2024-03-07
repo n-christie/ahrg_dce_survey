@@ -5,6 +5,7 @@ library(cbcTools)
 library(tidyr)
 library(texreg)
 library(likert)
+library(lubridate)
 library(stringr)
 library(here)
 source(".passwords.R")
@@ -44,10 +45,10 @@ survey_df <- s_data_p1 %>%
   left_join(s_data_p4,
             join_by(session)) %>% 
   left_join(s_data_screen) %>% 
-  filter(created >= 2024-01-30 )
+  filter(day(created.x) >= "2024-02-27" )
 
 
-saveRDS(survey_df, file = here("data/formr", "ahrg_test.rds"))
+saveRDS(survey_df, file = here("data/formr", "ahrg_test_0.rds"))
 saveRDS(survey_design, file = here("data/formr", "survey_design.rds"))
 saveRDS(survey_design_swe, file = here("data/formr", "survey_design_swe.rds"))
 
