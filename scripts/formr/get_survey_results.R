@@ -21,19 +21,24 @@ survey_design <- read_csv("https://github.com/n-christie/ahrg_dce_survey/blob/ma
 survey_design_swe <- read_csv("https://github.com/n-christie/ahrg_dce_survey/blob/main/output/formr/swe_choice_questions.csv?raw=true")
 
 s_data_screen <- formr::formr_results("reloc_dce_screen",
-                                      host = "http://37.27.25.127") 
+                                      host = "http://37.27.25.127") %>% 
+  mutate(time_page_1 = as.numeric(as.period(ended - created, unit = "seconds")))
 
 s_data_p1 <- formr::formr_results("reloc_dce_p1",
-                                  host = "http://37.27.25.127")
+                                  host = "http://37.27.25.127") %>% 
+  mutate(time_page_2 = as.numeric(as.period(ended - created, unit = "seconds")))
 
 s_data_p2 <- formr::formr_results("reloc_dce_p2",
-                                  host = "http://37.27.25.127")
+                                  host = "http://37.27.25.127") %>% 
+  mutate(time_page_3 = as.numeric(as.period(ended - created, unit = "seconds")))
 
 s_data_p4 <- formr::formr_results("reloc_dce_p4",
-                                  host = "http://37.27.25.127")
+                                  host = "http://37.27.25.127") %>% 
+  mutate(time_page_4 = as.numeric(as.period(ended - created, unit = "seconds")))
 
-s_data_feedback <- formr::formr_results("reloc_dce_feedbak",
-                                     host = "http://37.27.25.127")
+s_data_feedback <- formr::formr_results("reloc_dce_feedback_swe",
+                                     host = "http://37.27.25.127") %>% 
+  mutate(time_page_feed = as.numeric(as.period(ended - created, unit = "seconds")))
 
 survey_df <- s_data_p1 %>%
   left_join(s_data_feedback,
@@ -44,15 +49,23 @@ survey_df <- s_data_p1 %>%
             join_by(session)) %>% 
   left_join(s_data_p4,
             join_by(session)) %>% 
-  left_join(s_data_screen) %>% 
-  filter(day(created.x) >= "2024-02-27" )
+  left_join(s_data_screen)
+
+retreat_df <- survey_df %>% 
+  mutate(created.x = ymd_hms(created.x)) %>% 
+  filter(created.x >= "2024-02-27" )
+
+saveRDS(retreat_df, file = here("data/formr", "retreat_df.rds"))
+
 
 
 saveRDS(survey_df, file = here("data/formr", "ahrg_test_0.rds"))
 saveRDS(survey_design, file = here("data/formr", "survey_design.rds"))
 saveRDS(survey_design_swe, file = here("data/formr", "survey_design_swe.rds"))
 
-# prepare tables/figures for shinydoc ----
+# prepare and save files from first outreach survey ----
+
+saveRDS(survey_df, file = here("data/formr", "first_pilot.rds"))
 
 
 
