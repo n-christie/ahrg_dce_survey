@@ -7,7 +7,7 @@ p_load(tidyverse, here, stringr, formr, logitr, cbcTools, texreg, likert, tidyr,
 
 
 survey_design <- readRDS("data/formr/survey_design_swe.rds")
-survey_df <- readRDS("data/formr/first_pilot.rds")
+survey_df <- readRDS("data/formr/ahrg_pilot_2.rds")
 
 ## Descriptive data ----
 

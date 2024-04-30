@@ -18,16 +18,18 @@ knitr::opts_chunk$set(echo = TRUE)
 
 $~$
 
- <font size="5"> Take the [TEST SURVEY](http://37.27.25.127/reloc-age-lund-dce) !! </font> 
+# Notes
+
+*  Take the <font size="5"> [TEST SURVEY](https://www.reloc-age.org/dce) </font>. 
 
 
- <font size="5"> See the preliminary [FEEDBACK](#feedback) !! </font> 
+* See the preliminary <font size="5"> [FEEDBACK](#feedback)  </font> from pilot tests.
  
  
-__Note__: Structure of the document is now oriented towards our specific project. Detailed explanations of attributes, levels, etc., can be found in the [Appendix](#appendix).
+* Structure of the document is now oriented towards our specific project. Detailed explanations of attributes, levels, etc., can be found in the [Appendix](#appendix).
 
-__Note__:  A working document with the beginning of a potential paper:
-[Discrete choice](https://github.com/n-christie/ahrg_reloc_age_dce/blob/main/latex/elsvier/reloc_age_prospectus.pdf?raw=true)
+* A working document with the beginning of a potential 
+[Discrete choice](https://github.com/n-christie/ahrg_reloc_age_dce/blob/main/latex/elsvier/reloc_age_prospectus.pdf?raw=true) paper.
 
 
 $~$

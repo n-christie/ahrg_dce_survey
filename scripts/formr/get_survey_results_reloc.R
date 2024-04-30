@@ -49,10 +49,12 @@ survey_df <- s_data_p1 %>%
             join_by(session)) %>% 
   left_join(s_data_screen)
 
+
+saveRDS(survey_df, file = here("data/formr", "ahrg_pilot_2.rds"))
+
+
 retreat_df <- survey_df %>% 
   mutate(created.x = ymd_hms(created.x)) %>% 
   filter(created.x >= "2024-02-27" )
 
 
-s_data_screen <- formr::formr_raw_results("widget",
-                                      host = "https://www.reloc-age.org")
