@@ -1,12 +1,12 @@
-name: dce_process
-title: dce_process
+name: pilot_2_summary
+title: pilot_2_summary
 username: nickchristie
 account: nickchristie
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
-appId: 10201031
-bundleId: 8582328
-url: https://nickchristie.shinyapps.io/dce_process/
+appId: 11943392
+bundleId: 8608931
+url: https://nickchristie.shinyapps.io/pilot_2_summary/
 version: 1
 asMultiple: FALSE
 asStatic: FALSE

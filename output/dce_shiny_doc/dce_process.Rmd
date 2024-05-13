@@ -23,8 +23,8 @@ $~$
 *  Take the <font size="5"> [TEST SURVEY](https://www.reloc-age.org/dce) </font>. 
 
 
-* See the preliminary <font size="5"> [FEEDBACK](#feedback)  </font> from pilot tests.
- 
+<!-- * See the preliminary <font size="5"> [FEEDBACK](#feedback)  </font> from pilot tests. -->
+
  
 * Structure of the document is now oriented towards our specific project. Detailed explanations of attributes, levels, etc., can be found in the [Appendix](#appendix).
 
@@ -34,196 +34,374 @@ $~$
 
 $~$
 
-# Feedback
+<!-- # Pilot 1 - Feedback -->
 
-## Descriptive data
+<!-- ## Descriptive data -->
 
-```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"}
-# Load libraries and data
+<!-- ```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"} -->
+<!-- # Load libraries and data -->
 
-library(pacman)
+<!-- library(pacman) -->
 
-p_load(tidyverse, here, stringr, formr, logitr, cbcTools, texreg, likert, tidyr, haven, kableExtra, sjlabelled, summarytools)
+<!-- p_load(tidyverse, here, stringr, formr, logitr, cbcTools, texreg, likert, tidyr, haven, kableExtra, sjlabelled, summarytools) -->
 
-# load data
-
-
-survey_design <- readRDS("data/survey_design_swe.rds")
-survey_df <- readRDS("data/first_pilot.rds")
+<!-- # load data -->
 
 
-```
+<!-- survey_design <- readRDS("data/survey_design_swe.rds") -->
+<!-- survey_df <- readRDS("data/first_pilot.rds") -->
+<!-- survey_df2 <- readRDS("data/ahrg_pilot_2.rds") -->
 
-
-
-```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"}
-dfSum <- survey_df %>% 
-  select(monthcost,income, time_page_1,time_page_2,time_page_3,time_page_4,time_page_feed, user_exp = feedback_button01, content = feedback_button02)%>% 
-  mutate(cbc_time = if_else(is.na(time_page_4),time_page_3,time_page_4) ,
-           total_survey_time = rowSums(across(c(time_page_1,time_page_2,cbc_time))) ,
-         feed_back_time = time_page_feed ) %>% 
-  as.data.frame()
-
-dfSum <- dfSum %>% 
-  mutate(cbc_time = cbc_time/60,
-         total_survey_time =total_survey_time/60,
-         feed_back_time = feed_back_time/60)
-
-label(dfSum$monthcost) <- "Monthly costs"
-label(dfSum$income) <- "Monthly household income"
-label(dfSum$user_exp) <- "User Experience"
-label(dfSum$content) <- "Content"
-label(dfSum$cbc_time) <- "Time to complete DCE section"
-label(dfSum$total_survey_time) <- "Time to complete entire experiment"
-label(dfSum$feed_back_time) <- "Time to complete feedback"
+<!-- ``` -->
 
 
 
-t1 <- table1::table1(~ monthcost + income + cbc_time + total_survey_time + feed_back_time + user_exp + content ,
-                     data = dfSum,
-                     na.rm = TRUE,
-                     digits = 3,
-                     format.number = FALSE,
-                     # extra.col=list(`P-value`=pvalue),
-                     caption = "Sample description") 
+<!-- ```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"} -->
+<!-- dfSum <- survey_df %>%  -->
+<!--   select(monthcost,income, time_page_1,time_page_2,time_page_3,time_page_4,time_page_feed, user_exp = feedback_button01, content = feedback_button02)%>%  -->
+<!--   mutate(cbc_time = if_else(is.na(time_page_4),time_page_3,time_page_4) , -->
+<!--            total_survey_time = rowSums(across(c(time_page_1,time_page_2,cbc_time))) , -->
+<!--          feed_back_time = time_page_feed ) %>%  -->
+<!--   as.data.frame() -->
 
-table1::t1flex(t1) |> 
-  flextable::fontsize(size = 11) |> 
-  flextable::padding(padding = 1, part = "all") 
- 
-```
+<!-- dfSum <- dfSum %>%  -->
+<!--   mutate(cbc_time = cbc_time/60, -->
+<!--          total_survey_time =total_survey_time/60, -->
+<!--          feed_back_time = feed_back_time/60) -->
 
-
-
-## Ratings
-
-
-Hur skulle du betygsätta den övergripande upplevelsen av att genomföra experimentet?
-
-```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"}
-like1 <- dfSum %>% 
-  select(user_exp) %>% 
-  transmute("Användarupplevelse" = factor(user_exp, levels = 1:5,
-                                  labels = c("Inte så bra",
-                                             "2",
-                                             "3",
-                                             "4",
-                                             "Jättebra")
-                                  )
-         ) %>% 
-  as.data.frame() 
-library(plyr)
-
-plot(likert(like1),
-     legend.position = 'bottom',
-     text.size = 3,
-     plot.percents = TRUE) +  
-  theme(legend.text = element_text(size = rel(0.6)))
-
-```
-
-$~$
-
-Hur skulle du betygsätta det övergripande innehållet? 
-
-```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"}
-
-like2 <- dfSum %>% 
-  select(content) %>% 
-  transmute("Innehåll" =  factor(content, levels = 1:5,
-                                  labels = c("Inte relevant",
-                                             "2",
-                                             "3",
-                                             "4",
-                                             "Relevant")
-                                  )
-         ) %>% 
-  as.data.frame() 
-
-
-plot(likert(like2),
-     legend.position = 'bottom',
-     text.size = 3,
-     plot.percents = TRUE) +  
-  theme(legend.text = element_text(size = rel(0.6)))
-
-```
-
-
-## Kommentarer - Användarupplevelse
-
-Vänligen dela eventuella kommentarer eller svårigheter du hade för att ta undersökningen!
-
-```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"}
-
-survey_df %>% 
-  select(text_feedback) %>% 
-  na.omit %>% 
-  sjlabelled::label_to_colnames() %>%
-  as_tibble() %>% 
-  knitr::kable(caption = "",
-               col.names = c("Användarupplevelse")) %>% 
-  kable_styling((bootstrap_options = c("striped", "hover"))
-  ) %>% 
-  row_spec(1:7,
-           extra_css = "padding: 12px")
-```
-
-### Kommentarer - Innehåll
-
-```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"}
-
-survey_df %>% 
-  select(text_feedback2) %>% 
-  na.omit %>% 
-  sjlabelled::label_to_colnames() %>%
-  as_tibble() %>% 
-  knitr::kable(caption = "",
-               col.names = c("Content comments")) %>% 
-  kable_styling((bootstrap_options = c("striped", "hover"))
-  ) %>% 
-  row_spec(1:7,
-           extra_css = "padding: 12px")
-```
-
-$~$
-
-## More feedback
-
-```{r, echo=FALSE, out.width="100%"}
-knitr::include_graphics("figures/list_feedback.jpg")
-```
+<!-- label(dfSum$monthcost) <- "Monthly costs" -->
+<!-- label(dfSum$income) <- "Monthly household income" -->
+<!-- label(dfSum$user_exp) <- "User Experience" -->
+<!-- label(dfSum$content) <- "Content" -->
+<!-- label(dfSum$cbc_time) <- "Time to complete DCE section" -->
+<!-- label(dfSum$total_survey_time) <- "Time to complete entire experiment" -->
+<!-- label(dfSum$feed_back_time) <- "Time to complete feedback" -->
 
 
 
-## Regressions
+<!-- t1 <- table1::table1(~ monthcost + income + cbc_time + total_survey_time + feed_back_time + user_exp + content , -->
+<!--                      data = dfSum, -->
+<!--                      na.rm = TRUE, -->
+<!--                      digits = 3, -->
+<!--                      format.number = FALSE, -->
+<!--                      # extra.col=list(`P-value`=pvalue), -->
+<!--                      caption = "Sample description")  -->
 
-```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%", results='asis'}
-library(texreg)
+<!-- table1::t1flex(t1) |>  -->
+<!--   flextable::fontsize(size = 11) |>  -->
+<!--   flextable::padding(padding = 1, part = "all")  -->
 
-m1 <- readRDS("data/model_1.rds")
-
-htmlreg(m1,
-        caption = "Logistic regression results",
-        ci.force = TRUE,
-        custom.coef.names = c("Distance green - 5km (base = 10km)",
-                              "Distance green - 15km (base = 10km)",
-                              "Distance shops - 5km (base = 10km)",
-                              "Distance shops - 15km (base = 10km)",
-                              "Distance trans - 200m (base = 400m)",
-                              "Distance trans - 800m (base = 400m)",
-                              "Parking - Garageplats (base = Ingen p-plats)",
-                              "Parking - P-plats (base = Ingen p-plats)",
-                              "Price -20% (base = 0)",
-                              "Price -10% (base = 0)",
-                              "Price 10% (base = 0)",
-                              "Price 20% (base = 0)"
-        ))
+<!-- ``` -->
 
 
-```
 
-$~$
+<!-- ## Ratings -->
+
+
+<!-- Hur skulle du betygsätta den övergripande upplevelsen av att genomföra experimentet? -->
+
+<!-- ```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"} -->
+<!-- like1 <- dfSum %>%  -->
+<!--   select(user_exp) %>%  -->
+<!--   transmute("Användarupplevelse" = factor(user_exp, levels = 1:5, -->
+<!--                                   labels = c("Inte så bra", -->
+<!--                                              "2", -->
+<!--                                              "3", -->
+<!--                                              "4", -->
+<!--                                              "Jättebra") -->
+<!--                                   ) -->
+<!--          ) %>%  -->
+<!--   as.data.frame()  -->
+<!-- library(plyr) -->
+
+<!-- plot(likert(like1), -->
+<!--      legend.position = 'bottom', -->
+<!--      text.size = 3, -->
+<!--      plot.percents = TRUE) +   -->
+<!--   theme(legend.text = element_text(size = rel(0.6))) -->
+
+<!-- ``` -->
+
+<!-- $~$ -->
+
+<!-- Hur skulle du betygsätta det övergripande innehållet?  -->
+
+<!-- ```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"} -->
+
+<!-- like2 <- dfSum %>%  -->
+<!--   select(content) %>%  -->
+<!--   transmute("Innehåll" =  factor(content, levels = 1:5, -->
+<!--                                   labels = c("Inte relevant", -->
+<!--                                              "2", -->
+<!--                                              "3", -->
+<!--                                              "4", -->
+<!--                                              "Relevant") -->
+<!--                                   ) -->
+<!--          ) %>%  -->
+<!--   as.data.frame()  -->
+
+
+<!-- plot(likert(like2), -->
+<!--      legend.position = 'bottom', -->
+<!--      text.size = 3, -->
+<!--      plot.percents = TRUE) +   -->
+<!--   theme(legend.text = element_text(size = rel(0.6))) -->
+
+<!-- ``` -->
+
+
+<!-- ## Kommentarer - Användarupplevelse -->
+
+<!-- Vänligen dela eventuella kommentarer eller svårigheter du hade för att ta undersökningen! -->
+
+<!-- ```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"} -->
+
+<!-- survey_df %>%  -->
+<!--   select(text_feedback) %>%  -->
+<!--   na.omit %>%  -->
+<!--   sjlabelled::label_to_colnames() %>% -->
+<!--   as_tibble() %>%  -->
+<!--   knitr::kable(caption = "", -->
+<!--                col.names = c("Användarupplevelse")) %>%  -->
+<!--   kable_styling((bootstrap_options = c("striped", "hover")) -->
+<!--   ) %>%  -->
+<!--   row_spec(1:7, -->
+<!--            extra_css = "padding: 12px") -->
+<!-- ``` -->
+
+<!-- ### Kommentarer - Innehåll -->
+
+<!-- ```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"} -->
+
+<!-- survey_df %>%  -->
+<!--   select(text_feedback2) %>%  -->
+<!--   na.omit %>%  -->
+<!--   sjlabelled::label_to_colnames() %>% -->
+<!--   as_tibble() %>%  -->
+<!--   knitr::kable(caption = "", -->
+<!--                col.names = c("Content comments")) %>%  -->
+<!--   kable_styling((bootstrap_options = c("striped", "hover")) -->
+<!--   ) %>%  -->
+<!--   row_spec(1:7, -->
+<!--            extra_css = "padding: 12px") -->
+<!-- ``` -->
+
+<!-- $~$ -->
+
+<!-- ## More feedback -->
+
+<!-- ```{r, echo=FALSE, out.width="100%"} -->
+<!-- knitr::include_graphics("figures/list_feedback.jpg") -->
+<!-- ``` -->
+
+
+
+<!-- ## Regressions -->
+
+<!-- ```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%", results='asis'} -->
+<!-- library(texreg) -->
+
+<!-- m1 <- readRDS("data/model_1.rds") -->
+
+<!-- htmlreg(m1, -->
+<!--         caption = "Logistic regression results", -->
+<!--         ci.force = TRUE, -->
+<!--         custom.coef.names = c("Distance green - 5km (base = 10km)", -->
+<!--                               "Distance green - 15km (base = 10km)", -->
+<!--                               "Distance shops - 5km (base = 10km)", -->
+<!--                               "Distance shops - 15km (base = 10km)", -->
+<!--                               "Distance trans - 200m (base = 400m)", -->
+<!--                               "Distance trans - 800m (base = 400m)", -->
+<!--                               "Parking - Garageplats (base = Ingen p-plats)", -->
+<!--                               "Parking - P-plats (base = Ingen p-plats)", -->
+<!--                               "Price -20% (base = 0)", -->
+<!--                               "Price -10% (base = 0)", -->
+<!--                               "Price 10% (base = 0)", -->
+<!--                               "Price 20% (base = 0)" -->
+<!--         )) -->
+
+
+<!-- ``` -->
+
+<!-- $~$ -->
+
+
+<!-- # Pilot 2 - Feedback -->
+
+<!-- ## Descriptive data -->
+
+
+<!-- ```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"} -->
+
+<!-- dfSum <- survey_df %>%  -->
+<!--   select(monthcost,income, time_page_1,time_page_2,time_page_4,time_page_feed, user_exp = feedback_button01, content = feedback_button02)%>%  -->
+<!--   mutate( -->
+<!--     # cbc_time = if_else(is.na(time_page_4),time_page_4) , -->
+<!--            total_survey_time = rowSums(across(c(time_page_2,time_page_4))) , -->
+<!--          feed_back_time = time_page_feed ) %>%  -->
+<!--   as.data.frame() -->
+
+<!-- dfSum <- dfSum %>%  -->
+<!--   mutate( -->
+<!--          total_survey_time =total_survey_time/60, -->
+<!--          feed_back_time = feed_back_time/60) -->
+
+<!-- label(dfSum$monthcost) <- "Monthly costs" -->
+<!-- label(dfSum$income) <- "Monthly household income" -->
+<!-- label(dfSum$user_exp) <- "User Experience" -->
+<!-- label(dfSum$content) <- "Content" -->
+<!-- label(dfSum$cbc_time) <- "Time to complete DCE section" -->
+<!-- label(dfSum$total_survey_time) <- "Time to complete entire experiment" -->
+<!-- label(dfSum$feed_back_time) <- "Time to complete feedback" -->
+
+
+
+<!-- t1 <- table1::table1(~ monthcost + income  + total_survey_time + feed_back_time + user_exp + content , -->
+<!--                      data = dfSum, -->
+<!--                      na.rm = TRUE, -->
+<!--                      digits = 3, -->
+<!--                      format.number = FALSE, -->
+<!--                      # extra.col=list(`P-value`=pvalue), -->
+<!--                      caption = "Pilot 2 Sample description")  -->
+
+<!-- table1::t1flex(t1) |>  -->
+<!--   flextable::fontsize(size = 11) |>  -->
+<!--   flextable::padding(padding = 1, part = "all")  -->
+
+<!-- ``` -->
+
+
+
+<!-- ## Ratings -->
+
+
+<!-- Hur skulle du betygsätta den övergripande upplevelsen av att genomföra experimentet? -->
+
+<!-- ```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"} -->
+<!-- like1 <- dfSum %>%  -->
+<!--   select(user_exp) %>%  -->
+<!--   transmute("Användarupplevelse" = factor(user_exp, levels = 1:5, -->
+<!--                                   labels = c("Inte så bra", -->
+<!--                                              "2", -->
+<!--                                              "3", -->
+<!--                                              "4", -->
+<!--                                              "Jättebra") -->
+<!--                                   ) -->
+<!--          ) %>%  -->
+<!--   as.data.frame()  -->
+<!-- library(plyr) -->
+
+<!-- plot(likert(like1), -->
+<!--      legend.position = 'bottom', -->
+<!--      text.size = 3, -->
+<!--      plot.percents = TRUE) +   -->
+<!--   theme(legend.text = element_text(size = rel(0.6))) -->
+
+<!-- ``` -->
+
+<!-- $~$ -->
+
+<!-- Hur skulle du betygsätta det övergripande innehållet?  -->
+
+<!-- ```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"} -->
+
+<!-- like2 <- dfSum %>%  -->
+<!--   select(content) %>%  -->
+<!--   transmute("Innehåll" =  factor(content, levels = 1:5, -->
+<!--                                   labels = c("Inte relevant", -->
+<!--                                              "2", -->
+<!--                                              "3", -->
+<!--                                              "4", -->
+<!--                                              "Relevant") -->
+<!--                                   ) -->
+<!--          ) %>%  -->
+<!--   as.data.frame()  -->
+
+
+<!-- plot(likert(like2), -->
+<!--      legend.position = 'bottom', -->
+<!--      text.size = 3, -->
+<!--      plot.percents = TRUE) +   -->
+<!--   theme(legend.text = element_text(size = rel(0.6))) -->
+
+<!-- ``` -->
+
+
+<!-- ## Kommentarer - Användarupplevelse -->
+
+<!-- Vänligen dela eventuella kommentarer eller svårigheter du hade för att ta undersökningen! -->
+
+<!-- ```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"} -->
+
+<!-- survey_df %>%  -->
+<!--   select(text_feedback) %>%  -->
+<!--   na.omit %>%  -->
+<!--   sjlabelled::label_to_colnames() %>% -->
+<!--   as_tibble() %>%  -->
+<!--   knitr::kable(caption = "", -->
+<!--                col.names = c("Användarupplevelse")) %>%  -->
+<!--   kable_styling((bootstrap_options = c("striped", "hover")) -->
+<!--   ) %>%  -->
+<!--   row_spec(1:7, -->
+<!--            extra_css = "padding: 12px") -->
+<!-- ``` -->
+
+<!-- ### Kommentarer - Innehåll -->
+
+<!-- ```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"} -->
+
+<!-- survey_df %>%  -->
+<!--   select(text_feedback2) %>%  -->
+<!--   na.omit %>%  -->
+<!--   sjlabelled::label_to_colnames() %>% -->
+<!--   as_tibble() %>%  -->
+<!--   knitr::kable(caption = "", -->
+<!--                col.names = c("Content comments")) %>%  -->
+<!--   kable_styling((bootstrap_options = c("striped", "hover")) -->
+<!--   ) %>%  -->
+<!--   row_spec(1:7, -->
+<!--            extra_css = "padding: 12px") -->
+<!-- ``` -->
+
+<!-- $~$ -->
+
+<!-- ## More feedback -->
+
+<!-- ```{r, echo=FALSE, out.width="100%"} -->
+<!-- knitr::include_graphics("figures/list_feedback.jpg") -->
+<!-- ``` -->
+
+
+
+<!-- ## Regressions -->
+
+<!-- ```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="100%", results='asis'} -->
+<!-- library(texreg) -->
+
+<!-- m1 <- readRDS("data/model_1.rds") -->
+
+<!-- htmlreg(m1, -->
+<!--         caption = "Logistic regression results", -->
+<!--         ci.force = TRUE, -->
+<!--         custom.coef.names = c("Distance green - 5km (base = 10km)", -->
+<!--                               "Distance green - 15km (base = 10km)", -->
+<!--                               "Distance shops - 5km (base = 10km)", -->
+<!--                               "Distance shops - 15km (base = 10km)", -->
+<!--                               "Distance trans - 200m (base = 400m)", -->
+<!--                               "Distance trans - 800m (base = 400m)", -->
+<!--                               "Parking - Garageplats (base = Ingen p-plats)", -->
+<!--                               "Parking - P-plats (base = Ingen p-plats)", -->
+<!--                               "Price -20% (base = 0)", -->
+<!--                               "Price -10% (base = 0)", -->
+<!--                               "Price 10% (base = 0)", -->
+<!--                               "Price 20% (base = 0)" -->
+<!--         )) -->
+
+
+<!-- ``` -->
+
+<!-- $~$ -->
+
 
 # Overall aim and Purpose
 

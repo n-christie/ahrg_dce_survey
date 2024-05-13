@@ -6,8 +6,9 @@ p_load(tidyverse, here, stringr, formr, logitr, cbcTools, texreg, likert, tidyr,
 # load data
 
 
-survey_design <- readRDS("data/formr/survey_design_swe.rds")
-survey_df <- readRDS("data/formr/ahrg_pilot_2.rds")
+survey_design <-  read_csv("https://github.com/n-christie/ahrg_dce_survey/blob/main/output/formr/swe_choice_questions_01.csv?raw=true")
+survey_df <- readRDS("data/formr/first_pilot.rds")
+survey_df2 <- readRDS("data/formr/ahrg_pilot_2.rds")
 
 ## Descriptive data ----
 
@@ -134,6 +135,37 @@ mutate(cost = income * (1+(price/100)),
   as.data.frame()
 
 
+
+
+
+df_regs2 <- survey_df2 %>% 
+  select(respID = respondentID, contains("cbc")) %>% 
+  pivot_longer(cols = -respID,
+               values_to = "chosen") %>% 
+  mutate(qID = extract_numeric(name),
+         respID = as.numeric(respID)) %>% 
+  filter(!is.na(qID))
+
+df_merged2 <- survey_design %>% 
+  inner_join(df_regs2,
+             by = c("respID" ,"qID")) %>% 
+  left_join(survey_df2 %>% 
+              mutate(respondentID = as.numeric(respondentID)
+              ),
+            by = c("respID" = "respondentID")) %>% 
+  mutate(cost = planed_cost * (1+(price/100)),
+         choice = if_else(altID == chosen, 1, 0),
+         price_con = (1+(price/100)),
+         price = factor(price, levels = c("0","-20","-10","10","20")),
+         dist_trans = factor(dist_trans, levels = c("400","200","800")),
+         dist_green = factor(dist_green, levels = c("500 meter", "5km", "15km")),
+         dist_shops = factor(dist_shops, levels = c("500 meter", "5km", "15km")),
+  ) %>% 
+  select(profileID:parking, choice,monthcost,income, cost,price_con) %>% 
+  ungroup() %>% 
+  as.data.frame()
+
+
 # regressions -----
 
 
@@ -146,6 +178,13 @@ m1_dopt <- logitr(
   pars    = c( "dist_green", "dist_shops","dist_trans","parking", "price")
 )
 
+
+m1_dopt2 <- logitr(
+  data    = df_merged2,
+  outcome = "choice",
+  obsID   = "obsID",
+  pars    = c( "dist_green", "dist_shops","dist_trans","parking", "price")
+)
 
 
 m2_dopt <- logitr(   #NOT WORKINF NAN IN VCOV MATRIX
@@ -166,7 +205,7 @@ vcov(m2_dopt)
 # Preference model -----
 
 m3_dopt_pref <- logitr(   
-  data    = df_merged %>% filter(!is.na(income)),
+  data    = df_merged2 ,
   outcome = "choice",
   obsID   = "obsID",
   pars    = c( "dist_green",
@@ -194,7 +233,7 @@ wtp(m3_dopt_pref, scalePar = "cost")
 # WTP model ----
 
 m3_dopt_wtp <- logitr(   
-  data    = df_merged %>% filter(!is.na(cost)),
+  data    = df_merged2 ,
   outcome = "choice",
   obsID   = "obsID",
   pars    = c( "dist_green",
