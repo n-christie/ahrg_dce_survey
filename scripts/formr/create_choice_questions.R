@@ -18,7 +18,7 @@ swe_profiles <- cbc_profiles(
   price     = c("0","-20","-10","10","20"), # relative to current
   dist_green = c("500 meter", "5km", "15km"),
   dist_shops = c("500 meter", "5km", "15km"),
-  dist_trans = c("200", "400", "800"),
+  dist_trans = c("300", "600", "900"),
   parking      = c('reserverad garageplats', ' reserverad P-plats', 'ingen P-plats')
 )
 
