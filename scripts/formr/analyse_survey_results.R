@@ -8,16 +8,20 @@ p_load(tidyverse, here, stringr, formr, logitr, cbcTools, texreg, likert, tidyr,
 
 survey_design <-  read_csv("https://github.com/n-christie/ahrg_dce_survey/blob/main/output/formr/swe_choice_questions_01.csv?raw=true")
 
-survey_df <- readRDS(here("data/formr", "day_four_results.rds")) %>% 
+survey_df <- readRDS(here("data/formr", "day_ten_results.rds")) %>% 
   filter(created_page_0 > "2024-05-29") # Remove pilot testers, all surveys after 29/5/2024
 
 
 ## Descriptive data ----
 
 dfSum <- survey_df %>% 
+  # filter(planed_cost != 0,
+  #        monthcost != 0,
+  #        income != 0) %>%
   select(monthcost,income,planed_cost, time_page_1,time_page_2,time_page_0,time_page_4)%>% 
-  mutate(cbc_time = if_else(is.na(time_page_4),time_page_2/60,time_page_4/60) ,
-         total_survey_time = rowSums(across(c(time_page_1,time_page_2,cbc_time)))/60 ) %>% 
+  mutate(time_page_1 = time_page_1/60,
+           cbc_time = (if_else(is.na(time_page_4),time_page_2,time_page_4)/60) ,
+         total_survey_time = rowSums(across(c(time_page_1,cbc_time))) ) %>% 
   as.data.frame()
 
 
@@ -45,25 +49,79 @@ table1::t1flex(t1) |>
 
 ## Figures ----
 
-dfSum %>% 
-  ggplot(aes(planed_cost)) +
-  geom_density(bins = 300)
+theme_set(theme_bw())
 
-dfSum %>% 
-  ggplot(aes(total_survey_time)) +
-  geom_histogram(bins = 300)
+annotations_p <- data.frame(
+  x = c(round(min(dfSum %>% filter(planed_cost != 0) %>% pull(planed_cost)), 2),
+        round(mean(dfSum %>% filter(planed_cost != 0) %>% pull(planed_cost)), 2),
+        round(max(dfSum %>% filter(planed_cost != 0) %>% pull(planed_cost)), 2)),
+  y = c(.000014, .000262, .000015),
+  label = c("Min:", "Mean:", "Max:")
+) 
 
-dfSum %>% 
+
+planned_plot <- dfSum %>% 
+  filter(planed_cost != 0) %>%
+  ggplot(aes(x = planed_cost)) +
+  geom_histogram(aes(y=..density..), bins = 70,  color = "#000000", fill = "#0099F8")+
+  geom_density(color = "#000000", fill = "#F85700", alpha = 0.6) +
+  scale_x_continuous(labels = scales::label_number(suffix = " sek")) +
+  labs(title = "What are your planned monthly housing costs?",
+       y = "",
+       x = "Planned housing costs") +
+    theme(axis.text.y = element_blank()) +
+  geom_text(data = annotations_p, aes(x = x, y = y, label = paste(label, x)), size = 3, fontface = "bold")
+  
+planned_plot 
+
+
+
+annotations_c <- data.frame(
+  x = c(round(min(dfSum %>% filter(monthcost != 0) %>% pull(monthcost)), 2),
+        round(mean(dfSum %>% filter(monthcost != 0) %>% pull(monthcost)), 2),
+        round(max(dfSum %>% filter(monthcost != 0) %>% pull(monthcost)), 2)),
+  y = c(.000014, .000162, .000015),
+  label = c("Min:", "Mean:", "Max:")
+)
+
+current_plot <-dfSum %>% 
+  filter(monthcost != 0) %>%
+  ggplot(aes(monthcost)) +
+  geom_histogram(aes(y=..density..), bins = 50,  color = "#000000", fill = "#0099F8")+
+  geom_density(color = "#000000", fill = "#F85700", alpha = 0.6) +
+  scale_x_continuous(labels = scales::label_number(suffix = " sek")) +
+  labs(title = "What are your current monthly housing costs?",
+       y = "",
+       x = "Monthly housing costs") +
+  theme(axis.text.y = element_blank()) +
+  geom_text(data = annotations_c, aes(x = x, y = y, label = paste(label, x)), size = 3, fontface = "bold")
+
+current_plot
+
+annotations_i <- data.frame(
+  x = c(round(min(dfSum %>% filter(income != 0) %>% pull(income)), 2),
+        round(mean(dfSum %>% filter(income != 0) %>% pull(income)), 2),
+        round(max(dfSum %>% filter(income != 0) %>% pull(income)), 2)),
+  y = c(.000004, .000022262, .000005),
+  label = c("Min:", "Mean:", "Max:")
+)
+
+income_plot <-dfSum %>% 
+  filter(income != 0) %>%
   ggplot(aes(income)) +
-  geom_histogram(bins = 15)
+  geom_histogram(aes(y=..density..), bins = 50, color = "#000000", fill = "#0099F8")+
+  geom_density(color = "#000000", fill = "#F85700", alpha = 0.6) +
+  #geom_vline(aes(xintercept = mean(income)),col='red',size=1)+
+  scale_x_continuous(labels = scales::label_number(suffix = " sek")) +
+  labs(title = "What is your current household income?",
+       y = "",
+       x = "Household income") +
+  theme(axis.text.y = element_blank()) +
+  geom_text(data = annotations_i, aes(x = x, y = y, label = paste(label, x)), size = 3, fontface = "bold")
 
-dfSum %>% 
-  ggplot(aes(content)) +
-  geom_histogram(bins = 5)
+income_plot
 
-dfSum %>% 
-  ggplot(aes(user_exp)) +
-  geom_histogram(bins = 5)
+gridExtra::grid.arrange(income_plot, current_plot,planned_plot)
 
 # Regressions -----
 
