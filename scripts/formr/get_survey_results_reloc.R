@@ -58,15 +58,12 @@ s_data_p4 <- formr::formr_results("reloc_dce_p4",
 ## Combine and save file ----
 
 survey_df <- s_data_p1 %>%
-  # left_join(s_data_feedback,
-  #           join_by(session)) %>% 
   left_join(s_data_screen,
             join_by(session)) %>% 
   left_join(s_data_p4,
             join_by(session)) %>% 
   left_join(s_data_p2,
             join_by(session)) %>% 
-  #filter(!is.na(mc_position)) %>%   # finished the survey (must have answered the first question)
   mutate(cbc1 = coalesce(cbc1.x, cbc1.y),
          cbc2 = coalesce(cbc2.x, cbc2.y),
          cbc3 = coalesce(cbc3.x, cbc3.y),
@@ -99,7 +96,7 @@ survey_df <- s_data_p1 %>%
 
 
 
-saveRDS(survey_df, file = here("data/formr", "day_ten_results.rds"))
+saveRDS(survey_df, file = here("data/formr", "18_6_results.rds"))
 
 # Archive ----
 

@@ -1,14 +1,14 @@
 
 library(pacman)
 
-p_load(tidyverse, here, stringr, formr, logitr, cbcTools, texreg, likert, tidyr, haven, kableExtra, sjlabelled, summarytools,gtsummary)
+p_load(tidyverse, here, stringr, formr, logitr, cbcTools, texreg, likert, tidyr, haven, kableExtra,ggrepel, sjlabelled, summarytools,gtsummary)
 
 # load data
 
 
 survey_design <-  read_csv("https://github.com/n-christie/ahrg_dce_survey/blob/main/output/formr/swe_choice_questions_01.csv?raw=true")
 
-survey_df <- readRDS(here("data/formr", "day_ten_results.rds")) %>% 
+survey_df <- readRDS(here("data/formr", "18_6_results.rds")) %>% 
   filter(created_page_0 > "2024-05-29") # Remove pilot testers, all surveys after 29/5/2024
 
 
@@ -122,6 +122,58 @@ income_plot <-dfSum %>%
 income_plot
 
 gridExtra::grid.arrange(income_plot, current_plot,planned_plot)
+
+# Repspondents ----
+
+number_respondents <- survey_df %>% 
+  mutate(valid_id = case_when( nchar(user_code) == 5 ~ "Valid",
+                               is.na(user_code) ~ "Missing",
+                               TRUE ~ "Other")
+      
+         
+          ) %>% 
+  select(user_code, valid_id) %>% 
+count(valid_id)
+
+
+# Identify indivuals who have completed the survey ----
+
+
+id_respondents <- survey_df %>% 
+  mutate(user_code = if_else(grepl("^[0-9]{5} +[0-9]{5}$", user_code), substr(user_code, 1, 5), user_code),
+         valid_id = case_when(
+                               grepl("^[0-9]{5}$", user_code) ~ "Valid",
+                               grepl("[a-zA-Z].*[a-zA-Z]", user_code) ~ "Name",
+                               grepl("^[0-9]{5} +[0-9]{5}$", user_code) ~ "User and pass",
+                               str_count(user_code, "[0-9]") > 7 ~ "Personnummer",
+                               is.na(user_code) ~ "Missing",
+                               TRUE ~ "Other"),
+         ended_survey = if_else(is.na(ended_page_4), ended_page_2, ended_page_4),
+         not_completed =  if_else(is.na(cbc9), "Not completed", "Completed")
+         
+         
+  ) %>% 
+  select(user_code, valid_id, not_completed, created_survey = created_page_0, ended_survey) 
+
+writexl::write_xlsx(id_respondents, here("data/formr", "respondents.xlsx"))
+
+
+# Create labels for the pie chart
+
+number_respondents$label <- paste0(number_respondents$valid_id, "\n", number_respondents$percentage, "%")
+
+# Create pie chart
+
+
+ ggplot(number_respondents, aes(x = "", y = n, fill = valid_id)) +
+  geom_bar(width = 1, stat = "identity") +
+  coord_polar(theta = "y") +
+  geom_label_repel(aes(label = label, y = n/2), show.legend = FALSE) +
+  labs(title = "Pie Chart of Value Counts", x = "", y = "") +
+  theme_minimal() +
+  theme(axis.text.x = element_blank(), axis.ticks = element_blank())
+
+
 
 # Regressions -----
 
