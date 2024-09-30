@@ -8,8 +8,10 @@ p_load(tidyverse, here, stringr, formr, logitr, cbcTools, texreg, likert, tidyr,
 
 survey_design <-  read_csv("https://github.com/n-christie/ahrg_dce_survey/blob/main/output/formr/swe_choice_questions_01.csv?raw=true")
 
-survey_df <- readRDS(here("data/formr", "18_6_results.rds")) %>% 
-  filter(created_page_0 > "2024-05-29") # Remove pilot testers, all surveys after 29/5/2024
+survey_df <- readRDS(here("data/formr", "30_09_results.rds")) %>% 
+  mutate(ended_survey = if_else(is.na(ended_page_4), ended_page_2, ended_page_4)) %>% 
+  filter(created_page_0 > "2024-05-29",
+         !is.na(ended_survey))
 
 
 ## Descriptive data ----
@@ -45,6 +47,31 @@ t1 <- table1::table1(~ monthcost + income + planed_cost + cbc_time + total_surve
 table1::t1flex(t1) |> 
   flextable::fontsize(size = 11) |> 
   flextable::padding(padding = 1, part = "all") 
+
+# When took survey -----
+
+survey_df %>%
+  ggplot(aes( x = as.Date( created_page_0))) +
+  geom_histogram(bins = 150,
+                 color = 'black',fill = 'slateblue') +
+  scale_x_date(labels = scales::date_format("%b-%d"),
+               date_breaks = 'week') +
+  labs(title = "Number of respondents over time",
+       x = "",
+       y = "Number of respondents")+
+  theme_light()
+
+
+survey_df %>%
+  transmute(hour = strftime(created_page_0, format="%H") ) %>% 
+  ggplot(aes( x = hour)) +
+  geom_histogram(stat = "count",
+                 color = 'black',fill = 'slateblue') +
+  labs(title = "Number of respondents - time of day",
+       x = "Time of day",
+       y = "Number of respondents")+
+  theme_light()
+
 
 
 ## Figures ----
@@ -121,7 +148,45 @@ income_plot <-dfSum %>%
 
 income_plot
 
-gridExtra::grid.arrange(income_plot, current_plot,planned_plot)
+annotations_d <- data.frame(
+  x = c(round(min(dfSum %>% 
+                    filter(planed_cost != 0,
+                                   monthcost != 0) %>%
+                    mutate(diff_cost = planed_cost - monthcost) %>%
+                    pull(diff_cost)), 2),
+        round(mean(dfSum %>% 
+                   filter(planed_cost != 0,
+                          monthcost != 0) %>%
+                   mutate(diff_cost = planed_cost - monthcost) %>%
+                   pull(diff_cost)), 2),
+        round(max(dfSum %>% 
+                   filter(planed_cost != 0,
+                          monthcost != 0) %>%
+                   mutate(diff_cost = planed_cost - monthcost) %>%
+                   pull(diff_cost)), 2)),
+  y = c(.000014, .000262, .000015),
+  label = c("Min:", "Mean:", "Max:")
+) 
+
+
+diff_plot <- dfSum %>% 
+  filter(planed_cost != 0,
+         monthcost != 0) %>%
+  mutate(diff_cost = planed_cost - monthcost) %>% 
+  ggplot(aes(x = diff_cost)) +
+  geom_histogram(aes(y=..density..), bins = 70,  color = "#000000", fill = "#0099F8")+
+  geom_density(color = "#000000", fill = "#F85700", alpha = 0.6) +
+  scale_x_continuous(labels = scales::label_number(suffix = " sek")) +
+  labs(title = "Difference between planned and current costs",
+       y = "",
+       x = "Difference") +
+  theme(axis.text.y = element_blank()) +
+  geom_text(data = annotations_d, aes(x = x, y = y, label = paste(label, x)), size = 3, fontface = "bold")
+
+diff_plot 
+
+
+gridExtra::grid.arrange(income_plot, current_plot,planned_plot,diff_plot)
 
 # Repspondents ----
 
@@ -162,18 +227,6 @@ writexl::write_xlsx(id_respondents, here("data/formr", "respondents.xlsx"))
 
 number_respondents$label <- paste0(number_respondents$valid_id, "\n", number_respondents$percentage, "%")
 
-# Create pie chart
-
-
- ggplot(number_respondents, aes(x = "", y = n, fill = valid_id)) +
-  geom_bar(width = 1, stat = "identity") +
-  coord_polar(theta = "y") +
-  geom_label_repel(aes(label = label, y = n/2), show.legend = FALSE) +
-  labs(title = "Pie Chart of Value Counts", x = "", y = "") +
-  theme_minimal() +
-  theme(axis.text.x = element_blank(), axis.ticks = element_blank())
-
-
 
 # Regressions -----
 
@@ -207,6 +260,9 @@ df_merged <- survey_design %>%
   ) %>% 
   select(session, profileID:parking, choice,income, cost,price_con) %>% 
   filter(!is.na(choice)) %>% 
+  distinct(qID,altID,obsID, .keep_all = TRUE)
+
+
   group_by(session, qID ) %>%
   mutate(obsID = cur_group_id()) %>% 
   ungroup() %>% 
@@ -242,7 +298,7 @@ m2_dopt <- logitr(   #NOT WORKINF NAN IN VCOV MATRIX
   pars    = c( "dist_green", "dist_shops","dist_trans","parking"),
   randPars = c(dist_green = 'n', dist_shops = 'n', dist_trans = 'n', parking = 'n'),
   drawType = 'sobol',
-  numDraws = 200,
+  numDraws = 20,
   numMultiStarts = 10
   
 )
@@ -265,7 +321,7 @@ m3_dopt_pref <- logitr(
 
 vcov(m3_dopt_pref)
 
-m3_dopt_pref %>% 
+m1_dopt %>% 
   tbl_regression(
     exponentiate = TRUE,
     label = list(
@@ -281,7 +337,7 @@ wtp(m3_dopt_pref, scalePar = "cost")
 # WTP model ----
 
 m3_dopt_wtp <- logitr(   
-  data    = df_merged2 ,
+  data    = df_merged ,
   outcome = "choice",
   obsID   = "obsID",
   pars    = c( "dist_green",

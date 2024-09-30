@@ -1,0 +1,216 @@
+---
+title: "Discrete choice experiment"
+output: html_document
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, output = "asis")
+```
+
+
+```{r} 
+#| echo: false
+#| message: false
+#| warning: false
+#| output: false
+
+#Load packages and data
+library(pacman)
+
+p_load(tidyverse, here, stringr, formr, logitr, cbcTools, texreg, likert, tidyr, haven, kableExtra,ggrepel, sjlabelled, summarytools,gtsummary)
+
+survey_design <-  read_csv("https://github.com/n-christie/ahrg_dce_survey/blob/main/output/formr/swe_choice_questions_01.csv?raw=true")
+
+survey_df <- readRDS(here("data/formr", "30_09_results.rds")) %>% 
+  mutate(ended_survey = if_else(is.na(ended_page_4), ended_page_2, ended_page_4)) %>% 
+  filter(created_page_0 > "2024-05-29",
+         !is.na(ended_survey))
+```
+
+## Introduction
+
+In parallel with the 3-year followup from the RELOC-AGE program, a Discrete Choice Experiment (DCE) was conducted for those respondents choosing to participate.
+
+
+## Descriptive statistics
+
+The survey was sent out May 26th 2024 with the majority of respondents who completed the DCE doing so directly around this date.
+A reminder mail was sent out in early September.
+Below shows the number of individuals completing the DCE over the May-October period.
+
+```{r}
+survey_df %>%
+  ggplot(aes( x = as.Date( created_page_0))) +
+  geom_histogram(bins = 150,
+                 color = 'black',fill = 'slateblue') +
+  scale_x_date(labels = scales::date_format("%b-%d"),
+               date_breaks = '2 week') +
+  labs(title = "Number of respondents over time",
+       x = "",
+       y = "Number of respondents")+
+  theme_light()
+```
+
+
+
+
+Before taking the actual DCE,
+respondents were asked to estimate their monthly costs, monthly household income, and planned housing costs.  An opt-out option was included for these financial questions, where a respondent could zero for these questions.
+Below presents the descriptive statistics for these variables.
+
+
+
+
+
+```{r}
+#| echo: false
+
+## Descriptive data ----
+
+dfSum <- survey_df %>% 
+  # filter(planed_cost != 0,
+  #        monthcost != 0,
+  #        income != 0) %>%
+  select(monthcost,income,planed_cost, time_page_1,time_page_2,time_page_0,time_page_4)%>% 
+  mutate(time_page_1 = time_page_1/60,
+           cbc_time = (if_else(is.na(time_page_4),time_page_2,time_page_4)/60) ,
+         total_survey_time = rowSums(across(c(time_page_1,cbc_time))) ) %>% 
+  as.data.frame()
+
+
+label(dfSum$monthcost) <- "Monthly costs"
+label(dfSum$income) <- "Monthly household income"
+label(dfSum$cbc_time) <- "Time to complete DCE section (min)"
+label(dfSum$total_survey_time) <- "Time to complete entire experiment (min)"
+label(dfSum$planed_cost) <- "Planned housing costs"
+
+
+
+
+t1 <- table1::table1(~ monthcost + income + planed_cost + cbc_time + total_survey_time  ,
+                     data = dfSum,
+                     na.rm = TRUE,
+                     digits = 3,
+                     format.number = FALSE,
+                     # extra.col=list(`P-value`=pvalue),
+                     caption = "Sample description") 
+
+table1::t1flex(t1) |> 
+  flextable::fontsize(size = 11) |> 
+  flextable::padding(padding = 1, part = "all") 
+```
+
+It should noted that the "0" values from the respondents who opted not to answer income/cost questions are included in this table.
+In this sense, the median values presented are most reflective of the actual distrubutions.
+
+Additionally,
+we can see that the time to complete the DCE section, as well as complete the entire experiment is relatively short, with a median of 4.8 minutes to complete the DCE section and 6.3 minutes to complete the entire experiment.
+
+To get a cleaner idea of the values,
+I next remove the answers from the respondents who have opted out and generate the following visualizations.
+
+
+## Visualization of data
+
+```{r}
+theme_set(theme_bw())
+
+annotations_p <- data.frame(
+  x = c(round(min(dfSum %>% filter(planed_cost != 0) %>% pull(planed_cost)), 2),
+        round(mean(dfSum %>% filter(planed_cost != 0) %>% pull(planed_cost)), 2),
+        round(max(dfSum %>% filter(planed_cost != 0) %>% pull(planed_cost)), 2)),
+  y = c(.000014, .000262, .000015),
+  label = c("Min:", "Mean:", "Max:")
+) 
+
+planned_plot <- dfSum %>% 
+  filter(planed_cost != 0) %>%
+  ggplot(aes(x = planed_cost)) +
+  geom_histogram(aes(y=..density..), bins = 70,  color = "#000000", fill = "#0099F8")+
+  geom_density(color = "#000000", fill = "#F85700", alpha = 0.6) +
+  scale_x_continuous(labels = scales::label_number(suffix = " sek")) +
+  labs(title = "Planned housing costs",
+       y = "",
+       x = "") +
+    theme(axis.text.y = element_blank()) +
+  geom_text(data = annotations_p, aes(x = x, y = y, label = paste(label, x)), size = 3, fontface = "bold")
+  
+annotations_c <- data.frame(
+  x = c(round(min(dfSum %>% filter(monthcost != 0) %>% pull(monthcost)), 2),
+        round(mean(dfSum %>% filter(monthcost != 0) %>% pull(monthcost)), 2),
+        round(max(dfSum %>% filter(monthcost != 0) %>% pull(monthcost)), 2)),
+  y = c(.000014, .000162, .000015),
+  label = c("Min:", "Mean:", "Max:")
+)
+
+current_plot <-dfSum %>% 
+  filter(monthcost != 0) %>%
+  ggplot(aes(monthcost)) +
+  geom_histogram(aes(y=..density..), bins = 50,  color = "#000000", fill = "#0099F8")+
+  geom_density(color = "#000000", fill = "#F85700", alpha = 0.6) +
+  scale_x_continuous(labels = scales::label_number(suffix = " sek")) +
+  labs(title = "Monthly housing costs",
+       y = "",
+       x = "") +
+  theme(axis.text.y = element_blank()) +
+  geom_text(data = annotations_c, aes(x = x, y = y, label = paste(label, x)), size = 3, fontface = "bold")
+
+annotations_i <- data.frame(
+  x = c(round(min(dfSum %>% filter(income != 0) %>% pull(income)), 2),
+        round(mean(dfSum %>% filter(income != 0) %>% pull(income)), 2),
+        round(max(dfSum %>% filter(income != 0) %>% pull(income)), 2)),
+  y = c(.000004, .000022262, .000005),
+  label = c("Min:", "Mean:", "Max:")
+)
+
+income_plot <-dfSum %>% 
+  filter(income != 0) %>%
+  ggplot(aes(income)) +
+  geom_histogram(aes(y=..density..), bins = 50, color = "#000000", fill = "#0099F8")+
+  geom_density(color = "#000000", fill = "#F85700", alpha = 0.6) +
+  #geom_vline(aes(xintercept = mean(income)),col='red',size=1)+
+  scale_x_continuous(labels = scales::label_number(suffix = " sek")) +
+  labs(title = "Household income",
+       y = "",
+       x = "") +
+  theme(axis.text.y = element_blank()) +
+  geom_text(data = annotations_i, aes(x = x, y = y, label = paste(label, x)), size = 3, fontface = "bold")
+
+annotations_d <- data.frame(
+  x = c(round(min(dfSum %>% 
+                    filter(planed_cost != 0,
+                                   monthcost != 0) %>%
+                    mutate(diff_cost = planed_cost - monthcost) %>%
+                    pull(diff_cost)), 2),
+        round(mean(dfSum %>% 
+                   filter(planed_cost != 0,
+                          monthcost != 0) %>%
+                   mutate(diff_cost = planed_cost - monthcost) %>%
+                   pull(diff_cost)), 2),
+        round(max(dfSum %>% 
+                   filter(planed_cost != 0,
+                          monthcost != 0) %>%
+                   mutate(diff_cost = planed_cost - monthcost) %>%
+                   pull(diff_cost)), 2)),
+  y = c(.000014, .000262, .000015),
+  label = c("Min:", "Mean:", "Max:")
+) 
+
+diff_plot <- dfSum %>% 
+  filter(planed_cost != 0,
+         monthcost != 0) %>%
+  mutate(diff_cost = planed_cost - monthcost) %>% 
+  ggplot(aes(x = diff_cost)) +
+  geom_histogram(aes(y=..density..), bins = 70,  color = "#000000", fill = "#0099F8")+
+  geom_density(color = "#000000", fill = "#F85700", alpha = 0.6) +
+  scale_x_continuous(labels = scales::label_number(suffix = " sek")) +
+  labs(title = "Difference between planned and current",
+       y = "",
+       x = "") +
+  theme(axis.text.y = element_blank()) +
+  geom_text(data = annotations_d, aes(x = x, y = y, label = paste(label, x)), size = 3, fontface = "bold")
+
+
+gridExtra::grid.arrange(income_plot, current_plot,planned_plot,diff_plot)
+```

@@ -47,6 +47,14 @@ swe_design_dopt <- cbc_design(
   method   = 'orthogonal'
 )
 
+swe_design_dopt_1 <- cbc_design(
+  profiles = swe_profiles,
+  n_resp   = 1600, # Number of respondents
+  n_alts   = 2,   # Number of alternatives per question
+  n_q      = 9,   # Number of questions per respondent
+  method   = 'orthogonal'
+)
+
 # Random design
 
 design_random <- cbc_design(
@@ -135,3 +143,6 @@ plot_compare_power(power_dopt,power_rand) +
 # Save design
 write_csv(design_dopt, here("output/formr", "choice_questions.csv"))
 write_csv(swe_design_dopt, here("output/formr", "swe_choice_questions_01.csv"))
+write_csv(swe_design_dopt_1, here("output/formr", "swe_choice_questions_99.csv"))
+
+
