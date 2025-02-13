@@ -96,7 +96,25 @@ survey_df <- s_data_p1 %>%
 
 
 
-saveRDS(survey_df, file = here("data/formr", "30_09_results.rds"))
+saveRDS(survey_df, file = here("data/formr", "16_12_results.rds"))
+saveRDS(s_data_p1, file = here("data/formr", "16_12_p1.rds"))
+saveRDS(s_data_p2, file = here("data/formr", "16_12_p2.rds"))
+saveRDS(s_data_p4, file = here("data/formr", "16_12_p4.rds"))
+saveRDS(s_data_screen, file = here("data/formr", "16_12_screen.rds"))
+
+
+
+library(data.table)
+
+fwrite(survey_df, file = here("data/formr", "16_12_results.csv"))
+fwrite(s_data_p1, file = here("data/formr", "16_12_p1.csv"))
+fwrite(s_data_p2, file = here("data/formr", "16_12_p2.csv"))
+fwrite(s_data_p4, file = here("data/formr", "16_12_p4.csv"))
+fwrite(s_data_screen, file = here("data/formr", "16_12_screen.csv"))
+fwrite(survey_design_swe, file =here("data/formr", "16_12_survey_design_swe.csv"))
+
+
+
 
 # Archive ----
 

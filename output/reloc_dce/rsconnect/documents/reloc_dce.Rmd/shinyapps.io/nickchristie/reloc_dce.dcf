@@ -1,0 +1,12 @@
+name: reloc_dce
+title: reloc_dce
+username: nickchristie
+account: nickchristie
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 12872258
+bundleId: 9163439
+url: https://nickchristie.shinyapps.io/reloc_dce/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

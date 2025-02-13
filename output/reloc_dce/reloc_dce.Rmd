@@ -60,9 +60,6 @@ respondents were asked to estimate their monthly costs, monthly household income
 Below presents the descriptive statistics for these variables.
 
 
-
-
-
 ```{r}
 #| echo: false
 

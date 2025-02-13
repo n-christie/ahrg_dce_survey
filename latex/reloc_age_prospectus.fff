@@ -1,0 +1,12 @@
+\begin{figure}[H]
+\caption{Marginal effects plot - Labor skills \label{fig:mar_fx}}
+\includegraphics[width=\textwidth]{figures/mar_fx.png}
+\footnotesize \textit{Note:} Figure plots estimates of the $Cash\ flow$ coefficient at various levels of the $LS\ index$.  Results are from Eq.(1)
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}[H]
+\caption{Adoption of worker protection laws \label{fig:wdl}}
+\includegraphics[width=\textwidth]{figures/wdl.png}
+\footnotesize \textit{Note:} Figure demonstrates proportion of US states which have adopted one or more worker protection laws at three time periods: 1971, 1985, 1999.  Worker protection laws are defined as the adoption of the implied contract, good faith, or public policy exceptions to the traditional "at will" employment rule.
+\end{figure}

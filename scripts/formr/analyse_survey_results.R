@@ -6,9 +6,10 @@ p_load(tidyverse, here, stringr, formr, logitr, cbcTools, texreg, likert, tidyr,
 # load data
 
 
+
 survey_design <-  read_csv("https://github.com/n-christie/ahrg_dce_survey/blob/main/output/formr/swe_choice_questions_01.csv?raw=true")
 
-survey_df <- readRDS(here("data/formr", "30_09_results.rds")) %>% 
+survey_df <- readRDS(here("data/formr", "16_12_results.rds")) %>% 
   mutate(ended_survey = if_else(is.na(ended_page_4), ended_page_2, ended_page_4)) %>% 
   filter(created_page_0 > "2024-05-29",
          !is.na(ended_survey))
@@ -42,7 +43,7 @@ t1 <- table1::table1(~ monthcost + income + planed_cost + cbc_time + total_surve
                      digits = 3,
                      format.number = FALSE,
                      # extra.col=list(`P-value`=pvalue),
-                     caption = "Sample description") 
+                     caption = "Sample description of DCE participants") 
 
 table1::t1flex(t1) |> 
   flextable::fontsize(size = 11) |> 
@@ -56,7 +57,7 @@ survey_df %>%
                  color = 'black',fill = 'slateblue') +
   scale_x_date(labels = scales::date_format("%b-%d"),
                date_breaks = 'week') +
-  labs(title = "Number of respondents over time",
+  labs(title = "Number of respondents over time who completed the DCE",
        x = "",
        y = "Number of respondents")+
   theme_light()
@@ -97,7 +98,12 @@ planned_plot <- dfSum %>%
        y = "",
        x = "Planned housing costs") +
     theme(axis.text.y = element_blank()) +
-  geom_text(data = annotations_p, aes(x = x, y = y, label = paste(label, x)), size = 3, fontface = "bold")
+  geom_text(data = annotations_p,
+            aes(x = x, y = y,
+                label = paste(label, x)),
+            size = 3,
+            fontface = "bold",
+            vjust = -0.5)
   
 planned_plot 
 

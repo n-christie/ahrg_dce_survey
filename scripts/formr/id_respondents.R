@@ -8,7 +8,7 @@ p_load(tidyverse, here, stringr, formr, logitr, cbcTools, texreg, likert, tidyr,
 
 survey_design <-  read_csv("https://github.com/n-christie/ahrg_dce_survey/blob/main/output/formr/swe_choice_questions_01.csv?raw=true")
 
-survey_df <- readRDS(here("data/formr", "27_09_results.rds")) %>% 
+survey_df <- readRDS(here("data/formr", "04_10_results.rds")) %>% 
   mutate(ended_survey = if_else(is.na(ended_page_4), ended_page_2, ended_page_4)) %>% 
   filter(created_page_0 > "2024-05-29",
          !is.na(ended_survey))
