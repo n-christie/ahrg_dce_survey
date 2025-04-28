@@ -242,7 +242,7 @@ df_merged <- survey_design %>%
          choice = if_else(altID == chosen, 1, 0),
          price_con = (1+(price/100)),
          price = factor(price, levels = c("0","-20","-10","10","20")),
-         dist_trans = factor(dist_trans, levels = c("300","600","900")),
+         dist_trans = factor(dist_trans, levels = c("900","600","300")),
          dist_green = factor(dist_green, levels = c("15km", "500 meter", "5km")),
          dist_shops = factor(dist_shops, levels = c("15km", "500 meter", "5km")),
   ) %>% 
