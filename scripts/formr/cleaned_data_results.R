@@ -3,7 +3,7 @@ library(pacman)
 
 p_load(tidyverse, here, stringr, formr, logitr, cbcTools, texreg, likert, tidyr, haven, kableExtra,ggrepel, sjlabelled, summarytools,gtsummary)
 
-# load data
+# load data ----
 
 
 survey_design <-  read_csv("https://github.com/n-christie/ahrg_dce_survey/blob/main/output/formr/swe_choice_questions_01.csv?raw=true")
@@ -23,6 +23,126 @@ survey_df <- sample_df %>%
   distinct(Användarnamn, .keep_all = TRUE) %>% 
   mutate(respondentID = respondentID.y)
 
+
+## data tidying - Need to sort out the multiple observations!!!!! -----
+
+
+# ----- Build per-person choices (one row per person × task with chosen altID) -----
+cbc_cols <- grep("^cbc\\d+$", names(survey_df), value = TRUE)
+
+df_regs <- survey_df %>%
+  transmute(
+    personID = as.integer(RespondentID),                              # true person ID
+    designID = parse_integer(as.character(respondentID)),             # design assignment ID
+    across(all_of(cbc_cols))
+  ) %>%
+  pivot_longer(
+    cols = all_of(cbc_cols),
+    names_to  = "cbc_name",
+    values_to = "chosen"
+  ) %>%
+  mutate(
+    qID    = parse_integer(str_remove(cbc_name, "^cbc")),
+    chosen = as.integer(chosen)
+  ) %>%
+  select(personID, designID, qID, chosen) %>%
+  filter(!is.na(personID), !is.na(designID), !is.na(qID))
+
+## -------------------------
+## 2) Design alternatives
+## -------------------------
+design_tbl <- survey_design %>%
+  transmute(
+    respID     = as.integer(respID),     # matches designID
+    qID        = as.integer(qID),
+    altID      = as.integer(altID),
+    profileID,
+    price,
+    dist_green,
+    dist_shops,
+    dist_trans,
+    parking
+  )
+
+## -------------------------
+## 3) Merge + IDs for logitr
+## -------------------------
+df_merged <- df_regs %>%
+  inner_join(
+    design_tbl,
+    by = c("designID" = "respID", "qID"),
+    relationship = "many-to-many"
+  ) %>%
+  mutate(
+    price_num = parse_number(as.character(price)),          # numeric % price change
+    choice    = as.integer(altID == chosen),                # 1 if chosen
+    panelID   = as.integer(factor(personID)),               # dense 1..N person IDs
+    obsID     = as.integer(factor(paste(personID, qID)))    # unique person × task
+  ) %>%
+  filter(!is.na(panelID), !is.na(obsID)) %>%
+  arrange(panelID, obsID, altID)
+
+## -------------------------
+## 4) Attach respondent covariates
+## -------------------------
+df_covars <- survey_df %>%
+  distinct(RespondentID, .keep_all = TRUE) %>%
+  select(RespondentID, Sex, Age_T3, income, monthcost, planed_cost) %>%
+  mutate(panelID = as.integer(factor(RespondentID)))
+
+df_model <- df_merged %>%
+  left_join(df_covars, by = "panelID") %>%
+  mutate(
+    cost      = monthcost * (1 + (price_num/100)),
+    cost_diff = cost - monthcost,
+    price_con = 1 + (price_num/100),
+    price_fac = factor(price, levels = c("0","-20","-10","10","20")),
+    dist_trans = factor(dist_trans, levels = c("900","600","300")),
+    dist_green = factor(dist_green, levels = c("15km", "500 meter", "5km")),
+    dist_shops = factor(dist_shops, levels = c("15km", "500 meter", "5km")),
+    #green_x_male = (dist_green == "500 meter") * (Sex == 1)
+  )
+
+## -------------------------
+## 5) Fit model (male example)
+## -------------------------
+library(gtsummary)
+
+m_male <- logitr(
+  data    = df_model %>% filter(Sex == 1),
+  outcome = "choice",
+  obsID   = "obsID",
+  panelID = "panelID",
+  pars    = c("dist_green","dist_shops","dist_trans","parking","price_fac")
+)
+
+m_male %>%
+  tbl_regression(
+    label = list(
+      dist_green = "Distance to green areas",
+      dist_shops = "Distance to shops",
+      dist_trans = "Distance to transportation",
+      parking    = "Type of parking",
+      price_num  = "Price (%)"
+    )
+  )
+
+
+
+m_wtp_int <- logitr(
+  data     = df_model,
+  outcome  = "choice",
+  obsID    = "obsID",
+  panelID  = "panelID",
+  pars     = c("dist_green","dist_shops","dist_trans","parking","green_x_male"),
+  scalePar = "price_num"
+)
+
+
+
+
+## Explore unique number of individuals ----
+
 survey_df %>% 
   filter(!is.na(Sex)) %>% 
   group_by(Sex) %>% 
@@ -40,8 +160,8 @@ dfSum <- survey_df %>%
   select(monthcost,
          income,
          planed_cost,
-
-         )%>% 
+         
+  )%>% 
   # mutate(time_page_1 = time_page_1/60,
   #        cbc_time = (if_else(is.na(time_page_4),time_page_2,time_page_4)/60) ,
   #        total_survey_time = rowSums(across(c(time_page_1,cbc_time))) ) %>% 
@@ -68,194 +188,6 @@ t1 <- table1::table1(~ monthcost + income + planed_cost  ,
 table1::t1flex(t1) |> 
   flextable::fontsize(size = 11) |> 
   flextable::padding(padding = 1, part = "all") 
-
-# When took survey -----
-
-survey_df %>%
-  ggplot(aes( x = as.Date( created_page_0))) +
-  geom_histogram(bins = 150,
-                 color = 'black',fill = 'slateblue') +
-  scale_x_date(labels = scales::date_format("%b-%d"),
-               date_breaks = 'week') +
-  labs(title = "Number of respondents over time",
-       x = "",
-       y = "Number of respondents")+
-  theme_light()
-
-
-survey_df %>%
-  transmute(hour = strftime(created_page_0, format="%H") ) %>% 
-  ggplot(aes( x = hour)) +
-  geom_histogram(stat = "count",
-                 color = 'black',fill = 'slateblue') +
-  labs(title = "Number of respondents - time of day",
-       x = "Time of day",
-       y = "Number of respondents")+
-  theme_light()
-
-
-
-## Figures ----
-
-theme_set(theme_bw())
-
-annotations_p <- data.frame(
-  x = c(round(min(dfSum %>% filter(planed_cost != 0) %>% pull(planed_cost)), 2),
-        round(mean(dfSum %>% filter(planed_cost != 0) %>% pull(planed_cost)), 2),
-        round(max(dfSum %>% filter(planed_cost != 0) %>% pull(planed_cost)), 2)),
-  y = c(.000014, .000262, .000015),
-  label = c("Min:", "Mean:", "Max:")
-) 
-
-
-planned_plot <- dfSum %>% 
-  filter(planed_cost != 0) %>%
-  ggplot(aes(x = planed_cost)) +
-  geom_histogram(aes(y=..density..), bins = 70,  color = "#000000", fill = "#0099F8")+
-  geom_density(color = "#000000", fill = "#F85700", alpha = 0.6) +
-  scale_x_continuous(labels = scales::label_number(suffix = " sek")) +
-  labs(title = "What are your planned monthly housing costs?",
-       y = "",
-       x = "Planned housing costs") +
-  theme(axis.text.y = element_blank()) +
-  geom_text(data = annotations_p, aes(x = x, y = y, label = paste(label, x)), size = 3, fontface = "bold")
-
-planned_plot 
-
-
-
-annotations_c <- data.frame(
-  x = c(round(min(dfSum %>% filter(monthcost != 0) %>% pull(monthcost)), 2),
-        round(mean(dfSum %>% filter(monthcost != 0) %>% pull(monthcost)), 2),
-        round(max(dfSum %>% filter(monthcost != 0) %>% pull(monthcost)), 2)),
-  y = c(.000014, .000162, .000015),
-  label = c("Min:", "Mean:", "Max:")
-)
-
-current_plot <-dfSum %>% 
-  filter(monthcost != 0) %>%
-  ggplot(aes(monthcost)) +
-  geom_histogram(aes(y=..density..), bins = 50,  color = "#000000", fill = "#0099F8")+
-  geom_density(color = "#000000", fill = "#F85700", alpha = 0.6) +
-  scale_x_continuous(labels = scales::label_number(suffix = " sek")) +
-  labs(title = "What are your current monthly housing costs?",
-       y = "",
-       x = "Monthly housing costs") +
-  theme(axis.text.y = element_blank()) +
-  geom_text(data = annotations_c, aes(x = x, y = y, label = paste(label, x)), size = 3, fontface = "bold")
-
-current_plot
-
-annotations_i <- data.frame(
-  x = c(round(min(dfSum %>% filter(income != 0) %>% pull(income)), 2),
-        round(mean(dfSum %>% filter(income != 0) %>% pull(income)), 2),
-        round(max(dfSum %>% filter(income != 0) %>% pull(income)), 2)),
-  y = c(.000004, .000022262, .000005),
-  label = c("Min:", "Mean:", "Max:")
-)
-
-income_plot <-dfSum %>% 
-  filter(income != 0) %>%
-  ggplot(aes(income)) +
-  geom_histogram(aes(y=..density..), bins = 50, color = "#000000", fill = "#0099F8")+
-  geom_density(color = "#000000", fill = "#F85700", alpha = 0.6) +
-  #geom_vline(aes(xintercept = mean(income)),col='red',size=1)+
-  scale_x_continuous(labels = scales::label_number(suffix = " sek")) +
-  labs(title = "What is your current household income?",
-       y = "",
-       x = "Household income") +
-  theme(axis.text.y = element_blank()) +
-  geom_text(data = annotations_i, aes(x = x, y = y, label = paste(label, x)), size = 3, fontface = "bold")
-
-income_plot
-
-annotations_d <- data.frame(
-  x = c(round(min(dfSum %>% 
-                    filter(planed_cost != 0,
-                           monthcost != 0) %>%
-                    mutate(diff_cost = planed_cost - monthcost) %>%
-                    pull(diff_cost)), 2),
-        round(mean(dfSum %>% 
-                     filter(planed_cost != 0,
-                            monthcost != 0) %>%
-                     mutate(diff_cost = planed_cost - monthcost) %>%
-                     pull(diff_cost)), 2),
-        round(max(dfSum %>% 
-                    filter(planed_cost != 0,
-                           monthcost != 0) %>%
-                    mutate(diff_cost = planed_cost - monthcost) %>%
-                    pull(diff_cost)), 2)),
-  y = c(.000014, .000262, .000015),
-  label = c("Min:", "Mean:", "Max:")
-) 
-
-
-diff_plot <- dfSum %>% 
-  filter(planed_cost != 0,
-         monthcost != 0) %>%
-  mutate(diff_cost = planed_cost - monthcost) %>% 
-  ggplot(aes(x = diff_cost)) +
-  geom_histogram(aes(y=..density..), bins = 70,  color = "#000000", fill = "#0099F8")+
-  geom_density(color = "#000000", fill = "#F85700", alpha = 0.6) +
-  scale_x_continuous(labels = scales::label_number(suffix = " sek")) +
-  labs(title = "Difference between planned and current costs",
-       y = "",
-       x = "Difference") +
-  theme(axis.text.y = element_blank()) +
-  geom_text(data = annotations_d, aes(x = x, y = y, label = paste(label, x)), size = 3, fontface = "bold")
-
-diff_plot 
-
-
-gridExtra::grid.arrange(income_plot, current_plot,planned_plot,diff_plot)
-
-
-# Regressions -----
-
-## data tidying  ## Need to sort out the multiple observations!!!!! -----
-
-df_regs <- survey_df %>% 
-  # filter(!is.na(respondentID),
-  #        !is.na(cbc9)) %>% 
-  distinct(respondentID, .keep_all = TRUE) %>% ## Data loss - distinct RESPID
-  select(respID = respondentID, contains("cbc")) %>% 
-  pivot_longer(cols = -respID,
-               values_to = "chosen") %>% 
-  mutate(qID = extract_numeric(name),
-         respID = as.numeric(respID)) %>% 
-  filter(!is.na(qID))
-
-survey_merg <- survey_df %>% 
-  mutate(respondentID = as.numeric(respondentID)) %>% 
-  select( respondentID, session, income, monthcost, planed_cost,sex = Sex,
-          civil = civil_status_T2
-          ) %>% 
-  distinct(respondentID,.keep_all = TRUE)
-
-df_merged <- survey_design %>% 
-  inner_join(df_regs,
-             by = c("respID" ,"qID")) %>% 
-  left_join(survey_merg,
-            by = c("respID" = "respondentID")) %>% 
-  mutate(cost = monthcost * (1+(price/100)),
-         cost_diff = cost - monthcost,
-         choice = if_else(altID == chosen, 1, 0),
-         price_con = (1+(price/100)),
-         price = factor(price, levels = c("0","-20","-10","10","20")),
-         dist_trans = factor(dist_trans, levels = c("900","600","300")),
-         dist_green = factor(dist_green, levels = c("15km", "500 meter", "5km")),
-         dist_shops = factor(dist_shops, levels = c("15km", "500 meter", "5km")),
-  ) %>% 
-  select(session,respID,profileID:parking, choice,monthcost, cost,cost_diff,price_con,sex,civil) %>% 
-  filter(!is.na(choice)) %>% 
-  distinct(qID,altID,obsID, .keep_all = TRUE)
-
-
-# group_by(session, qID ) %>%
-#   mutate(obsID = cur_group_id()) %>% 
-#   ungroup() %>% 
-#   head(900) %>% 
-#   as.data.frame()
 
 
 # Regressions ----
@@ -288,7 +220,7 @@ m1_m <- logitr(
                "parking",
                "price")
 )
-  
+
 m1_w <- logitr(
   data    = df_merged %>% mutate(price = as.numeric(price)) %>% 
     filter(sex == 2),
@@ -363,8 +295,8 @@ m2 %>%
 
 ## Visualize coeffcients
 
- library(ggstats)
- ggcoef_model(m1_m)
+library(ggstats)
+ggcoef_model(m1_m)
 
 ## WTP model ----
 
@@ -379,7 +311,7 @@ m1_wtp <- logitr(
   scalePar = "cost_diff"
 )
 
- m1_alt_wtp <- wtp(m1, scalePar = "cost_diff")
+m1_alt_wtp <- wtp(m1, scalePar = "cost_diff")
 # 
 # vcov(m1_wtp)
 
@@ -479,6 +411,34 @@ vcov(m2_wtp)
 
 
 
+library(dplyr)
+
+# Basic structure
+glimpse(survey_design)
+
+# 1) How many alternatives per task for each respondent?
+survey_design %>%
+  count(respID, qID, name = "n_alts_per_task") %>%
+  count(n_alts_per_task)
+
+# 2) Is there exactly one row per respondent × task × alternative?
+survey_design %>%
+  count(respID, qID, altID) %>%
+  filter(n != 1)
+
+# 3) Is obsID constant within respondent × task?
+survey_design %>%
+  group_by(respID, qID) %>%
+  summarise(n_obsIDs = n_distinct(obsID), .groups = "drop") %>%
+  count(n_obsIDs)
+
+# 4) How many tasks per respondent?
+survey_design %>%
+  count(respID, qID) %>%
+  count(n, name = "num_tasks_distribution")
+
+# 5) Quick peek at unique attribute levels
+lapply(survey_design[c("price","dist_green","dist_shops","dist_trans","parking")], unique)
 
 
 
