@@ -88,7 +88,9 @@ df_merged <- df_regs %>%
 df_covars <- survey_df %>%
   distinct(RespondentID, .keep_all = TRUE) %>%
   select(RespondentID, Sex, Age_T3, income, monthcost, planed_cost) %>%
-  mutate(panelID = as.integer(factor(RespondentID)))
+  mutate(panelID = as.integer(factor(RespondentID)),
+         income_qrt = factor(ntile(income, 3), labels = c("Q1","Q2","Q3"))
+  )
 
 df_model <- df_merged %>%
   left_join(df_covars, by = "panelID") %>%
@@ -96,24 +98,30 @@ df_model <- df_merged %>%
     cost      = monthcost * (1 + (price_num/100)),
     cost_diff = cost - monthcost,
     price_con = 1 + (price_num/100),
+    price_nom = price_con * planed_cost,
+    price_diff = price_nom - planed_cost,
     price_fac = factor(price, levels = c("0","-20","-10","10","20")),
-    dist_trans = factor(dist_trans, levels = c("900","600","300")),
+    dist_trans = factor(dist_trans, levels = c("600","300","900")),
     dist_green = factor(dist_green, levels = c("15km", "500 meter", "5km")),
     dist_shops = factor(dist_shops, levels = c("15km", "500 meter", "5km")),
     #green_x_male = (dist_green == "500 meter") * (Sex == 1)
   )
 
+saveRDS(df_model,here("data/formr", "df_model.rds"))
+
+
 ## -------------------------
 ## 5) Fit model (male example)
 ## -------------------------
-library(gtsummary)
+
+
 
 m_male <- logitr(
-  data    = df_model %>% filter(Sex == 1),
+  data    = df_model ,
   outcome = "choice",
   obsID   = "obsID",
   panelID = "panelID",
-  pars    = c("dist_green","dist_shops","dist_trans","parking","price_fac")
+  pars    = c("dist_green","dist_shops","dist_trans","parking","price_nom")
 )
 
 m_male %>%
@@ -123,7 +131,7 @@ m_male %>%
       dist_shops = "Distance to shops",
       dist_trans = "Distance to transportation",
       parking    = "Type of parking",
-      price_num  = "Price (%)"
+      price_con  = "Price (%)"
     )
   )
 
@@ -134,11 +142,12 @@ m_wtp_int <- logitr(
   outcome  = "choice",
   obsID    = "obsID",
   panelID  = "panelID",
-  pars     = c("dist_green","dist_shops","dist_trans","parking","green_x_male"),
-  scalePar = "price_num"
+  pars     = c("dist_green","dist_shops","dist_trans","parking"),
+  scalePar = "price_con"
 )
 
-
+m_wtp_int %>% 
+  tbl_regression()
 
 
 ## Explore unique number of individuals ----
@@ -445,33 +454,15 @@ lapply(survey_design[c("price","dist_green","dist_shops","dist_trans","parking")
 
 
 
-# test mlogit _- NOt working
-
-math <- read.table("http://www.utstat.utoronto.ca/~brunner/data/legal/mathcat.data.txt")
-math0 = math[,c(1,5)]; head(math0)
-
-long0 = mlogit.data(math0,shape="wide",choice="passed") ; head(long0)
-
-simple0 = mlogit(passed ~ 0 | hsgpa, data=long0)
-simple0 = mlogit(passed ~ 0 | hsgpa, data=long0); summary(simple0)
-summary(glm(passed~hsgpa,family=binomial,data=math))
-
-
-data("Fishing",package="Ecdat")
-colnames(Fishing)[4:11] <- c("pr.beach","pr.pier","pr.boat","pr.charter",
-                             "ca.beach","ca.pier","ca.boat","ca.charter")
-
-Fish <- mlogit.data(Fishing,varying=c(4:11),shape="wide",choice="mode")
-summary(mlogit(mode~pr+ca-1,data=Fish))
-
-
-survey_dat <- mlogit.data(df_merged %>% 
-                            
-                            select(choice, dist_green, dist_shops, dist_trans), shape = "wide", choice = "choice")
-
-m1_mlog <- mlogit(choice ~ dist_green ,
-                  data =survey_dat)
-
-
-
-multinom(choice ~ dist_green + dist_shops + dist_trans + parking + price, data=df_merged)
+df_covars %>% 
+  filter(planed_cost != 0,
+         income != 0) %>%
+  mutate(age_qrt = factor(ntile(Age_T3, 3))) %>% 
+  ggplot(aes(x = log(planed_cost), fill = age_qrt)) +
+  geom_density(alpha = 0.6) +
+  labs(
+    title = "Density of Planned Cost by Income Tercile",
+    x = "Log planned cost",
+    fill = "Income Quartile"
+  ) +
+  theme_minimal()

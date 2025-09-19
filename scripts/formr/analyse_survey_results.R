@@ -188,6 +188,23 @@ diff_plot
 
 gridExtra::grid.arrange(income_plot, current_plot,planned_plot,diff_plot)
 
+
+dfSum %>% 
+  filter(planed_cost != 0,
+         income != 0) %>%
+  mutate(income_qrt = factor(ntile(income, 3))) %>% 
+  ggplot(aes(x = log(planed_cost), fill = income_qrt)) +
+  geom_density(alpha = 0.6) +
+  labs(
+    title = "Density of Planned Cost by Income Tercile",
+    x = "Log planned cost",
+    fill = "Income Quartile"
+  ) +
+  theme_minimal()
+
+
+
+
 # Repspondents ----
 
 number_respondents <- survey_df %>% 

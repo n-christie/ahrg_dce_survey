@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: reloc_age_prospectus.aux
+Reallocating 'name_of_file' (item size: 1) to 12 items.
+The style file: informs2014.bst
+Reallocating 'name_of_file' (item size: 1) to 8 items.
+Database file #1: DCE.bib
+Warning--empty journal in jennbertDevelopmentsElderlyPolicy2009
+You've used 7 entries,
+            2869 wiz_defined-function locations,
+            660 strings with 6893 characters,
+and the built_in function-call counts, 7917 in all, are:
+= -- 819
+> -- 212
+< -- 3
++ -- 79
+- -- 73
+* -- 625
+:= -- 961
+add.period$ -- 12
+call.type$ -- 7
+change.case$ -- 59
+chr.to.int$ -- 8
+cite$ -- 8
+duplicate$ -- 803
+empty$ -- 596
+format.name$ -- 95
+if$ -- 1609
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 78
+newline$ -- 27
+num.names$ -- 28
+pop$ -- 374
+preamble$ -- 1
+purify$ -- 52
+quote$ -- 0
+skip$ -- 112
+stack$ -- 0
+substring$ -- 878
+swap$ -- 190
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 60
+warning$ -- 1
+while$ -- 53
+width$ -- 0
+write$ -- 92
+(There was 1 warning)

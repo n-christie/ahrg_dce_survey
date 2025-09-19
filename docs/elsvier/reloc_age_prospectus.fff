@@ -1,0 +1,6 @@
+\begin{figure}[H]
+\caption{Country distribution of respondents \label{fig:mar_fx}}
+\includegraphics[scale=0.25]{figures/survey_location.png}
+\vspace{1mm}
+\footnotesize \textit{Note:} Figure plots residential location of survey respondents in Sweden
+\end{figure}

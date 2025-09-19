@@ -1,0 +1,55 @@
+\begin{thebibliography}{7}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+
+\bibitem[{DeShazo \protect\BIBand{}
+  Fermo(2002)}]{deshazoDesigningChoiceSets2002}
+DeShazo J, Fermo G (2002) Designing {{Choice Sets}} for {{Stated Preference
+  Methods}}: {{The Effects}} of {{Complexity}} on {{Choice Consistency}}.
+  \emph{Journal of Environmental Economics and Management} 44(1):123--143, ISSN
+  00950696, \urlprefix\url{http://dx.doi.org/10.1006/jeem.2001.1199}.
+
+\bibitem[{Hensher et~al.(2015)Hensher, Rose, \protect\BIBand{}
+  Greene}]{hensherAppliedChoiceAnalysis2015}
+Hensher DA, Rose JM, Greene WH (2015) \emph{Applied {{Choice Analysis}}}
+  (Cambridge University Press), 2 edition, ISBN 978-1-107-09264-8
+  978-1-107-46592-3 978-1-316-13623-2,
+  \urlprefix\url{http://dx.doi.org/10.1017/CBO9781316136232}.
+
+\bibitem[{Himmler et~al.(2021)Himmler, Soekhai, {van Exel}, \protect\BIBand{}
+  Brouwer}]{himmlerWhatWorksBetter2021}
+Himmler S, Soekhai V, {van Exel} J, Brouwer W (2021) What works better for
+  preference elicitation among older people? {{Cognitive}} burden of discrete
+  choice experiment and case 2 best-worst scaling in an online setting.
+  \emph{Journal of Choice Modelling} 38:100265, ISSN 1755-5345,
+  \urlprefix\url{http://dx.doi.org/10.1016/j.jocm.2020.100265}.
+
+\bibitem[{Jennbert(2009)}]{jennbertDevelopmentsElderlyPolicy2009}
+Jennbert K (2009) Developments in {{Elderly Policy}} in {{Sweden}} .
+
+\bibitem[{Lancsar \protect\BIBand{}
+  Louviere(2008)}]{lancsarConductingDiscreteChoice2008}
+Lancsar E, Louviere J (2008) Conducting {{Discrete Choice Experiments}} to
+  {{Inform Healthcare Decision Making}}: {{A User}}??s {{Guide}}.
+  \emph{PharmacoEconomics} 26(8):661--677, ISSN 1170-7690,
+  \urlprefix\url{http://dx.doi.org/10.2165/00019053-200826080-00004}.
+
+\bibitem[{Mangham et~al.(2009)Mangham, Hanson, \protect\BIBand{}
+  McPake}]{manghamHowNotDesigning2009}
+Mangham LJ, Hanson K, McPake B (2009) How to do (or not to do) {\dots}
+  {{Designing}} a discrete choice experiment for application in a low-income
+  country. \emph{Health Policy and Planning} 24(2):151--158, ISSN 1460-2237,
+  0268-1080, \urlprefix\url{http://dx.doi.org/10.1093/heapol/czn047}.
+
+\bibitem[{Zingmark et~al.(2021)Zingmark, Bj{\"o}rk, Granbom, Gefenaite,
+  Nordestr{\"o}m, Schmidt, Rantanen, Slaug, \protect\BIBand{}
+  Iwarsson}]{zingmarkExploringAssociationsHousing2021}
+Zingmark M, Bj{\"o}rk J, Granbom M, Gefenaite G, Nordestr{\"o}m F, Schmidt SM,
+  Rantanen T, Slaug B, Iwarsson S (2021) Exploring {{Associations}} of
+  {{Housing}}, {{Relocation}}, and {{Active}} and {{Healthy Aging}} in
+  {{Sweden}}: {{Protocol}} for a {{Prospective Longitudinal Mixed Methods
+  Study}}. \emph{JMIR Research Protocols} 10(9):e31137, ISSN 1929-0748,
+  \urlprefix\url{http://dx.doi.org/10.2196/31137}.
+
+\end{thebibliography}

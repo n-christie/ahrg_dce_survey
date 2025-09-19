@@ -1,0 +1,416 @@
+\begin{table}[htbp]
+  \centering
+  \caption{Skilled labor index across industries}
+    \scriptsize
+    \begin{tabular}{llc}
+    \toprule
+    NAICS & \multicolumn{1}{c}{Industry} & \multicolumn{1}{p{10.715em}}{Skilled labor index (LSI)} \\
+    \midrule
+    \multicolumn{2}{l}{\textit{\textbf{More reliant on skilled labor}}} &  \\
+    3254  & Pharmaceutical and Medicine Manufacturing & 2.784 \\
+    3364  & Aerospace Product and Parts Manufacturing & 2.615 \\
+    3345  & Navigational, Measuring, Electromedical, and Control Instruments Manufacturing & 2.573 \\
+    3344  & Semiconductor and Other Electronic Component Manufacturing & 2.505 \\
+    4862  & Pipeline Transportation of Natural Gas & 2.502 \\
+    2111  & Oil and Gas Extraction & 2.486 \\
+    \multicolumn{2}{l}{\textit{\textbf{Less reliant on skilled labor}}} &  \\
+    3116  & Animal Slaughtering and Processing & 1.794 \\
+    3162  & Footwear Manufacturing & 1.766 \\
+    3365  & Railroad Rolling Stock Manufacturing & 1.745 \\
+    3117  & Seafood Product Preparation and Packaging & 1.654 \\
+    3169  & Other Leather and Allied Product Manufacturing & 1.652 \\
+    1133  & Logging & 1.467 \\
+    \bottomrule
+    \end{tabular}%
+  \label{tab:lsi_example}%
+\end{table}
+\efloatseparator
+ 
+\begin{table}[htbp]
+  \centering
+  \caption{Constructing the labor skill index}
+  \tiny
+    \begin{tabular}{llllccc}
+    \toprule
+    NAICS & Industry & OCC code & OCC title & \multicolumn{1}{p{5.355em}}{Pct of total\newline{}workforce} & Job zone & Weighted LSI \\
+    \midrule
+    113300 & Logging & 11-1021 & General and Operations Managers & 1.3\% & 4     & 0.052 \\
+    113300 & Logging & 19-1032 & Foresters & 2.3\% & 4     & 0.093 \\
+    113300 & Logging & 33-9032 & Security Guards & 0.1\% & 2     & 0.002 \\
+    113300 & Logging & 37-2011 & Janitors and Cleaners. Except Maids and Housekeeping Cleaners & 0.1\% & 2     & 0.002 \\
+    113300 & Logging & 43-1011 & First-Line Supervisors of Office and Administrative Support Workers & 0.4\% & 3     & 0.013 \\
+    113300 & Logging & 43-3031 & Bookkeeping. Accounting. and Auditing Clerks & 1.6\% & 3     & 0.047 \\
+    113300 & Logging & 43-3051 & Payroll and Timekeeping Clerks & 0.2\% & 2     & 0.003 \\
+    113300 & Logging & 43-6014 & Secretaries and Administrative Assistants. Except Legal. and Medical & 1.9\% & 2     & 0.038 \\
+    113300 & Logging & 43-9061 & Office Clerks. General & 3.5\% & 2     & 0.067 \\
+    113300 & Logging & 45-1011 & First-Line Supervisors of Farming. Fishing. and Forestry Workers & 4.2\% & 3     & 0.127 \\
+    \bottomrule
+    \end{tabular}%
+  \label{tab:lsi_compile}%
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htbp] \centering
+  \caption{Descriptive statistics - Labor skills index}
+  \label{tab:lsi_desc}
+\begin{tabular}{@{\extracolsep{5pt}}lcccccc}
+\\[-1.8ex]\hline
+\hline \\[-1.8ex]
+Statistic & \multicolumn{1}{c}{N} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{St. Dev.} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Median} & \multicolumn{1}{c}{Max} \\
+\hline \\[-1.8ex]
+$Investment$ & 21,661 & 0.042 & 0.040 & 0.0003 & 0.030 & 0.263 \\
+$Cash\ flow$ & 21,661 & 0.034 & 0.192 & $-$1.211 & 0.079 & 0.458 \\
+$Tangibility$ & 21,661 & 0.220 & 0.163 & 0.006 & 0.176 & 0.767 \\
+$Q_{t-1}$ & 21,661 & 1.991 & 1.448 & 0.423 & 1.529 & 11.353 \\
+$LS\ Index$ & 21,661 & 2.350 & 0.310 & 0.881 & 2.343 & 3.065 \\
+\hline \\[-1.8ex]
+\end{tabular}
+\centerline{\begin{minipage}{0.95\textwidth}~\
+\footnotesize{\textbf{Note:} Decriptive statistics on variabes used in Eq.(1).  Investment is Capital Expendatures over Total Assets(CAPX/AT).  Cash flow is Net income before extraordinary items plus depreciation over Total Assets(IP+DP/AT).  Tangibility is firm asset tangibility defined as the proportion of physical assets to total assets(PPENT/AT).  LS index is the Labor Skills Index compiled from BLS survey data, where the process is detailed in Section 2.  All variables are winsorized at 1st and 99th percentiles to reduce possible distortionary effects of outliers.} \end{minipage}}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!h]
+
+\caption{Correlations - Labor skill index \label{tab:lsi_cor}}
+\centering
+\begin{tabular}[t]{lccccc}
+\toprule
+ & $Invesment$ & $Cash\ flow$ & $Tangibility$ & $Q_{t-1}$ & $LS\ Index$\\
+\midrule
+$Invesment$ & 1 &  &  &  & \\
+$Cash\ flow$ & 0.182 & 1 &  &  & \\
+$Tangibility$ & 0.505 & 0.115 & 1 &  & \\
+$Q_{t-1}$ & 0.068 & -0.179 & -0.163 & 1 & \\
+$LS\ Index$ & -0.112 & -0.198 & -0.202 & 0.171 & 1\\
+\bottomrule
+\end{tabular}
+\centerline{\begin{minipage}{0.95\textwidth}~\
+\footnotesize{\textbf{Note:}  Table presents Pearson correlations between variables in the study.  Variable definitions are provided in Table 1.} \end{minipage}}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htbp] \centering
+  \caption{Descriptive statistics - Worker discharge laws}
+  \label{tab:wdl_des}
+\begin{tabular}{@{\extracolsep{5pt}}lcccccc}
+\\[-1.8ex]\hline
+\hline \\[-1.8ex]
+Statistic & \multicolumn{1}{c}{N} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{St. Dev.} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Median} & \multicolumn{1}{c}{Max} \\
+\hline \\[-1.8ex]
+investment\_w & 50,670 & 0.071 & 0.060 & 0.001 & 0.055 & 0.410 \\
+cash\_flow\_w & 50,670 & 0.080 & 0.128 & $-$0.897 & 0.098 & 0.397 \\
+asst\_tang\_w & 50,670 & 0.302 & 0.155 & 0.028 & 0.280 & 0.794 \\
+q\_w & 50,670 & 1.582 & 1.179 & 0.417 & 1.200 & 11.168 \\
+implied\_contract & 50,670 & 1.545 & 0.498 & 1 & 2 & 2 \\
+publib\_policy & 50,670 & 1.581 & 0.493 & 1 & 2 & 2 \\
+good\_faith & 50,670 & 1.180 & 0.384 & 1 & 1 & 2 \\
+\hline \\[-1.8ex]
+\end{tabular}
+\centerline{\begin{minipage}{0.95\textwidth}~\
+\footnotesize{\textbf{Note:} Table summary statistics on variables from Eq (1).} \end{minipage}}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!h]
+
+\caption{Correlations - Worker discharge laws \label{tab:wdl_cor}}
+\centering
+\fontsize{8}{10}\selectfont
+\begin{tabular}[t]{lccccccc}
+\toprule
+ & $Investment$ & $Cash\ flow$ & $Tangibility$ & $Q_{t-1}$ & $Implied\ contract$ & $Public\ policy}$ & $Good\ faith$\\
+\midrule
+$Investment$ & 1 &  &  &  &  &  & \\
+$Cash\ flow$ & 0.28 & 1 &  &  &  &  & \\
+$Tangibility$ & 0.44 & 0.095 & 1 &  &  &  & \\
+$Q_{t-1}$ & 0.117 & -0.085 & -0.094 & 1 &  &  & \\
+$Implied\ contract$ & -0.042 & -0.106 & -0.096 & 0.132 & 1 &  & \\
+$Public\ policy}$ & -0.016 & -0.088 & -0.041 & 0.117 & 0.512 & 1 & \\
+$Good\ faith$ & 0.005 & -0.113 & -0.132 & 0.143 & 0.245 & 0.371 & 1\\
+\bottomrule
+\end{tabular}
+\centerline{\begin{minipage}{0.95\textwidth}~\
+\footnotesize{\textbf{Note:} Table presents correlations from variables used in Eq.2.} \end{minipage}}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[H]
+\caption{Regressions - Labor skills index}
+\begin{center}
+\begin{footnotesize}
+\begin{tabular}{l c c c}
+\hline
+ & Model 1 & Model 2 & Model 3 \\
+\hline
+$Cash\ flow$            & $0.040^{***}$ & $0.040^{***}$ & $0.142^{***}$  \\
+                        & $(0.003)$     & $(0.003)$     & $(0.024)$      \\
+$Tangibility$           & $0.138^{***}$ & $0.138^{***}$ & $0.139^{***}$  \\
+                        & $(0.008)$     & $(0.008)$     & $(0.008)$      \\
+$Q_{t-1}$               & $0.004^{***}$ & $0.004^{***}$ & $0.004^{***}$  \\
+                        & $(0.000)$     & $(0.000)$     & $(0.000)$      \\
+$LSI$                   &               & $-0.009^{**}$ & $-0.006^{*}$   \\
+                        &               & $(0.003)$     & $(0.003)$      \\
+$Cash\ flow\ x\ LSI$    &               &               & $-0.042^{***}$ \\
+                        &               &               & $(0.010)$      \\
+\hline
+Firm effects            & Yes           & Yes           & Yes            \\
+Time effects            & Yes           & Yes           & Yes            \\
+Num. obs.               & $21661$       & $21661$       & $21661$        \\
+R$^2$ (full model)      & $0.615$       & $0.616$       & $0.617$        \\
+R$^2$ (proj model)      & $0.106$       & $0.107$       & $0.110$        \\
+Adj. R$^2$ (full model) & $0.550$       & $0.550$       & $0.551$        \\
+Adj. R$^2$ (proj model) & $-0.046$      & $-0.046$      & $-0.042$       \\
+\hline
+\multicolumn{4}{l}{\tiny{$^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$}}
+\end{tabular}
+\centerline{\begin{minipage}{0.95\textwidth}~\
+\footnotesize{\textbf{Note:} Table reports regression results from Eq.(1) where  the independent variable $Investment$ is Capital Expendatures over Total Assets(CAPX/AT).  Cash flow is Net income before extraordinary items plus depreciation over Total Assets(IP+DP/AT).  Tangibility is firm asset tangibility defined as the proportion of physical assets to total assets(PPENT/AT).  LS index is the Labor Skills Index compiled from BLS survey data, where the process is detailed in Section 2.  All variables are winsorized at 1st and 99th percentiles to reduce possible distortionary effects of outliers.} \end{minipage}}
+\end{footnotesize}
+\label{tab:lsi_reg}
+\end{center}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[H]
+\caption{Regressions - Labor skills index}
+\begin{center}
+\begin{footnotesize}
+\begin{tabular}{l c c c}
+\hline
+ & Model 1 & Model 2 & Model 3 \\
+\hline
+$Cash\ flow$            & $0.050^{***}$ & $0.050^{***}$ & $0.135^{***}$  \\
+                        & $(0.003)$     & $(0.003)$     & $(0.021)$      \\
+$Tangibility$           & $0.146^{***}$ & $0.146^{***}$ & $0.147^{***}$  \\
+                        & $(0.008)$     & $(0.008)$     & $(0.008)$      \\
+$Q_{t-1}$               & $0.003^{***}$ & $0.003^{***}$ & $0.003^{***}$  \\
+                        & $(0.000)$     & $(0.000)$     & $(0.000)$      \\
+$\Delta Debt$           & $0.000^{***}$ & $0.000^{***}$ & $0.000^{***}$  \\
+                        & $(0.000)$     & $(0.000)$     & $(0.000)$      \\
+$\Delta Equity$         & $0.036^{***}$ & $0.036^{***}$ & $0.035^{***}$  \\
+                        & $(0.003)$     & $(0.003)$     & $(0.003)$      \\
+$Cash_{t-1}$            & $0.135^{**}$  & $0.136^{**}$  & $0.133^{**}$   \\
+                        & $(0.045)$     & $(0.045)$     & $(0.045)$      \\
+$LSI$                   &               & $-0.008^{**}$ & $-0.006^{*}$   \\
+                        &               & $(0.003)$     & $(0.003)$      \\
+$Cash\ flow\ x\ LSI$    &               &               & $-0.035^{***}$ \\
+                        &               &               & $(0.008)$      \\
+\hline
+Firm effects            & Yes           & Yes           & Yes            \\
+Time effects            & Yes           & Yes           & Yes            \\
+Num. obs.               & $21645$       & $21645$       & $21645$        \\
+R$^2$ (full model)      & $0.628$       & $0.628$       & $0.629$        \\
+R$^2$ (proj model)      & $0.136$       & $0.137$       & $0.139$        \\
+Adj. R$^2$ (full model) & $0.565$       & $0.565$       & $0.566$        \\
+Adj. R$^2$ (proj model) & $-0.012$      & $-0.011$      & $-0.008$       \\
+\hline
+\multicolumn{4}{l}{\tiny{$^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$}}
+\end{tabular}
+\centerline{\begin{minipage}{0.95\textwidth}~\
+\footnotesize{\textbf{Note:} Table reports regression results from Eq.(1) where  the independent variable $Investment$ is Capital Expendatures over Total Assets(CAPX/AT).  Cash flow is Net income before extraordinary items plus depreciation over Total Assets(IP+DP/AT).  Tangibility is firm asset tangibility defined as the proportion of physical assets to total assets(PPENT/AT).  LS index is the Labor Skills Index compiled from BLS survey data, where the process is detailed in Section 2.  All variables are winsorized at 1st and 99th percentiles to reduce possible distortionary effects of outliers.} \end{minipage}}
+\end{footnotesize}
+\label{tab:lsi_reg_c}
+\end{center}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[H]
+\caption{Regressions - Worker discharge laws}
+\begin{center}
+\begin{footnotesize}
+\begin{tabular}{l@{} c@{} c@{} c@{} c@{} c@{} c@{}}
+\hline
+ & Model 1 & Model 2 & Model 3 & Model 4 & Model 5 & Model 6 \\
+\hline
+$Cash\ flow$                       & $0.141^{***}$ & $0.141^{***}$ & $0.141^{***}$ & $0.205^{***}$  & $0.157^{***}$  & $0.204^{***}$  \\
+                                   & $(0.005)$     & $(0.005)$     & $(0.005)$     & $(0.008)$      & $(0.006)$      & $(0.009)$      \\
+$Tangibility$                      & $0.209^{***}$ & $0.209^{***}$ & $0.208^{***}$ & $0.209^{***}$  & $0.208^{***}$  & $0.209^{***}$  \\
+                                   & $(0.006)$     & $(0.006)$     & $(0.006)$     & $(0.006)$      & $(0.006)$      & $(0.005)$      \\
+$Q$                                & $0.007^{***}$ & $0.007^{***}$ & $0.007^{***}$ & $0.007^{***}$  & $0.007^{***}$  & $0.007^{***}$  \\
+                                   & $(0.000)$     & $(0.000)$     & $(0.000)$     & $(0.000)$      & $(0.000)$      & $(0.000)$      \\
+$Implied\ contract$                & $0.001$       &               &               & $0.009^{***}$  &                &                \\
+                                   & $(0.001)$     &               &               & $(0.001)$      &                &                \\
+$Good\ faith$                      &               & $-0.003^{*}$  &               &                & $0.001$        &                \\
+                                   &               & $(0.002)$     &               &                & $(0.002)$      &                \\
+$Public\ policy$                   &               &               & $-0.001$      &                &                & $0.008^{***}$  \\
+                                   &               &               & $(0.001)$     &                &                & $(0.002)$      \\
+$Cash\ flow\ x\ Implied\ contract$ &               &               &               & $-0.089^{***}$ &                &                \\
+                                   &               &               &               & $(0.009)$      &                &                \\
+$Cash\ flow\ x\ Good\ faith$       &               &               &               &                & $-0.049^{***}$ &                \\
+                                   &               &               &               &                & $(0.009)$      &                \\
+$Cash\ flow\ x\ Public\ policy$    &               &               &               &                &                & $-0.087^{***}$ \\
+                                   &               &               &               &                &                & $(0.010)$      \\
+\hline
+Firm effects                       & Yes           & Yes           & Yes           & Yes            & Yes            & Yes            \\
+Time effects                       & Yes           & Yes           & Yes           & Yes            & Yes            & Yes            \\
+Num. obs.                          & $50670$       & $50670$       & $50670$       & $50670$        & $50670$        & $50670$        \\
+R$^2$ (full model)                 & $0.506$       & $0.506$       & $0.506$       & $0.509$        & $0.507$        & $0.509$        \\
+R$^2$ (proj model)                 & $0.152$       & $0.152$       & $0.152$       & $0.158$        & $0.154$        & $0.158$        \\
+Adj. R$^2$ (full model)            & $0.452$       & $0.452$       & $0.452$       & $0.456$        & $0.454$        & $0.456$        \\
+Adj. R$^2$ (proj model)            & $0.061$       & $0.061$       & $0.060$       & $0.067$        & $0.062$        & $0.066$        \\
+\hline
+\multicolumn{7}{l}{\tiny{$^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$}}
+\end{tabular}
+\centerline{\begin{minipage}{0.95\textwidth}~\
+\footnotesize{\textbf{Note:} Table reports regression results from Equation 1} \end{minipage}}
+\end{footnotesize}
+\label{tab:wdl_reg}
+\end{center}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[H]
+\caption{Regressions - Worker discharge laws combined}
+\begin{center}
+\begin{footnotesize}
+\begin{tabular}{l@{} c@{} c@{}}
+\hline
+ & Model 1 & Model 2 \\
+\hline
+$Cash\ flow$            & $0.141^{***}$ & $0.192^{***}$  \\
+                        & $(0.005)$     & $(0.008)$      \\
+$Tangibility$           & $0.208^{***}$ & $0.209^{***}$  \\
+                        & $(0.006)$     & $(0.005)$      \\
+$Q$                     & $0.007^{***}$ & $0.007^{***}$  \\
+                        & $(0.000)$     & $(0.000)$      \\
+$WDL$                   & $-0.000$      & $0.007^{***}$  \\
+                        & $(0.001)$     & $(0.001)$      \\
+$Cash\ flow\ x\ WDL$    &               & $-0.078^{***}$ \\
+                        &               & $(0.009)$      \\
+\hline
+Firm effects            & Yes           & Yes            \\
+Time effects            & Yes           & Yes            \\
+Num. obs.               & $50670$       & $50670$        \\
+R$^2$ (full model)      & $0.506$       & $0.509$        \\
+R$^2$ (proj model)      & $0.152$       & $0.157$        \\
+Adj. R$^2$ (full model) & $0.452$       & $0.456$        \\
+Adj. R$^2$ (proj model) & $0.060$       & $0.066$        \\
+\hline
+\multicolumn{3}{l}{\tiny{$^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$}}
+\end{tabular}
+\centerline{\begin{minipage}{0.95\textwidth}~\
+\footnotesize{\textbf{Note:} WDL equals 1 if a state has passed two of three WDL exceptions} \end{minipage}}
+\end{footnotesize}
+\label{tab:wdl_reg_2}
+\end{center}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[H]
+\caption{Regressions - Financial constraints}
+\begin{center}
+\begin{scriptsize}
+\begin{tabular}{l c c c c c c}
+\hline
+ & \multicolumn{2}{c}{$WW\ index$} & \multicolumn{2}{c}{$SA\ index$} & \multicolumn{2}{c}{$KZ\ index$} \\
+\cline{2-3} \cline{4-5} \cline{6-7}
+ & Unconstrained & Constrained & Unconstrained & Constrained & Unconstrained & Constrained \\
+\hline
+$Cash\ flow$            & $0.041^{***}$ & $0.023^{***}$ & $0.072^{***}$ & $0.024^{***}$ & $0.019^{***}$ & $0.040^{***}$ \\
+                        & $(0.007)$     & $(0.005)$     & $(0.008)$     & $(0.005)$     & $(0.004)$     & $(0.007)$     \\
+$Tangibility$           & $0.180^{***}$ & $0.112^{***}$ & $0.132^{***}$ & $0.150^{***}$ & $0.243^{***}$ & $0.102^{***}$ \\
+                        & $(0.015)$     & $(0.012)$     & $(0.012)$     & $(0.016)$     & $(0.018)$     & $(0.012)$     \\
+$Q$                     & $0.003^{***}$ & $0.004^{***}$ & $0.004^{***}$ & $0.003^{***}$ & $0.002^{***}$ & $0.006^{***}$ \\
+                        & $(0.000)$     & $(0.001)$     & $(0.001)$     & $(0.001)$     & $(0.000)$     & $(0.001)$     \\
+\hline
+Firm effects            & Yes           & Yes           & Yes           & Yes           & Yes           & Yes           \\
+Time effects            & Yes           & Yes           & Yes           & Yes           & Yes           & Yes           \\
+Num. obs.               & $7189$        & $7186$        & $7353$        & $7061$        & $7189$        & $7186$        \\
+R$^2$ (full model)      & $0.740$       & $0.631$       & $0.641$       & $0.655$       & $0.761$       & $0.615$       \\
+R$^2$ (proj model)      & $0.123$       & $0.083$       & $0.145$       & $0.084$       & $0.193$       & $0.065$       \\
+Adj. R$^2$ (full model) & $0.616$       & $0.442$       & $0.591$       & $0.524$       & $0.689$       & $0.480$       \\
+Adj. R$^2$ (proj model) & $-0.294$      & $-0.387$      & $0.026$       & $-0.265$      & $-0.050$      & $-0.263$      \\
+\hline
+\multicolumn{7}{l}{\tiny{$^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$}}
+\end{tabular}
+\centerline{\begin{minipage}{0.95\textwidth}~\
+\footnotesize{\scriptsize \textbf{Note:} Table reports regression results from Eq.(1) where  the independent variable $Investment$ is Capital Expendatures over Total Assets(CAPX/AT).  Cash flow is Net income before extraordinary items plus depreciation over Total Assets(IP+DP/AT).  Tangibility is firm asset tangibility defined as the proportion of physical assets to total assets(PPENT/AT).  All variables are winsorized at 1st and 99th percentiles to reduce possible distortionary effects of outliers. Firms identified as constrained(unconstrained) belong to the top(bottom) tercile of firms sorted by respective financial constraints index. Index definitions given in Appendix} \end{minipage}}
+\end{scriptsize}
+\label{tab:fc_reg_2}
+\end{center}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[H]
+\caption{Regressions - Financial constraints and LSI}
+\begin{center}
+\begin{scriptsize}
+\begin{tabular}{l c c c c c c}
+\hline
+ & \multicolumn{2}{c}{$WW\ index$} & \multicolumn{2}{c}{$SA\ index$} & \multicolumn{2}{c}{$KZ\ index$} \\
+\cline{2-3} \cline{4-5} \cline{6-7}
+ & Unconstrained & Constrained & Unconstrained & Constrained & Unconstrained & Constrained \\
+\hline
+$Cash\ flow$            & $0.263^{***}$  & $0.056^{*}$   & $0.295^{***}$  & $0.084^{**}$  & $0.099^{**}$  & $0.095^{*}$   \\
+                        & $(0.050)$      & $(0.028)$     & $(0.044)$      & $(0.028)$     & $(0.035)$     & $(0.040)$     \\
+$Tangibility$           & $0.181^{***}$  & $0.112^{***}$ & $0.134^{***}$  & $0.150^{***}$ & $0.244^{***}$ & $0.103^{***}$ \\
+                        & $(0.015)$      & $(0.012)$     & $(0.012)$      & $(0.015)$     & $(0.018)$     & $(0.012)$     \\
+$Q$                     & $0.002^{***}$  & $0.004^{***}$ & $0.004^{***}$  & $0.003^{***}$ & $0.002^{***}$ & $0.006^{***}$ \\
+                        & $(0.000)$      & $(0.001)$     & $(0.001)$      & $(0.001)$     & $(0.000)$     & $(0.001)$     \\
+$LSI$                   & $-0.008$       & $-0.008$      & $0.008^{*}$    & $-0.011$      & $0.006$       & $-0.002$      \\
+                        & $(0.005)$      & $(0.005)$     & $(0.003)$      & $(0.006)$     & $(0.004)$     & $(0.006)$     \\
+$Cash\ flow\ x\ LSI$    & $-0.090^{***}$ & $-0.013$      & $-0.094^{***}$ & $-0.025^{*}$  & $-0.032^{*}$  & $-0.023$      \\
+                        & $(0.019)$      & $(0.011)$     & $(0.019)$      & $(0.011)$     & $(0.014)$     & $(0.017)$     \\
+\hline
+Firm effects            & Yes            & Yes           & Yes            & Yes           & Yes           & Yes           \\
+Time effects            & Yes            & Yes           & Yes            & Yes           & Yes           & Yes           \\
+Num. obs.               & $7189$         & $7186$        & $7353$         & $7061$        & $7189$        & $7186$        \\
+R$^2$ (full model)      & $0.744$        & $0.631$       & $0.645$        & $0.656$       & $0.762$       & $0.616$       \\
+R$^2$ (proj model)      & $0.135$        & $0.084$       & $0.156$        & $0.086$       & $0.196$       & $0.066$       \\
+Adj. R$^2$ (full model) & $0.622$        & $0.442$       & $0.595$        & $0.525$       & $0.691$       & $0.480$       \\
+Adj. R$^2$ (proj model) & $-0.276$       & $-0.386$      & $0.038$        & $-0.263$      & $-0.047$      & $-0.263$      \\
+\hline
+\multicolumn{7}{l}{\tiny{$^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$}}
+\end{tabular}
+\centerline{\begin{minipage}{0.95\textwidth}~\
+\footnotesize{\scriptsize \textbf{Note:} Table reports regression results from Eq.(1) where  the independent variable $Investment$ is Capital Expendatures over Total Assets(CAPX/AT).  Cash flow is Net income before extraordinary items plus depreciation over Total Assets(IP+DP/AT).  Tangibility is firm asset tangibility defined as the proportion of physical assets to total assets(PPENT/AT).  LS index is the Labor Skills Index compiled from BLS survey data, where the process is detailed in Section 2.  All variables are winsorized at 1st and 99th percentiles to reduce possible distortionary effects of outliers. Firms identified as constrained(unconstrained) belong to the top(bottom) tercile of firms sorted by respective financial constraints index. Index definitions given in Appendix} \end{minipage}}
+\end{scriptsize}
+\label{tab:fc_reg}
+\end{center}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[H]
+\caption{Regressions - Financial constraints, controls, and LSI}
+\begin{center}
+\begin{scriptsize}
+\begin{tabular}{l c c c c c c}
+\hline
+ & \multicolumn{2}{c}{$WW\ index$} & \multicolumn{2}{c}{$SA\ index$} & \multicolumn{2}{c}{$KZ\ index$} \\
+\cline{2-3} \cline{4-5} \cline{6-7}
+ & Unconstrained & Constrained & Unconstrained & Constrained & Unconstrained & Constrained \\
+\hline
+$Cash\ flow$            & $0.269^{***}$  & $0.050^{*}$   & $0.275^{***}$  & $0.089^{***}$ & $0.098^{**}$  & $0.085^{*}$   \\
+                        & $(0.048)$      & $(0.025)$     & $(0.043)$      & $(0.025)$     & $(0.034)$     & $(0.034)$     \\
+$Tangibility$           & $0.191^{***}$  & $0.118^{***}$ & $0.136^{***}$  & $0.163^{***}$ & $0.250^{***}$ & $0.109^{***}$ \\
+                        & $(0.015)$      & $(0.012)$     & $(0.012)$      & $(0.015)$     & $(0.018)$     & $(0.011)$     \\
+$Q$                     & $0.002^{***}$  & $0.003^{***}$ & $0.004^{***}$  & $0.003^{***}$ & $0.002^{***}$ & $0.005^{***}$ \\
+                        & $(0.000)$      & $(0.001)$     & $(0.001)$      & $(0.000)$     & $(0.000)$     & $(0.001)$     \\
+$\Delta Debt$           & $0.000^{***}$  & $0.000^{***}$ & $0.000^{***}$  & $0.000^{**}$  & $0.000^{***}$ & $0.000^{***}$ \\
+                        & $(0.000)$      & $(0.000)$     & $(0.000)$      & $(0.000)$     & $(0.000)$     & $(0.000)$     \\
+$\Delta Equity$         & $0.036^{***}$  & $0.028^{***}$ & $0.022^{***}$  & $0.036^{***}$ & $0.020^{***}$ & $0.053^{***}$ \\
+                        & $(0.004)$      & $(0.004)$     & $(0.005)$      & $(0.003)$     & $(0.002)$     & $(0.006)$     \\
+$Cash_{t-1}$            & $0.065$        & $0.095$       & $0.109$        & $0.184^{**}$  & $0.087^{*}$   & $0.102$       \\
+                        & $(0.072)$      & $(0.063)$     & $(0.067)$      & $(0.063)$     & $(0.043)$     & $(0.157)$     \\
+$LSI$                   & $-0.007$       & $-0.007$      & $0.006^{*}$    & $-0.009$      & $0.006$       & $-0.000$      \\
+                        & $(0.005)$      & $(0.005)$     & $(0.003)$      & $(0.006)$     & $(0.003)$     & $(0.006)$     \\
+$Cash\ flow\ x\ LSI$    & $-0.088^{***}$ & $-0.006$      & $-0.085^{***}$ & $-0.021^{*}$  & $-0.029^{*}$  & $-0.011$      \\
+                        & $(0.018)$      & $(0.010)$     & $(0.018)$      & $(0.009)$     & $(0.014)$     & $(0.014)$     \\
+\hline
+Firm effects            & Yes            & Yes           & Yes            & Yes           & Yes           & Yes           \\
+Time effects            & Yes            & Yes           & Yes            & Yes           & Yes           & Yes           \\
+Num. obs.               & $7183$         & $7181$        & $7340$         & $7061$        & $7181$        & $7185$        \\
+R$^2$ (full model)      & $0.753$        & $0.640$       & $0.649$        & $0.670$       & $0.769$       & $0.633$       \\
+R$^2$ (proj model)      & $0.167$        & $0.105$       & $0.166$        & $0.123$       & $0.218$       & $0.109$       \\
+Adj. R$^2$ (full model) & $0.635$        & $0.455$       & $0.600$        & $0.544$       & $0.699$       & $0.503$       \\
+Adj. R$^2$ (proj model) & $-0.229$       & $-0.354$      & $0.049$        & $-0.212$      & $-0.018$      & $-0.206$      \\
+\hline
+\multicolumn{7}{l}{\tiny{$^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$}}
+\end{tabular}
+\centerline{\begin{minipage}{0.95\textwidth}~\
+\footnotesize{\scriptsize \singlespacing \textbf{Note:} Table reports regression results from Eq.(1) where  the independent variable $Investment$ is Capital Expendatures over Total Assets(CAPX/AT).  Cash flow is Net income before extraordinary items plus depreciation over Total Assets(IP+DP/AT).  Tangibility is firm asset tangibility defined as the proportion of physical assets to total assets(PPENT/AT).  LS index is the Labor Skills Index compiled from BLS survey data, where the process is detailed in Section 2.  All variables are winsorized at 1st and 99th percentiles to reduce possible distortionary effects of outliers. Firms identified as constrained(unconstrained) belong to the top(bottom) tercile of firms sorted by respective financial constraints index. Index definitions given in Appendix} \end{minipage}}
+\end{scriptsize}
+\label{tab:fc_reg_3}
+\end{center}
+\end{table}
