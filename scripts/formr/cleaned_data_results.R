@@ -64,7 +64,7 @@ design_tbl <- survey_design %>%
     parking
   )
 
-## -------------------------
+##  Add vars to df_model -------------------------
 ## 3) Merge + IDs for logitr
 ## -------------------------
 df_merged <- df_regs %>%
@@ -87,7 +87,7 @@ df_merged <- df_regs %>%
 ## -------------------------
 df_covars <- survey_df %>%
   distinct(RespondentID, .keep_all = TRUE) %>%
-  select(RespondentID, Sex, Age_T3, income, monthcost, planed_cost) %>%
+  select(RespondentID, Sex, Age_T3, civil_status_T2, income, monthcost, planed_cost, bostadstyp, ägandebostad) %>%
   mutate(panelID = as.integer(factor(RespondentID)),
          income_qrt = factor(ntile(income, 3), labels = c("Q1","Q2","Q3"))
   )
@@ -163,14 +163,29 @@ survey_df %>%
 
 
 dfSum <- survey_df %>% 
+  filter(!is.na(Sex)) %>% 
   # filter(planed_cost != 0,
   #        monthcost != 0,
   #        income != 0) %>%
   select(monthcost,
          income,
          planed_cost,
+         ägandebostad,
+         bostadstyp,
+         Sex,
+         civil_status_T2
+         
          
   )%>% 
+  mutate( ägandebostad = haven::as_factor(ägandebostad),
+          bostadstyp = haven::as_factor(bostadstyp),
+          Sex = haven::as_factor(Sex),
+          Civil = haven::as_factor(civil_status_T2),
+          civil_d = factor(if_else(civil_status_T2 == 1, "Partnered", "Not partnered")),
+          Own = factor(if_else(ägandebostad == "Ja", "Owner", "Renter")),
+          Hus = factor(if_else( bostadstyp == "Friliggande villa/hus/gård" | bostadstyp == "Radhus/kedjehus/parhus", "House", "Apartment/Condo"))
+          
+          ) %>% 
   # mutate(time_page_1 = time_page_1/60,
   #        cbc_time = (if_else(is.na(time_page_4),time_page_2,time_page_4)/60) ,
   #        total_survey_time = rowSums(across(c(time_page_1,cbc_time))) ) %>% 
@@ -186,7 +201,7 @@ label(dfSum$planed_cost) <- "Planned housing costs"
 
 
 
-t1 <- table1::table1(~ monthcost + income + planed_cost  ,
+t1 <- table1::table1(~ Sex + civil_d + Own + Hus + monthcost + income + planed_cost + ägandebostad + bostadstyp  ,
                      data = dfSum,
                      na.rm = TRUE,
                      digits = 3,

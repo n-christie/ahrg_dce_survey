@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4 NEXT) (preloaded format=pdflatex 2023.4.30)  19 SEP 2025 13:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4 NEXT) (preloaded format=pdflatex 2023.4.30)  22 SEP 2025 15:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -27,8 +27,8 @@ Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
 
 (C:\Program Files\MiKTeX\tex/latex/base\article.cls
 Document Class: article 2022/07/02 v1.4n Standard LaTeX document class
-(C:\Program Files\MiKTeX\tex/latex/base\size12.clo
-File: size12.clo 2022/07/02 v1.4n Standard LaTeX file (size option)
+(C:\Program Files\MiKTeX\tex/latex/base\size11.clo
+File: size11.clo 2022/07/02 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count187
 \c@section=\count188
@@ -584,7 +584,11 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 \Hy@SectionHShift=\skip71
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 73.
- (reloc_age_prospectus.aux)
+ (reloc_age_prospectus.aux
+
+LaTeX Warning: Label `table:base_male' multiply defined.
+
+)
 \openout1 = `reloc_age_prospectus.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 87.
@@ -605,8 +609,7 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 87.
 LaTeX Font Info:    ... okay on input line 87.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 87.
 LaTeX Font Info:    ... okay on input line 87.
-
-(C:\Program Files\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
+ (C:\Program Files\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count322
 \scratchdimen=\dimen267
@@ -648,9 +651,9 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 * \topmargin=-22.74657pt
 * \headheight=50.0pt
 * \headsep=12.0pt
-* \topskip=12.0pt
+* \topskip=11.0pt
 * \footskip=18.0pt
-* \marginparwidth=44.0pt
+* \marginparwidth=59.0pt
 * \marginparsep=10.0pt
 * \columnsep=24.0pt
 * \skip\footins=24.0pt plus 2.0pt minus 12.0pt
@@ -672,13 +675,13 @@ Package hyperref Info: Link coloring ON on input line 87.
 \@outlinefile=\write4
 \openout4 = `reloc_age_prospectus.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 201
+LaTeX Font Info:    Trying to load font information for U+msa on input line 205
 .
 
 (C:\Program Files\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 201
+LaTeX Font Info:    Trying to load font information for U+msb on input line 205
 .
 
 (C:\Program Files\MiKTeX\tex/latex/amsfonts\umsb.fd
@@ -686,95 +689,134 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {C:/Users/ni3054ch/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-<figures/survey_location.png, id=64, 542.025pt x 997.8078pt>
+<figures/survey_location.png, id=96, 542.025pt x 997.8078pt>
 File: figures/survey_location.png Graphic file (type png)
 <use figures/survey_location.png>
-Package pdftex.def Info: figures/survey_location.png  used on input line 247.
+Package pdftex.def Info: figures/survey_location.png  used on input line 251.
 (pdftex.def)             Requested size: 135.5059pt x 249.45134pt.
 
-Overfull \hbox (41.90733pt too wide) in paragraph at lines 247--248
+Overfull \hbox (41.90733pt too wide) in paragraph at lines 251--252
  [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 241--249
-\OT1/cmr/m/n/12 com-pa-nies.
+Underfull \hbox (badness 1308) in paragraph at lines 252--252
+\OT1/cmr/m/n/10.95 dis-tri-bu-tion of re-
  []
 
-[2] (tables/des.tex) [3 <./figures/survey_location.png>] [4]
-<figures/edu_den.png, id=88, 741.0084pt x 670.4247pt>
-File: figures/edu_den.png Graphic file (type png)
-<use figures/edu_den.png>
-Package pdftex.def Info: figures/edu_den.png  used on input line 285.
-(pdftex.def)             Requested size: 468.0pt x 423.42346pt.
- [5
+[2 <./figures/survey_location.png>] (tables/des.tex) [3] [4
 
- <./figures/edu_den.png>] [6]
+]
 
-Package natbib Warning: Citation `Caplan2021' on page 7 undefined on input line
- 340.
+Package natbib Warning: Citation `helvestonLogitrFastEstimation2022' on page 5 
+undefined on input line 362.
 
 
-Package natbib Warning: Citation `Caplan2021' on page 7 undefined on input line
- 364.
+Package natbib Warning: Citation `Caplan2021' on page 5 undefined on input line
+ 375.
 
-[7] (tables/att.tex) [8] [9]
+[5]
 
-LaTeX Warning: Reference `tab:base_male' on page 10 undefined on input line 398
-.
+Package natbib Warning: Citation `Caplan2021' on page 6 undefined on input line
+ 399.
 
-(tables/base_reg_male.tex
+(tables/att.tex) [6] [7] (tables/base_reg_owner.tex
+! Missing $ inserted.
+<inserted text> 
+                $
+l.37 LR \chi
+             2 (df=9)                       & 2715.02     & 3583.53     &   ...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
 
-! LaTeX Error: Unicode character χ (U+03C7)
-               not set up for use with LaTeX.
+! Missing $ inserted.
+<inserted text> 
+                $
+l.37 LR \chi 2 (df=9)                       &
+                                              2715.02     & 3583.53     &   ...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.37 LR χ
-          ² (df=9)                       & 1561.76     & 2043.19     &     ...
+) [8
 
-You may provide a definition with
-\DeclareUnicodeCharacter 
+] (tables/base_reg_renter.tex
+! Missing $ inserted.
+<inserted text> 
+                $
+l.37 LR \chi
+             2 (df=9)                       & 577.83      & 796.40       &  ...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
 
-)
+! Missing $ inserted.
+<inserted text> 
+                $
+l.37 LR \chi 2 (df=9)                       &
+                                              577.83      & 796.40       &  ...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
 
-LaTeX Warning: Reference `tab:base_female' on page 10 undefined on input line 4
-03.
+) (tables/base_reg_male.tex
+! Missing $ inserted.
+<inserted text> 
+                $
+l.37 LR \chi
+             2 (df=9)                       & 1561.76     & 2043.19     &   ...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
 
-(tables/base_reg_female.tex
-
-! LaTeX Error: Unicode character χ (U+03C7)
-               not set up for use with LaTeX.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.37 LR χ
-          ² (df=9)                       & 1738.15     & 2358.45     &     ...
-
-You may provide a definition with
-\DeclareUnicodeCharacter 
+! Missing $ inserted.
+<inserted text> 
+                $
+l.37 LR \chi 2 (df=9)                       &
+                                              1561.76     & 2043.19     &   ...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) [10
+) (tables/base_reg_female.tex
+! Missing $ inserted.
+<inserted text> 
+                $
+l.36 LR \chi
+             2 (df=9)                       & 1738.15     & 2354.18     &   ...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
 
-] [11] [12
+! Missing $ inserted.
+<inserted text> 
+                $
+l.36 LR \chi 2 (df=9)                       &
+                                              1738.15     & 2354.18     &   ...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
 
-] [13] (reloc_age_prospectus.bbl)
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) [9] [10] [11] [12
+
+] (reloc_age_prospectus.bbl)
 
 Package natbib Warning: There were undefined citations.
 
-[14] (reloc_age_prospectus.aux)
+[13] (reloc_age_prospectus.aux)
 
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Warning: There were multiply-defined labels.
 
 
 Package rerunfilecheck Warning: File `reloc_age_prospectus.out' has changed.
@@ -782,45 +824,42 @@ Package rerunfilecheck Warning: File `reloc_age_prospectus.out' has changed.
 (rerunfilecheck)                or use package `bookmark'.
 
 Package rerunfilecheck Info: Checksums for `reloc_age_prospectus.out':
-(rerunfilecheck)             Before: 7F06592F289748809C2DFA58AC43C539;1351
-(rerunfilecheck)             After:  D76BDFA75EA8DAC2811ABE79DE9DA4FD;2054.
+(rerunfilecheck)             Before: 51B7B609D37E0EFF19C2F7225132261A;2893
+(rerunfilecheck)             After:  CD1692F476862DE028E28B70E6364414;2762.
  ) 
 Here is how much of TeX's memory you used:
- 15372 strings out of 476331
- 250175 string characters out of 5797571
- 1900660 words of memory out of 5000000
- 35458 multiletter control sequences out of 15000+600000
- 526649 words of font info for 86 fonts, out of 8000000 for 9000
+ 15389 strings out of 476331
+ 250615 string characters out of 5797571
+ 1919660 words of memory out of 5000000
+ 35462 multiletter control sequences out of 15000+600000
+ 526814 words of font info for 87 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,17n,76p,1215b,468s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,17n,76p,1154b,476s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-pdfTeX warning (dest): name{subsection.4.2} has been referenced but does not ex
-ist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.4.1} has been referenced but does not ex
+pdfTeX warning (dest): name{subsection.6.2} has been referenced but does not ex
 ist, replaced by a fixed one
 
  <C:\Users\ni3054ch\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcr
-m0800.pk><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:
+m0800.pk><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:
 /Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Fil
-es/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTeX/fo
+es/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX/fo
 nts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX/fonts/type1/pub
 lic/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/
 cm/cmmib10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pf
 b><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program
- Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX
-/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files/MiKTeX/fonts/type1/p
-ublic/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts
-/cm/cmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pf
-b><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program
- Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTe
-X/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Program Files/MiKTeX/fonts/type
-1/public/amsfonts/cm/cmti7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsf
-onts/cm/cmtt10.pfb>
-Output written on reloc_age_prospectus.pdf (14 pages, 7348105 bytes).
+ Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX/
+fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX/fonts/type1/pu
+blic/amsfonts/cm/cmr9.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/
+cm/cmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb
+><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program 
+Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX
+/fonts/type1/public/amsfonts/cm/cmti7.pfb><C:/Program Files/MiKTeX/fonts/type1/
+public/amsfonts/cm/cmti9.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfon
+ts/cm/cmtt10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt9.
+pfb>
+Output written on reloc_age_prospectus.pdf (13 pages, 7089999 bytes).
 PDF statistics:
- 278 PDF objects out of 1000 (max. 8388607)
- 58 named destinations out of 1000 (max. 500000)
- 91 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 311 PDF objects out of 1000 (max. 8388607)
+ 63 named destinations out of 1000 (max. 500000)
+ 150 words of extra memory for PDF output out of 10000 (max. 10000000)
 
