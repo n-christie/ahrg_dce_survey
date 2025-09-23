@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4 NEXT) (preloaded format=pdflatex 2023.4.30)  22 SEP 2025 15:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4 NEXT) (preloaded format=pdflatex 2023.4.30)  23 SEP 2025 13:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -689,7 +689,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {C:/Users/ni3054ch/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-<figures/survey_location.png, id=96, 542.025pt x 997.8078pt>
+<figures/survey_location.png, id=92, 542.025pt x 997.8078pt>
 File: figures/survey_location.png Graphic file (type png)
 <use figures/survey_location.png>
 Package pdftex.def Info: figures/survey_location.png  used on input line 251.
@@ -720,91 +720,14 @@ Package natbib Warning: Citation `Caplan2021' on page 5 undefined on input line
 Package natbib Warning: Citation `Caplan2021' on page 6 undefined on input line
  399.
 
-(tables/att.tex) [6] [7] (tables/base_reg_owner.tex
-! Missing $ inserted.
-<inserted text> 
-                $
-l.37 LR \chi
-             2 (df=9)                       & 2715.02     & 3583.53     &   ...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
+(tables/att.tex) [6] [7] (tables/base_reg_owner.tex) [8
 
-! Missing $ inserted.
-<inserted text> 
-                $
-l.37 LR \chi 2 (df=9)                       &
-                                              2715.02     & 3583.53     &   ...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-) [8
-
-] (tables/base_reg_renter.tex
-! Missing $ inserted.
-<inserted text> 
-                $
-l.37 LR \chi
-             2 (df=9)                       & 577.83      & 796.40       &  ...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.37 LR \chi 2 (df=9)                       &
-                                              577.83      & 796.40       &  ...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-) (tables/base_reg_male.tex
-! Missing $ inserted.
-<inserted text> 
-                $
-l.37 LR \chi
-             2 (df=9)                       & 1561.76     & 2043.19     &   ...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.37 LR \chi 2 (df=9)                       &
-                                              1561.76     & 2043.19     &   ...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
+]
+(tables/base_reg_renter.tex) (tables/base_reg_male.tex
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 ) (tables/base_reg_female.tex
-! Missing $ inserted.
-<inserted text> 
-                $
-l.36 LR \chi
-             2 (df=9)                       & 1738.15     & 2354.18     &   ...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.36 LR \chi 2 (df=9)                       &
-                                              1738.15     & 2354.18     &   ...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -818,48 +741,38 @@ Package natbib Warning: There were undefined citations.
 
 LaTeX Warning: There were multiply-defined labels.
 
-
-Package rerunfilecheck Warning: File `reloc_age_prospectus.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `reloc_age_prospectus.out':
-(rerunfilecheck)             Before: 51B7B609D37E0EFF19C2F7225132261A;2893
-(rerunfilecheck)             After:  CD1692F476862DE028E28B70E6364414;2762.
+Package rerunfilecheck Info: File `reloc_age_prospectus.out' has not changed.
+(rerunfilecheck)             Checksum: CD1692F476862DE028E28B70E6364414;2762.
  ) 
 Here is how much of TeX's memory you used:
- 15389 strings out of 476331
- 250615 string characters out of 5797571
+ 15387 strings out of 476331
+ 250585 string characters out of 5797571
  1919660 words of memory out of 5000000
- 35462 multiletter control sequences out of 15000+600000
+ 35461 multiletter control sequences out of 15000+600000
  526814 words of font info for 87 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,17n,76p,1154b,476s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
-pdfTeX warning (dest): name{subsection.6.2} has been referenced but does not ex
-ist, replaced by a fixed one
-
- <C:\Users\ni3054ch\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcr
-m0800.pk><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:
-/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Fil
-es/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX/fo
-nts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX/fonts/type1/pub
-lic/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/
-cm/cmmib10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pf
-b><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program
- Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX/
-fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX/fonts/type1/pu
-blic/amsfonts/cm/cmr9.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/
-cm/cmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb
-><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program 
-Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX
-/fonts/type1/public/amsfonts/cm/cmti7.pfb><C:/Program Files/MiKTeX/fonts/type1/
-public/amsfonts/cm/cmti9.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfon
-ts/cm/cmtt10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt9.
-pfb>
-Output written on reloc_age_prospectus.pdf (13 pages, 7089999 bytes).
+ <C:\Users\ni3054ch\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\t
+crm0800.pk><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><
+C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program F
+iles/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX/
+fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX/fonts/type1/p
+ublic/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfont
+s/cm/cmmib10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.
+pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Progr
+am Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTe
+X/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX/fonts/type1/
+public/amsfonts/cm/cmr9.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfont
+s/cm/cmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.p
+fb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Progra
+m Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKT
+eX/fonts/type1/public/amsfonts/cm/cmti7.pfb><C:/Program Files/MiKTeX/fonts/type
+1/public/amsfonts/cm/cmti9.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsf
+onts/cm/cmtt10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt
+9.pfb>
+Output written on reloc_age_prospectus.pdf (13 pages, 7089277 bytes).
 PDF statistics:
- 311 PDF objects out of 1000 (max. 8388607)
- 63 named destinations out of 1000 (max. 500000)
- 150 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 307 PDF objects out of 1000 (max. 8388607)
+ 62 named destinations out of 1000 (max. 500000)
+ 142 words of extra memory for PDF output out of 10000 (max. 10000000)
 

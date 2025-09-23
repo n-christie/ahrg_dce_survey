@@ -30,15 +30,19 @@ survey_df <- sample_df %>%
 
 dfSum <- survey_df %>% 
   filter(
-    planed_cost != 0,
-         monthcost != 0,
-         income != 0
+    !is.na(Sex)
+    # planed_cost != 0,
+    #      monthcost != 0,
+    #      income != 0
          ) %>%
   select(monthcost,
          income,
          planed_cost,
+         Age_T3,
+         Sex
          
   )%>% 
+  mutate(Sex = factor(Sex)) %>% 
   # mutate(time_page_1 = time_page_1/60,
   #        cbc_time = (if_else(is.na(time_page_4),time_page_2,time_page_4)/60) ,
   #        total_survey_time = rowSums(across(c(time_page_1,cbc_time))) ) %>% 
@@ -54,7 +58,7 @@ label(dfSum$planed_cost) <- "Planned housing costs"
 
 
 
-t1 <- table1::table1(~ monthcost + income + planed_cost  ,
+t1 <- table1::table1(~ monthcost + income + planed_cost + Age_T3 + Sex  ,
                      data = dfSum,
                      na.rm = TRUE,
                      digits = 3,

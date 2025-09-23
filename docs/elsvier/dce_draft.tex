@@ -1,0 +1,588 @@
+
+
+\documentclass[3p,11pt ]{elsarticle}
+
+\makeatletter
+\def\ps@pprintTitle{%
+ \let\@oddhead\@empty
+ \let\@evenhead\@empty
+ \let\@oddfoot\@empty
+ \let\@evenfoot\@empty
+}
+\makeatother
+
+
+%% Use the option review to obtain double line spacing
+%% \documentclass[preprint,review,12pt]{elsarticle}
+
+%% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
+%% for a journal layout:
+%% \documentclass[final,1p,times]{elsarticle}
+%% \documentclass[final,1p,times,twocolumn]{elsarticle}
+%% \documentclass[final,3p,times]{elsarticle}
+%% \documentclass[final,3p,times,twocolumn]{elsarticle}
+%% \documentclass[final,5p,times]{elsarticle}
+%% \documentclass[final,5p,times,twocolumn]{elsarticle}
+
+%% For including figures, graphicx.sty has been loaded in
+%% elsarticle.cls. If you prefer to use the old commands
+%% please give \usepackage{epsfig}
+%% The amssymb package provides various useful mathematical symbols
+
+
+
+\usepackage{natbib}
+ \bibpunct[, ]{(}{)}{,}{a}{}{,}%
+ \def\bibfont{\small}%
+ \def\bibsep{\smallskipamount}%
+ \def\bibhang{24pt}%
+ \def\newblock{\ }%
+ \def\BIBand{and}%
+
+\usepackage{lipsum} 
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+
+\usepackage{booktabs}   % for top/mid/bottomrule
+\usepackage{dcolumn}    % for D column alignment
+\usepackage{caption}    % optional, for better caption formatting
+\usepackage{amsmath}    % optional, for symbols like chi²
+
+%\usepackage[nomarkers]{endfloat}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{rotating}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue}
+\usepackage{caption}
+\captionsetup{font=normalsize}
+
+%% The amsthm package provides extended theorem environments
+%% \usepackage{amsthm}
+
+%% The lineno packages adds line numbers. Start line numbering with
+%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
+%% for the whole article with \linenumbers.
+%% \usepackage{lineno}
+
+\journal{Housing studies}
+
+\begin{document}
+
+\begin{frontmatter}
+
+%% Title, authors and addresses
+
+%% use the tnoteref command within \title for footnotes;
+%% use the tnotetext command for theassociated footnote;
+%% use the fnref command within \author or \address for footnotes;
+%% use the fntext command for theassociated footnote;
+%% use the corref command within \author for corresponding author footnotes;
+%% use the cortext command for theassociated footnote;
+%% use the ead command for the email address,
+%% and the form \ead[url] for the home page:
+%% \title{Title\tnoteref{label1}}
+%% \tnotetext[label1]{}
+%% \author{Name\corref{cor1}\fnref{label2}}
+%% \ead{email address}
+%% \ead[url]{home page}
+%% \fntext[label2]{}
+%% \cortext[cor1]{}
+%% \affiliation{organization={},
+%%             addressline={},
+%%             city={},
+%%             postcode={},
+%%             state={},
+%%             country={}}
+%% \fntext[label3]{}
+
+\title{The value of location: what matters most for older individuals considering relocation in Sweden?}
+
+%% use optional labels to link authors explicitly to addresses:
+%% \author[label1,label2]{}
+%% \affiliation[label1]{organization={},
+%%             addressline={},
+%%             city={},
+%%             postcode={},
+%%             state={},
+%%             country={}}
+%%
+%% \affiliation[label2]{organization={},
+%%             addressline={},
+%%             city={},
+%%             postcode={},
+%%             state={},
+%%             country={}}
+
+\author[1]{Nick Christie}
+\ead{nick.christie@med.lu.se}
+
+\author[1]{Susanne Iwarsson}
+\ead{susanne.iwarsson@med.lu.se}
+
+\author[1]{Magnus Zingmark}
+\ead{magnus.zingmark@med.lu.se}
+
+%\author[1]{Maya Ky\'eln}
+%\ead{maya.kyeln@med.lu.se}
+
+\author[1]{Bj\"orn Slaug}
+\ead{bjorn.slaug@med.lu.se}
+
+\author[2]{Jonas Bj\"ork}
+\ead{jonas.bjork@med.lu.se}
+
+
+
+%\author[1]{Steven M Schmidt}
+%\ead{steven.schmidt@med.lu.se}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ \affiliation[1]{organization={Department of Health Sciences, Lund University}, 
+                 addressline={P.O. Box 7080},
+                 postcode={22100}, 
+                 city={Lund}, 
+                 country={Sweden}}
+                 
+ \affiliation[2]{organization={Division of Occupational and Environmental Medicine, Lund University}, 
+                 addressline={Scheelevägen 2},
+                 postcode={22363}, 
+                 city={Lund}, 
+                 country={Sweden}}
+                 
+                 
+%\begin{abstract}
+%
+%This study explores variation in housing attribute preferences among older adults in Sweden considering relocation in Sweden.
+%Using a discrete choice experimental data from the Prospective RELOC-AGE project (n=957;mean age = 71.9;55.3\% women), key housing attributes including proximity to services, access to public transportation, availability of green space, and presence of dedicated parking facilities were examined. These attributes are framed using percentage-based trade-offs to estimate marginal willingness to pay for each feature. Socio-demographic factors such as age and gender are included to identify systematic differences in preferences. The results reveal substantial heterogeneity. Individuals in the oldest age groups express significantly higher willingness to pay for several attributes, with some values reaching up to three times those of younger respondents. Differences between men and women, renters and owners, are also observed. The findings provide evidence-based estimates that support policy development and housing planning aimed at facilitating ageing in place and improving the design of environments that accommodate diverse needs in later life.
+%\end{abstract}
+
+\begin{abstract}
+We examine heterogeneity in housing preferences among older adults in Sweden using discrete choice experiment data from the Prospective RELOC-AGE study (n = 957; mean age = 71.9; 55.3 percent women). Respondents assessed trade-offs between key residential attributes, including proximity to services, access to public transportation, green space, and dedicated parking, and planned monthly expenses. We estimate mixed logit models to recover marginal willingness to pay estimates for each attribute and include interactions with age, gender, and income terciles to capture systematic variation in preferences. Our results show that individuals in the oldest age groups express significantly higher willingness to pay for several attributes, up to three times that of younger respondents. We also identify meaningful differences by gender and tenure status, reflecting underlying patterns of social inequality in later life. These findings contribute policy-relevant evidence to support the development of age-inclusive housing strategies that address both diverse preferences and structural disparities in residential choice.
+
+\end{abstract}
+%\begin{keyword}
+%
+%Ageing \sep Housing \sep Health \sep Relocation
+%%% keywords here, in the form: keyword \sep keyword
+%
+%%% PACS codes here, in the form: \PACS code \sep code
+%
+%%% MSC codes here, in the form: \MSC code \sep code
+%%% or \MSC[2008] code \sep code (2000 is the default)
+%
+%\end{keyword}
+\end{frontmatter}
+
+%% \linenumbers
+
+\newpage
+
+
+
+\section{Introduction}
+
+As populations age and the expansion of housing associated with boundless population growth maintains pace,
+understanding the housing preferences of the ageing demographic becomes increasingly vital for future societies.
+
+In Sweden, the majority of senior citizens live in their own homes with 94\% of the population aged 65+ remaining in ordinary housing \citep{jennbertDevelopmentsElderlyPolicy2009}.
+
+As this population segment grows,
+appropriate housing options are essential to provide viable options for an ageing society in need of housing.
+Striking the right balance between housing attributes is a complex decision-making process in the search for new accommodation,
+with the considerations of the older populations even more relevant today.
+
+Research suggests that most older adults prefer to age in place,
+changing households to a lesser extent compared to younger demographics  \citep{abramssonChangingLocationsCentral2015}.
+
+This study employs a discrete choice experiment (DCE) to delve into the critical factors influencing the housing choices of older individuals in Sweden wishing to relocate.
+Leverage the identification of key housing attributes from the nation-wide Prospective RELOC-AGE project,
+we are able to take a closer look at the locational factors which matter most for older home owners wishing to relocates.
+Our research uses a diverse sample of older individuals considering relocation, presenting them with hypothetical scenarios that vary in locational attributes, including proximity to green spaces, access to public transportation, shops, and parking availability.
+
+In analysing their responses, we are able to not only elicit preferences and estimate the relative importance of these attributes,
+but also to estimate their willingness to pay for these attributes.
+These findings provide valuable insights for rural planners, policy-makers, and healthcare providers, offering guidance on creating age-friendly environments that cater to the unique needs and desires of older home owners while fostering resilient communities.
+
+
+This study is related to a number of research areas.
+First,
+we contribute to the growing literature related to housing and ageing.
+
+Second,
+on a methodological level, we contribute to the literature involving stated choice experiments.
+
+Lastly,
+we contribute to ageing in place research by identifying differences in housing preferences among older adults.
+With a larger proportions of older adults in most parts of the world,
+knowledge into what may influence independence at home is valuable to governments, policy setters, urban planners, and private companies.
+We contribute to this literature with evidence towards preferred housing attributes of older adults.
+
+
+
+\section{Motivation of attributes}
+
+\subsection{shops}
+
+\cite{lucasMethodEvaluateEquitable2016} stress that physical grocery shopping may act as an integrated social experience.  Proximity to such shopping amenities can be crucial for older individuals to participate in the social life of their communities. 
+
+
+\subsection{transportation}
+
+\cite{ricciardiExploringPublicTransport2015} "explore accessibility levels to public transport systems in the context of Perth, Australia, comparing seniors, low-income populations, populations without car availability, and the rest of the population. The findings reveal that the biggest accessibility differences are found in the seniors group, showing the lowest accessibility level to public transport systems."
+
+
+However, some studies have found significant differences within the senior cohort regarding travel behaviour and capacity to access certain locations.
+\cite{hildebrandDimensionsElderlyTravel2003}
+\cite{alsnihMobilityAccessibilityExpectations2003}
+
+
+\subsection{greenareas}
+
+\cite{cohen-clineAccessGreenSpace2015} exaimine mental health and green areas among adult twin pairs, finding that greater access to green space is associated with less depression.
+
+In a Dutch study, \cite{maasGreenSpaceUrbanity2006} find that increased green space significantly reduces perceived general health, with elderly populations particularly benefiting more from the presence of green areas in their living environment.
+
+Using Danish survey data\cite{nielsenGreenAreasAffect2007} report results that indicate access to green areas are associtated with lower stress.
+
+\cite{paquetAreAccessibilityCharacteristics2013} report a relatinship between open spaces and better cardiometabolic health.
+
+
+\cite{sturmProximityUrbanParks2014} report findings that mental health is significantly related to residential distance from parks, suggesting mental health could be improved with enhanced environmental interventions. 
+
+\subsection{conclusion of review}
+Taken together,
+the literature offers extensive support in the importance of proximity to green areas, shops and services, and transportation.
+Despite the large amounts of attention these attributes have seen in the context of ageing and housing,
+knowledge gaps still remain.
+For instance,
+it is common that older individuals are examined as one homogeneous group in comparison to, for example, a younger cohort.
+This simplified grouping may miss key differences and shortcomings in interpretations.
+Importantly,
+this heterogeneity may be intensified throughout the population with the growth of the older population in the coming years.
+
+
+\section{Sample and Method}
+
+\cite{caplanMeasuringHeterogeneousPreferences2021}
+
+In a similar study,\cite{ossokinaBestLivingConcepts2020} 
+run a discrete choice experiment utilizing predominately building characteristics in their model.
+
+In the existing literature,
+\cite{ossokinaReferencedependentHousingChoice2022a} is closest to our study in the choice of locational attributes.
+The authors find that proximity to public transport has the highest effect on utility in their sample, followed by proximity to shops.
+Our paper differs from theirs in a few ways.
+First,
+our sample is larger an encompasses a larger age group.
+They have 441 home-owners in a nine year age group (65-75).
+Second,
+our study comprises both home owners and rental occupants, representing a larger diversity of individuals searching for housing.
+Finally,
+instead of a purely hypothetical experimnet, the respondents in our study have signed up for housing services, where we can assume they have the intention, or at least a strong consideration, to relocate.
+
+
+
+
+\subsection{Sample}
+
+This paper utilizes survey and experiment data derived from the prospective RELOC-AGE project,
+a longitudinal two-tiered mixed-method cohort investigation conducted in Sweden.
+The study was registered under the identifier NCT04765696 on ClinicalTrials.gov (U.S. National Library of Medicine, 2021).
+\footnote{For comprehensive insights into the study's procedures,
+please refer to the study protocol  \cite{zingmarkExploringAssociationsHousing2021}}
+The initial data collection took place from March to December 2021, with a one-year follow-up survey conducted in 2022, and a second follow-up survey in conjunction wity a DCE experiment conducted in 2024.
+A geographical diverse sample of home owners aged 55 and above was recruited for this study across Sweden (see Figure \ref{fig:map}).
+
+The primary objective of the Prospective RELOC-AGE study is to explore the long-term dynamics associated with housing choices, relocation, and active and healthy ageing, focusing on individuals across the ageing process.
+In Sweden, approximately 4-5\% of individuals aged 60-84 years relocate each year (Statistics Sweden, 2020).
+Eligible participants were individuals aged 55 or older, residing in Sweden, and actively registered for relocation with one of three housing companies.
+\begin{wrapfigure}[25]{r}{0.2\textwidth}
+\centering
+\includegraphics[scale=0.25]{figures/survey_location.png}
+\caption{Country distribution of respondents \label{fig:map}}
+\end{wrapfigure}
+These housing companies included two local public housing providers and a national provider of tenant-owned dwellings, thereby representing various types of multi-family housing typically appealing to individuals from different socio-economic backgrounds. 
+
+%During the recruitment phase in 2021, an invitation letter inviting participation was sent by postal mail to 8,583 potential participants registered for relocation with the aforementioned housing companies.
+%The letter provided details about the project, its procedures, data handling in accordance with existing regulations, and emphasized the voluntary nature of participation.
+%A reminder was sent to those who had expressed interest in the study. Ultimately, 1,964 individuals agreed to participate and responded to the baseline survey. Following verification with the Swedish Tax Agency to identify any deceased participants, an invitation letter for the one-year follow-up was sent by postal mail to 1,952 participants on two occasions: in May (973 recipients) and September (979 recipients). In total, 1,509 participants responded to the second survey, resulting in a response rate of 77.3\%.
+
+
+
+
+The choice experiment was administered in conjunction with the second follow-up survey in January 2024,
+where 1,297 of the 1,952 original respondents agreed to participate in the experiment.
+Respondents who had already relocated and those who did not fully complete the survey questions were excluded, leading to a final sample size of 957 individuals.
+The experiment was administered within the flexible survey framework Formr and open to participating respondents from 
+
+Table \ref{tab:des} presents the results.
+Among the sample, 55\% were female, 46\% were male, and the majority (64\%) reported being married or cohabiting with a partner. Additionally, 73\% of respondents fell within the age range of 54-74, and the majority rated their health as either good (34\%) or very good (33\%).
+
+\begin{table}
+
+
+%\begin{wraptable}{r}{0.4\textwidth} 
+\input{tables/des.tex}
+%\end{wraptable}
+
+\end{table}
+
+\clearpage
+
+%\subsection{Section on motivation of stratification}
+%
+%This section motivates the reasoning to estimate the tests along different strata.
+%For example,
+%if we were interested in examining the willingness to pay across education levels we could develop that here while also including some figures to show the representativeness in our sample such as Figure \ref{fig:edu}.
+%
+%
+%\begin{figure}[H]
+
+%\includegraphics[width=\textwidth]{figures/edu_den.png}
+%\vspace{1mm}
+%\footnotesize \textit{Note:} Figure shows density plot of age stratified by educational level for survey respondents in Sweden.
+%\caption{Age distribution across education \label{fig:edu}}
+%\end{figure}
+
+
+
+\newpage
+
+\subsection{Experimental design}
+\section{Analytical Strategy}
+
+This study employs a discrete choice experiment (DCE) to examine the locational preferences of older adults in Sweden who are considering relocation from detached housing to apartment living. DCEs present respondents with a series of hypothetical choice tasks, each comprising multiple housing alternatives characterized by varying attribute levels. By observing choices across repeated tasks, we estimate the relative importance of attributes and the trade-offs individuals are willing to make. This approach is grounded in random utility theory (RUT) \citep{lancsarConductingDiscreteChoice2008}.
+
+\subsection{Modeling Framework}
+
+Under the RUT framework, the utility that individual \( i \) derives from alternative \( j \) in choice task \( t \) is given by:
+
+\begin{equation}
+U_{ijt} = V_{ijt} + \varepsilon_{ijt}
+\end{equation}
+
+\noindent where \( V_{ijt} \) is the systematic (observed) component of utility, modeled as a function of the attributes of the alternative, and \( \varepsilon_{ijt} \) is the unobserved random error term.
+
+The systematic utility is specified as:
+
+\begin{equation}
+V_{ijt} = \beta_1 X_{ijt1} + \beta_2 X_{ijt2} + \ldots + \beta_k X_{ijtk}
+\end{equation}
+
+\noindent where \( X_{ijtk} \) represents the level of attribute \( k \) for alternative \( j \) in task \( t \), and \( \beta_k \) are the corresponding utility coefficients to be estimated.
+
+\subsection{Multinomial Logit and Mixed Logit Estimation}
+
+We estimate both a multinomial logit (MNL) model and a mixed logit (MXL) model. The MNL model assumes homogeneous preferences across respondents and independently and identically distributed (i.i.d.) error terms following a Type I Extreme Value distribution. Choice probabilities are given by the standard logit formula:
+
+\begin{equation}
+P_{ijt} = \frac{\exp(V_{ijt})}{\sum_{l=1}^{J} \exp(V_{ilt})}
+\end{equation}
+
+To account for unobserved heterogeneity in preferences, we also estimate a mixed logit model, in which the utility coefficients \( \boldsymbol{\beta}_i \) are allowed to vary randomly across individuals:
+
+\begin{equation}
+\boldsymbol{\beta}_i = \boldsymbol{\beta} + \Sigma \eta_i
+\end{equation}
+
+\noindent where \( \eta_i \sim \mathcal{N}(0, I) \) and \( \Sigma \) is the covariance matrix of the random parameters. The mixed logit model captures heterogeneity by integrating over the distribution of random coefficients using simulated maximum likelihood.
+
+\subsection{Marginal Rate of Substitution and Willingness to Pay}
+
+Because one attribute in the experiment was specified as a **percentage change in monthly housing cost**, we use it to compute monetary trade-offs for non-cost attributes. 
+
+The **marginal rate of substitution (MRS)** for attribute \( k \) is calculated as:
+
+\begin{equation}
+\text{MRS}_k = -\frac{\hat{\beta}_k}{\hat{\beta}_{\text{cost}}}
+\end{equation}
+
+\noindent where \( \hat{\beta}_{\text{cost}} \) is the estimated coefficient on the cost attribute (percentage change in housing cost).
+
+To convert the MRS into **monthly marginal willingness to pay (MWTP)** in SEK, we multiply by 10 percent of the mean planned monthly housing cost reported by respondents:
+
+\begin{equation}
+\text{MWTP}_k = \text{MRS}_k \times 0.10 \times \bar{C}
+\end{equation}
+
+\noindent where \( \bar{C} \) is the sample mean of respondents' stated planned monthly housing cost.
+
+These MWTP values represent how much, in SEK per month, respondents are willing to pay for improvements in each housing attribute, relative to their housing cost expectations. This enables direct comparison of attribute valuations across different socio-demographic groups and tenure types.
+
+\subsection{Estimation and Software}
+
+All models are estimated in R using the \texttt{logitr} package \citep{helvestonLogitrFastEstimation2022}, which provides flexible estimation routines for both MNL and MXL models using simulated maximum likelihood. For the MXL models, we use Halton draws to simulate the integrals over random parameters, and we cluster standard errors at the individual level to account for repeated observations per respondent.
+
+
+
+\section{Method -- }
+
+We constructed an efficient fractional factorial design to minimize the asymptotic variance of the parameters, subject to level balance and minimal overlap constraints. The design was blocked into \textit{<B>} versions so that each respondent faced \textit{<T>} choice sets with two alternatives per set \textit{<plus opt out, if used>}. Attribute level balance and dominance checks were performed during piloting. A brief training screen with an example task was included before the main experiment.
+
+\subsection{Random utility framework}
+Let $i$ index individuals, $t = 1,\dots,T_i$ index choice tasks, and $j \in \{1,2\}$ index alternatives \textit{<and $j=0$ for the opt out if included>}. Utility is
+\begin{equation}
+U_{ijt} = \alpha_j + \mathbf{x}_{ijt}' \boldsymbol{\beta}_i + \beta_{p,i} \, \text{PctCost}_{ijt} + \varepsilon_{ijt},
+\end{equation}
+where $\mathbf{x}_{ijt}$ is the vector of nonprice attributes, $\text{PctCost}_{ijt}$ is the percentage change in housing cost, and $\varepsilon_{ijt}$ is i.i.d.\ Type I extreme value. The alternative specific constants $\alpha_j$ capture any average preference for each alternative relative to the base. Following \citet{Caplan2021}, we estimate models in preference space and recover willingness to pay measures by ratio to the cost coefficient.
+
+\subsection{Econometric specification and estimation}
+We estimate a mixed logit model to allow for unobserved preference heterogeneity:
+\begin{equation}
+\boldsymbol{\beta}_i = \boldsymbol{\beta} + \mathbf{\Sigma}^{1/2} \mathbf{\eta}_i, \quad \mathbf{\eta}_i \sim \mathcal{N}(\mathbf{0}, \mathbf{I}),
+\end{equation}
+with $\beta_{p,i}$ either fixed or random with a sign constraint \textit{<state your choice>}. The panel structure of repeated choices per individual is accommodated by integrating the likelihood over the distribution of random coefficients:
+\begin{equation}
+L_i = \int \prod_{t=1}^{T_i} \frac{\exp\left( V_{i y_{it} t} \right)}{\sum_{j} \exp\left( V_{ijt} \right)} \, f(\boldsymbol{\beta}_i, \beta_{p,i} \mid \boldsymbol{\theta}) \, d\boldsymbol{\beta}_i \, d\beta_{p,i},
+\end{equation}
+where $V_{ijt} = \alpha_j + \mathbf{x}_{ijt}' \boldsymbol{\beta}_i + \beta_{p,i} \, \text{PctCost}_{ijt}$. Parameters $\boldsymbol{\theta}$ are estimated by simulated maximum likelihood using \textit{<number>} quasi Monte Carlo draws (Halton or Sobol) and clustering standard errors at the individual level. We also report conditional logit estimates as a baseline.
+
+To account for observed heterogeneity, we include interactions between attributes and socio demographic covariates:
+\begin{equation}
+\mathbf{x}_{ijt}' \boldsymbol{\beta}_i \; \leftarrow \; \mathbf{x}_{ijt}' \boldsymbol{\beta}_i \;+\; \left( \mathbf{x}_{ijt} \otimes \mathbf{z}_i \right)'\boldsymbol{\gamma},
+\end{equation}
+where $\mathbf{z}_i$ includes age group, gender, and other controls.
+
+\subsection{Willingness to pay}
+Marginal willingness to pay for attribute $k$ is computed as the ratio of the attribute coefficient to the cost coefficient:
+\begin{equation}
+\text{MWTP}_{k,i} \;=\; - \frac{\beta_{k,i}}{\beta_{p,i}}.
+\end{equation}
+We report mean and percentile summaries of the implied MWTP distribution using the simulated draws of $\beta_{k,i}$ and $\beta_{p,i}$, along with delta method or simulation based standard errors. Because the cost attribute is specified as a percentage change, we convert MWTP to monetary terms by scaling with each respondent's reported or imputed baseline housing cost, consistent with \citet{Caplan2021}.
+
+
+\section{Attributes}
+
+The choice of attributes and associated levels in our study are a combination of important factors identified from the RELOC-AGE follow-up study and attributes found in the housing literature.
+Following standard practice,
+we select levels that allow for interpretability and viability of our willingness to pay estimates while holding certain attributes constant to make meaningful comparisons \citep{hensherAppliedChoiceAnalysis2015}.
+The number of attributes is limited to 9 in order to minimize the cognitive burden of the DCE \citep{manghamHowNotDesigning2009,deshazoDesigningChoiceSets2002}
+\footnote{\cite{himmlerWhatWorksBetter2021} highlights increased age would tend to exacerbated the cognitive burden of a discrete choice experiment, suggesting complex designs would lead to unreliable results.}.
+
+
+Table \ref{tab:atts} shows the attributes selected and their associated levels.
+The variable \textit{greenclose} is defined as the distance in kilometres to green areas including parks, forests, hiking areas, and open spaces.
+The shortest distance of 5km represents the base level category in our analysis.
+Similarly,
+\textit{shopsclose} represents the distance to shopping amenities such as grocery stores, malls, boutiques, and shopping centres.
+\textit{Price} represents the percentage change in price the respondents for each alternative,
+where monthly housing costs are known a priori from the initial questions on the survey.
+Further describe and motivate the attributes...
+
+\input{tables/att.tex}
+
+\clearpage
+
+\section{Empirical Results}
+
+
+Our discussion begins with results from the baseline model, which excludes interaction terms and serves as a point of comparison for subsequent models that account for heterogeneity across household types.
+Table \ref{tab:base_owner} presents the estimation results for respondents who own their housing unit.
+In this specification, a positive (negative) coefficient indicates an increase (decrease) in average utility associated with the attribute level, relative to its reference category. We report coefficient estimates from the multinomial logit model in column two and from the mixed logit model in column three.
+Results from both models are included to facilitate comparison and to assess the robustness of the findings across model specifications.
+
+\input{tables/base_reg_owner.tex}
+
+
+Although both model specifications yield similar patterns in coefficient signs and levels of statistical significance, the mixed logit estimates (column three) are generally larger in magnitude than those from the multinomial logit model. In terms of model performance, the mixed logit specification demonstrates superior fit across all criteria, including log-likelihood, McFadden's pseudo-R2, AIC, and BIC.
+Additionally, several standard deviation estimates for the random parameters (column four) are statistically significant, confirming the presence of unobserved preference heterogeneity.
+Based on these results, we adopt the mixed logit specification as our preferred model for all subsequent interpretation and discussion.
+
+Marginal rate of substitution (MRS) estimates are presented in column five and are calculated as described in Equation (XX). To obtain marginal willingness to pay (MWTP) estimates, MRS values are multiplied by 10 percent of each respondent's reported planned housing cost, following Equation (YY). These monetary estimates are presented in column six.
+
+As shown in Table~\ref{tab:base_owner}, owners are, on average, willing to pay up to 440 SEK per month to avoid residing 15 kilometers from the nearest green area. Proximity to shops appears to be even more highly valued, with owners willing to pay over 620 SEK per month to avoid similar distance from retail services.
+
+Table~\ref{tab:base_renter} presents results for respondents who do not own their current housing. Compared to owners, renters place even higher value on proximity to green space, with an estimated MWTP that is 177 SEK greater. Renters also value proximity to shops more highly, with an average MWTP of 636 SEK for locations within 500 meters, compared to 622 SEK for owners.
+
+Reserved parking emerges as a critical attribute across both tenure groups. However, owners are willing to pay substantially more for access to a reserved garage (615 SEK vs 337 SEK),
+suggesting stronger preferences for secure or private vehicle storage among this group.
+
+\input{tables/base_reg_renter.tex}
+
+
+
+\input{tables/base_reg_male.tex}
+
+\input{tables/base_reg_female.tex}
+
+
+\clearpage
+
+
+
+
+\subsection{Heterogenity Models}
+
+
+
+
+
+
+\section{Conclusions}
+
+As the global population continues to age, understanding the housing preferences of older demographics becomes increasingly crucial for the planning and development of future societies. In Sweden, where a significant portion of senior citizens prefer to live in their own homes, the need for appropriate housing options for the elderly is becoming more pronounced as this demographic segment expands. 
+
+This study utilized a discrete choice experiment (DCE) to delve into factors influencing the housing choices of older home owners in Sweden considering relocation.
+By presenting them with hypothetical scenarios that varied in locational attributes such as healthcare facilities, public transportation, green spaces, social amenities, and natural surroundings, we were able to identify key housing preferences.
+
+
+We find that respondents in older age groups demonstrate substantial differences in preferred housing attributes.
+Individual aged 75+ are willing to pay three times more to be closer to public transpiration compared to individuals aged 55-64.
+
+
+Across all tests, access to public transportation and proximity to green spaces emerged as paramount factors influencing housing choices. These findings offer valuable insights for rural planners, policy makers, and healthcare providers, providing guidance on creating age-friendly environments that cater to the unique needs and desires of older home owners while promoting resilient and vibrant communities. Understanding the interplay between these key factors is essential for optimizing the rural living experience for the older population, ensuring their well-being, and fostering their continued contribution to the vitality of future societies. As populations continue to age, these insights will be instrumental in shaping the future of housing and community development for older adults.
+
+\newpage
+
+
+\pagebreak
+
+
+% References here (outcomment the appropriate case)
+
+% CASE 1: BiBTeX used to constantly update the references
+%   (while the paper is being written).
+ \bibliographystyle{informs2014} % outcomment this and next line in Case 1
+\bibliography{DCE.bib} % if more than one, comma separated
+%%  \bibliographystyle{elsarticle-num-names} 
+%%  \bibliography{<your bibdatabase>}
+
+%% else use the following coding to input the bibitems directly in the
+%% TeX file.
+
+\end{document}
+
+\endinput
+%%
+%% End of file `elsarticle-template-num-names.tex'.

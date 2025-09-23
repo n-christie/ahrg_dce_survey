@@ -5,10 +5,12 @@ Reallocating 'name_of_file' (item size: 1) to 12 items.
 The style file: informs2014.bst
 Reallocating 'name_of_file' (item size: 1) to 8 items.
 Database file #1: DCE.bib
+Warning--I didn't find a database entry for "helvestonLogitrFastEstimation2022"
+Warning--I didn't find a database entry for "Caplan2021"
 Warning--empty journal in jennbertDevelopmentsElderlyPolicy2009
 You've used 7 entries,
             2869 wiz_defined-function locations,
-            660 strings with 6893 characters,
+            664 strings with 6979 characters,
 and the built_in function-call counts, 7917 in all, are:
 = -- 819
 > -- 212
@@ -47,4 +49,4 @@ warning$ -- 1
 while$ -- 53
 width$ -- 0
 write$ -- 92
-(There was 1 warning)
+(There were 3 warnings)

@@ -17,9 +17,33 @@ dce_survey_df <- readRDS(here("data/formr", "08_02_results.rds")) %>%
 sample_df <- readRDS(here("data/formr", "dce_anym_output_1.rds"))
 
 
+# Add other survey data ----
+t3_sur <- readRDS("~/Projects/!med/ahrg_reloc_age_dce/data/rt3_eng.rds") %>% 
+  select(RespondentID,
+         VAR174_8,
+         VAR010,
+         VAR011,
+         VAR022,
+         VAR028_1,
+         VAR028_2,
+         VAR028_3,
+         VAR033_1,
+         VAR033_2,
+         VAR035,
+         VAR162,
+         VAR163
+         
+         
+         
+  )
+
+
+
 survey_df <- sample_df %>% 
   left_join(dce_survey_df,
             by = c("Användarnamn" = "user_code")) %>% 
+  left_join(t3_sur,
+            by = c("RespondentID")) %>% 
   distinct(Användarnamn, .keep_all = TRUE) %>% 
   mutate(respondentID = respondentID.y)
 
@@ -83,13 +107,25 @@ df_merged <- df_regs %>%
   arrange(panelID, obsID, altID)
 
 ## -------------------------
-## 4) Attach respondent covariates
+## 4) Attach respondent covariates -----
 ## -------------------------
 df_covars <- survey_df %>%
   distinct(RespondentID, .keep_all = TRUE) %>%
-  select(RespondentID, Sex, Age_T3, civil_status_T2, income, monthcost, planed_cost, bostadstyp, ägandebostad) %>%
+  select(RespondentID, Sex, Age_T3, civil_status_T2, income, monthcost, planed_cost, bostadstyp, ägandebostad,         VAR174_8,
+         VAR010,
+         VAR011,
+         VAR022,
+         VAR028_1,
+         VAR028_2,
+         VAR028_3,
+         VAR033_1,
+         VAR033_2,
+         VAR035,
+         VAR162,
+         VAR163) %>%
   mutate(panelID = as.integer(factor(RespondentID)),
          income_qrt = factor(ntile(income, 3), labels = c("Q1","Q2","Q3"))
+         
   )
 
 df_model <- df_merged %>%
