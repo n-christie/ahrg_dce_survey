@@ -1,4 +1,4 @@
-\begin{thebibliography}{20}
+\begin{thebibliography}{21}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{URL }
@@ -85,6 +85,11 @@ Mangham LJ, Hanson K, McPake B (2009) How to do (or not to do) {\dots}
   {{Designing}} a discrete choice experiment for application in a low-income
   country. \emph{Health Policy and Planning} 24(2):151--158, ISSN 1460-2237,
   0268-1080, \urlprefix\url{http://dx.doi.org/10.1093/heapol/czn047}.
+
+\bibitem[{McFadden \protect\BIBand{} Train(2000)}]{mcfaddenMixedMNLModels2000}
+McFadden D, Train K (2000) Mixed {{MNL}} models for discrete response.
+  \emph{Journal of Applied Econometrics} 15(5):447--470, ISSN 1099-1255,
+  \urlprefix\url{http://dx.doi.org/10.1002/1099-1255(200009/10)15:5<447::AID-JAE570>3.0.CO;2-1}.
 
 \bibitem[{Nielsen \protect\BIBand{} Hansen(2007)}]{nielsenGreenAreasAffect2007}
 Nielsen TS, Hansen KB (2007) Do green areas affect health? {{Results}} from a

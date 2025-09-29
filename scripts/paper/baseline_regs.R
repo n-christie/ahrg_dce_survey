@@ -80,7 +80,7 @@ cost_name   <- "price_num"
 set.seed(12345)  # or any fixed number
 
 mnl <- logitr(
-  data    = df_model %>% filter(Own != "Owner") ,
+  data    = df_model %>% filter(age_group == "75+") ,
   outcome = "choice",
   obsID   = "obsID",
   panelID = "panelID",
@@ -88,7 +88,7 @@ mnl <- logitr(
 )
 
 mxl <- logitr(
-  data    = df_model %>% filter(Own != "Owner"),
+  data    = df_model %>% filter(age_group == "75+"),
   outcome = "choice",
   obsID   = "obsID",
   panelID = "panelID",
@@ -375,13 +375,34 @@ texreg(
   dcolumn = TRUE,
   use.packages = FALSE,
   na.replace = "--",  
-  caption = "Mixed Logit Estimates for Renters: Base Specification",  
+  caption = "Mixed Logit Estimates for 75+ : Base Specification",  
   caption.above = TRUE,
   fontsize = "scriptsize",
-  file = here("docs/elsvier/tables","base_reg_renter.tex") 
+  file = here("docs/elsvier/tables","base_reg_75.tex") 
   
 )
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Age groups ----
 
 
 

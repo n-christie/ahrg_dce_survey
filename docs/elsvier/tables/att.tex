@@ -1,20 +1,43 @@
 \begin{table}[H]
 \scriptsize
-\caption{Attributes and descriptions \label{tab:atts}}
+\caption{Attributes and levels \label{tab:atts}}
 \centering
-\begin{tabular}[top]{>{\raggedright\arraybackslash}p{15em}l}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{p{13em}p{20em}} % <-- Narrowed both columns
 \toprule
-Attribute & Description and levels\\
+\textbf{Attribute} & \textbf{Attribute levels} \\
 \midrule
-Distance to green area & \makecell[l]{1 = within 500m \\ 2 = within 10km \\ 3 = within 15km}\\
+Distance to green area $(greenspace)$ & 
+-- within 500\,m \newline
+-- within 10\,km \newline
+-- within 15\,km \\
 \addlinespace
-Distance to shops & \makecell[l]{1 = within 500m \\ 2 = within 10km \\ 3 = within 15km}\\
+Distance to shops $(shops)$ & 
+-- within 500\,m \newline
+-- within 10\,km \newline
+-- within 15\,km \\
 \addlinespace
-Distance to public transportation & \makecell[l]{1 = within 300m \\ 2 = within 600 \\ 3 = within 900m}\\
+Distance to transportation $(transport)$ & 
+-- within 300\,m \newline
+-- within 600\,m \newline
+-- within 900\,m \\
 \addlinespace
-Parking & \makecell[l]{1 = no reserved parking \\ 2 = reserved parking place \\ 3 = reserved garage place}\\
+Parking $(parking)$& 
+-- no reserved parking \newline
+-- reserved parking place \newline
+-- reserved garage place \\
 \addlinespace
-Price & \makecell[l]{1 = 20 \% less than planned costs \\ 2 = 10 \% less than planned costs \\ 3 = same as planned cost \\ 4 = 10 \% more than planned costs  \\ 5 = 20 \% more than planned costs}\\
+Price$(price)$ & 
+-- 20\% less than planned costs \newline
+-- 10\% less than planned costs \newline
+-- same as planned cost \newline
+-- 10\% more than planned costs \newline
+-- 20\% more than planned costs \\
 \bottomrule
 \end{tabular}
+
+\vspace{0.5em}
+\parbox{0.85\linewidth}{
+\scriptsize\textit{Note.} Table shows attributes and their corresponding attribute levels utilized in the DCE. Variable names given in parentheses.
+}
 \end{table}
