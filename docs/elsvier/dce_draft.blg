@@ -5,51 +5,48 @@ Reallocating 'name_of_file' (item size: 1) to 12 items.
 The style file: informs2014.bst
 Reallocating 'name_of_file' (item size: 1) to 8 items.
 Database file #1: DCE.bib
-Warning--I didn't find a database entry for ""
-Warning--I didn't find a database entry for "helvestonLogitrFastEstimation2022"
-Warning--I didn't find a database entry for "Caplan2021"
 Warning--empty journal in hildebrandDimensionsElderlyTravel2003
 Warning--empty journal in jennbertDevelopmentsElderlyPolicy2009
 Warning--empty journal in sturmProximityUrbanParks2014
-You've used 21 entries,
+You've used 25 entries,
             2869 wiz_defined-function locations,
-            788 strings with 10830 characters,
-and the built_in function-call counts, 22037 in all, are:
-= -- 2293
-> -- 556
-< -- 11
-+ -- 211
-- -- 187
-* -- 1724
-:= -- 2694
-add.period$ -- 38
-call.type$ -- 21
-change.case$ -- 167
-chr.to.int$ -- 22
-cite$ -- 24
-duplicate$ -- 2211
-empty$ -- 1681
-format.name$ -- 259
-if$ -- 4494
+            815 strings with 11849 characters,
+and the built_in function-call counts, 25598 in all, are:
+= -- 2654
+> -- 639
+< -- 13
++ -- 242
+- -- 214
+* -- 1996
+:= -- 3143
+add.period$ -- 45
+call.type$ -- 25
+change.case$ -- 195
+chr.to.int$ -- 26
+cite$ -- 28
+duplicate$ -- 2573
+empty$ -- 1972
+format.name$ -- 294
+if$ -- 5226
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 223
-newline$ -- 69
-num.names$ -- 84
-pop$ -- 1002
+missing$ -- 261
+newline$ -- 81
+num.names$ -- 101
+pop$ -- 1157
 preamble$ -- 1
-purify$ -- 146
+purify$ -- 171
 quote$ -- 0
-skip$ -- 335
+skip$ -- 393
 stack$ -- 0
-substring$ -- 2409
-swap$ -- 561
+substring$ -- 2767
+swap$ -- 659
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 186
+type$ -- 219
 warning$ -- 3
-while$ -- 157
+while$ -- 182
 width$ -- 0
-write$ -- 266
-(There were 6 warnings)
+write$ -- 316
+(There were 3 warnings)

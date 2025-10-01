@@ -1,4 +1,4 @@
-\begin{thebibliography}{21}
+\begin{thebibliography}{25}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{URL }
@@ -9,6 +9,13 @@ Abramsson M, Andersson EK (2015) Changing locations: {{Central}} or peripheral
   moves of seniors? \emph{Journal of Housing and the Built Environment}
   30(4):535--551, ISSN 1566-4910, 1573-7772,
   \urlprefix\url{http://dx.doi.org/10.1007/s10901-014-9427-0}.
+
+\bibitem[{Aitken et~al.(2024)Aitken, Willis, \protect\BIBand{}
+  Gilroy}]{aitkenOlderHomebuyersPrefer2024}
+Aitken D, Willis K, Gilroy R (2024) Do older homebuyers prefer dwellings with
+  accessibility and adaptability features? {{Findings}} from an exploratory
+  study. \emph{Housing Studies} 39(3):608--630, ISSN 0267-3037, 1466-1810,
+  \urlprefix\url{http://dx.doi.org/10.1080/02673037.2022.2060944}.
 
 \bibitem[{Alsnih \protect\BIBand{}
   Hensher(2003)}]{alsnihMobilityAccessibilityExpectations2003}
@@ -37,6 +44,13 @@ DeShazo J, Fermo G (2002) Designing {{Choice Sets}} for {{Stated Preference
   Methods}}: {{The Effects}} of {{Complexity}} on {{Choice Consistency}}.
   \emph{Journal of Environmental Economics and Management} 44(1):123--143, ISSN
   00950696, \urlprefix\url{http://dx.doi.org/10.1006/jeem.2001.1199}.
+
+\bibitem[{Helveston(2023)}]{helvestonLogitrFastEstimation2023}
+Helveston JP (2023) {\textbf{Logitr}} : {{Fast Estimation}} of {{Multinomial}}
+  and {{Mixed Logit Models}} with {{Preference Space}} and {{Willingness-to-Pay
+  Space Utility Parameterizations}}. \emph{Journal of Statistical Software}
+  105(10), ISSN 1548-7660,
+  \urlprefix\url{http://dx.doi.org/10.18637/jss.v105.i10}.
 
 \bibitem[{Hensher et~al.(2015)Hensher, Rose, \protect\BIBand{}
   Greene}]{hensherAppliedChoiceAnalysis2015}
@@ -129,6 +143,18 @@ Ricciardi AM, Xia J, Currie G (2015) Exploring public transport equity between
 
 \bibitem[{Sturm \protect\BIBand{} Cohen(2014)}]{sturmProximityUrbanParks2014}
 Sturm R, Cohen D (2014) Proximity to {{Urban Parks}} and {{Mental Health}} .
+
+\bibitem[{Train(2003)}]{trainDiscreteChoiceMethods2003}
+Train K, ed. (2003) \emph{Discrete Choice Methods with Simulation} (New York:
+  Cambridge University Press), ISBN 978-0-521-81696-0 978-0-511-12085-5
+  978-0-511-07834-7 978-0-511-07677-0 978-0-511-75393-0.
+
+\bibitem[{Zhao et~al.(2023)Zhao, Szajnfarber, Broniatowski, \protect\BIBand{}
+  Helveston}]{zhaoUsingConjointAnalysis2023}
+Zhao L, Szajnfarber Z, Broniatowski D, Helveston JP (2023) Using conjoint
+  analysis to incorporate heterogeneous preferences into multimodal transit
+  trip simulations. \emph{Systems Engineering} 26(4):438--448, ISSN 1520-6858,
+  \urlprefix\url{http://dx.doi.org/10.1002/sys.21670}.
 
 \bibitem[{Zingmark et~al.(2021)Zingmark, Bj{\"o}rk, Granbom, Gefenaite,
   Nordestr{\"o}m, Schmidt, Rantanen, Slaug, \protect\BIBand{}

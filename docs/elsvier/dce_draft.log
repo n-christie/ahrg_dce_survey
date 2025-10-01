@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4 NEXT) (preloaded format=pdflatex 2023.4.30)  29 SEP 2025 15:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4 NEXT) (preloaded format=pdflatex 2023.4.30)  1 OCT 2025 15:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -584,7 +584,7 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip71
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 73.
+Package hyperref Info: Option `colorlinks' set `true' on input line 71.
  (dce_draft.aux
 
 LaTeX Warning: Label `table:base_male' multiply defined.
@@ -592,24 +592,24 @@ LaTeX Warning: Label `table:base_male' multiply defined.
 )
 \openout1 = `dce_draft.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
  (C:\Program Files\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count322
@@ -671,43 +671,38 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: rotating package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 87.
+Package hyperref Info: Link coloring ON on input line 85.
 (dce_draft.out) (dce_draft.out)
 \@outlinefile=\write4
 \openout4 = `dce_draft.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 210
+LaTeX Font Info:    Trying to load font information for U+msa on input line 208
 .
 
 (C:\Program Files\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 210
+LaTeX Font Info:    Trying to load font information for U+msb on input line 208
 .
 
 (C:\Program Files\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-{C:/Users/ni3054ch/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-<figures/survey_location.png, id=82, 542.025pt x 997.8078pt>
+{C:/Users/ni3054ch/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] [2]
+<figures/survey_location.png, id=87, 356.532pt x 525.162pt>
 File: figures/survey_location.png Graphic file (type png)
 <use figures/survey_location.png>
-Package pdftex.def Info: figures/survey_location.png  used on input line 275.
-(pdftex.def)             Requested size: 135.5059pt x 249.45134pt.
+Package pdftex.def Info: figures/survey_location.png  used on input line 290.
+(pdftex.def)             Requested size: 178.26555pt x 262.58035pt.
 
-Overfull \hbox (41.90733pt too wide) in paragraph at lines 275--276
+Overfull \hbox (37.86412pt too wide) in paragraph at lines 290--291
  [][] 
  []
 
 
-Underfull \hbox (badness 1308) in paragraph at lines 276--276
-\OT1/cmr/m/n/10.95 dis-tri-bu-tion of re-
- []
-
-[2]
-
-Package natbib Warning: Citation `' on page 3 undefined on input line 314.
+Package wrapfig Warning: Stationary wrapfigure forced to float on input line 29
+5.
 
 [3 <./figures/survey_location.png>] (tables/att.tex
 Underfull \hbox (badness 10000) in paragraph at lines 10--10
@@ -719,37 +714,24 @@ Underfull \hbox (badness 6825) in paragraph at lines 20--20
 []|\OT1/cmr/m/n/8 Distance to trans-porta-tion
  []
 
-)
-<figures/choice_set.png, id=135, 2650.90375pt x 891.33pt>
+) [4]
+<figures/choice_set.png, id=140, 2650.90375pt x 891.33pt>
 File: figures/choice_set.png Graphic file (type png)
 <use figures/choice_set.png>
-Package pdftex.def Info: figures/choice_set.png  used on input line 345.
-(pdftex.def)             Requested size: 662.72432pt x 222.83195pt.
+Package pdftex.def Info: figures/choice_set.png  used on input line 353.
+(pdftex.def)             Requested size: 530.17137pt x 178.26283pt.
 
-Overfull \hbox (194.72432pt too wide) in paragraph at lines 345--346
+Overfull \hbox (62.17137pt too wide) in paragraph at lines 353--354
  [][] 
  []
 
-[4] [5 <./figures/choice_set.png>] [6
+[5 <./figures/choice_set.png>] [6
 
-] (tables/des.tex) [7] [8]
-
-Package natbib Warning: Citation `helvestonLogitrFastEstimation2022' on page 9 
-undefined on input line 517.
-
-
-Package natbib Warning: Citation `Caplan2021' on page 9 undefined on input line
- 527.
-
-(tables/base_reg_owner.tex
+] (tables/base_reg_owner.tex
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) [9] (tables/base_reg_renter.tex
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-) (tables/base_reg_male.tex
+) [7] [8] (tables/base_reg_renter.tex) (tables/base_reg_male.tex
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -757,72 +739,25 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) (tables/base_reg_55_64.tex
+) (tables/base_reg_55_64.tex) (tables/base_reg_65_74.tex)
+(tables/base_reg_75.tex) [9] [10] [11] [12] [13] [14] [15
 
-! LaTeX Error: Unicode character χ (U+03C7)
-               not set up for use with LaTeX.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.36 LR χ
-          ² (df=9)                       & 759.61      & 1017.32      &    ...
-
-You may provide a definition with
-\DeclareUnicodeCharacter 
-
-) (tables/base_reg_65_74.tex
-
-! LaTeX Error: Unicode character χ (U+03C7)
-               not set up for use with LaTeX.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.36 LR χ
-          ² (df=9)                       & 1453.83     & 1897.56     &     ...
-
-You may provide a definition with
-\DeclareUnicodeCharacter 
-
-) (tables/base_reg_75.tex
-
-! LaTeX Error: Unicode character χ (U+03C7)
-               not set up for use with LaTeX.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.36 LR χ
-          ² (df=9)                       & 1088.97     & 1502.42     &     ...
-
-You may provide a definition with
-\DeclareUnicodeCharacter 
-
-) [10] [11] [12] [13] [14] [15] [16] [17
-
-] (dce_draft.bbl [18])
-
-Package natbib Warning: There were undefined citations.
-
-[19] (dce_draft.aux)
+] (dce_draft.bbl
+[16]) [17] (dce_draft.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `dce_draft.out' has not changed.
-(rerunfilecheck)             Checksum: 5BE7DA02983FDF188D4F7334E7193A32;1868.
+(rerunfilecheck)             Checksum: 61EB3A498CB0EA2C8E59581EF5E7127F;1587.
  ) 
 Here is how much of TeX's memory you used:
- 15465 strings out of 476331
- 253413 string characters out of 5797571
- 1984660 words of memory out of 5000000
- 35514 multiletter control sequences out of 15000+600000
- 525931 words of font info for 84 fonts, out of 8000000 for 9000
+ 15468 strings out of 476331
+ 253775 string characters out of 5797571
+ 1967660 words of memory out of 5000000
+ 35523 multiletter control sequences out of 15000+600000
+ 526239 words of font info for 85 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,12n,76p,1143b,609s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,12n,76p,1143b,611s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\ni3054ch\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\t
 crm0800.pk><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><
 C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Program Fi
@@ -843,9 +778,9 @@ onts/cm/cmti7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti8
 .pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti9.pfb><C:/Prog
 ram Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/Mi
 KTeX/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on dce_draft.pdf (19 pages, 7253808 bytes).
+Output written on dce_draft.pdf (17 pages, 501457 bytes).
 PDF statistics:
- 413 PDF objects out of 1000 (max. 8388607)
- 79 named destinations out of 1000 (max. 500000)
- 123 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 404 PDF objects out of 1000 (max. 8388607)
+ 76 named destinations out of 1000 (max. 500000)
+ 107 words of extra memory for PDF output out of 10000 (max. 10000000)
 
