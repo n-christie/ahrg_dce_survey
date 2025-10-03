@@ -75,12 +75,18 @@ dfSum <- survey_df %>%
          civil_status_T2 = if_else(civil_status_T2 == 1, "Partnered","Not partnered"),
          ägandebostad = haven::as_factor(ägandebostad),
          bostadstyp = haven::as_factor(bostadstyp),
+         ägandebostad = if_else(is.na(ägandebostad), "Nej",ägandebostad),
+         planed_cost = if_else(planed_cost == 0 , NA ,planed_cost),
          Own = factor(if_else(ägandebostad == "Ja", "Owner", "Renter")),
          Hus = factor(if_else( bostadstyp == "Friliggande villa/hus/gård" | bostadstyp == "Radhus/kedjehus/parhus", "House", "Apartment/Condo")),
          Retired = haven::as_factor(VAR174_8),
          location = haven::as_factor(VAR010),
          health = haven::as_factor(VAR035),
+         monthcost = as.numeric(monthcost),
+         income = as.numeric(income),
+         planed_cost = as.numeric(planed_cost)
 ) %>% 
+  select(-VAR174_8, -VAR010, -VAR035) %>% 
   as.data.frame()
 
 label(dfSum$Hus) <- "Current housing type"
@@ -98,16 +104,63 @@ label(dfSum$planed_cost) <- "Planned housing costs"
 
 
 
-t1 <- table1::table1(~ Sex + age_group + civil_status_T2 + Retired + Own + Hus + location + income + planed_cost    ,
+t1 <- table1::table1(~ Sex + age_group + civil_status_T2 + Retired  + Hus + location + income + planed_cost | Own   ,
                      data = dfSum,
                      na.rm = TRUE,
                      digits = 3,
                      format.number = FALSE,
                      # extra.col=list(`P-value`=pvalue),
-                     caption = "Sample description") 
+                     caption = "Descriptive statistics") 
 
 
 table1::t1flex(t1) |> 
   flextable::fontsize(size = 11) |> 
   flextable::padding(padding = 1, part = "all") 
 
+
+
+
+
+
+
+
+pvalue <- function(x, group, ...) {
+  if (is.numeric(x)) {
+    p <- tryCatch(t.test(x ~ group)$p.value, error = function(e) NA)
+  } else {
+    tbl <- table(x, group)
+    if (all(dim(tbl) > 1)) {
+      p <- tryCatch(chisq.test(tbl)$p.value, error = function(e) NA)
+    } else {
+      p <- NA
+    }
+  }
+  
+  if (is.na(p)) {
+    return("")
+  } else if (p < 0.001) {
+    return("<0.001")
+  } else {
+    return(formatC(p, digits = 3, format = "f"))
+  }
+}
+
+dfSum <- dfSum[!sapply(dfSum, is.list)]
+
+
+
+t1 <- table1::table1(
+  ~ Sex + age_group + civil_status_T2 + Retired + Hus + location + income + planed_cost | Own,
+  data = dfSum,
+  na.rm = TRUE,
+  digits = 3,
+  format.number = FALSE,
+  extra.col = list(`P-value` = pvalue),
+  caption = "Descriptive statistics"
+)
+
+
+# Convert to flextable with formatting
+table1::t1flex(t1) |> 
+  flextable::fontsize(size = 11) |> 
+  flextable::padding(padding = 1, part = "all")

@@ -307,6 +307,12 @@ In contrast to revealed choice experiments, where preferences are inferred from 
 This controlled setting enables the researcher to systematically manipulate attributes and isolate the impact of specific factors on decision-making.
 A Discrete Choice Experiment (DCE) is a popular type of stated choice model that presents individuals with hypothetical scenarios, allowing researchers to quantify how much value respondents place on different attributes of a product or service.
 
+Discrete choice experiments have been used in a variety of housing and ageing studies.
+\cite{ossokinaBestLivingConcepts2020} estimate a stated choice experimet to study the resdential prefereces of elderly homewoners in the Netherlands,
+reporting that residential attributes connecting to safety and social cohesion play an important role for elderly.
+\cite{ossokinaReferencedependentHousingChoice2022a}
+
+
 In our experiment,
 respondents were asked to choose the most desirable housing option from a set of alternatives which contained varying levels of attributes.
 Following standard practice,
@@ -314,29 +320,35 @@ the experiment instructed respondents to make a choice between two hypothetical 
 Each respondent was then presented with multiple choice sets,
 where each choice set contained random attribute levels based on a D-optimality experimental design.
 
+
+
+
 Careful attention was paid in designing and developing the experiment.
 The choice of attributes and associated levels in our study was a combination of factors identified from the Prospective RELOC-AGE follow-up study and attributes found in the housing literature.
 Following standard practice,
 we select levels that allow for interpretability and viability of our willingness to pay estimates while holding certain attributes constant to make meaningful comparisons \citep{hensherAppliedChoiceAnalysis2015}.
+
+In choosing our attributes, we consult both the literature as well as the survey results from the Prospective RELOC-AGE project.
+Proximity to green areas has been examined in numerous contexts including improved cardiometabolic and general health \citep{paquetAreAccessibilityCharacteristics2013,  maasGreenSpaceUrbanity2006},
+lower stress \citep{nielsenGreenAreasAffect2007},
+and improved mental health \citep{cohen-clineAccessGreenSpace2015,sturmProximityUrbanParks2014}.
+Proximity to shops and services represent not only distance to frequent ammenities which may become more burdensome to transverse,
+but also also may constitute an integral social experience to participate in the social live of communities
+\citep{lucasMethodEvaluateEquitable2016}.
+Distance to transportation has been shown to affect  accessibility levels of populations,
+with significant differences identified in senior cohorts \citep{ricciardiExploringPublicTransport2015,hildebrandDimensionsElderlyTravel2003,alsnihMobilityAccessibilityExpectations2003}
+Available parking facilities may also affect acceptability,
+particularly for our sample where over 90\% of respondents indicated access to an automobile.
 
 The attribute \textit{greenspace} is defined as the distance in kilometres to green areas including parks, forests, hiking areas, and open spaces.
 Similarly,
 \textit{shops} represents the distance to shopping amenities such as grocery stores, malls, boutiques, and shopping centres.
 The attribute \textit{transport} is the distance to transportation, such as a bus stop, metro station, or train station.
 \textit{price} represents the percentage change in price the respondents for each alternative,
-where monthly housing costs are known a priori from the initial questions on the survey.
+where planned housing costs are known a priori from the initial questions on the survey.
 
 
-Proximity to green areas has been examined in numerous contexts including improved cardiometabolic and general health \citep{paquetAreAccessibilityCharacteristics2013,  maasGreenSpaceUrbanity2006},
-lower stress \citep{nielsenGreenAreasAffect2007},
-and improved mental health \citep{cohen-clineAccessGreenSpace2015,sturmProximityUrbanParks2014}.
-Proximity to shops and services represent not only distance to frequent ammenities which may become more burndensome to transverse,
-but also also may constitute an itergratl social experince to paricpate in the social live of communities
-\citep{lucasMethodEvaluateEquitable2016}.
-Distance to transportation has been shown to affect  accessibility levels of populations,
-with significant differences identified in senior cohorts \citep{ricciardiExploringPublicTransport2015,hildebrandDimensionsElderlyTravel2003,alsnihMobilityAccessibilityExpectations2003}
-Available parking facilities may also affect acceptability,
-particularly for our sample where over 90\% of respondents indicated access to an automobile.
+
 Table \ref{tab:atts}  shows the attributes and their corresponding levels used in the experiment.
 
 
@@ -395,10 +407,14 @@ The number of choice sets was limited to 9 in order to minimize the cognitive bu
 
 
 
-\clearpage
 
 
 \subsection{Development and data}
+
+Prior to administering the DCE, we conducted two pilot studies (n = 20; n = 80). The first pilot involved researchers and staff within the University’s network. The second pilot was administered to participants in Lund University’s Intressentpoolen,
+a network that facilitates collaboration between academia and society in the areas of ageing and health\footnote{ For more information see: https://www.case.lu.se/intressentpoolen}.
+In both studies, respondents completed the experiment and a structured feedback form assessing the relevance of attributes, clarity of wording and levels, and overall task comprehension and burden.
+Feedback informed several revisions: clarifying attribute descriptions and levels; removing redundant instructional text; fine-tuning attribute ranges; and reducing the number of choice sets from 11 to 9 to manage respondent burden. Pilot data were also used to confirm that the planned sample size would provide adequate statistical precision (e.g., stable parameter estimates and predicted choice shares).
 
 The choice experiment was administered in conjunction with the follow-up Prospective RELOC-AGE survey in May 2024,
 where 1,247 respondents agreed to participate in the survey via a web-based platform.
@@ -412,7 +428,6 @@ This resulted in a 80\% increase from initial turn out.
 The final sample size of 957 individuals was finalized, representing a 73\% response rate.
 The experiment portion of the survey was administered within the flexible survey framework Formr,
 which was hosted on university servers.
-
 
 
 Among the sample, 55\% were female, 46\% were male, and the majority (64\%) reported being married or cohabiting with a partner. Additionally, 73\% of respondents fell within the age range of 54-74, and the majority rated their health as either good (34\%) or very good (33\%).
@@ -492,9 +507,7 @@ Because the cost attribute is specified as a percentage change from the responde
 
 \noindent where $\bar{C}$ denotes the sample mean of respondents' stated planned monthly housing cost.
 
-These MWTP estimates represent the amount, in SEK per month, that respondents are willing to pay for improvements in each housing attribute, relative to their baseline housing cost expectations. This transformation facilitates meaningful interpretation of preferences in monetary terms and enables direct comparison of attribute valuations across socio-demographic groups and housing tenure types.
-
-\subsection{Estimation and Software}
+These MWTP estimates represent the amount, in SEK per month, that respondents are willing to pay for improvements in each housing attribute, relative to their baseline housing cost expectations. 
 
 All models are estimated in R using the \texttt{logitr} package \citep{helvestonLogitrFastEstimation2023}, which provides flexible estimation routines for both MNL and ML models using simulated maximum likelihood.
 For the ML models,
@@ -548,6 +561,15 @@ suggesting stronger preferences for secure or private vehicle storage among this
 \subsection{Heterogenity Models}
 
 We next estimate mixed logit models introducing cross-product terms to identify sources of preference heterogeneity in our sample.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.40]{figures/wtp_combined_side_by_side.png}
+\caption{WTP estimates from model 2 \label{fig:wtp}}
+\end{figure}
+
+
+
 
 
 \section{Discussion}
