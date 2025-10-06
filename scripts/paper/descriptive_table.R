@@ -38,6 +38,7 @@ t3_sur <- readRDS("~/Projects/!med/ahrg_reloc_age_dce/data/rt3_eng.rds") %>%
   )
 
 
+
 survey_df <- sample_df %>% 
   left_join(dce_survey_df,
             by = c("Användarnamn" = "user_code")) %>% 
@@ -45,6 +46,8 @@ survey_df <- sample_df %>%
             by = c("RespondentID")) %>% 
   distinct(Användarnamn, .keep_all = TRUE) %>% 
   mutate(respondentID = respondentID.y)
+
+ #write_rds(survey_df,here("data/formr", "survey_res.rds"))
 
 
 ## Descriptive data ----
@@ -64,7 +67,8 @@ dfSum <- survey_df %>%
          bostadstyp,
          VAR174_8,
          VAR010,
-         VAR035
+         VAR035,
+         VAR011
   )%>% 
   mutate(Sex = factor(if_else(Sex == 1, "Male", "Female" )),
          age_group = factor(case_when(
@@ -84,12 +88,25 @@ dfSum <- survey_df %>%
          health = haven::as_factor(VAR035),
          monthcost = as.numeric(monthcost),
          income = as.numeric(income),
-         planed_cost = as.numeric(planed_cost)
+         planed_cost = as.numeric(planed_cost),
+         VAR011_clean = case_when(
+           VAR011 == 0 ~ 1,
+           TRUE ~ VAR011
+         ),
+         VAR011_factor = case_when(
+           VAR011_clean < 3 ~ as.character(VAR011_clean),
+           VAR011_clean >= 3 ~ "3 or more",
+           TRUE ~ NA_character_
+         ),
+         VAR011f = factor(VAR011)
+         #VAR011_factor = factor(VAR011_factor, levels = c("1", "2", "3", "4", "4 or more"))
+         # no_people = as.numeric(if_else(VAR011 == 0, 1, VAR011))
 ) %>% 
   select(-VAR174_8, -VAR010, -VAR035) %>% 
   as.data.frame()
 
 label(dfSum$Hus) <- "Current housing type"
+label(dfSum$VAR011_factor) <- "Number in household"
 
 label(dfSum$Own) <- "Current housing"
 label(dfSum$age_group) <- "Age group"
@@ -104,7 +121,7 @@ label(dfSum$planed_cost) <- "Planned housing costs"
 
 
 
-t1 <- table1::table1(~ Sex + age_group + civil_status_T2 + Retired  + Hus + location + income + planed_cost | Own   ,
+t1 <- table1::table1(~ Sex + age_group + civil_status_T2 + Retired  + Hus + location  + VAR011_factor | Own   ,
                      data = dfSum,
                      na.rm = TRUE,
                      digits = 3,
@@ -124,25 +141,20 @@ table1::t1flex(t1) |>
 
 
 
-pvalue <- function(x, group, ...) {
-  if (is.numeric(x)) {
-    p <- tryCatch(t.test(x ~ group)$p.value, error = function(e) NA)
+pvalue <- function(x, ...) {
+  # Construct vectors of data y, and groups (strata) g
+  y <- unlist(x)
+  g <- factor(rep(1:length(x), times=sapply(x, length)))
+  if (is.numeric(y)) {
+    # For numeric variables, perform a standard 2-sample t-test
+    p <- t.test(y ~ g)$p.value
   } else {
-    tbl <- table(x, group)
-    if (all(dim(tbl) > 1)) {
-      p <- tryCatch(chisq.test(tbl)$p.value, error = function(e) NA)
-    } else {
-      p <- NA
-    }
+    # For categorical variables, perform a chi-squared test of independence
+    p <- chisq.test(table(y, g))$p.value
   }
-  
-  if (is.na(p)) {
-    return("")
-  } else if (p < 0.001) {
-    return("<0.001")
-  } else {
-    return(formatC(p, digits = 3, format = "f"))
-  }
+  # Format the p-value, using an HTML entity for the less-than sign.
+  # The initial empty string places the output on the line below the variable label.
+  c("", sub("<", "&lt;", format.pval(p, digits=3, eps=0.001)))
 }
 
 dfSum <- dfSum[!sapply(dfSum, is.list)]
@@ -155,6 +167,7 @@ t1 <- table1::table1(
   na.rm = TRUE,
   digits = 3,
   format.number = FALSE,
+  overall = F,
   extra.col = list(`P-value` = pvalue),
   caption = "Descriptive statistics"
 )

@@ -14,15 +14,12 @@ library(purrr)
 library(texreg)
 library(stringr)
 
-cost_name   <- "price_num"
-set.seed(12345)  # or any fixed number
+
 
 
 # Data cleaning ----
 
 ## Change factor levels ----
-
-# -- Variable transformations, factor baselines, age groups, and derived vars --
 
 # -- Variable transformations, factor baselines, age groups, and derived vars --
 
@@ -125,8 +122,7 @@ df_model <- df_model %>%
 # Age interaction regression ----
 
 mxl_age <- logitr(
-  data = df_model %>% filter(!is.na(age_group),
-                             Own != "Owner"),
+  data = df_model %>% filter(!is.na(age_group)),
   outcome = "choice",
   obsID = "obsID",
   panelID = "panelID",
@@ -238,26 +234,18 @@ wtp_by_group <- function(display_attr, group = c("55-64", "65-74", "75+")) {
 attributes <- attr_map$display
 
 # Optional: use age-specific median planned cost (example)
-mhc_55_64 <- 9382
-mhc_65_74 <- 11530
-mhc_75p   <- 9865
+mhc_55_64 <- 11108
+mhc_65_74 <- 10769
+mhc_75p   <- 9696
 mhc_list <- c(`55-64` = mhc_55_64, `65-74` = mhc_65_74, `75+` = mhc_75p)
+
+
 
 # age_group mean_plan med_plan
 # <fct>         <dbl>    <dbl>
 #   1 55-64        11108.    10000
 # 2 65-74        10769.    10000
 # 3 75+           9696.     9000
-
-
-# age_group Own    mean_plan med_plan
-# <fct>     <fct>      <dbl>    <dbl>
-#   1 55-64     Owner     11549.    10000
-# 2 55-64     Renter     9382.     9000
-# 3 65-74     Owner     10608.    10000
-# 4 65-74     Renter    11530.    10000
-# 5 75+       Owner      9661.     9000
-# 6 75+       Renter     9865.     9000
 
 results <- expand.grid(
   attribute = attributes,
@@ -295,6 +283,7 @@ coef_df <- tidy(mxl_age) %>%
   )
 
 
+# Prepare a function to compute WTP + CI from raw coefficients
 get_wtp <- function(base, interaction = NULL, group = "55-64") {
   if (!(base %in% names(coefs))) {
     return(tibble(estimate = NA_real_, conf.low = NA_real_, conf.high = NA_real_))
@@ -329,6 +318,7 @@ get_wtp <- function(base, interaction = NULL, group = "55-64") {
   ))
 }
 
+
 plot_df <- expand.grid(
   attribute = attr_map$display,
   age_group = c("55-64", "65-74", "75+"),
@@ -346,64 +336,49 @@ plot_df <- expand.grid(
   ) %>%
   unnest(wtp_info)
 
+
+ggplot(plot_df, aes(x = estimate, y = attribute, color = age_group)) +
+  geom_point(position = position_dodge(width = 0.7)) +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2,
+                 position = position_dodge(width = 0.7)) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "red") +
+  labs(
+    title = "Marginal Willingness to Pay (SEK/month)",
+    x = "WTP (SEK/month)",
+    y = NULL,
+    color = "Age group"
+  ) +
+  theme_minimal(base_size = 14)
+
 plot_df <- plot_df %>%
   mutate(attribute = case_when(
-    attribute == "Green space: 500m" ~ "Green space: 500 m (ref: 15 km)",
-    attribute == "Green space: 5km"  ~ "Green space: 5 km (ref: 15 km)",
-    attribute == "Shops: 500m"       ~ "Shops: 500 m (ref: 15 km)",
-    attribute == "Shops: 5km"        ~ "Shops: 5 km (ref: 15 km)",
-    attribute == "Transit: 300m"     ~ "Transit stop: 300 m (ref: 900 m)",
-    attribute == "Transit: 600m"     ~ "Transit stop: 600 m (ref: 900 m)",
-    attribute == "Parking: reserved garage" ~ "Parking: garage (ref: none)",
-    attribute == "Parking: reserved space"  ~ "Parking: reserved (ref: none)",
+    attribute == "Green space: 15km" ~ "Green space: 15km (ref)",
+    attribute == "Shops: 15km"       ~ "Shops: 15km (ref)",
+    attribute == "Transit: 900m"     ~ "Transit: 900m (ref)",
+    attribute == "Parking: None"     ~ "Parking: None (ref)",
     TRUE ~ attribute
   ))
 
 plot_df$attribute <- factor(plot_df$attribute, levels = c(
-  "Green space: 5 km (ref: 15 km)",
-  "Green space: 500 m (ref: 15 km)",
-  "Shops: 5 km (ref: 15 km)",
-  "Shops: 500 m (ref: 15 km)",
-  "Transit stop: 600 m (ref: 900 m)",
-  "Transit stop: 300 m (ref: 900 m)",
-  "Parking: reserved (ref: none)",
-  "Parking: garage (ref: none)"
+  "Green space: 15km (ref)", "Green space: 5km", "Green space: 500m",
+  "Shops: 15km (ref)",       "Shops: 5km",        "Shops: 500m",
+  "Transit: 900m (ref)",     "Transit: 600m",     "Transit: 300m",
+  "Parking: None (ref)",     "Parking: reserved space", "Parking: reserved garage"
 ))
 
-
-
 ggplot(plot_df, aes(x = estimate, y = attribute, color = age_group)) +
-  geom_point(position = position_dodge(width = 0.6), size = 2.5) +
+  geom_point(position = position_dodge(width = 0.6), size = 2) +
   geom_errorbarh(aes(xmin = conf.low, xmax = conf.high),
                  position = position_dodge(width = 0.6), height = 0.2) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "gray50") +
   labs(
-    x = "WTP (SEK/month)", y = NULL, color = NULL
+    x = "Marginal Willingness to Pay (SEK/month)",
+    y = NULL,
+    color = "Age group",
+    title = "Marginal Willingness to Pay by Attribute Level and Age Group"
   ) +
-  scale_color_brewer(palette = "Dark2") +
-  theme_minimal(base_size = 12) +
+  theme_minimal(base_size = 13) +
   theme(
-    axis.text.y = element_text(size = 11),
-    legend.position = "bottom",
-    panel.grid.major.y = element_blank()
+    axis.text.y = element_text(size = 10),
+    legend.position = "bottom"
   )
-
-
-ggsave(here("docs/elsvier/figures", "wtp_age_interactions_renter.png"), width = 6, height = 6)
-
-
-
-## load plots to combine
-
-library(magick)
-
-
-
-# Load both images
-img_renter <- image_read(here("docs/elsvier/figures", "wtp_age_interactions_renter.png"))
-img_owner  <- image_read(here("docs/elsvier/figures", "wtp_age_interactions_owner.png"))
-
-# Combine side by side
-combined_img <- image_append(c(img_renter, img_owner), stack = FALSE)
-
-# Save result
-image_write(combined_img, path = here("docs/elsvier/figures", "wtp_combined_side_by_side.png"), format = "png")
