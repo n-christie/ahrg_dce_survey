@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4 NEXT) (preloaded format=pdflatex 2023.4.30)  6 OCT 2025 17:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4 NEXT) (preloaded format=pdflatex 2023.4.30)  7 OCT 2025 16:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -584,7 +584,7 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip71
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 71.
+Package hyperref Info: Option `colorlinks' set `true' on input line 72.
  (dce_draft.aux
 
 LaTeX Warning: Label `table:base_male' multiply defined.
@@ -595,24 +595,24 @@ LaTeX Warning: Label `table:coefficients' multiply defined.
 )
 \openout1 = `dce_draft.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
  (C:\Program Files\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count322
@@ -674,18 +674,18 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: rotating package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 85.
+Package hyperref Info: Link coloring ON on input line 86.
 (dce_draft.out) (dce_draft.out)
 \@outlinefile=\write4
 \openout4 = `dce_draft.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 208
+LaTeX Font Info:    Trying to load font information for U+msa on input line 209
 .
 
 (C:\Program Files\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 208
+LaTeX Font Info:    Trying to load font information for U+msb on input line 209
 .
 
 (C:\Program Files\MiKTeX\tex/latex/amsfonts\umsb.fd
@@ -693,51 +693,74 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {C:/Users/ni3054ch/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] [2]
-<figures/survey_location.png, id=87, 356.532pt x 525.162pt>
+<figures/survey_location.png, id=103, 356.532pt x 525.162pt>
 File: figures/survey_location.png Graphic file (type png)
 <use figures/survey_location.png>
-Package pdftex.def Info: figures/survey_location.png  used on input line 290.
+Package pdftex.def Info: figures/survey_location.png  used on input line 291.
 (pdftex.def)             Requested size: 178.26555pt x 262.58035pt.
 
-Overfull \hbox (37.86412pt too wide) in paragraph at lines 290--291
+Overfull \hbox (37.86412pt too wide) in paragraph at lines 291--292
  [][] 
  []
 
 
 Package wrapfig Warning: Stationary wrapfigure forced to float on input line 29
-5.
+6.
 
 
 Package natbib Warning: Citation `ossokinaReferencedependentHousingChoice2022' 
-on page 3 undefined on input line 313.
+on page 3 undefined on input line 314.
 
 [3 <./figures/survey_location.png>] (tables/att.tex
-Underfull \hbox (badness 10000) in paragraph at lines 10--10
-[]|\OT1/cmr/m/n/8 Distance to green area
+Overfull \hbox (2.54993pt too wide) in paragraph at lines 15--15
+[]|[]| 
  []
 
 
-Underfull \hbox (badness 6825) in paragraph at lines 20--20
-[]|\OT1/cmr/m/n/8 Distance to trans-porta-tion
+Overfull \hbox (2.54993pt too wide) in paragraph at lines 25--25
+[]|[]| 
+ []
+
+
+Overfull \hbox (2.54993pt too wide) in paragraph at lines 35--35
+[]|[]| 
+ []
+
+
+Overfull \hbox (2.54993pt too wide) in paragraph at lines 45--45
+[]|[]| 
+ []
+
+
+Overfull \hbox (2.54993pt too wide) in paragraph at lines 55--55
+[]|[]| 
  []
 
 ) [4]
-<figures/choice_set.png, id=139, 2650.90375pt x 891.33pt>
+<figures/choice_set.png, id=156, 1012.9845pt x 344.487pt>
 File: figures/choice_set.png Graphic file (type png)
 <use figures/choice_set.png>
-Package pdftex.def Info: figures/choice_set.png  used on input line 362.
-(pdftex.def)             Requested size: 530.17137pt x 178.26283pt.
+Package pdftex.def Info: figures/choice_set.png  used on input line 363.
+(pdftex.def)             Requested size: 506.49101pt x 172.24307pt.
 
-Overfull \hbox (62.17137pt too wide) in paragraph at lines 362--363
+Overfull \hbox (38.49101pt too wide) in paragraph at lines 363--364
  [][] 
  []
 
-[5 <./figures/choice_set.png>] [6] [7] (tables/base_reg_owner.tex) [8]
-(tables/base_reg_renter.tex) (tables/base_reg_male.tex
+[5 <./figures/choice_set.png>] (tables/des_tab.tex) [6] [7] [8
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+]
+(tables/base_reg_owner.tex) [9] [10] (tables/base_reg_renter.tex) [11]
+<figures/wtp_combined_side_by_side.png, id=250, 867.24pt x 433.62pt>
+File: figures/wtp_combined_side_by_side.png Graphic file (type png)
+<use figures/wtp_combined_side_by_side.png>
+Package pdftex.def Info: figures/wtp_combined_side_by_side.png  used on input l
+ine 576.
+(pdftex.def)             Requested size: 346.88986pt x 173.44492pt.
+ [12
 
-) (tables/base_reg_female.tex
+ <./figures/wtp_combined_side_by_side.png>] [13] (tables/base_reg_male.tex)
+(tables/base_reg_female.tex
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -772,41 +795,34 @@ l.36 LR χ
 You may provide a definition with
 \DeclareUnicodeCharacter 
 
-) [9] [10] [11] [12] [13] [14] [15] [16]
-<figures/wtp_combined_side_by_side.png, id=260, 867.24pt x 433.62pt>
-File: figures/wtp_combined_side_by_side.png Graphic file (type png)
-<use figures/wtp_combined_side_by_side.png>
-Package pdftex.def Info: figures/wtp_combined_side_by_side.png  used on input l
-ine 582.
-(pdftex.def)             Requested size: 346.88986pt x 173.44492pt.
- [17
+) [14] [15] [16] [17] [18] [19] [20] (dce_draft.bbl [21
 
- <./figures/wtp_combined_side_by_side.png>] [18] (dce_draft.bbl [19])
+])
 
 Package natbib Warning: There were undefined citations.
 
-[20] (dce_draft.aux)
+[22] (dce_draft.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `dce_draft.out' has not changed.
-(rerunfilecheck)             Checksum: 34C15CEC15BB64C9B2EEB908188790D5;1507.
+(rerunfilecheck)             Checksum: 4C372C1BA00136AC4271E5219952682C;2014.
  ) 
 Here is how much of TeX's memory you used:
- 15497 strings out of 476331
- 254634 string characters out of 5797571
- 2003660 words of memory out of 5000000
- 35538 multiletter control sequences out of 15000+600000
+ 15521 strings out of 476331
+ 255100 string characters out of 5797571
+ 1984660 words of memory out of 5000000
+ 35551 multiletter control sequences out of 15000+600000
  526239 words of font info for 85 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,12n,76p,1143b,611s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,17n,76p,1143b,611s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\ni3054ch\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\t
 crm0800.pk><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><
-C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Program Fi
-les/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX/f
-onts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX/fonts/type1/p
-ublic/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfont
-s/cm/cmmi8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmib10.
+C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program F
+iles/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX/
+fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX/fonts/type1/p
+ublic/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfont
+s/cm/cmmi9.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmib10.
 pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Progr
 am Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKT
 eX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX/fonts/type1
@@ -815,14 +831,15 @@ ts/cm/cmr9.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.p
 fb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Progra
 m Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Program Files/MiKTe
 X/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX/fonts/type1
-/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsf
-onts/cm/cmti7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti8
-.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti9.pfb><C:/Prog
-ram Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/Mi
-KTeX/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on dce_draft.pdf (20 pages, 755561 bytes).
+/public/amsfonts/cm/cmsy9.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfo
+nts/cm/cmti10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti7
+.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti8.pfb><C:/Prog
+ram Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti9.pfb><C:/Program Files/MiK
+TeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKTeX/fonts/ty
+pe1/public/amsfonts/cm/cmtt9.pfb>
+Output written on dce_draft.pdf (22 pages, 727540 bytes).
 PDF statistics:
- 429 PDF objects out of 1000 (max. 8388607)
- 83 named destinations out of 1000 (max. 500000)
- 112 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 463 PDF objects out of 1000 (max. 8388607)
+ 91 named destinations out of 1000 (max. 500000)
+ 144 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -37,6 +37,7 @@
  \def\newblock{\ }%
  \def\BIBand{and}%
 
+
 \usepackage{lipsum} 
 \usepackage{amssymb}
 \usepackage{amsmath}
@@ -359,7 +360,7 @@ Figure \ref{fig:choice_set} depicts a typical choice set presented to the respon
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.20]{figures/choice_set.png}
+\includegraphics[scale=0.50]{figures/choice_set.png}
 \caption{Example choice set \label{fig:choice_set}}
 \end{figure}
 
@@ -428,15 +429,19 @@ The final sample size of 957 individuals was finalized, representing a 73\% resp
 The experiment portion of the survey was administered within the flexible survey framework Formr,
 which was hosted on university servers.
 
+Table \ref{tab:desc} provides descriptive statistics for the study sample, disaggregated by housing tenure.
+Of the 957 respondents, 790 were homeowners and 167 were renters.
+The sample was slightly majority female (55.3\%), with most participants aged between 65–74 years (43.5\%) followed by those aged 75+ (36.5\%).
+The majority of respondents were partnered (60.6\%), retired (77.1\%), and lived in apartment or condominium housing (63.0\%).
+Most had attained at least three years of university education (47.6\%), and lived in city or town locations (62.2\%).
+Households predominantly consisted of one or two members (95.2\%), with only 3.8\% reporting three or more.
+The mean monthly household income was 46,700 SEK, and the average planned monthly housing cost was 10,500 SEK.
 
-Among the sample, 55\% were female, 46\% were male, and the majority (64\%) reported being married or cohabiting with a partner. Additionally, 73\% of respondents fell within the age range of 54-74, and the majority rated their health as either good (34\%) or very good (33\%).
 
 
-%\begin{wraptable}{r}{0.4\textwidth} 
-%\input{tables/des.tex}
-%\end{wraptable}
+\input{tables/des_tab.tex}
 
-
+\clearpage
 
 
 
@@ -502,11 +507,11 @@ where the MRS for attribute \( k \) is calculated as:
 Because the cost attribute is specified as a percentage change from the respondent’s expected housing cost, we convert marginal rates of substitution (MRS) into marginal willingness to pay (MWTP) in monetary terms by scaling with 10 percent of the mean reported monthly housing cost:
 
 \begin{equation}
-\text{MWTP}_k = \text{MRS}_k \times 0.10 \times \bar{Planned_ cost}
+\text{MWTP}_k = \text{MRS}_k \times 0.10 \times \bar{PC}
 \label{eq:mwtp}
 \end{equation}
 
-\noindent where $\bar{C}$ denotes the sample mean of respondents' stated planned monthly housing cost.
+\noindent where $\bar{PC}$ denotes the mean of respondents' stated planned monthly housing cost.
 
 These MWTP estimates represent the amount, in SEK per month, that respondents are willing to pay for improvements in each housing attribute, relative to their baseline housing cost expectations. 
 
@@ -545,14 +550,67 @@ Proximity to shops is valued to a greater extent, with owners willing to pay ove
 Table~\ref{tab:base_renter} presents results for respondents who do not own their current housing.
 Compared to owners,
 renters place a greater value on proximity to green space, with a MWTP that is 177 SEK greater.
-Both groups place increased importance of proximity to shops, with Renters showing an average MWTP of 636 SEK for locations within 500 meters, compared to 622 SEK for owners.
-Reserved parking emerges as a essential attribute across both tenure groups.
+Both groups place increased importance of proximity to shops, with renters showing an average MWTP of 636 SEK for locations within 500 meters, compared to 622 SEK for owners.
+Reserved parking emerges as a essential attribute for both tenure groups.
 However, owners are willing to pay substantially more for access to a reserved garage (615 SEK vs 337 SEK),
 suggesting stronger preferences for secure or private vehicle storage among this group.
 
 \input{tables/base_reg_renter.tex}
 
 
+
+
+\clearpage
+
+
+\subsection{Heterogenity Models}
+
+Thus far our result point towards the presence of heterogeneous effects for housing preferences in regard to housing tenure. 
+We next expand our testing by introducing cross-product terms in our mixed logit models framework to identify sources of preference heterogeneity in our sample.
+
+\subsubsection{Age effects}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.40]{figures/wtp_combined_side_by_side.png}
+\caption{WTP estimates from model 2 \label{fig:wtp}}
+\end{figure}
+
+
+\subsubsection{Income effects}
+
+\subsubsection{Education effects}
+
+
+
+
+\section{Discussion}
+
+This study explored preference heterogeneity among older individuals considering relocation in Sweden.
+To our knowledge, 
+this is the first study to utilize a discrete choice experiment to examine locational preferences.
+
+\section{Limitations}
+
+
+
+\section{Conclusions}
+
+As the global population continues to age, understanding the housing preferences of older demographics becomes increasingly crucial for the planning and development of future societies.
+In Sweden, where a significant portion of older individuals prefer to live in their own homes, the need for appropriate housing options for this segment is becoming more pronounced as this demographic group expands. 
+
+This study utilized a discrete choice experiment to delve into factors influencing the housing choices of older individuals in Sweden considering relocation.
+By presenting hypothetical scenarios that varied in locational attributes such as healthcare facilities, public transportation, green spaces, social amenities, and natural surroundings, we were able to identify key housing preferences.
+
+We find that respondents in older age groups demonstrate substantial differences in preferred housing attributes.
+Individual aged 75+ are willing to pay more to be closer to public transpiration compared to individuals aged 55-64.
+
+Across all tests, access to public transportation and proximity to green spaces emerged as paramount factors influencing housing choices. These findings offer valuable insights for rural planners, policy makers, and healthcare providers, providing guidance on creating age-friendly environments that cater to the unique needs and desires of older home owners while promoting resilient and vibrant communities. Understanding the interplay between these key factors is essential for optimizing the rural living experience for the older population, ensuring their well-being, and fostering their continued contribution to the vitality of future societies. As populations continue to age, these insights will be instrumental in shaping the future of housing and community development for older adults.
+
+\newpage
+
+\section{Appendix}
 
 \input{tables/base_reg_male.tex}
 
@@ -563,53 +621,8 @@ suggesting stronger preferences for secure or private vehicle storage among this
 \input{tables/base_reg_75.tex}
 \input{tables/base_reg_retired.tex}
 \input{tables/base_reg_notretired.tex}
+
 \clearpage
-
-
-
-
-\subsection{Heterogenity Models}
-
-We next estimate mixed logit models introducing cross-product terms to identify sources of preference heterogeneity in our sample.
-
-
-
-
-
-
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.40]{figures/wtp_combined_side_by_side.png}
-\caption{WTP estimates from model 2 \label{fig:wtp}}
-\end{figure}
-
-
-
-
-
-\section{Discussion}
-
-This study explored prefference heterogentity among older individuals considering relocation in Sweden.
-To our knowledge, 
-this is the first study to utilize a discrete choice experiment to examine locational preferences.
-
-\section{Limitations}
-
-
-
-\section{Conclusions}
-
-As the global population continues to age, understanding the housing preferences of older demographics becomes increasingly crucial for the planning and development of future societies. In Sweden, where a significant portion of older individuals prefer to live in their own homes, the need for appropriate housing options for this segment is becoming more pronounced as this demographic group expands. 
-
-This study utilized a discrete choice experiment to delve into factors influencing the housing choices of older home owners in Sweden considering relocation.
-By presenting them with hypothetical scenarios that varied in locational attributes such as healthcare facilities, public transportation, green spaces, social amenities, and natural surroundings, we were able to identify key housing preferences.
-
-We find that respondents in older age groups demonstrate substantial differences in preferred housing attributes.
-Individual aged 75+ are willing to pay more to be closer to public transpiration compared to individuals aged 55-64.
-
-Across all tests, access to public transportation and proximity to green spaces emerged as paramount factors influencing housing choices. These findings offer valuable insights for rural planners, policy makers, and healthcare providers, providing guidance on creating age-friendly environments that cater to the unique needs and desires of older home owners while promoting resilient and vibrant communities. Understanding the interplay between these key factors is essential for optimizing the rural living experience for the older population, ensuring their well-being, and fostering their continued contribution to the vitality of future societies. As populations continue to age, these insights will be instrumental in shaping the future of housing and community development for older adults.
-
-\newpage
 
 
 \pagebreak

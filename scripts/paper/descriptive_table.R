@@ -37,12 +37,15 @@ t3_sur <- readRDS("~/Projects/!med/ahrg_reloc_age_dce/data/rt3_eng.rds") %>%
          
   )
 
+t1_edu <- readRDS("~/Projects/!med/ahrg_dce_survey/data/clean/out.rds")
 
 
 survey_df <- sample_df %>% 
   left_join(dce_survey_df,
             by = c("Användarnamn" = "user_code")) %>% 
   left_join(t3_sur,
+            by = c("RespondentID")) %>% 
+  left_join(t1_edu,
             by = c("RespondentID")) %>% 
   distinct(Användarnamn, .keep_all = TRUE) %>% 
   mutate(respondentID = respondentID.y)
@@ -68,7 +71,8 @@ dfSum <- survey_df %>%
          VAR174_8,
          VAR010,
          VAR035,
-         VAR011
+         VAR011,
+         edu = VAR76
   )%>% 
   mutate(Sex = factor(if_else(Sex == 1, "Male", "Female" )),
          age_group = factor(case_when(
@@ -81,6 +85,8 @@ dfSum <- survey_df %>%
          bostadstyp = haven::as_factor(bostadstyp),
          ägandebostad = if_else(is.na(ägandebostad), "Nej",ägandebostad),
          planed_cost = if_else(planed_cost == 0 , NA ,planed_cost),
+         monthcost = if_else(monthcost == 0 , NA ,monthcost),
+         
          Own = factor(if_else(ägandebostad == "Ja", "Owner", "Renter")),
          Hus = factor(if_else( bostadstyp == "Friliggande villa/hus/gård" | bostadstyp == "Radhus/kedjehus/parhus", "House", "Apartment/Condo")),
          Retired = haven::as_factor(VAR174_8),
@@ -98,16 +104,22 @@ dfSum <- survey_df %>%
            VAR011_clean >= 3 ~ "3 or more",
            TRUE ~ NA_character_
          ),
-         VAR011f = factor(VAR011)
-         #VAR011_factor = factor(VAR011_factor, levels = c("1", "2", "3", "4", "4 or more"))
-         # no_people = as.numeric(if_else(VAR011 == 0, 1, VAR011))
+         VAR011f = factor(VAR011),
+         edu = factor(edu),
+         edu = fct_recode(edu,
+                          'Elementary school' = "1",
+                          '2 years upper secondary school' = "2",
+                          '3 or 4 years upper secondary school' = "3",
+                          'Univeristy less than 3 years' = "4",
+                          'University 3 years or more' = "5")
+
 ) %>% 
   select(-VAR174_8, -VAR010, -VAR035) %>% 
   as.data.frame()
 
 label(dfSum$Hus) <- "Current housing type"
 label(dfSum$VAR011_factor) <- "Number in household"
-
+label(dfSum$edu) <- "Education"
 label(dfSum$Own) <- "Current housing"
 label(dfSum$age_group) <- "Age group"
 label(dfSum$location) <- "Current housing location"
@@ -119,16 +131,37 @@ label(dfSum$income) <- "Monthly household income"
 label(dfSum$planed_cost) <- "Planned housing costs"
 
 
+options(table1_output = "latex")
+
+rndr <- function(x, name, ...) {
+  if (!is.numeric(x)) return(render.categorical.default(x))
+  
+  # Only apply custom format to specific variables
+  if (name %in% c("income", "planed_cost")) {
+    return(parse.abbrev.render.code("Mean (SD)")(x))
+  } else {
+    return(render.continuous.default(x))  # fallback to default for other numeric vars
+  }
+}
 
 
-t1 <- table1::table1(~ Sex + age_group + civil_status_T2 + Retired  + Hus + location  + VAR011_factor | Own   ,
+t1 <- table1::table1(~ Sex + age_group + civil_status_T2 + edu + Retired  + Hus + location  + VAR011_factor + income + planed_cost  | Own   ,
                      data = dfSum,
                      na.rm = TRUE,
                      digits = 3,
                      format.number = FALSE,
                      # extra.col=list(`P-value`=pvalue),
-                     caption = "Descriptive statistics") 
+                     caption = "Descriptive statistics",
+                     output = "latex",
+                     render = rndr) 
 
+latex_code <- table1:::doRender(t1, output = "latex")
+
+# 4. Write LaTeX code to file
+writeLines(as.character(latex_code),here("docs/elsvier/tables", "descriptive_table.tex"))
+
+
+writeLines(t1, here("docs/elsvier/tables", "descriptive_table.tex"))
 
 table1::t1flex(t1) |> 
   flextable::fontsize(size = 11) |> 

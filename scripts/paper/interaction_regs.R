@@ -164,9 +164,103 @@ mxl_age <- logitr(
   correlation = TRUE
 )
 
+saveRDS(mxl_age, here("output/models", "mxl_age.rds"))
+
+mxl_age_own <- logitr(
+  data = df_model %>% filter(!is.na(age_group),
+                             Own == "Owner"),
+  outcome = "choice",
+  obsID = "obsID",
+  panelID = "panelID",
+  pars = c(
+    # main effects
+    "dist_green5km", "dist_green500m",
+    "dist_shops5km", "dist_shops500m",
+    "dist_trans600", "dist_trans300",
+    "park_space",    "park_garage",
+    "price_num",
+    
+    # interactions with G65_74
+    "green5km_G65_74",   "green500_G65_74",
+    "shops5km_G65_74",   "shops500_G65_74",
+    "trans600_G65_74",   "trans300_G65_74",
+    "park_space_G65_74", "park_garage_G65_74",
+    "price_G65_74",
+    
+    # interactions with G75p
+    "green5km_G75p",   "green500_G75p",
+    "shops5km_G75p",   "shops500_G75p",
+    "trans600_G75p",   "trans300_G75p",
+    "park_space_G75p", "park_garage_G75p",
+    "price_G75p"
+  ),
+  randPars = c(
+    dist_green5km   = "n",
+    dist_green500m  = "n",
+    dist_shops5km   = "n",
+    dist_shops500m  = "n",
+    dist_trans600   = "n",
+    dist_trans300   = "n",
+    park_space      = "n",
+    park_garage     = "n"
+  ),
+  numDraws = 100,
+  numMultiStarts = 10,
+  drawType = "sobol",
+  correlation = TRUE
+)
+
+saveRDS(mxl_age_own, here("output/models", "mxl_age_own.rds"))
+
+mxl_age_rent <- logitr(
+  data = df_model %>% filter(!is.na(age_group),
+                             Own == "Renter"),
+  outcome = "choice",
+  obsID = "obsID",
+  panelID = "panelID",
+  pars = c(
+    # main effects
+    "dist_green5km", "dist_green500m",
+    "dist_shops5km", "dist_shops500m",
+    "dist_trans600", "dist_trans300",
+    "park_space",    "park_garage",
+    "price_num",
+    
+    # interactions with G65_74
+    "green5km_G65_74",   "green500_G65_74",
+    "shops5km_G65_74",   "shops500_G65_74",
+    "trans600_G65_74",   "trans300_G65_74",
+    "park_space_G65_74", "park_garage_G65_74",
+    "price_G65_74",
+    
+    # interactions with G75p
+    "green5km_G75p",   "green500_G75p",
+    "shops5km_G75p",   "shops500_G75p",
+    "trans600_G75p",   "trans300_G75p",
+    "park_space_G75p", "park_garage_G75p",
+    "price_G75p"
+  ),
+  randPars = c(
+    dist_green5km   = "n",
+    dist_green500m  = "n",
+    dist_shops5km   = "n",
+    dist_shops500m  = "n",
+    dist_trans600   = "n",
+    dist_trans300   = "n",
+    park_space      = "n",
+    park_garage     = "n"
+  ),
+  numDraws = 100,
+  numMultiStarts = 10,
+  drawType = "sobol",
+  correlation = TRUE
+)
+
+saveRDS(mxl_age_rent, here("output/models", "mxl_age_rent.rds"))
 
 
-screenreg(mxl_age)
+
+screenreg(list(mxl_age, mxl_age_rent,mxl_age_own ))
 
 
 

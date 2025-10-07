@@ -1,43 +1,71 @@
 \begin{table}[H]
 \scriptsize
-\caption{Attributes and levels \label{tab:atts}}
+\caption{Attributes and levels used in the DCE\label{tab:atts}}
 \centering
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{p{13em}p{20em}} % <-- Narrowed both columns
+\renewcommand{\arraystretch}{1.5}
+\setlength{\tabcolsep}{8pt}
+\begin{tabular}{p{14em} p{28em}}
 \toprule
-\textbf{Attribute} & \textbf{Attribute levels} \\
+Attribute (variable) & Attribute levels \\
 \midrule
-Distance to green area $(greenspace)$ & 
--- within 500\,m \newline
--- within 10\,km \newline
--- within 15\,km \\
-\addlinespace
-Distance to shops $(shops)$ & 
--- within 500\,m \newline
--- within 10\,km \newline
--- within 15\,km \\
-\addlinespace
-Distance to transportation $(transport)$ & 
--- within 300\,m \newline
--- within 600\,m \newline
--- within 900\,m \\
-\addlinespace
-Parking $(parking)$& 
--- no reserved parking \newline
--- reserved parking place \newline
--- reserved garage place \\
-\addlinespace
-Price$(price)$ & 
--- 20\% less than planned costs \newline
--- 10\% less than planned costs \newline
--- same as planned cost \newline
--- 10\% more than planned costs \newline
--- 20\% more than planned costs \\
+
+\fbox{\parbox{13.5em}{%
+Distance to green area\\
+(\textit{greenspace})
+}} &
+\fbox{\parbox{25em}{%
+Within 500 m \\
+Within 10 km \\
+Within 15 km
+}} \\
+
+\fbox{\parbox{13.5em}{%
+Distance to shops\\
+(\textit{shops})
+}} &
+\fbox{\parbox{25em}{%
+Within 500 m \\
+Within 10 km \\
+Within 15 km
+}} \\
+
+\fbox{\parbox{13.5em}{%
+Distance to transportation\\
+(\textit{transport})
+}} &
+\fbox{\parbox{25em}{%
+Within 300 m \\
+Within 600 m \\
+Within 900 m
+}} \\
+
+\fbox{\parbox{13.5em}{%
+Parking\\
+(\textit{parking})
+}} &
+\fbox{\parbox{25em}{%
+No reserved parking \\
+Reserved parking place \\
+Reserved garage place
+}} \\
+
+\fbox{\parbox{13.5em}{%
+Price\\
+(\textit{price})
+}} &
+\fbox{\parbox{25em}{%
+20\% less than planned cost \\
+10\% less than planned cost \\
+Same as planned cost \\
+10\% more than planned cost \\
+20\% more than planned cost
+}} \\
+
 \bottomrule
 \end{tabular}
 
 \vspace{0.5em}
-\parbox{0.85\linewidth}{
-\scriptsize\textit{Note.} Table shows attributes and their corresponding attribute levels utilized in the DCE. Variable names given in parentheses.
+\parbox{0.9\linewidth}{
+\scriptsize\textit{Note.} Attributes and levels used in the discrete choice experiment (DCE). Variable names used in the model are shown in parentheses.
 }
 \end{table}
