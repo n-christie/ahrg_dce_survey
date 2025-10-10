@@ -49,7 +49,10 @@ df_model <- df_model %>%
     civil_d = factor(if_else(civil_status_T2 == 1, "Partnered", "Not partnered")),
     Own = factor(if_else(ägandebostad == "Ja", "Owner", "Renter")),
     Hus = factor(if_else( bostadstyp == "Friliggande villa/hus/gård" | bostadstyp == "Radhus/kedjehus/parhus", "House", "Apartment/Condo")),
-    downsize = if_else(planed_cost < monthcost, 1, 0)
+    downsize = if_else(planed_cost < monthcost, 1, 0),
+    location = case_when(VAR010 == 1 ~ "City/town",
+                         VAR010 == 2 | VAR010 == 2 ~ "Urban/countryside",
+                         TRUE ~ NA )
     
   )
 
@@ -80,7 +83,7 @@ cost_name   <- "price_num"
 set.seed(12345)  # or any fixed number
 
 mnl <- logitr(
-  data    = df_model %>% filter(VAR174_8 != 1) ,
+  data    = df_model %>% filter(Sex == "Kvinna" ) ,
   outcome = "choice",
   obsID   = "obsID",
   panelID = "panelID",
@@ -88,7 +91,7 @@ mnl <- logitr(
 )
 
 mxl <- logitr(
-  data    = df_model  ,
+  data    = df_model %>% filter(Sex == "Kvinna" ) ,
   outcome = "choice",
   obsID   = "obsID",
   panelID = "panelID",
@@ -375,10 +378,10 @@ texreg(
   dcolumn = TRUE,
   use.packages = FALSE,
   na.replace = "--",  
-  caption = "Mixed Logit Estimates for notretired : Base Specification",  
+  caption = "Mixed Logit Estimates for men : Base Specification",  
   caption.above = TRUE,
   fontsize = "scriptsize",
-  file = here("docs/elsvier/tables","base_reg_notretired.tex") 
+  file = here("docs/elsvier/tables","base_reg_female.tex") 
   
 )
 
@@ -399,258 +402,3 @@ texreg(
 
 
 
-
-
-
-## Age groups ----
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# 
-# 
-# 
-# 
-# 
-# screenreg(list(mnl,mxl))
-# 
-# 
-# # -----------------------------
-# # 1) Inputs
-# # -----------------------------
-# mnl   <- mnl_male   # preference-space MNL (your object)
-# mxl   <- mxl_male   # mixed logit (your object)
-# cost_name   <- "price_num"
-# median_cost <- 10500
-# MHC10       <- 0.10 * median_cost  # 10% of median planned cost (SEK)
-# 
-# # Optional: nice row labels for your dummies (adjust to your factor names)
-# label_map <- c(
-#   "dist_green5km"                 = "Green space: 5 km (vs 15 km)",
-#   "dist_green500 meter"           = "Green space: 500 m (vs 15 km)",
-#   "dist_shops5km"                 = "Shops: 5 km (vs 15 km)",
-#   "dist_shops500 meter"           = "Shops: 500 m (vs 15 km)",
-#   "dist_trans600"                 = "Transit stop: 600 m (vs 900 m)",
-#   "dist_trans300"                 = "Transit stop: 300 m (vs 900 m)",
-#   "parkingreserverad garageplats" = "Parking: reserved garage (vs none)",
-#   "parkingreserverad P-plats"     = "Parking: reserved space (vs none)"
-# )
-# 
-# # -----------------------------
-# # 2) Helpers (delta method)
-# # -----------------------------
-# # var( -a/c ) with gradient [-1/c, a/c^2] wrt (a,c)
-# dm_var_ratio <- function(V, a_name, c_name, beta) {
-#   a <- beta[a_name]; c <- beta[c_name]
-#   grad <- matrix(c(-1/c, a/(c^2)), ncol = 1)
-#   Vsub <- V[c(a_name, c_name), c(a_name, c_name), drop = FALSE]
-#   as.numeric(t(grad) %*% Vsub %*% grad)
-# }
-# 
-# # -----------------------------
-# # 3) Extract pieces from models
-# # -----------------------------
-# # MNL means
-# b_mnl <- coef(mnl)
-# V_mnl <- vcov(mnl)
-# 
-# # MXl: means & SDs. We’ll detect SD terms by name pattern.
-# tidy_mxl <- broom::tidy(mxl)
-# 
-# # Heuristic: SD terms often start with "sd_" or contain ":sd" or similar.
-# # Inspect names once with: unique(tidy_mxl$term)
-# is_sd <- str_detect(tidy_mxl$term, regex("^sd_|_sd$|:sd|\\bsd\\b", ignore_case = TRUE))
-# mxl_means <- tidy_mxl %>% filter(!is_sd)
-# mxl_sds   <- tidy_mxl %>% filter(is_sd)
-# 
-# # Create named vectors for means & SDs (and their SEs)
-# b_mxl_mean <- setNames(mxl_means$estimate, mxl_means$term)
-# se_mxl_mean<- setNames(mxl_means$std.error, mxl_means$term)
-# b_mxl_sd   <- setNames(mxl_sds$estimate,   mxl_sds$term)
-# se_mxl_sd  <- setNames(mxl_sds$std.error,  mxl_sds$term)
-# 
-# # -----------------------------
-# # 4) Decide row order (attributes, no cost)
-# # -----------------------------
-# # Take attribute terms that appear in the MNL and exclude the cost
-# attr_terms <- names(b_mnl)
-# attr_terms <- setdiff(attr_terms, c("(Intercept)", cost_name))
-# 
-# # Keep only those we have in the mixed-logit means too (to align rows)
-# attr_terms <- intersect(attr_terms, names(b_mxl_mean))
-# 
-# # -----------------------------
-# # 5) Compute MRS & MWTP from MNL
-# # -----------------------------
-# mrs_list <- lapply(attr_terms, function(a){
-#   mrs_hat <- - b_mnl[a] / b_mnl[cost_name]
-#   var_mrs <- dm_var_ratio(V_mnl, a, cost_name, b_mnl)
-#   se_mrs  <- sqrt(var_mrs)
-#   tibble(MRS = mrs_hat, SE = se_mrs)
-# })
-# 
-# mrs_mat <- do.call(rbind, mrs_list)
-# rownames(mrs_mat) <- attr_terms
-# 
-# # MWTP = MRS × 10% of median planned cost (SE scales the same)
-# mwtp_mat <- cbind(
-#   MWTP   = mrs_mat[,"MRS"] * MHC10,
-#   SE     = mrs_mat[,"SE"]  * MHC10
-# )
-# rownames(mwtp_mat) <- attr_terms
-# 
-# # -----------------------------
-# # 6) Build texreg "models"
-# # -----------------------------
-# # Col 1: MNL means
-# coef1 <- b_mnl[attr_terms]
-# se1   <- sqrt(diag(V_mnl))[attr_terms]
-# p1    <- 2*pnorm(-abs(coef1/se1))
-# 
-# # Col 2: ML means (from mixed logit)
-# coef2 <- b_mxl_mean[attr_terms]
-# se2   <- se_mxl_mean[attr_terms]
-# p2    <- 2*pnorm(-abs(coef2/se2))
-# 
-# # Col 3: ML SDs (try to match names; SD terms often named like "sd_dist_green5km")
-# # We map SD rows by trying common prefixes:
-# name_map_sd <- setNames(
-#   nm = names(b_mxl_sd),
-#   object = str_replace(names(b_mxl_sd), regex("^sd[_\\.:]?", ignore_case = TRUE), "")
-# )
-# 
-# 
-# # Try to align: for each attr term, find sd name whose stripped name matches
-# sd_for_attr <- sapply(attr_terms, function(a){
-#   # find exact or partial match
-#   cand <- names(name_map_sd)[tolower(name_map_sd) == tolower(a)]
-#   if(length(cand) == 0) {
-#     # fallback: contains
-#     cand <- names(b_mxl_sd)[str_detect(names(b_mxl_sd), fixed(a))]
-#   }
-#   if(length(cand) > 0) cand[1] else NA_character_
-# })
-# 
-# coef3 <- setNames(rep(NA_real_, length(attr_terms)), attr_terms)
-# se3   <- setNames(rep(NA_real_, length(attr_terms)), attr_terms)
-# p3    <- setNames(rep(NA_real_, length(attr_terms)), attr_terms)
-# 
-# for(i in seq_along(attr_terms)){
-#   sd_name <- sd_for_attr[i]
-#   if(!is.na(sd_name)){
-#     coef3[i] <- b_mxl_sd[sd_name]
-#     se3[i]   <- se_mxl_sd[sd_name]
-#     p3[i]    <- 2*pnorm(-abs(coef3[i]/se3[i]))
-#   }
-# }
-# 
-# # Col 4: MRS (per 10%) from MNL
-# coef4 <- pull(mrs_mat, MRS)
-# se4   <- pull(mrs_mat, SE)
-# p4    <- 2*pnorm(-abs(coef4/se4))
-# 
-# # Col 5: MWTP (SEK/mo)
-# mwtp_mat <- mrs_mat %>%
-#   as.data.frame() %>%
-#   mutate(
-#     MWTP = MRS * MHC10,
-#     MWTP_SE = SE * MHC10
-#   )
-# 
-# coef5 <- mwtp_mat[ , "MWTP"]; names(coef5) <- attr_terms
-# se5   <- mwtp_mat[ , "SE"];   names(se5)   <- attr_terms
-# p5    <- 2*pnorm(-abs(coef5/se5))
-# 
-# # Pretty row names
-# coef_map <- setNames(
-#   object = ifelse(names(label_map) %in% attr_terms, label_map[names(label_map)], names(label_map)),
-#   nm = names(label_map)
-# )
-# # fall back to term if no label
-# rownames_final <- sapply(attr_terms, function(a) ifelse(!is.na(label_map[a]), label_map[a], a))
-# 
-# # Build texreg createTexreg objects
-# 
-# m1 <- createTexreg(
-#   coef.names = rownames_final,
-#   coef = as.numeric(coef1[ attr_terms ]),
-#   se   = as.numeric(se1  [ attr_terms ]),
-#   pvalues = as.numeric(p1[ attr_terms ]),
-#   gof.names = c("Num. obs.", "Log Likelihood", "AIC", "BIC", "McFadden R²"),
-#   gof = c(3852, -1889.1238786, 3796.2477571, 3852.5549000, 0.2924637),
-#   gof.decimal = c(FALSE, TRUE, TRUE, TRUE, TRUE)
-# )
-# 
-# 
-# m2 <- createTexreg(
-#   coef.names = rownames_final,
-#   coef = as.numeric(coef2[ attr_terms ]),
-#   se   = as.numeric(se2  [ attr_terms ]),
-#   pvalues = as.numeric(p2[ attr_terms ]),
-#   gof.names = c("Num. obs.", "Log Likelihood", "AIC", "BIC", "McFadden R²"),
-#   gof = c(3852, -1889.1238786, 3796.2477571, 3852.5549000, 0.2924637),
-#   gof.decimal = c(FALSE, TRUE, TRUE, TRUE, TRUE)
-# )
-# 
-# m3 <- createTexreg(
-#   coef.names = rownames_final,
-#   coef = as.numeric(coef3[ attr_terms ]),
-#   se   = as.numeric(se3  [ attr_terms ]),
-#   pvalues = as.numeric(p3[ attr_terms ])
-# )
-# 
-# m4 <- createTexreg(
-#   coef.names = rownames_final,
-#   coef = as.numeric(coef4[ attr_terms ]),
-#   se   = as.numeric(se4  [ attr_terms ]),
-#   pvalues = as.numeric(p4[ attr_terms ])
-# )
-# 
-# m5 <- createTexreg(
-#   coef.names = rownames_final,
-#   coef = as.numeric(coef5[ attr_terms ]),
-#   se   = as.numeric(se5  [ attr_terms ]),
-#   pvalues = as.numeric(p5[ attr_terms ])
-# )
-# 
-# # -----------------------------
-# # 7) Print table
-# # -----------------------------
-# screenreg(
-#   list(m1, m2, m3, m4, m5),
-#   custom.model.names = c("MNL", "ML Mean", "ML SD", "MRS (per 10%)", "MWTP (SEK/mo)"),
-#   dcolumn = TRUE, booktabs = TRUE, use.packages = FALSE,
-#   stars = c(0.001, 0.01, 0.05),
-#   digits = 3
-# )
-# 
-# # Or HTML in the Viewer:
-# # htmlreg(list(m1, m2, m3, m4, m5), file = "caplan_table5_males.html", doctype = TRUE)
-# # And LaTeX to file:
-# # texreg(list(m1, m2, m3, m4, m5), file = "caplan_table5_males.tex")

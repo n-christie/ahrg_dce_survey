@@ -14,7 +14,8 @@ library(purrr)
 library(texreg)
 library(stringr)
 
-
+cost_name   <- "price_num"
+set.seed(12345)  # or any fixed number
 
 
 # Data cleaning ----
@@ -459,6 +460,8 @@ plot_df$attribute <- factor(plot_df$attribute, levels = c(
   "Transit: 900m (ref)",     "Transit: 600m",     "Transit: 300m",
   "Parking: None (ref)",     "Parking: reserved space", "Parking: reserved garage"
 ))
+
+plot_df_age <- plot_df
 
 ggplot(plot_df, aes(x = estimate, y = attribute, color = age_group)) +
   geom_point(position = position_dodge(width = 0.6), size = 2) +

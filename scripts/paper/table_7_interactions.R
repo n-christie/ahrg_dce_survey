@@ -1,109 +1,455 @@
-library(tidyverse)
-library(here)
-library(broom)
+# --- Packages ---
+library(broom)       # tidy()
+library(texreg)      # createTexreg(), texreg()
 library(dplyr)
-library(texreg)
+library(stringr)
+library(here)
 
-# load models
+# --- Load models ---
+mxl_own  <- readRDS(here("output/models", "mxl_age_own.rds"))
+mxl_rent <- readRDS(here("output/models", "mxl_age_rent.rds"))
 
-mxl_rent <- readRDS( here("output/models", "mxl_age_rent.rds"))
-mxl_own <- readRDS( here("output/models", "mxl_age_own.rds"))
+screenreg((list(mxl_own,mxl_rent)))
 
+# --- Settings (consistent with your previous table) ---
+cost_name   <- "price_num"
+median_cost <- 10500
+scaler      <- 0.10 * median_cost  # converts MRS to SEK/month
 
+## --- Helpers (keep your earlier imports/objects) -------------------------
 
-## ---- WTP for each model (rent/own) ------------------------------------------
-
-# 1) Attribute map (matches your variable names)
-attr_map <- tibble::tibble(
-  display = c(
-    "Green space: 5km", "Green space: 500m",
-    "Shops: 5km",       "Shops: 500m",
-    "Transit: 600m",    "Transit: 300m",
-    "Parking: reserved space", "Parking: reserved garage"
-  ),
-  base    = c(
-    "dist_green5km",   "dist_green500m",
-    "dist_shops5km",   "dist_shops500m",
-    "dist_trans600",   "dist_trans300",
-    "park_space",      "park_garage"
-  ),
-  G65_74 = c(
-    "green5km_G65_74",   "green500_G65_74",
-    "shops5km_G65_74",   "shops500_G65_74",
-    "trans600_G65_74",   "trans300_G65_74",
-    "park_space_G65_74", "park_garage_G65_74"
-  ),
-  G75p = c(
-    "green5km_G75p",   "green500_G75p",
-    "shops5km_G75p",   "shops500_G75p",
-    "trans600_G75p",   "trans300_G75p",
-    "park_space_G75p", "park_garage_G75p"
-  )
+# Map interaction name -> base attribute (includes price terms too)
+interaction_to_base <- c(
+  "green5km_G65_74"   = "dist_green5km",
+  "green500_G65_74"   = "dist_green500m",
+  "green5km_G75p"     = "dist_green5km",
+  "green500_G75p"     = "dist_green500m",
+  "shops5km_G65_74"   = "dist_shops5km",
+  "shops500_G65_74"   = "dist_shops500m",
+  "shops5km_G75p"     = "dist_shops5km",
+  "shops500_G75p"     = "dist_shops500m",
+  "trans600_G65_74"   = "dist_trans600",
+  "trans300_G65_74"   = "dist_trans300",
+  "trans600_G75p"     = "dist_trans600",
+  "trans300_G75p"     = "dist_trans300",
+  "park_space_G65_74" = "park_space",
+  "park_garage_G65_74"= "park_garage",
+  "park_space_G75p"   = "park_space",
+  "park_garage_G75p"  = "park_garage",
+  "price_G65_74"      = "price_num",
+  "price_G75p"        = "price_num"
 )
 
-group_suffix <- function(group) {
-  switch(group,
-         "65-74" = "G65_74",
-         "75+"   = "G75p",
-         "55-64" = NA_character_
-  )
+pretty_interaction <- function(term, label_map) {
+  base <- interaction_to_base[[term]]
+  group <- if (grepl("G65_74$", term)) "× Age 65–74" else "× Age 75+"
+  paste0(label_map[[base]], " ", group)
 }
 
-# 2) Core helper that takes a MODEL and returns a WTP table
-wtp_table_for_model <- function(model, mhc_list) {
-  coefs <- coef(model)
-  wtp_by_group <- function(display_attr, group = c("55-64", "65-74", "75+")) {
-    group <- match.arg(group)
-    row <- dplyr::filter(attr_map, display == display_attr)
-    base <- row$base
-    int  <- if (group == "65-74") row$G65_74 else if (group == "75+") row$G75p else NA
-    
-    num <- coefs[[base]]
-    denom <- coefs[["price_num"]]
-    
-    if (!is.na(int)) {
-      price_int <- paste0("price_", group_suffix(group))
-      num <- num + coefs[[int]]
-      denom <- denom + coefs[[price_int]]
-    }
-    
-    - num / denom
+# Coefficient rows to display (same ordering as before)
+main_attrs <- c("dist_green5km","dist_green500m",
+                "dist_shops5km","dist_shops500m",
+                "dist_trans600","dist_trans300",
+                "park_garage","park_space")
+
+inter_terms_65 <- c("green5km_G65_74","green500_G65_74",
+                    "shops5km_G65_74","shops500_G65_74",
+                    "trans600_G65_74","trans300_G65_74",
+                    "park_garage_G65_74","park_space_G65_74",
+                    "price_G65_74")
+
+inter_terms_75 <- c("green5km_G75p","green500_G75p",
+                    "shops5km_G75p","shops500_G75p",
+                    "trans600_G75p","trans300_G75p",
+                    "park_garage_G75p","park_space_G75p",
+                    "price_G75p")
+
+coef_rows <- c(main_attrs, "price_num", inter_terms_65, inter_terms_75)
+
+# Pretty labels for the coefficient rows
+pretty_labels <- c(
+  unname(label_map[main_attrs]),
+  label_map[["price_num"]],
+  sapply(inter_terms_65, pretty_interaction, label_map = label_map),
+  sapply(inter_terms_75, pretty_interaction, label_map = label_map)
+)
+
+# Safe grab
+grab_term <- function(tidy_df, term) {
+  row <- tidy_df[tidy_df$term == term, ]
+  if (nrow(row) == 0) return(c(NA_real_, NA_real_, NA_real_))
+  c(row$estimate[1], row$std.error[1], row$p.value[1])
+}
+
+# Which age group does a term belong to?
+term_group <- function(term) {
+  if (term %in% main_attrs) return("base")
+  if (grepl("G65_74$", term)) return("G65_74")
+  if (grepl("G75p$", term))   return("G75p")
+  if (term %in% c("price_num")) return("price")
+  if (grepl("^price_", term))   return("price_inter")
+  "other"
+}
+
+# Base attribute for a term (main or interaction)
+term_attr <- function(term) {
+  if (term %in% main_attrs) return(term)
+  if (term %in% names(interaction_to_base)) return(interaction_to_base[[term]])
+  NA_character_
+}
+
+# Delta method for MWTP for a given (attr, group)
+mwtp_for_attr_group <- function(attr, group, tidy_df, V, scaler, cost_name) {
+  beta_a   <- grab_term(tidy_df, attr)[1]
+  beta_c   <- grab_term(tidy_df, cost_name)[1]
+  a_g_term <- if (group == "base") NA_character_
+  else names(interaction_to_base)[interaction_to_base == attr & grepl(group, names(interaction_to_base))]
+  c_g_term <- if (group == "base") NA_character_
+  else names(interaction_to_base)[interaction_to_base == cost_name & grepl(group, names(interaction_to_base))]
+  beta_a_g <- if (length(a_g_term)) grab_term(tidy_df, a_g_term)[1] else 0
+  beta_c_g <- if (length(c_g_term)) grab_term(tidy_df, c_g_term)[1] else 0
+  
+  if (any(is.na(c(beta_a, beta_c)))) return(c(NA_real_, NA_real_, NA_real_))
+  
+  A <- beta_a + ifelse(group == "base", 0, beta_a_g)
+  C <- beta_c + ifelse(group == "base", 0, beta_c_g)
+  val <- -(A / C) * scaler
+  
+  # SE via delta method (robust to missing V or slight indefiniteness)
+  terms <- c(attr, cost_name,
+             if (group != "base") a_g_term else NULL,
+             if (group != "base") c_g_term else NULL)
+  terms <- terms[!is.na(terms) & nzchar(terms)]
+  if (is.null(V) || !all(terms %in% rownames(V))) return(c(val, NA_real_, NA_real_))
+  
+  grad <- numeric(length(terms))
+  grad[terms == attr]       <- -1 / C * scaler
+  grad[terms == cost_name]  <- (A / (C^2)) * scaler
+  if (group != "base") {
+    if (any(terms == a_g_term)) grad[terms == a_g_term] <- -1 / C * scaler
+    if (any(terms == c_g_term)) grad[terms == c_g_term] <- (A / (C^2)) * scaler
   }
   
-  attributes <- attr_map$display
+  Vsub <- V[terms, terms, drop = FALSE]
+  var  <- as.numeric(t(grad) %*% Vsub %*% grad)
+  if (!is.finite(var) || var < 0) return(c(val, NA_real_, NA_real_))
+  se   <- sqrt(var)
+  pval <- if (se == 0 || !is.finite(se)) NA_real_ else 2 * pnorm(-abs(val / se))
+  c(val, se, pval)
+}
+
+compute_bic <- function(model) {
+  ll <- as.numeric(logLik(model))
+  k  <- attr(logLik(model), "df")
+  n  <- tryCatch(model$n$obs, error = function(e) NA)
+  if (is.na(n)) return(NA_real_)
+  k * log(n) - 2 * ll
+}
+
+safe_null_ll <- function(model) {
+  tryCatch(if (!is.null(model$nullLogLik)) model$nullLogLik else NA_real_, error = function(e) NA_real_)
+}
+
+lr_bits <- function(model) {
+  ll  <- as.numeric(logLik(model))
+  ll0 <- safe_null_ll(model)
+  k   <- attr(logLik(model), "df")
+  if (is.na(ll0)) return(list(lr = NA_real_, p = NA_real_, k = k))
+  lr <- -2 * (ll0 - ll)
+  p  <- pchisq(lr, df = k, lower.tail = FALSE)
+  list(lr = lr, p = p, k = k)
+}
+
+## --- NEW: compact builder that fills the MWTP *column* for each row -----
+
+build_pair_compact <- function(model, label_map, scaler, cost_name) {
+  tdf <- broom::tidy(model)
+  V   <- tryCatch(vcov(model), error = function(e) NULL)
+  
+  # Coef data for displayed rows
+  coef_vals <- setNames(rep(NA_real_, length(coef_rows)), coef_rows)
+  se_vals   <- coef_vals
+  p_vals    <- coef_vals
+  for (term in coef_rows) {
+    x <- grab_term(tdf, term)
+    coef_vals[term] <- x[1]; se_vals[term] <- x[2]; p_vals[term] <- x[3]
+  }
+  
+  # MWTP column: same rows; for price rows => NA
+  mwtp_vals <- setNames(rep(NA_real_, length(coef_rows)), coef_rows)
+  mwtp_se   <- mwtp_vals
+  mwtp_p    <- mwtp_vals
+  
+  for (term in coef_rows) {
+    g <- term_group(term)
+    if (g %in% c("price","price_inter","other")) next
+    a <- term_attr(term)
+    out <- mwtp_for_attr_group(a, ifelse(g == "base","base", g), tdf, V, scaler, cost_name)
+    mwtp_vals[term] <- out[1]; mwtp_se[term] <- out[2]; mwtp_p[term] <- out[3]
+  }
+  
+  # GOF & LR under the Coef column
+  ll   <- as.numeric(logLik(model))
+  aic  <- AIC(model)
+  bic  <- compute_bic(model)
+  nobs <- tryCatch(model$n$obs, error = function(e) NA_integer_)
+  ll0  <- safe_null_ll(model)
+  mcf  <- if (!is.na(ll0)) 1 - (ll / ll0) else NA_real_
+  lr   <- lr_bits(model)
+  
+  gof_names <- c("Num. obs.", "Log Likelihood", "AIC", "BIC", "McFadden R²",
+                 paste0("LR χ² (df=", lr$k, ")"), "p-value (LR)")
+  gof_vals  <- c(nobs, ll, aic, bic, mcf, lr$lr, lr$p)
+  gof_dec   <- c(FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE)
+  
+  # Texreg objects: same row names; Coef column has coefficients;
+  # MWTP column has only MWTP values (no GOF repeated)
+  m_coef <- createTexreg(
+    coef.names  = pretty_labels,
+    coef        = as.numeric(coef_vals),
+    se          = as.numeric(se_vals),
+    pvalues     = as.numeric(p_vals),
+    gof.names   = gof_names,
+    gof         = gof_vals,
+    gof.decimal = gof_dec
+  )
+  
+  m_mwtp <- createTexreg(
+    coef.names = pretty_labels,
+    coef       = as.numeric(mwtp_vals),
+    se         = as.numeric(mwtp_se),
+    pvalues    = as.numeric(mwtp_p)
+  )
+  
+  list(m_coef = m_coef, m_mwtp = m_mwtp)
+}
+
+## --- Build + Render ------------------------------------------------------
+
+own  <- build_pair_compact(mxl_own,  label_map, scaler, cost_name)
+rent <- build_pair_compact(mxl_rent, label_map, scaler, cost_name)
+
+custom_header      <- list("Owners" = 1:2, "Renters" = 3:4)
+custom_model_names <- c("Coef.", "MWTP", "Coef.", "MWTP")
+
+screenreg(
+  list(own$m_coef, own$m_mwtp, rent$m_coef, rent$m_mwtp),
+  custom.header      = custom_header,
+  custom.model.names = custom_model_names,
+  custom.coef.names  = pretty_labels,
+  digits             = 2,
+  stars              = c(0.001, 0.01, 0.05),
+  booktabs           = TRUE,
+  dcolumn            = TRUE,
+  use.packages       = FALSE,
+  na.replace         = "--"
+)
+
+texreg(
+  list(own$m_coef, own$m_mwtp, rent$m_coef, rent$m_mwtp),
+  custom.header      = custom_header,
+  custom.model.names = custom_model_names,
+  custom.coef.names  = pretty_labels,
+  digits             = 2,
+  stars              = c(0.001, 0.01, 0.05),
+  booktabs           = TRUE,
+  dcolumn            = TRUE,
+  use.packages       = FALSE,
+  na.replace         = "--",
+  caption            = "Mixed Logit with Age Interactions: Owners vs Renters (Coefficients and MWTP per Row)",
+  caption.above      = TRUE,
+  fontsize           = "scriptsize",
+  file               = here("docs/elsvier/tables","mxl_age_interactions_own_rent.tex")
+)
+
+
+# --- Packages ---
+library(broom)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(patchwork)
+library(here)
+
+# --- Inputs ---
+mhc_list <- list("55-64" = 10500, "65-74" = 10500, "75+" = 10500)
+
+attr_map <- tibble(
+  display = c("Green space: 15km", "Green space: 5km", "Green space: 500m",
+              "Shops: 15km", "Shops: 5km", "Shops: 500m",
+              "Transit: 900m", "Transit: 600m", "Transit: 300m",
+              "Parking: None", "Parking: reserved space", "Parking: reserved garage"),
+  base     = c(NA, "dist_green5km", "dist_green500m",
+               NA, "dist_shops5km", "dist_shops500m",
+               NA, "dist_trans600", "dist_trans300",
+               NA, "park_space", "park_garage"),
+  G65_74   = c(NA, "green5km_G65_74", "green500_G65_74",
+               NA, "shops5km_G65_74", "shops500_G65_74",
+               NA, "trans600_G65_74", "trans300_G65_74",
+               NA, "park_space_G65_74", "park_garage_G65_74"),
+  G75p     = c(NA, "green5km_G75p", "green500_G75p",
+               NA, "shops5km_G75p", "shops500_G75p",
+               NA, "trans600_G75p", "trans300_G75p",
+               NA, "park_space_G75p", "park_garage_G75p")
+)
+
+group_suffix <- function(g) dplyr::case_when(
+  g == "65-74" ~ "G65_74",
+  g == "75+"   ~ "G75p",
+  TRUE         ~ ""
+)
+
+# --- Function to compute WTP from a fitted model --------------------------
+compute_wtp_df <- function(model, group_label) {
+  coef_df <- tidy(model) %>%
+    mutate(conf.low = estimate - 1.96 * std.error,
+           conf.high = estimate + 1.96 * std.error)
+  
+  coefs <- setNames(coef_df$estimate, coef_df$term)
+  
+  get_wtp <- function(base, interaction = NULL, group = "55-64") {
+    if (!(base %in% names(coefs))) {
+      return(tibble(estimate = NA_real_, conf.low = NA_real_, conf.high = NA_real_))
+    }
+    
+    est <- coefs[[base]]
+    se  <- coef_df %>% filter(term == base) %>% pull(std.error)
+    
+    if (!is.null(interaction) && !is.na(interaction) && interaction %in% names(coefs)) {
+      est <- est + coefs[[interaction]]
+      se_int <- coef_df %>% filter(term == interaction) %>% pull(std.error)
+      se <- sqrt(se^2 + se_int^2)
+      
+      price_term <- paste0("price_", group_suffix(group))
+      if (price_term %in% names(coefs)) {
+        denom <- coefs[["price_num"]] + coefs[[price_term]]
+      } else {
+        denom <- coefs[["price_num"]]
+      }
+    } else {
+      denom <- coefs[["price_num"]]
+    }
+    
+    wtp <- -est / denom
+    wtp_sek <- wtp * 0.10 * mhc_list[[group]]
+    se_wtp <- (1.96 * se / abs(denom)) * 0.10 * mhc_list[[group]]
+    
+    tibble(estimate = wtp_sek,
+           conf.low = wtp_sek - se_wtp,
+           conf.high = wtp_sek + se_wtp)
+  }
   
   expand.grid(
-    attribute = attributes,
+    attribute = attr_map$display,
     age_group = c("55-64", "65-74", "75+"),
     stringsAsFactors = FALSE
   ) %>%
-    dplyr::mutate(
-      WTP_pct = purrr::map2_dbl(attribute, age_group, ~ wtp_by_group(.x, .y)),
-      WTP_sek = purrr::map2_dbl(age_group, WTP_pct, ~ .y * 0.10 * mhc_list[.x])
+    left_join(attr_map, by = c("attribute" = "display")) %>%
+    rowwise() %>%
+    mutate(
+      interaction_term = case_when(
+        age_group == "65-74" ~ G65_74,
+        age_group == "75+"   ~ G75p,
+        TRUE ~ NA_character_
+      ),
+      wtp_info = list(get_wtp(base, interaction_term, age_group))
     ) %>%
-    dplyr::arrange(attribute, age_group)
+    unnest(wtp_info) %>%
+    mutate(model_group = group_label)
 }
 
-# 3) Provide your age-specific planned-cost medians (or means) for SEK scaling
-#    (use your own numbers here — these are from your example)
-mhc_list <- c(`55-64` = 11108, `65-74` = 10769, `75+` = 9696)
+# --- Compute for both models ---
+plot_df_own  <- compute_wtp_df(mxl_own,  "Owners")
+plot_df_rent <- compute_wtp_df(mxl_rent, "Renters")
+plot_df <- bind_rows(plot_df_own, plot_df_rent)
 
-# 4) Compute WTP tables for each model
-wtp_rent <- wtp_table_for_model(mxl_rent, mhc_list) %>% mutate(model = "Renter")
-wtp_own  <- wtp_table_for_model(mxl_own,  mhc_list) %>% mutate(model = "Owner")
+# --- Clean up labels & remove reference rows ---
+plot_df <- plot_df %>%
+  mutate(
+    attribute = case_when(
+      grepl("garage", attribute, ignore.case = TRUE) ~ "Parking: garage (ref: none)",
+      grepl("reserved", attribute, ignore.case = TRUE) ~ "Parking: reserved (ref: none)",
+      grepl("300m", attribute, ignore.case = TRUE) ~ "Transit stop: 300 m (ref: 900 m)",
+      grepl("600m", attribute, ignore.case = TRUE) ~ "Transit stop: 600 m (ref: 900 m)",
+      grepl("500m", attribute, ignore.case = TRUE) & grepl("shop", attribute, ignore.case = TRUE) ~ "Shops: 500 m (ref: 15 km)",
+      grepl("5km", attribute, ignore.case = TRUE) & grepl("shop", attribute, ignore.case = TRUE) ~ "Shops: 5 km (ref: 15 km)",
+      grepl("500m", attribute, ignore.case = TRUE) & grepl("green", attribute, ignore.case = TRUE) ~ "Green space: 500 m (ref: 15 km)",
+      grepl("5km", attribute, ignore.case = TRUE) & grepl("green", attribute, ignore.case = TRUE) ~ "Green space: 5 km (ref: 15 km)",
+      TRUE ~ NA_character_
+    )
+  ) %>%
+  filter(!is.na(attribute))  # remove reference-level rows
 
-# 5) Preview (markdown tables)
-wtp_rent %>%
-  mutate(WTP_pct = round(WTP_pct, 3), WTP_sek = round(WTP_sek, 1)) %>%
-  knitr::kable(format = "markdown", col.names = c("Attribute","Age group","WTP (% of cost)","WTP (SEK/month)","Model"))
+# --- Factor order for attributes ---
+attribute_levels <- c(
+  "Parking: garage (ref: none)",
+  "Parking: reserved (ref: none)",
+  "Transit stop: 300 m (ref: 900 m)",
+  "Transit stop: 600 m (ref: 900 m)",
+  "Shops: 500 m (ref: 15 km)",
+  "Shops: 5 km (ref: 15 km)",
+  "Green space: 500 m (ref: 15 km)",
+  "Green space: 5 km (ref: 15 km)"
+)
 
-wtp_own %>%
-  mutate(WTP_pct = round(WTP_pct, 3), WTP_sek = round(WTP_sek, 1)) %>%
-  knitr::kable(format = "markdown", col.names = c("Attribute","Age group","WTP (% of cost)","WTP (SEK/month)","Model"))
+plot_df$attribute <- factor(plot_df$attribute, levels = rev(attribute_levels))
 
-# (optional) combined table:
-wtp_both <- bind_rows(wtp_rent, wtp_own)
+# --- Shared color palette ---
+age_colors <- c("55-64" = "#1b9e77", "65-74" = "#d95f02", "75+" = "#7570b3")
 
+# --- Shared x-axis limits ---
+xlims <- range(c(plot_df$conf.low, plot_df$conf.high), na.rm = TRUE)
+xlims <- c(floor(xlims[1] / 100) * 100, ceiling(xlims[2] / 100) * 100)
+
+# --- Plot function ---
+plot_wtp <- function(df, title) {
+  ggplot(df, aes(x = estimate, y = attribute, color = age_group)) +
+    geom_point(position = position_dodge(width = 0.6), size = 3) +
+    geom_errorbarh(aes(xmin = conf.low, xmax = conf.high),
+                   position = position_dodge(width = 0.6), height = 0.4,
+                   linewidth = 1) +
+    geom_vline(xintercept = 0, linetype = "dashed", color = "gray60") +
+    scale_color_manual(values = age_colors) +
+    # Round limits and define breaks every 100 SEK
+    scale_x_continuous(
+      limits = c(-200, 1200),
+      breaks = seq(-200, 1200, by = 200)
+    ) +
+  
+  
+    labs(x = "WTP (SEK/month)", y = NULL, color = "Age group", title = title) +
+    theme_minimal(base_size = 14) +
+    theme(
+      axis.text.y = element_text(size = 15),
+      axis.title.x = element_text(size = 13),
+      plot.title = element_text(size = 14, face = "bold", hjust = 0.5),
+      legend.position = "bottom",
+      legend.title = element_text(size = 13),
+      legend.text = element_text(size = 13),
+      panel.grid.minor = element_blank()
+      
+    )
+}
+
+# --- Create plots ---
+p_own  <- plot_wtp(filter(plot_df, model_group == "Owners"),  "Owners")
+p_rent <- plot_wtp(filter(plot_df, model_group == "Renters"), "Renters")
+
+# --- Combine with shared legend ---
+combined_plot <- p_own + p_rent + plot_layout(ncol = 2, guides = "collect") &
+  theme(legend.position = "bottom")
+
+# --- Display and save ---
+combined_plot
+
+ggsave(
+  here("docs/elsvier/figures", "wtp_age_interactions_own_rent_publication.png"),
+  plot = combined_plot,
+  width = 13,  # convert 835 px ≈ 8.35 cm
+  height = 12 , # convert 792 px ≈ 7.92 cm
+  units = "in",
+  dpi = 600
+)
 
 
 

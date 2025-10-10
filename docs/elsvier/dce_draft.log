@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4 NEXT) (preloaded format=pdflatex 2023.4.30)  7 OCT 2025 16:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4 NEXT) (preloaded format=pdflatex 2023.4.30)  10 OCT 2025 16:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -587,9 +587,6 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 Package hyperref Info: Option `colorlinks' set `true' on input line 72.
  (dce_draft.aux
 
-LaTeX Warning: Label `table:base_male' multiply defined.
-
-
 LaTeX Warning: Label `table:coefficients' multiply defined.
 
 )
@@ -679,13 +676,13 @@ Package hyperref Info: Link coloring ON on input line 86.
 \@outlinefile=\write4
 \openout4 = `dce_draft.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 209
+LaTeX Font Info:    Trying to load font information for U+msa on input line 211
 .
 
 (C:\Program Files\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 209
+LaTeX Font Info:    Trying to load font information for U+msb on input line 211
 .
 
 (C:\Program Files\MiKTeX\tex/latex/amsfonts\umsb.fd
@@ -693,23 +690,19 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {C:/Users/ni3054ch/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] [2]
-<figures/survey_location.png, id=103, 356.532pt x 525.162pt>
+<figures/survey_location.png, id=104, 356.532pt x 525.162pt>
 File: figures/survey_location.png Graphic file (type png)
 <use figures/survey_location.png>
-Package pdftex.def Info: figures/survey_location.png  used on input line 291.
+Package pdftex.def Info: figures/survey_location.png  used on input line 292.
 (pdftex.def)             Requested size: 178.26555pt x 262.58035pt.
 
-Overfull \hbox (37.86412pt too wide) in paragraph at lines 291--292
+Overfull \hbox (37.86412pt too wide) in paragraph at lines 292--293
  [][] 
  []
 
 
 Package wrapfig Warning: Stationary wrapfigure forced to float on input line 29
-6.
-
-
-Package natbib Warning: Citation `ossokinaReferencedependentHousingChoice2022' 
-on page 3 undefined on input line 314.
+7.
 
 [3 <./figures/survey_location.png>] (tables/att.tex
 Overfull \hbox (2.54993pt too wide) in paragraph at lines 15--15
@@ -736,72 +729,286 @@ Overfull \hbox (2.54993pt too wide) in paragraph at lines 55--55
 []|[]| 
  []
 
-) [4]
-<figures/choice_set.png, id=156, 1012.9845pt x 344.487pt>
+)
+<figures/choice_set.png, id=141, 1012.9845pt x 344.487pt>
 File: figures/choice_set.png Graphic file (type png)
 <use figures/choice_set.png>
-Package pdftex.def Info: figures/choice_set.png  used on input line 363.
+Package pdftex.def Info: figures/choice_set.png  used on input line 355.
 (pdftex.def)             Requested size: 506.49101pt x 172.24307pt.
 
-Overfull \hbox (38.49101pt too wide) in paragraph at lines 363--364
+Overfull \hbox (38.49101pt too wide) in paragraph at lines 355--356
  [][] 
  []
 
-[5 <./figures/choice_set.png>] (tables/des_tab.tex) [6] [7] [8
+[4] [5 <./figures/choice_set.png>] (tables/des_tab.tex) [6] [7
 
 ]
-(tables/base_reg_owner.tex) [9] [10] (tables/base_reg_renter.tex) [11]
-<figures/wtp_combined_side_by_side.png, id=250, 867.24pt x 433.62pt>
-File: figures/wtp_combined_side_by_side.png Graphic file (type png)
-<use figures/wtp_combined_side_by_side.png>
-Package pdftex.def Info: figures/wtp_combined_side_by_side.png  used on input l
-ine 576.
-(pdftex.def)             Requested size: 346.88986pt x 173.44492pt.
- [12
+(tables/base_reg_owner.tex) [8] [9] (tables/base_reg_renter.tex) [10]
+(tables/mxl_age_interactions_own_rent.tex
+Overfull \hbox (0.54193pt too wide) detected at line 12
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 34[]$ 
+ []
 
- <./figures/wtp_combined_side_by_side.png>] [13] (tables/base_reg_male.tex)
-(tables/base_reg_female.tex
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+Overfull \hbox (0.54193pt too wide) detected at line 12
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 89[]$ 
+ []
 
-) (tables/base_reg_55_64.tex) (tables/base_reg_65_74.tex)
-(tables/base_reg_75.tex) (tables/base_reg_retired.tex
 
-! LaTeX Error: Unicode character χ (U+03C7)
-               not set up for use with LaTeX.
+Overfull \hbox (0.54193pt too wide) detected at line 14
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 77[]$ 
+ []
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.36 LR χ
-          ² (df=9)                       & 2479.37     & 3251.36     &     ...
 
-You may provide a definition with
-\DeclareUnicodeCharacter 
+Overfull \hbox (0.54193pt too wide) detected at line 14
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 67[]$ 
+ []
 
-) (tables/base_reg_notretired.tex
 
-! LaTeX Error: Unicode character χ (U+03C7)
-               not set up for use with LaTeX.
+Overfull \hbox (0.54193pt too wide) detected at line 14
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 48[]$ 
+ []
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.36 LR χ
-          ² (df=9)                       & 790.08      & 1081.79     &     ...
 
-You may provide a definition with
-\DeclareUnicodeCharacter 
+Overfull \hbox (0.54193pt too wide) detected at line 16
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 24[]$ 
+ []
 
-) [14] [15] [16] [17] [18] [19] [20] (dce_draft.bbl [21
 
-])
+Overfull \hbox (0.54193pt too wide) detected at line 16
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 54[]$ 
+ []
 
-Package natbib Warning: There were undefined citations.
 
-[22] (dce_draft.aux)
+Overfull \hbox (0.54193pt too wide) detected at line 18
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 16[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 18
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 07[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 18
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 29[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 19
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 39[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 22
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 13[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 22
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 41[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 22
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 83[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 24
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 93[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 24
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 25[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 24
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 51[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 25
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 94[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 26
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 17[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 26
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 81[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 26
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 49[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 27
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 26[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 28
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 78[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 28
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 89[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 30
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 96[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 31
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 82[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 32
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 51[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 33
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 55[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 34
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 27[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 35
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 39[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 36
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 49[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 37
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 94[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 40
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 46[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 42
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 50[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 43
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 28[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 44
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 85[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 45
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 12[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 48
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 54[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 49
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 80[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 50
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 97[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 51
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 64[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 52
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 51[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 54
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 83[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 55
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 18[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 58
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 91[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 60
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 28[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 61
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 94[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 62
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 81[]$ 
+ []
+
+
+Overfull \hbox (0.54193pt too wide) detected at line 63
+$\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 44[]$ 
+ []
+
+) [11
+
+]
+<figures/wtp_age_interactions_own_rent_publication.png, id=260, 939.51pt x 867.
+24pt>
+File: figures/wtp_age_interactions_own_rent_publication.png Graphic file (type 
+png)
+<use figures/wtp_age_interactions_own_rent_publication.png>
+Package pdftex.def Info: figures/wtp_age_interactions_own_rent_publication.png 
+ used on input line 593.
+(pdftex.def)             Requested size: 281.85518pt x 260.17401pt.
+ [12] [13 <./figures/wtp_age_interactions_own_rent_publication.png>]
+(tables/base_reg_male.tex) (tables/base_reg_female.tex)
+(tables/base_reg_55_64.tex) (tables/base_reg_65_74.tex) (tables/base_reg_75.tex
+) (tables/base_reg_retired.tex) (tables/base_reg_notretired.tex) [14
+
+] [15]
+[16] [17] [18] [19] [20] (dce_draft.bbl [21
+
+]) [22] (dce_draft.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -809,37 +1016,38 @@ Package rerunfilecheck Info: File `dce_draft.out' has not changed.
 (rerunfilecheck)             Checksum: 4C372C1BA00136AC4271E5219952682C;2014.
  ) 
 Here is how much of TeX's memory you used:
- 15521 strings out of 476331
- 255100 string characters out of 5797571
+ 15534 strings out of 476331
+ 255608 string characters out of 5797571
  1984660 words of memory out of 5000000
- 35551 multiletter control sequences out of 15000+600000
- 526239 words of font info for 85 fonts, out of 8000000 for 9000
+ 35557 multiletter control sequences out of 15000+600000
+ 526579 words of font info for 86 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,17n,76p,1143b,611s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,17n,76p,1075b,611s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\ni3054ch\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\t
-crm0800.pk><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><
-C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program F
-iles/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX/
-fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX/fonts/type1/p
-ublic/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfont
-s/cm/cmmi9.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmib10.
-pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Progr
-am Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKT
-eX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX/fonts/type1
-/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfon
-ts/cm/cmr9.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.p
-fb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Progra
-m Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Program Files/MiKTe
-X/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX/fonts/type1
-/public/amsfonts/cm/cmsy9.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfo
-nts/cm/cmti10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti7
-.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti8.pfb><C:/Prog
-ram Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti9.pfb><C:/Program Files/MiK
-TeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKTeX/fonts/ty
-pe1/public/amsfonts/cm/cmtt9.pfb>
-Output written on dce_draft.pdf (22 pages, 727540 bytes).
+crm0600.pk> <C:\Users\ni3054ch\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
+/dpi600\tcrm0800.pk><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmb
+x10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/
+Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program File
+s/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX/font
+s/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX/fonts/type1/publi
+c/amsfonts/cm/cmmi9.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm
+/cmmib10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb>
+<C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program F
+iles/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX/fo
+nts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX/fonts/type1/publ
+ic/amsfonts/cm/cmr9.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm
+/cmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.pfb><
+C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Program Fi
+les/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX/fo
+nts/type1/public/amsfonts/cm/cmsy9.pfb><C:/Program Files/MiKTeX/fonts/type1/pub
+lic/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts
+/cm/cmti7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti8.pfb
+><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti9.pfb><C:/Program 
+Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKTeX
+/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
+Output written on dce_draft.pdf (22 pages, 1327618 bytes).
 PDF statistics:
- 463 PDF objects out of 1000 (max. 8388607)
- 91 named destinations out of 1000 (max. 500000)
+ 479 PDF objects out of 1000 (max. 8388607)
+ 94 named destinations out of 1000 (max. 500000)
  144 words of extra memory for PDF output out of 10000 (max. 10000000)
 
