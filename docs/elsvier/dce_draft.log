@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4 NEXT) (preloaded format=pdflatex 2023.4.30)  10 OCT 2025 16:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4 NEXT) (preloaded format=pdflatex 2023.4.30)  13 OCT 2025 16:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -676,13 +676,13 @@ Package hyperref Info: Link coloring ON on input line 86.
 \@outlinefile=\write4
 \openout4 = `dce_draft.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 211
+LaTeX Font Info:    Trying to load font information for U+msa on input line 212
 .
 
 (C:\Program Files\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 211
+LaTeX Font Info:    Trying to load font information for U+msb on input line 212
 .
 
 (C:\Program Files\MiKTeX\tex/latex/amsfonts\umsb.fd
@@ -693,16 +693,16 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 <figures/survey_location.png, id=104, 356.532pt x 525.162pt>
 File: figures/survey_location.png Graphic file (type png)
 <use figures/survey_location.png>
-Package pdftex.def Info: figures/survey_location.png  used on input line 292.
+Package pdftex.def Info: figures/survey_location.png  used on input line 293.
 (pdftex.def)             Requested size: 178.26555pt x 262.58035pt.
 
-Overfull \hbox (37.86412pt too wide) in paragraph at lines 292--293
+Overfull \hbox (37.86412pt too wide) in paragraph at lines 293--294
  [][] 
  []
 
 
 Package wrapfig Warning: Stationary wrapfigure forced to float on input line 29
-7.
+8.
 
 [3 <./figures/survey_location.png>] (tables/att.tex
 Overfull \hbox (2.54993pt too wide) in paragraph at lines 15--15
@@ -733,10 +733,10 @@ Overfull \hbox (2.54993pt too wide) in paragraph at lines 55--55
 <figures/choice_set.png, id=141, 1012.9845pt x 344.487pt>
 File: figures/choice_set.png Graphic file (type png)
 <use figures/choice_set.png>
-Package pdftex.def Info: figures/choice_set.png  used on input line 355.
+Package pdftex.def Info: figures/choice_set.png  used on input line 356.
 (pdftex.def)             Requested size: 506.49101pt x 172.24307pt.
 
-Overfull \hbox (38.49101pt too wide) in paragraph at lines 355--356
+Overfull \hbox (38.49101pt too wide) in paragraph at lines 356--357
  [][] 
  []
 
@@ -998,17 +998,31 @@ File: figures/wtp_age_interactions_own_rent_publication.png Graphic file (type
 png)
 <use figures/wtp_age_interactions_own_rent_publication.png>
 Package pdftex.def Info: figures/wtp_age_interactions_own_rent_publication.png 
- used on input line 593.
+ used on input line 594.
 (pdftex.def)             Requested size: 281.85518pt x 260.17401pt.
  [12] [13 <./figures/wtp_age_interactions_own_rent_publication.png>]
-(tables/base_reg_male.tex) (tables/base_reg_female.tex)
-(tables/base_reg_55_64.tex) (tables/base_reg_65_74.tex) (tables/base_reg_75.tex
-) (tables/base_reg_retired.tex) (tables/base_reg_notretired.tex) [14
+(tables/mxl_income_interactions_ret_notret.tex)
+<figures/wtp_income_interactions_ret_notret_publication.png, id=275, 939.51pt x
+ 867.24pt>
+File: figures/wtp_income_interactions_ret_notret_publication.png Graphic file (
+type png)
+<use figures/wtp_income_interactions_ret_notret_publication.png>
+Package pdftex.def Info: figures/wtp_income_interactions_ret_notret_publication
+.png  used on input line 608.
+(pdftex.def)             Requested size: 281.85518pt x 260.17401pt.
+ [14
 
-] [15]
-[16] [17] [18] [19] [20] (dce_draft.bbl [21
+] [15 <./figures/wtp_income_interactions_ret_notret_publication.png>] [16
 
-]) [22] (dce_draft.aux)
+] (tables/base_reg_male.tex)
+(tables/base_reg_female.tex) (tables/base_reg_55_64.tex)
+(tables/base_reg_65_74.tex) (tables/base_reg_75.tex)
+(tables/base_reg_retired.tex) (tables/base_reg_notretired.tex) [17
+
+] [18]
+[19] [20] [21] [22] [23] (dce_draft.bbl [24
+
+]) [25] (dce_draft.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -1016,10 +1030,10 @@ Package rerunfilecheck Info: File `dce_draft.out' has not changed.
 (rerunfilecheck)             Checksum: 4C372C1BA00136AC4271E5219952682C;2014.
  ) 
 Here is how much of TeX's memory you used:
- 15534 strings out of 476331
- 255608 string characters out of 5797571
+ 15553 strings out of 476331
+ 256443 string characters out of 5797571
  1984660 words of memory out of 5000000
- 35557 multiletter control sequences out of 15000+600000
+ 35567 multiletter control sequences out of 15000+600000
  526579 words of font info for 86 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,17n,76p,1075b,611s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1045,9 +1059,9 @@ lic/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts
 ><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti9.pfb><C:/Program 
 Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKTeX
 /fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on dce_draft.pdf (22 pages, 1327618 bytes).
+Output written on dce_draft.pdf (25 pages, 2130953 bytes).
 PDF statistics:
- 479 PDF objects out of 1000 (max. 8388607)
- 94 named destinations out of 1000 (max. 500000)
- 144 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 498 PDF objects out of 1000 (max. 8388607)
+ 99 named destinations out of 1000 (max. 500000)
+ 149 words of extra memory for PDF output out of 10000 (max. 10000000)
 

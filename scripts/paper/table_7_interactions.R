@@ -17,6 +17,18 @@ median_cost <- 10500
 scaler      <- 0.10 * median_cost  # converts MRS to SEK/month
 
 ## --- Helpers (keep your earlier imports/objects) -------------------------
+# --- Label map for texreg output ---
+label_map <- c(
+  "dist_green5km"   = "Green space: 5 km (vs 15 km)",
+  "dist_green500m"  = "Green space: 500 m (vs 15 km)",
+  "dist_shops5km"   = "Shops: 5 km (vs 15 km)",
+  "dist_shops500m"  = "Shops: 500 m (vs 15 km)",
+  "dist_trans600"   = "Transit stop: 600 m (vs 900 m)",
+  "dist_trans300"   = "Transit stop: 300 m (vs 900 m)",
+  "park_garage"     = "Parking: reserved garage (vs none)",
+  "park_space"      = "Parking: reserved space (vs none)",
+  "price_num"       = "Price"
+)
 
 # Map interaction name -> base attribute (includes price terms too)
 interaction_to_base <- c(
@@ -39,6 +51,8 @@ interaction_to_base <- c(
   "price_G65_74"      = "price_num",
   "price_G75p"        = "price_num"
 )
+
+
 
 pretty_interaction <- function(term, label_map) {
   base <- interaction_to_base[[term]]
