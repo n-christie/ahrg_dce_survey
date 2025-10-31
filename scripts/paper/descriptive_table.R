@@ -145,7 +145,7 @@ rndr <- function(x, name, ...) {
 }
 
 
-t1 <- table1::table1(~ Sex + age_group + civil_status_T2 + edu + Retired  + Hus + location  + VAR011_factor + income + planed_cost  | Own   ,
+t1 <- table1::table1(~ Sex + age_group + civil_status_T2 + edu + health+ Retired  + Hus + location  + VAR011_factor + income + planed_cost  | Own   ,
                      data = dfSum,
                      na.rm = TRUE,
                      digits = 3,

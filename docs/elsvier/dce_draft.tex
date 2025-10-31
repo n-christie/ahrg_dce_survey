@@ -461,17 +461,10 @@ V_{ijt} = \beta_1 X_{ijt1} + \beta_2 X_{ijt2} + \ldots + \beta_k X_{ijtk}
 Here,
 \( X_{ijtk} \) represent the respective attributes found in Table \ref{tab:atts}.
 
-Multinomial logit (MNL) models have seen a popularity in utility modelling,
-where the model assumes homogeneous preferences across respondents and independently and identically distributed (i.i.d.) error terms.
-We estimate and report MNL specifications in our baseline models for comparison purposes.
-In MNL models,
-the choice probability is computed using the standard logit formula::
-
-\begin{equation}
-P_{ijt} = \frac{\exp(V_{ijt})}{\sum_{l=1}^{J} \exp(V_{ilt})}
-\end{equation}
-
-The assumption of homogeneous preferences is problematic when the objective is to uncover heterogeneity in preferences, as in our study. 
+While multinomial logit (MNL) models,
+which assume homogeneous preferences across respondents and independently and identically distributed (i.i.d.) error terms,
+are commonly estimated in choice modelling,
+they are problematic when the objective is to uncover heterogeneity in preferences, as in our study. 
 Recent research addresses this limitation by allowing utility coefficients to vary across individuals or groups \citep{aitkenOlderHomebuyersPrefer2024, zhaoUsingConjointAnalysis2023, caplanMeasuringHeterogeneousPreferences2021}. 
 We follow this line of research and estimate mixed logit (ML) models, in which the utility coefficients \( \boldsymbol{\beta}_i \) are allowed to vary randomly across individuals to account for unobserved heterogeneity in preferences \citep{mcfaddenMixedMNLModels2000}:
 
@@ -612,8 +605,9 @@ whereas the oldest group increasingly private parking and local environmental qu
 \clearpage
 
 
-\subsubsection{Education effects}
+\subsubsection{Gender effects}
 
+\input{tables/mxl_health_interaction_own_rent.tex}
 
 
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4 NEXT) (preloaded format=pdflatex 2023.4.30)  13 OCT 2025 16:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4 NEXT) (preloaded format=pdflatex 2023.4.30)  30 OCT 2025 15:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -589,6 +589,15 @@ Package hyperref Info: Option `colorlinks' set `true' on input line 72.
 
 LaTeX Warning: Label `table:coefficients' multiply defined.
 
+
+LaTeX Warning: Label `table:coefficients' multiply defined.
+
+
+LaTeX Warning: Label `table:coefficients' multiply defined.
+
+
+LaTeX Warning: Label `table:coefficients' multiply defined.
+
 )
 \openout1 = `dce_draft.aux'.
 
@@ -740,11 +749,53 @@ Overfull \hbox (38.49101pt too wide) in paragraph at lines 356--357
  [][] 
  []
 
-[4] [5 <./figures/choice_set.png>] (tables/des_tab.tex) [6] [7
+[4] [5 <./figures/choice_set.png>] (tables/des_tab.tex) [6] [7] [8
 
 ]
-(tables/base_reg_owner.tex) [8] [9] (tables/base_reg_renter.tex) [10]
-(tables/mxl_age_interactions_own_rent.tex
+
+LaTeX Warning: Reference `tab:base_owner' on page 9 undefined on input line 521
+.
+
+(tables/base_reg_owner.tex
+
+! LaTeX Error: Unicode character χ (U+03C7)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.36 LR χ
+          ² (df=9)                       & 2715.02     & 3583.53     &     ...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+)
+
+LaTeX Warning: Reference `tab:base_owner' on page 9 undefined on input line 540
+.
+
+
+LaTeX Warning: Reference `tab:base_renter' on page 9 undefined on input line 54
+3.
+
+(tables/base_reg_renter.tex
+
+! LaTeX Error: Unicode character χ (U+03C7)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.36 LR χ
+          ² (df=9)                       & 577.83      & 783.81     &      ...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+[9] [10]) [11] (tables/mxl_age_interactions_own_rent.tex
 Overfull \hbox (0.54193pt too wide) detected at line 12
 $\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 34[]$ 
  []
@@ -989,51 +1040,69 @@ Overfull \hbox (0.54193pt too wide) detected at line 63
 $\OML/cmm/m/it/6 :\OT1/cmr/m/n/6 44[]$ 
  []
 
-) [11
+) [12
 
 ]
-<figures/wtp_age_interactions_own_rent_publication.png, id=260, 939.51pt x 867.
+<figures/wtp_age_interactions_own_rent_publication.png, id=261, 939.51pt x 867.
 24pt>
 File: figures/wtp_age_interactions_own_rent_publication.png Graphic file (type 
 png)
 <use figures/wtp_age_interactions_own_rent_publication.png>
 Package pdftex.def Info: figures/wtp_age_interactions_own_rent_publication.png 
- used on input line 594.
+ used on input line 587.
 (pdftex.def)             Requested size: 281.85518pt x 260.17401pt.
- [12] [13 <./figures/wtp_age_interactions_own_rent_publication.png>]
+ [13] [14 <./figures/wtp_age_interactions_own_rent_publication.png>]
 (tables/mxl_income_interactions_ret_notret.tex)
-<figures/wtp_income_interactions_ret_notret_publication.png, id=275, 939.51pt x
+<figures/wtp_income_interactions_ret_notret_publication.png, id=274, 939.51pt x
  867.24pt>
 File: figures/wtp_income_interactions_ret_notret_publication.png Graphic file (
 type png)
 <use figures/wtp_income_interactions_ret_notret_publication.png>
 Package pdftex.def Info: figures/wtp_income_interactions_ret_notret_publication
-.png  used on input line 608.
+.png  used on input line 601.
 (pdftex.def)             Requested size: 281.85518pt x 260.17401pt.
- [14
+ [15
 
-] [15 <./figures/wtp_income_interactions_ret_notret_publication.png>] [16
+] [16 <./figures/wtp_income_interactions_ret_notret_publication.png>]
+(tables/mxl_health_interaction_own_rent.tex
 
-] (tables/base_reg_male.tex)
-(tables/base_reg_female.tex) (tables/base_reg_55_64.tex)
-(tables/base_reg_65_74.tex) (tables/base_reg_75.tex)
-(tables/base_reg_retired.tex) (tables/base_reg_notretired.tex) [17
+! LaTeX Error: Unicode character χ (U+03C7)
+               not set up for use with LaTeX.
 
-] [18]
-[19] [20] [21] [22] [23] (dce_draft.bbl [24
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.54 LR χ
+          ² (df=54)                             & 3597.38     &            ...
 
-]) [25] (dce_draft.aux)
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+) [17
+
+] [18] (tables/base_reg_male.tex) (tables/base_reg_female.tex)
+(tables/base_reg_55_64.tex) (tables/base_reg_65_74.tex) (tables/base_reg_75.tex
+) (tables/base_reg_retired.tex) (tables/base_reg_notretired.tex) [19
+
+] [20]
+[21] [22] [23] [24] [25] (dce_draft.bbl [26
+
+]) [27] (dce_draft.aux)
+
+LaTeX Warning: There were undefined references.
+
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `dce_draft.out' has not changed.
-(rerunfilecheck)             Checksum: 4C372C1BA00136AC4271E5219952682C;2014.
+(rerunfilecheck)             Checksum: 53D30CCC0FDB12C39F14F21270538F85;1999.
  ) 
 Here is how much of TeX's memory you used:
- 15553 strings out of 476331
- 256443 string characters out of 5797571
+ 15561 strings out of 476331
+ 256761 string characters out of 5797571
  1984660 words of memory out of 5000000
- 35567 multiletter control sequences out of 15000+600000
+ 35570 multiletter control sequences out of 15000+600000
  526579 words of font info for 86 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,17n,76p,1075b,611s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1059,9 +1128,9 @@ lic/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts
 ><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti9.pfb><C:/Program 
 Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKTeX
 /fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on dce_draft.pdf (25 pages, 2130953 bytes).
+Output written on dce_draft.pdf (27 pages, 2135120 bytes).
 PDF statistics:
- 498 PDF objects out of 1000 (max. 8388607)
- 99 named destinations out of 1000 (max. 500000)
+ 502 PDF objects out of 1000 (max. 8388607)
+ 101 named destinations out of 1000 (max. 500000)
  149 words of extra memory for PDF output out of 10000 (max. 10000000)
 

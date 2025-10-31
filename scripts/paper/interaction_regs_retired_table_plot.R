@@ -1,8 +1,10 @@
 # --- Load models ---
 mxl_income_ret    <- readRDS(here("output/models", "mxl_income_retired.rds"))
 mxl_income_notret <- readRDS(here("output/models", "mxl_income_notretired.rds"))
+mxl_health_own    <- readRDS(here("output/models", "mxl_health_own.rds"))
+mxl_health_rent <- readRDS(here("output/models", "mxl_health_rent.rds"))
 
-screenreg(list(mxl_income_ret, mxl_income_notret))
+screenreg(list(mxl_health_own, mxl_health_rent))
 
 # --- Settings ---
 cost_name   <- "price_num"
@@ -24,20 +26,20 @@ label_map <- c(
 
 
 interaction_to_base <- c(
-  "green5km_HighInc"   = "dist_green5km",
-  "green500_HighInc"   = "dist_green500m",
-  "shops5km_HighInc"   = "dist_shops5km",
-  "shops500_HighInc"   = "dist_shops500m",
-  "trans600_HighInc"   = "dist_trans600",
-  "trans300_HighInc"   = "dist_trans300",
-  "park_space_HighInc" = "park_space",
-  "park_garage_HighInc"= "park_garage",
-  "price_HighInc"      = "price_num"
+  "green5km_Good"   = "dist_green5km",
+  "green500_Good"   = "dist_green500m",
+  "shops5km_Good"   = "dist_shops5km",
+  "shops500_Good"   = "dist_shops500m",
+  "trans600_Good"   = "dist_trans600",
+  "trans300_Good"   = "dist_trans300",
+  "park_space_Good" = "park_space",
+  "park_garage_Good"= "park_garage",
+  "price_Good"      = "price_num"
 )
 
 pretty_interaction <- function(term, label_map) {
   base <- interaction_to_base[[term]]
-  paste0(label_map[[base]], " × High income")
+  paste0(label_map[[base]], " × Good")
 }
 
 main_attrs <- c("dist_green5km","dist_green500m",
@@ -45,11 +47,11 @@ main_attrs <- c("dist_green5km","dist_green500m",
                 "dist_trans600","dist_trans300",
                 "park_garage","park_space")
 
-inter_terms_inc <- c("green5km_HighInc","green500_HighInc",
-                     "shops5km_HighInc","shops500_HighInc",
-                     "trans600_HighInc","trans300_HighInc",
-                     "park_garage_HighInc","park_space_HighInc",
-                     "price_HighInc")
+inter_terms_inc <- c("green5km_Good","green500_Good",
+                     "shops5km_Good","shops500_Good",
+                     "trans600_Good","trans300_Good",
+                     "park_garage_Good","park_space_Good",
+                     "price_Good")
 
 coef_rows <- c(main_attrs, "price_num", inter_terms_inc)
 
@@ -70,7 +72,7 @@ grab_term <- function(tidy_df, term) {
 
 term_group <- function(term) {
   if (term %in% main_attrs) return("base")
-  if (grepl("HighInc$", term)) return("HighInc")
+  if (grepl("Good$", term)) return("Good")
   if (term %in% c("price_num")) return("price")
   if (grepl("^price_", term)) return("price_inter")
   "other"
@@ -203,17 +205,17 @@ build_pair_compact <- function(model, label_map, scaler, cost_name) {
 
 
 
-ret  <- build_pair_compact(mxl_income_ret,  label_map, scaler, cost_name)
-notr <- build_pair_compact(mxl_income_noret, label_map, scaler, cost_name)
+ret  <- build_pair_compact(mxl_health_own,  label_map, scaler, cost_name)
+notr <- build_pair_compact(mxl_health_rent, label_map, scaler, cost_name)
 
-custom_header      <- list("Retired" = 1:2, "Not retired" = 3:4)
+custom_header      <- list("Owner" = 1:2, "Renter" = 3:4)
 custom_model_names <- c("Coef.", "MWTP", "Coef.", "MWTP")
 
 
 
 
 
-texreg(
+screenreg(
   list(ret$m_coef, ret$m_mwtp, notr$m_coef, notr$m_mwtp),
   custom.header      = custom_header,
   custom.model.names = custom_model_names,
@@ -227,7 +229,7 @@ texreg(
   caption            = "Mixed Logit with Income Interactions: Retired vs Not Retired (Coefficients and MWTP per Row)",
   caption.above      = TRUE,
   fontsize           = "scriptsize",
-  file               = here("docs/elsvier/tables", "mxl_income_interactions_ret_notret.tex")
+  #file               = here("docs/elsvier/tables", "mxl_income_interactions_ret_notret.tex")
 )
 
 
@@ -254,10 +256,10 @@ attr_map <- tibble(
                NA, "dist_shops5km", "dist_shops500m",
                NA, "dist_trans600", "dist_trans300",
                NA, "park_space", "park_garage"),
-  HighInc  = c(NA, "green5km_HighInc", "green500_HighInc",
-               NA, "shops5km_HighInc", "shops500_HighInc",
-               NA, "trans600_HighInc", "trans300_HighInc",
-               NA, "park_space_HighInc", "park_garage_HighInc")
+  Good  = c(NA, "green5km_Good", "green500_Good",
+               NA, "shops5km_Good", "shops500_Good",
+               NA, "trans600_Good", "trans300_Good",
+               NA, "park_space_Good", "park_garage_Good")
 )
 
 # --- Function to compute WTP per attribute and income group ---------------

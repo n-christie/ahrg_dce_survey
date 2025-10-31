@@ -83,7 +83,7 @@ cost_name   <- "price_num"
 set.seed(12345)  # or any fixed number
 
 mnl <- logitr(
-  data    = df_model %>% filter(Sex == "Kvinna" ) ,
+  data    = df_model %>% filter(Own == "Renter" ) ,
   outcome = "choice",
   obsID   = "obsID",
   panelID = "panelID",
@@ -91,7 +91,7 @@ mnl <- logitr(
 )
 
 mxl <- logitr(
-  data    = df_model %>% filter(Sex == "Kvinna" ) ,
+  data    = df_model %>% filter(Own == "Renter") ,
   outcome = "choice",
   obsID   = "obsID",
   panelID = "panelID",
@@ -299,9 +299,12 @@ mrs_display <- mapply(format_ci, mrs_vals, mrs_lower, mrs_upper)
 
 m4 <- createTexreg(
   coef.names = attr_terms_mrs,
-  coef = as.numeric(mrs_vals),
-  se = as.numeric(mrs_ses),
-  pvalues = 2 * pnorm(-abs(mrs_vals / mrs_ses))
+  coef       = as.numeric(mrs_vals),
+  ci.low     = as.numeric(mrs_lower),
+  ci.up      = as.numeric(mrs_upper),
+  # ensure no stars for this column:
+  se         = rep(NA_real_, length(mrs_vals)),
+  pvalues    = rep(NA_real_, length(mrs_vals))
 )
 
 
@@ -337,32 +340,9 @@ label_map <- c(
 
 screenreg(
   list(m1, m2, m3, m4, m5),
-  custom.header = list("MXL" = 2:3),
+  custom.header      = list("MXL" = 2:3),
   custom.model.names = c("MNL", "Mean", "SD", "MRS", "MWTP (SEK/mo)"),
-  custom.coef.names = c(
-     "Green space: 5 km (vs 15 km)",
-     "Green space: 500 m (vs 15 km)",
-    "Shops: 5 km (vs 15 km)",
-     "Shops: 500 m (vs 15 km)",
-     "Transit stop: 600 m (vs 900 m)",
-     "Transit stop: 300 m (vs 900 m)",
-    "Parking: reserved garage (vs none)",
-    "Parking: reserved space (vs none)",
-    "Price"
-  ),
-  digits = 2,
-  stars = c(0.001, 0.01, 0.05),
-  booktabs = TRUE,
-  dcolumn = TRUE,
-  use.packages = FALSE
-)
-
-texreg(
-  list(m1, m2, m3, m4, m5),
-  custom.header = list("MXL" = 2:3),
-  custom.model.names = c("MNL", "Mean", "SD", "MRS", "MWTP (SEK/mo)"),
-  digits = 2,
-  custom.coef.names = c(
+  custom.coef.names  = c(
     "Green space: 5 km (vs 15 km)",
     "Green space: 500 m (vs 15 km)",
     "Shops: 5 km (vs 15 km)",
@@ -373,20 +353,62 @@ texreg(
     "Parking: reserved space (vs none)",
     "Price"
   ),
-  stars = c(0.001, 0.01, 0.05),
+  digits   = 2,
+  stars    = c(0.001, 0.01, 0.05),
   booktabs = TRUE,
-  dcolumn = TRUE,
-  use.packages = FALSE,
-  na.replace = "--",  
-  caption = "Mixed Logit Estimates for men : Base Specification",  
-  caption.above = TRUE,
-  fontsize = "scriptsize",
-  file = here("docs/elsvier/tables","base_reg_female.tex") 
-  
+  dcolumn  = TRUE,
+  use.packages = FALSE
 )
 
+texreg(
+  list(m1, m2, m3, m4, m5),
+  custom.header      = list("MXL" = 2:3),
+  custom.model.names = c("MNL", "Mean", "SD", "MRS", "MWTP (SEK/mo)"),
+  digits   = 2,
+  custom.coef.names  = c(
+    "Green space: 5 km (vs 15 km)",
+    "Green space: 500 m (vs 15 km)",
+    "Shops: 5 km (vs 15 km)",
+    "Shops: 500 m (vs 15 km)",
+    "Transit stop: 600 m (vs 900 m)",
+    "Transit stop: 300 m (vs 900 m)",
+    "Parking: reserved garage (vs none)",
+    "Parking: reserved space (vs none)",
+    "Price"
+  ),
+  stars    = c(0.001, 0.01, 0.05),
+  booktabs = TRUE,
+  dcolumn  = TRUE,
+  use.packages = FALSE,
+  na.replace = "--",
+  caption = "Mixed Logit Estimates for men : Base Specification",
+  caption.above = TRUE,
+  fontsize = "scriptsize",
+  file = here("docs/elsvier/tables","base_reg_renter.tex")
+)
 
-
+htmlreg(
+  list(m1, m2, m3, m4, m5),
+  custom.header      = list("MXL" = 2:3),
+  custom.model.names = c("MNL", "Mean", "SD", "MRS", "MWTP (SEK/mo)"),
+  custom.coef.names  = c(
+    "Green space: 5 km (vs 15 km)",
+    "Green space: 500 m (vs 15 km)",
+    "Shops: 5 km (vs 15 km)",
+    "Shops: 500 m (vs 15 km)",
+    "Transit stop: 600 m (vs 900 m)",
+    "Transit stop: 300 m (vs 900 m)",
+    "Parking: reserved garage (vs none)",
+    "Parking: reserved space (vs none)",
+    "Price"
+  ),
+  digits      = 2,
+  stars       = c(0.001, 0.01, 0.05),
+  doctype     = TRUE,        # self-contained HTML file
+  inline.css  = TRUE,        # embed CSS so Word keeps styling
+  file        = here("docs/word_doc", "base_reg_renter.html"),
+  custom.note = "*** p < 0.001; ** p < 0.01; * p < 0.05"
+)
 
 
 

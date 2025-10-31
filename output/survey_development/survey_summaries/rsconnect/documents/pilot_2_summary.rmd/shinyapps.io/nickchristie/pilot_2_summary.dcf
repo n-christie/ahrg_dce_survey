@@ -1,0 +1,12 @@
+name: pilot_2_summary
+title: pilot_2_summary
+username: nickchristie
+account: nickchristie
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 11943392
+bundleId: 8608931
+url: https://nickchristie.shinyapps.io/pilot_2_summary/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
