@@ -83,7 +83,7 @@ cost_name   <- "price_num"
 set.seed(12345)  # or any fixed number
 
 mnl <- logitr(
-  data    = df_model %>% filter(Own == "Renter" ) ,
+  data    = df_model %>% filter(Own == "Owner" ) ,
   outcome = "choice",
   obsID   = "obsID",
   panelID = "panelID",
@@ -91,7 +91,7 @@ mnl <- logitr(
 )
 
 mxl <- logitr(
-  data    = df_model %>% filter(Own == "Renter") ,
+  data    = df_model %>% filter(Own == "Owner") ,
   outcome = "choice",
   obsID   = "obsID",
   panelID = "panelID",
@@ -339,9 +339,9 @@ label_map <- c(
 
 
 screenreg(
-  list(m1, m2, m3, m4, m5),
-  custom.header      = list("MXL" = 2:3),
-  custom.model.names = c("MNL", "Mean", "SD", "MRS", "MWTP (SEK/mo)"),
+  list( m2, m3, m4, m5),
+  #custom.header      = list("MXL" = 2:3),
+  custom.model.names = c( "Mean", "SD", "MRS", "MWTP (SEK/mo)"),
   custom.coef.names  = c(
     "Green space: 5 km (vs 15 km)",
     "Green space: 500 m (vs 15 km)",
@@ -361,9 +361,9 @@ screenreg(
 )
 
 texreg(
-  list(m1, m2, m3, m4, m5),
-  custom.header      = list("MXL" = 2:3),
-  custom.model.names = c("MNL", "Mean", "SD", "MRS", "MWTP (SEK/mo)"),
+  list( m2, m3, m4, m5),
+  #custom.header      = list("MXL" = 2:3),
+  custom.model.names = c( "MXL - $$∖mu$$", "MXL - SD", "MRS", "MWTP (SEK/mo)"),
   digits   = 2,
   custom.coef.names  = c(
     "Green space: 5 km (vs 15 km)",
@@ -381,10 +381,10 @@ texreg(
   dcolumn  = TRUE,
   use.packages = FALSE,
   na.replace = "--",
-  caption = "Mixed Logit Estimates for men : Base Specification",
+  caption = "Base Specification - Renters",
   caption.above = TRUE,
   fontsize = "scriptsize",
-  file = here("docs/elsvier/tables","base_reg_renter.tex")
+  file = here("docs/elsvier/tables","base_reg_owner.tex")
 )
 
 htmlreg(

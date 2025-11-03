@@ -1,0 +1,93 @@
+\begin{table}[!htbp]
+\caption{Interaction effects - 75 +}
+\begin{center}
+\begin{scriptsize}
+\begin{threeparttable}
+
+% --- define \ci macro for centered-on-comma CIs ---
+\newcommand{\ci}[2]{\begin{tabular}{@{}r@{}l@{}}(#1;& #2)\end{tabular}}
+
+\begin{tabular}{l D{.}{.}{5.5} c D{.}{.}{5.2} D{.}{.}{4.5} c D{.}{.}{5.2}}
+
+\toprule
+ & \multicolumn{3}{c}{Owner} & \multicolumn{3}{c}{Renter} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7}
+ & \multicolumn{1}{c}{Coef.} & \multicolumn{1}{c}{MRS} & \multicolumn{1}{c}{MWTP} & \multicolumn{1}{c}{Coef.} & \multicolumn{1}{c}{MRS} & \multicolumn{1}{c}{MWTP} \\
+\midrule
+
+Green space: 5 km (vs 15 km)             & 1.29^{***}  & 0.22^{*}       & 227.33   & 3.98^{***}   & 0.26^{*}       & 277.75   \\
+                                         & (0.14)      & \multicolumn{1}{c}{\ci{0.16}{0.27}} &          & (0.87)       & \multicolumn{1}{c}{\ci{0.17}{0.36}} &          \\
+                                         \addlinespace
+Green space: 500 m (vs 15 km)            & 2.41^{***}  & 0.41^{*}       & 426.13   & 7.01^{***}   & 0.47^{*}       & 489.27   \\
+                                         & (0.19)      & \multicolumn{1}{c}{\ci{0.33}{0.48}} &          & (1.26)       & \multicolumn{1}{c}{\ci{0.35}{0.58}} &          \\
+                                         \addlinespace
+Shops: 5 km (vs 15 km)                   & 1.01^{***}  & 0.17^{*}       & 177.91   & 3.47^{***}   & 0.23^{*}       & 242.44   \\
+                                         & (0.17)      & \multicolumn{1}{c}{\ci{0.10}{0.23}} &          & (0.88)       & \multicolumn{1}{c}{\ci{0.12}{0.34}} &          \\
+                                         \addlinespace
+Shops: 500 m (vs 15 km)                  & 2.92^{***}  & 0.49^{*}       & 514.92   & 7.42^{***}   & 0.49^{*}       & 518.20   \\
+                                         & (0.19)      & \multicolumn{1}{c}{\ci{0.41}{0.57}} &          & (1.21)       & \multicolumn{1}{c}{\ci{0.39}{0.60}} &          \\
+                                         \addlinespace
+Transit stop: 600 m (vs 900 m)           & 0.12        & 0.02           & 21.93    & 1.24^{*}     & 0.08^{*}       & 86.71    \\
+                                         & (0.13)      & \multicolumn{1}{c}{\ci{-0.02}{0.07}} &         & (0.49)       & \multicolumn{1}{c}{\ci{0.02}{0.15}} &          \\
+                                         \addlinespace
+Transit stop: 300 m (vs 900 m)           & 1.10^{***}  & 0.19^{*}       & 195.07   & 2.33^{***}   & 0.15^{*}       & 162.63   \\
+                                         & (0.15)      & \multicolumn{1}{c}{\ci{0.13}{0.24}} &          & (0.67)       & \multicolumn{1}{c}{\ci{0.08}{0.23}} &          \\
+                                         \addlinespace
+Parking: reserved garage (vs none)       & 3.16^{***}  & 0.53^{*}       & 558.49   & 4.10^{***}   & 0.27^{*}       & 286.27   \\
+                                         & (0.22)      & \multicolumn{1}{c}{\ci{0.45}{0.62}} &          & (0.79)       & \multicolumn{1}{c}{\ci{0.20}{0.34}} &          \\
+                                         \addlinespace
+Parking: reserved space (vs none)        & 2.46^{***}  & 0.41^{*}       & 433.59   & 4.62^{***}   & 0.31^{*}       & 322.78   \\
+                                         & (0.19)      & \multicolumn{1}{c}{\ci{0.35}{0.48}} &          & (0.94)       & \multicolumn{1}{c}{\ci{0.24}{0.38}} &          \\
+                                         \addlinespace
+Price                                    & -5.95^{***} &                &          & -15.04^{***} &                &          \\
+                                         & (0.43)      &                &          & (2.52)       &                &          \\
+                                         \addlinespace
+Green space: 5 km (vs 15 km) × 75+       & -0.33       & 0.21^{*}       & 224.54   & -0.00        & 0.34^{*}       & 352.22   \\
+                                         & (0.19)      & \multicolumn{1}{c}{\ci{0.13}{0.30}} &          & (0.79)       & \multicolumn{1}{c}{\ci{0.16}{0.51}} &          \\
+                                         \addlinespace
+Green space: 500 m (vs 15 km) × 75+      & -0.68^{**}  & 0.39^{*}       & 407.07   & -1.84        & 0.44^{*}       & 457.64   \\
+                                         & (0.25)      & \multicolumn{1}{c}{\ci{0.27}{0.51}} &          & (0.95)       & \multicolumn{1}{c}{\ci{0.24}{0.64}} &          \\
+                                         \addlinespace
+Shops: 5 km (vs 15 km) × 75+             & 0.02        & 0.23^{*}       & 241.88   & -0.11        & 0.28^{*}       & 297.53   \\
+                                         & (0.23)      & \multicolumn{1}{c}{\ci{0.12}{0.34}} &          & (0.94)       & \multicolumn{1}{c}{\ci{0.08}{0.48}} &          \\
+                                         \addlinespace
+Shops: 500 m (vs 15 km) × 75+            & 0.07        & 0.67^{*}       & 700.88   & -2.38^{**}   & 0.43^{*}       & 446.97   \\
+                                         & (0.24)      & \multicolumn{1}{c}{\ci{0.50}{0.83}} &          & (0.88)       & \multicolumn{1}{c}{\ci{0.27}{0.58}} &          \\
+                                         \addlinespace
+Transit stop: 600 m (vs 900 m) × 75+     & 0.47^{*}    & 0.13^{*}       & 138.67   & -1.43        & -0.02          & -16.99   \\
+                                         & (0.21)      & \multicolumn{1}{c}{\ci{0.05}{0.22}} &          & (0.79)       & \multicolumn{1}{c}{\ci{-0.12}{0.09}} &         \\
+                                         \addlinespace
+Transit stop: 300 m (vs 900 m) × 75+     & 0.04        & 0.26^{*}       & 268.29   & 0.32         & 0.22^{*}       & 234.61   \\
+                                         & (0.22)      & \multicolumn{1}{c}{\ci{0.16}{0.35}} &          & (0.83)       & \multicolumn{1}{c}{\ci{0.10}{0.34}} &          \\
+                                         \addlinespace
+Parking: reserved garage (vs none) × 75+ & -0.17       & 0.67^{*}       & 703.54   & -1.03        & 0.26^{*}       & 272.29   \\
+                                         & (0.28)      & \multicolumn{1}{c}{\ci{0.51}{0.83}} &          & (0.84)       & \multicolumn{1}{c}{\ci{0.14}{0.38}} &          \\
+                                         \addlinespace
+Parking: reserved space (vs none) × 75+  & 0.25        & 0.61^{*}       & 636.79   & -1.32        & 0.28^{*}       & 292.67   \\
+                                         & (0.26)      & \multicolumn{1}{c}{\ci{0.47}{0.74}} &          & (1.05)       & \multicolumn{1}{c}{\ci{0.16}{0.40}} &          \\
+                                         \addlinespace
+Price × 75+                              & 1.48^{*}    & -1.00^{*}      &  & 3.19         & -1.00^{*}      &  \\
+                                         & (0.59)      & \multicolumn{1}{c}{\ci{-1.43}{-0.57}} &         & (2.46)       & \multicolumn{1}{c}{\ci{-1.84}{-0.16}} &         \\
+                                         \addlinespace
+
+\midrule
+Num. obs.                                & 7110        &                &          & 1458         &                &          \\
+Log Likelihood                           & -3125.21    &                &          & -610.58      &                &          \\
+AIC                                      & 6358.42     &                &          & 1329.16      &                &          \\
+BIC                                      & 6729.36     &                &          & 1614.54      &                &          \\
+McFadden R\textsuperscript{2}            & 0.37        &                &          & 0.40         &                &          \\
+LR $\chi^{2}$ (df=54)                    & 3606.13     &                &          & 800.06       &                &          \\
+p-value (LR)                             & 0.00        &                &          & 0.00         &                &          \\
+\bottomrule
+\end{tabular}
+
+\begin{tablenotes}
+\scriptsize
+\item \textit{Notes:} Estimation by maximum likelihood of the mixed logit model. Heteroskedasticity-robust standard errors are reported in parentheses. MRS and MWTP estimates are computed following the procedure described in the text. Ninety-five percent confidence intervals for MRS are obtained using the delta method. 75+ is a dummy variable equal to 1 if respondent is aged 75 or greater. $^{*}p < 0.05$; $^{**}p < 0.01$; $^{***}p < 0.001$ .
+\end{tablenotes}
+
+\end{threeparttable}
+\end{scriptsize}
+\label{table:coefficients}
+\end{center}
+\end{table}

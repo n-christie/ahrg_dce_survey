@@ -1,3 +1,5 @@
+
+
 library(pacman)
 
 p_load(tidyverse, here, stringr, formr, logitr, cbcTools, texreg, likert, tidyr, haven, kableExtra,ggrepel, sjlabelled, summarytools,gtsummary,texreg)
@@ -66,7 +68,8 @@ df_model <- df_model %>%
     Men = if_else(Sex == "Men", 1,0),
     Health = case_when( VAR035 %in% c(1,2,3) ~ "Not very good",
                         VAR035 %in% c(4,5) ~ "Very good",
-                        TRUE ~ NA_character_)
+                        TRUE ~ NA_character_),
+    Old = if_else(age >=75, 1, 0)
   ) 
 
 
@@ -89,15 +92,15 @@ df_model <- df_model %>%
 
 df_model <- df_model %>%
   mutate(
-    green5km_Men   = dist_green5km  * Men,
-    green500_Men   = dist_green500m * Men,
-    shops5km_Men   = dist_shops5km  * Men,
-    shops500_Men   = dist_shops500m * Men,
-    trans600_Men   = dist_trans600  * Men,
-    trans300_Men   = dist_trans300  * Men,
-    park_space_Men = park_space     * Men,
-    park_garage_Men= park_garage    * Men,
-    price_Men      = price_num      * Men
+    green5km_Old   = dist_green5km  * Old,
+    green500_Old   = dist_green500m * Old,
+    shops5km_Old   = dist_shops5km  * Old,
+    shops500_Old   = dist_shops500m * Old,
+    trans600_Old   = dist_trans600  * Old,
+    trans300_Old   = dist_trans300  * Old,
+    park_space_Old = park_space     * Old,
+    park_garage_Old= park_garage    * Old,
+    price_Old      = price_num      * Old
   )
 
 # --- Define main and interaction parameter names again ---
@@ -110,11 +113,11 @@ attr_vars <- c(
 )
 
 inter_vars <- c(
-  "green5km_Men", "green500_Men",
-  "shops5km_Men", "shops500_Men",
-  "trans600_Men", "trans300_Men",
-  "park_space_Men", "park_garage_Men",
-  "price_Men"
+  "green5km_Old", "green500_Old",
+  "shops5km_Old", "shops500_Old",
+  "trans600_Old", "trans300_Old",
+  "park_space_Old", "park_garage_Old",
+  "price_Old"
 )
 
 
@@ -139,11 +142,11 @@ mxl_isex_ret <- logitr(
     "dist_trans600", "dist_trans300",
     "park_space", "park_garage",
     "price_num",
-    "green5km_Men", "green500_Men",
-    "shops5km_Men", "shops500_Men",
-    "trans600_Men", "trans300_Men",
-    "park_space_Men", "park_garage_Men",
-    "price_Men"
+    "green5km_Old", "green500_Old",
+    "shops5km_Old", "shops500_Old",
+    "trans600_Old", "trans300_Old",
+    "park_space_Old", "park_garage_Old",
+    "price_Old"
   ),
   randPars = c(
     dist_green5km   = "n",
@@ -163,7 +166,7 @@ mxl_isex_ret <- logitr(
 
 screenreg(mxl_isex_ret)
 
-saveRDS(mxl_isex_ret, here("output/models", "mxl_sex_renter.rds"))
+saveRDS(mxl_isex_ret, here("output/models", "mxl_old_renter.rds"))
 
 
 mxl_isex_own <- logitr(
@@ -177,11 +180,11 @@ mxl_isex_own <- logitr(
     "dist_trans600", "dist_trans300",
     "park_space", "park_garage",
     "price_num",
-    "green5km_Men", "green500_Men",
-    "shops5km_Men", "shops500_Men",
-    "trans600_Men", "trans300_Men",
-    "park_space_Men", "park_garage_Men",
-    "price_Men"
+    "green5km_Old", "green500_Old",
+    "shops5km_Old", "shops500_Old",
+    "trans600_Old", "trans300_Old",
+    "park_space_Old", "park_garage_Old",
+    "price_Old"
   ),
   randPars = c(
     dist_green5km   = "n",
@@ -201,15 +204,15 @@ mxl_isex_own <- logitr(
 
 screenreg(mxl_isex_own)
 
-saveRDS(mxl_isex_own, here("output/models", "mxl_sex_owner.rds"))
+saveRDS(mxl_isex_own, here("output/models", "mxl_old_owner.rds"))
 
 # Make regression table -----
 
-mxl_sex_own<- readRDS(here("output/models", "mxl_sex_owner.rds"))
-mxl_sex_ren <- readRDS(here("output/models", "mxl_sex_renter.rds"))
+mxl_old_own<- readRDS(here("output/models", "mxl_old_owner.rds"))
+mxl_old_ren <- readRDS(here("output/models", "mxl_old_renter.rds"))
 
 
-screenreg(list(mxl_sex_own, mxl_sex_ren))
+screenreg(list(mxl_old_own, mxl_old_ren))
 
 # --- Settings ---
 cost_name   <- "price_num"
@@ -231,20 +234,20 @@ label_map <- c(
 
 
 interaction_to_base <- c(
-  "green5km_Men"   = "dist_green5km",
-  "green500_Men"   = "dist_green500m",
-  "shops5km_Men"   = "dist_shops5km",
-  "shops500_Men"   = "dist_shops500m",
-  "trans600_Men"   = "dist_trans600",
-  "trans300_Men"   = "dist_trans300",
-  "park_space_Men" = "park_space",
-  "park_garage_Men"= "park_garage",
-  "price_Men"      = "price_num"
+  "green5km_Old"   = "dist_green5km",
+  "green500_Old"   = "dist_green500m",
+  "shops5km_Old"   = "dist_shops5km",
+  "shops500_Old"   = "dist_shops500m",
+  "trans600_Old"   = "dist_trans600",
+  "trans300_Old"   = "dist_trans300",
+  "park_space_Old" = "park_space",
+  "park_garage_Old"= "park_garage",
+  "price_Old"      = "price_num"
 )
 
 pretty_interaction <- function(term, label_map) {
   base <- interaction_to_base[[term]]
-  paste0(label_map[[base]], " × Men")
+  paste0(label_map[[base]], " × Old")
 }
 
 main_attrs <- c("dist_green5km","dist_green500m",
@@ -252,11 +255,11 @@ main_attrs <- c("dist_green5km","dist_green500m",
                 "dist_trans600","dist_trans300",
                 "park_garage","park_space")
 
-inter_terms_inc <- c("green5km_Men","green500_Men",
-                     "shops5km_Men","shops500_Men",
-                     "trans600_Men","trans300_Men",
-                     "park_garage_Men","park_space_Men",
-                     "price_Men")
+inter_terms_inc <- c("green5km_Old","green500_Old",
+                     "shops5km_Old","shops500_Old",
+                     "trans600_Old","trans300_Old",
+                     "park_garage_Old","park_space_Old",
+                     "price_Old")
 
 coef_rows <- c(main_attrs, "price_num", inter_terms_inc)
 
@@ -316,7 +319,7 @@ grab_term <- function(tidy_df, term) {
 
 term_group <- function(term) {
   if (term %in% main_attrs) return("base")
-  if (grepl("Men$", term)) return("Men")
+  if (grepl("Old$", term)) return("Old")
   if (term %in% c("price_num")) return("price")
   if (grepl("^price_", term)) return("price_inter")
   "other"
@@ -475,8 +478,8 @@ build_pair_compact <- function(model, label_map, scaler, cost_name) {
 
 
 
-ret  <- build_pair_compact(mxl_sex_own,  label_map, scaler, cost_name)
-notr <- build_pair_compact(mxl_sex_ren, label_map, scaler, cost_name)
+ret  <- build_pair_compact(mxl_old_own,  label_map, scaler, cost_name)
+notr <- build_pair_compact(mxl_old_ren, label_map, scaler, cost_name)
 
 custom_header      <- list("Owner" = 1:3, "Renter" = 4:6)
 custom_model_names <- c("Coef.", "MRS", "MWTP", "Coef.", "MRS", "MWTP")
@@ -495,7 +498,7 @@ screenreg(
   dcolumn            = TRUE,
   use.packages       = FALSE,
   na.replace         = "--",
-  caption            = "Mixed Logit ",
+  caption            = "Mixed Logit (Old vs Not Old): Coefficients, MRS (95% CI), and MWTP",
   caption.above      = TRUE,
   fontsize           = "scriptsize"
 )
@@ -512,10 +515,10 @@ texreg(
   dcolumn            = TRUE,
   use.packages       = FALSE,
   na.replace         = "--",
-  caption            = "Interaction effects - Sex",
+  caption            = "Interaction effects - 75 +",
   caption.above      = TRUE,
   fontsize           = "scriptsize",
-  file               = here("docs/elsvier/tables", "mxl_sex_inter.tex")
+  file               = here("docs/elsvier/tables", "mxl_age_inter.tex")
   
 )
 
@@ -573,10 +576,10 @@ attr_map <- tibble(
                NA, "dist_shops5km", "dist_shops500m",
                NA, "dist_trans600", "dist_trans300",
                NA, "park_space", "park_garage"),
-  Good  = c(NA, "green5km_Men", "green500_Men",
-            NA, "shops5km_Men", "shops500_Men",
-            NA, "trans600_Men", "trans300_Men",
-            NA, "park_space_Men", "park_garage_Men")
+  Good  = c(NA, "green5km_Old", "green500_Old",
+            NA, "shops5km_Old", "shops500_Old",
+            NA, "trans600_Old", "trans300_Old",
+            NA, "park_space_Old", "park_garage_Old")
 )
 
 # --- Function to compute WTP per attribute and income group ---------------

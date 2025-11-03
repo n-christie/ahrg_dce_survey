@@ -84,6 +84,46 @@ term_attr <- function(term) {
   NA_character_
 }
 
+mrs_for_attr_group <- function(attr, group, tidy_df, V, cost_name) {
+  beta_a   <- grab_term(tidy_df, attr)[1]
+  beta_c   <- grab_term(tidy_df, cost_name)[1]
+  a_g_term <- if (group == "base") NA_character_
+  else names(interaction_to_base)[interaction_to_base == attr & grepl(group, names(interaction_to_base))]
+  c_g_term <- if (group == "base") NA_character_
+  else names(interaction_to_base)[interaction_to_base == cost_name & grepl(group, names(interaction_to_base))]
+  beta_a_g <- if (length(a_g_term)) grab_term(tidy_df, a_g_term)[1] else 0
+  beta_c_g <- if (length(c_g_term)) grab_term(tidy_df, c_g_term)[1] else 0
+  
+  if (any(is.na(c(beta_a, beta_c)))) return(c(NA_real_, NA_real_, NA_real_))
+  
+  A <- beta_a + ifelse(group == "base", 0, beta_a_g)
+  C <- beta_c + ifelse(group == "base", 0, beta_c_g)
+  val <- -(A / C)  # unitless MRS
+  
+  terms <- c(attr, cost_name,
+             if (group != "base") a_g_term else NULL,
+             if (group != "base") c_g_term else NULL)
+  terms <- terms[!is.na(terms) & nzchar(terms)]
+  if (is.null(V) || !all(terms %in% rownames(V))) return(c(val, NA_real_, NA_real_))
+  
+  grad <- numeric(length(terms))
+  grad[terms == attr]      <- -1 / C
+  grad[terms == cost_name] <-  A / (C^2)
+  if (group != "base") {
+    if (any(terms == a_g_term)) grad[terms == a_g_term] <- -1 / C
+    if (any(terms == c_g_term)) grad[terms == c_g_term] <-  A / (C^2)
+  }
+  
+  Vsub <- V[terms, terms, drop = FALSE]
+  var  <- as.numeric(t(grad) %*% Vsub %*% grad)
+  if (!is.finite(var) || var < 0) return(c(val, NA_real_, NA_real_))
+  se   <- sqrt(var)
+  pval <- if (se == 0 || !is.finite(se)) NA_real_ else 2 * pnorm(-abs(val / se))
+  c(val, se, pval)
+}
+
+
+
 mwtp_for_attr_group <- function(attr, group, tidy_df, V, scaler, cost_name) {
   beta_a   <- grab_term(tidy_df, attr)[1]
   beta_c   <- grab_term(tidy_df, cost_name)[1]
@@ -148,6 +188,7 @@ build_pair_compact <- function(model, label_map, scaler, cost_name) {
   tdf <- broom::tidy(model)
   V   <- tryCatch(vcov(model), error = function(e) NULL)
   
+  # Coef/SE/p
   coef_vals <- setNames(rep(NA_real_, length(coef_rows)), coef_rows)
   se_vals   <- coef_vals
   p_vals    <- coef_vals
@@ -156,17 +197,27 @@ build_pair_compact <- function(model, label_map, scaler, cost_name) {
     coef_vals[term] <- x[1]; se_vals[term] <- x[2]; p_vals[term] <- x[3]
   }
   
-  mwtp_vals <- setNames(rep(NA_real_, length(coef_rows)), coef_rows)
-  mwtp_se   <- mwtp_vals
-  mwtp_p    <- mwtp_vals
+  # MRS + MWTP
+  mrs_vals  <- setNames(rep(NA_real_, length(coef_rows)), coef_rows)
+  mrs_se    <- mrs_vals
+  mwtp_vals <- mrs_vals
+  mwtp_se   <- mrs_vals
+  
   for (term in coef_rows) {
     g <- term_group(term)
     if (g %in% c("price","price_inter","other")) next
     a <- term_attr(term)
-    out <- mwtp_for_attr_group(a, ifelse(g == "base","base", g), tdf, V, scaler, cost_name)
-    mwtp_vals[term] <- out[1]; mwtp_se[term] <- out[2]; mwtp_p[term] <- out[3]
+    
+    # MRS (unitless)
+    mrs_out <- mrs_for_attr_group(a, ifelse(g == "base","base", g), tdf, V, cost_name)
+    mrs_vals[term] <- mrs_out[1]; mrs_se[term] <- mrs_out[2]
+    
+    # MWTP (SEK/mo)
+    mwtp_out <- mwtp_for_attr_group(a, ifelse(g == "base","base", g), tdf, V, scaler, cost_name)
+    mwtp_vals[term] <- mwtp_out[1]; mwtp_se[term] <- mwtp_out[2]
   }
   
+  # Fit stats
   ll   <- as.numeric(logLik(model))
   aic  <- AIC(model)
   bic  <- compute_bic(model)
@@ -180,6 +231,7 @@ build_pair_compact <- function(model, label_map, scaler, cost_name) {
   gof_vals  <- c(nobs, ll, aic, bic, mcf, lr$lr, lr$p)
   gof_dec   <- c(FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE)
   
+  # 1) Coef: SE + stars
   m_coef <- createTexreg(
     coef.names  = pretty_labels,
     coef        = as.numeric(coef_vals),
@@ -190,47 +242,69 @@ build_pair_compact <- function(model, label_map, scaler, cost_name) {
     gof.decimal = gof_dec
   )
   
-  m_mwtp <- createTexreg(
+  # 2) MRS: 95% CI, no stars
+  mrs_low <- mrs_vals - 1.96 * mrs_se
+  mrs_up  <- mrs_vals + 1.96 * mrs_se
+  m_mrs <- createTexreg(
     coef.names = pretty_labels,
-    coef       = as.numeric(mwtp_vals),
-    se         = as.numeric(mwtp_se),
-    pvalues    = as.numeric(mwtp_p)
+    coef       = as.numeric(mrs_vals),
+    ci.low     = as.numeric(mrs_low),
+    ci.up      = as.numeric(mrs_up),
+    se         = rep(NA_real_, length(mrs_vals)),
+    pvalues    = rep(NA_real_, length(mrs_vals))
   )
   
-  list(m_coef = m_coef, m_mwtp = m_mwtp)
+  # 3) MWTP: point estimates only (no SE, no stars)
+  m_mwtp <- createTexreg(
+    coef.names = pretty_labels,
+    coef       = as.numeric(mwtp_vals)
+  )
+  
+  list(m_coef = m_coef, m_mrs = m_mrs, m_mwtp = m_mwtp)
 }
-
-
-
-
 
 
 ret  <- build_pair_compact(mxl_health_own,  label_map, scaler, cost_name)
 notr <- build_pair_compact(mxl_health_rent, label_map, scaler, cost_name)
 
-custom_header      <- list("Owner" = 1:2, "Renter" = 3:4)
-custom_model_names <- c("Coef.", "MWTP", "Coef.", "MWTP")
-
-
-
-
-
 screenreg(
-  list(ret$m_coef, ret$m_mwtp, notr$m_coef, notr$m_mwtp),
-  custom.header      = custom_header,
-  custom.model.names = custom_model_names,
+  list(ret$m_coef, ret$m_mrs, ret$m_mwtp,
+       notr$m_coef, notr$m_mrs, notr$m_mwtp),
+  custom.header      = list("Owner" = 1:3, "Renter" = 4:6),
+  custom.model.names = c("Coef.", "MRS", "MWTP", "Coef.", "MRS", "MWTP"),
   custom.coef.names  = pretty_labels,
   digits             = 2,
-  stars              = c(0.001, 0.01, 0.05),
+  stars              = c(0.001, 0.01, 0.05),  # only Coef has p-values, so stars appear there only
   booktabs           = TRUE,
   dcolumn            = TRUE,
   use.packages       = FALSE,
   na.replace         = "--",
-  caption            = "Mixed Logit with Income Interactions: Retired vs Not Retired (Coefficients and MWTP per Row)",
+  caption            = "Mixed Logit with Health Interactions (Good vs Not): Coefficients, MRS (95% CI), and MWTP",
+  caption.above      = TRUE,
+  fontsize           = "scriptsize"
+)
+
+
+texreg(
+  list(ret$m_coef, ret$m_mrs, ret$m_mwtp,
+       notr$m_coef, notr$m_mrs, notr$m_mwtp),
+  custom.header      = list("Owner" = 1:3, "Renter" = 4:6),
+  custom.model.names = c("Coef.", "MRS", "MWTP", "Coef.", "MRS", "MWTP"),
+  custom.coef.names  = pretty_labels,
+  digits             = 2,
+  stars              = c(0.001, 0.01, 0.05),  # only Coef has p-values, so stars appear there only
+  booktabs           = TRUE,
+  dcolumn            = TRUE,
+  use.packages       = FALSE,
+  na.replace         = "--",
+  caption            = "Mixed Logit with Health Interactions (Good vs Not): Coefficients, MRS (95% CI), and MWTP",
   caption.above      = TRUE,
   fontsize           = "scriptsize",
-  #file               = here("docs/elsvier/tables", "mxl_income_interactions_ret_notret.tex")
+  file               = here("docs/elsvier/tables", "mxl_health_inter.tex")
 )
+
+
+
 
 
 # Plot coeffceints ----

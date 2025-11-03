@@ -72,6 +72,8 @@
   linkcolor=blue}
 \usepackage{caption}
 \captionsetup{font=normalsize}
+% mini-tabular inside a cell to align around the comma
+\newcommand{\ci}[2]{\begin{tabular}{@{}r@{}l@{}}(#1,& #2)\end{tabular}}
 
 %% The amsthm package provides extended theorem environments
 %% \usepackage{amsthm}
@@ -195,7 +197,7 @@
 
 \begin{abstract}
 We examined heterogeneity in housing preferences among older adults in Sweden using discrete choice experiment data (n = 957; mean age = 72; 55.3\% women). Respondents assessed trade-offs between key residential attributes, including proximity to shops and services, green spaces, access
-to public transportation, dedicated parking, and planned monthly expenses. We estimate mixed logit models to recover marginal willingness to pay estimates for each attribute, including interactions with age, gender, and income to capture systematic variation in preferences. The results show that individuals in the oldest age groups expressed significantly higher willingness to pay for several attributes, with values around 1.5 times greater than those of younger respondents. We identified meaningful differences by gender and tenure status, reflecting underlying patterns of social inequality in later life. These findings contribute policy-relevant evidence to support the development of age-inclusive housing strategies that address both diverse preferences and structural disparities in residential choice.
+to public transportation, dedicated parking, and planned monthly expenses. We estimate mixed logit models to recover marginal willingness to pay estimates for each attribute, including interactions with age, gender, and income to capture systematic variation in preferences. The results show that individuals in the oldest age groups expressed significantly higher willingness to pay for several attributes, with values around 1.5 times greater than those of younger respondents. We identified meaningful differences by gender and tenure status, reflecting underlying patterns of social inequality in later life. These findings contribute policy-relevant evidence to support the development of age-inclusive housing strategies that address both diverse preferences and structural disparities in residential choice. 
 
 \end{abstract}
 %\begin{keyword}
@@ -480,7 +482,7 @@ Because this integral has no closed-form solution, we approximate it using simul
 \begin{equation}
 \mathcal{L}^S(\boldsymbol{\beta}, \Sigma) = \sum_{i=1}^{N} 
 \ln \left[ \frac{1}{R} \sum_{r=1}^{R} 
-P_i(y_i \mid \boldsymbol{\beta}_i^{r}) \right],
+P_i(y_i \mid \boldsymbol{\beta}_i^{r}) \right]
 \end{equation}
 
 \noindent where each simulated draw \( \boldsymbol{\beta}_i^{r} = \boldsymbol{\beta} + \Sigma \eta_i^{r} \), and \( R \) denotes the number of Sobol draws used to approximate the integral over the distribution of random parameters \citep{trainDiscreteChoiceMethods2003}. 
@@ -517,38 +519,23 @@ we use 100 Sobol draws and multiple random starting values to ensure convergence
 
 \section{Empirical Results}
 
-Our discussion begins with results from the baseline model, which excludes interaction terms and serves as a point of comparison for subsequent models that account for heterogeneity across household types.
-Table \ref{tab:base_owner} presents the estimation results for respondents who own their housing unit.
-In the proceeding specifications, a positive (negative) coefficient indicates an increase (decrease) in average utility associated with the attribute level, relative to its reference level.
-Reference levels are specified as the least desirable alternative to aid in interpretation of the results.
-We report coefficient estimates from the multinomial logit model in column two and mixed logit estimates in column three  to facilitate comparison across the model specifications.
+Our discussion begins with results from the baseline mixed logit (MXL) models, which exclude interaction terms and serve as a point of comparison for subsequent models that account for heterogeneity across household types. Tables \ref{tab:base_owner} and \ref{tab:base_renter} present the estimation results for respondents who own and rent their housing units, respectively. In both samples, positive (negative) coefficients indicate an increase (decrease) in average utility associated with the attribute level, relative to its reference level. Reference levels are specified as the least desirable alternative to aid in interpretation.
 
 \input{tables/base_reg_owner.tex}
 
+Across both tenure groups, all estimated coefficients exhibit the expected signs and a high degree of statistical significance. For most attributes, the mean coefficients are positive, implying that closer proximity to amenities or improved neighborhood features are preferred over their reference levels. The statistically significant standard deviation estimates further confirm the presence of unobserved preference heterogeneity among households, supporting the use of the mixed logit specification.
 
-Although both model specifications yield similar patterns in coefficient signs and levels of statistical significance,
-the mixed logit estimates (column three) are systematically larger in magnitude than those from the multinomial logit model.
-In terms of model performance,
-the mixed logit specification demonstrates superior fit across all criteria, including log-likelihood, McFadden's pseudo-R2, AIC, and BIC.
-Additionally, several standard deviation estimates for the random parameters (column four) are statistically significant, confirming the presence of preference heterogeneity for certain attributes.
-We therefore adopt the mixed logit specification as our preferred model for all subsequent tests and discussion.
+The marginal rates of substitution (MRS) are reported in column five and are computed as the ratio of attribute to price coefficients, following Equation (\ref{eq:mrs}). The corresponding marginal willingness to pay (MWTP) values in column six are obtained by scaling the MRS by 10 percent of the average planned housing cost for each tenure group, as described in Equation (\ref{eq:mwtp}).
 
-Estimates of MRS are presented in column five and are calculated as described in Equation (\ref{eq:mrs}).
-To obtain MWTP estimates,
-MRS values are multiplied by 10 percent of the average planned housing cost associated with the group under analysis, per Equation (\ref{eq:mwtp}). These monetary estimates are presented in column six.
-
-As shown in Table~\ref{tab:base_owner},
-owners are, on average, willing to pay up to 440 SEK per month to avoid residing 15 kilometres from the nearest green area.
-Proximity to shops is valued to a greater extent, with owners willing to pay over 620 SEK per month to avoid greater distances from retail services.
-Table~\ref{tab:base_renter} presents results for respondents who do not own their current housing.
-Compared to owners,
-renters place a greater value on proximity to green space, with a MWTP that is 177 SEK greater.
-Both groups place increased importance of proximity to shops, with renters showing an average MWTP of 636 SEK for locations within 500 meters, compared to 622 SEK for owners.
-Reserved parking emerges as a essential attribute for both tenure groups.
-However, owners are willing to pay substantially more for access to a reserved garage (615 SEK vs 337 SEK),
-suggesting stronger preferences for secure or private vehicle storage among this group.
+As shown in Table \ref{tab:base_owner}, homeowners are willing to pay substantial amounts for proximity to key neighborhood amenities. For instance, owners are, on average, willing to pay about 440 SEK per month to avoid living 15 km from the nearest green area and roughly 620 SEK per month to live within 500 m of shops. Access to parking is also highly valued, with MWTP estimates of approximately 615 SEK for a reserved garage and 511 SEK for a reserved parking space. These results suggest that accessibility and convenience are primary drivers of residential utility among homeowners.
 
 \input{tables/base_reg_renter.tex}
+
+Turning to renters, Table \ref{tab:base_renter} reveals similar preference patterns but with generally lower MWTP magnitudes. Renters are willing to pay about 618 SEK per month to reside within 500 m of green space and roughly 637 SEK for proximity to shops within 500 m—values that remain economically meaningful yet modestly below those of owners. Renters also show strong preferences for parking access, although their MWTP for a reserved garage (337 SEK) or space (307 SEK) is roughly half that of homeowners.
+
+Comparing across tenure types, both groups place high value on proximity to green space and retail services, but the intensity of preferences differs. Owners systematically exhibit higher MWTP for most amenities, consistent with longer-term housing commitments and investment motivations. The larger heterogeneity in standard deviation estimates among renters suggests greater variation in preferences within this group, possibly reflecting shorter planning horizons or differing residential constraints.
+
+Overall, these baseline results demonstrate robust and theoretically consistent patterns of residential preferences. The strong fit of the mixed logit models, along with significant random parameter estimates, supports their use as the preferred framework for the heterogeneity analyses that follow.
 
 
 
@@ -582,6 +569,12 @@ whereas the oldest group increasingly private parking and local environmental qu
 
 \input{tables/mxl_age_interactions_own_rent.tex}
 
+\input{tables/mxl_age_inter.tex}
+
+
+
+
+
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.30]{figures/wtp_age_interactions_own_rent_publication.png}
@@ -592,15 +585,11 @@ whereas the oldest group increasingly private parking and local environmental qu
 \clearpage
 
 
-\subsubsection{Income effects}
+\subsubsection{Health}
 
-\input{tables/mxl_income_interactions_ret_notret.tex}
+\input{tables/mxl_health_inter.tex}
 
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.30]{figures/wtp_income_interactions_ret_notret_publication.png}
-\caption{WTP estimates from model 2 \label{fig:wtp_income}}
-\end{figure}
+
 
 \clearpage
 
@@ -609,6 +598,7 @@ whereas the oldest group increasingly private parking and local environmental qu
 
 \input{tables/mxl_health_interaction_own_rent.tex}
 
+\input{tables/mxl_sex_inter.tex}
 
 
 \section{Discussion}
