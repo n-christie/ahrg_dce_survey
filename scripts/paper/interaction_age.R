@@ -69,7 +69,7 @@ df_model <- df_model %>%
     Health = case_when( VAR035 %in% c(1,2,3) ~ "Not very good",
                         VAR035 %in% c(4,5) ~ "Very good",
                         TRUE ~ NA_character_),
-    Old = if_else(age >=75, 1, 0)
+    Old = if_else(Age_T3 >= median(Age_T3), 1, 0)
   ) 
 
 
@@ -515,7 +515,7 @@ texreg(
   dcolumn            = TRUE,
   use.packages       = FALSE,
   na.replace         = "--",
-  caption            = "Interaction effects - 75 +",
+  caption            = "Interaction effects - Age ",
   caption.above      = TRUE,
   fontsize           = "scriptsize",
   file               = here("docs/elsvier/tables", "mxl_age_inter.tex")
