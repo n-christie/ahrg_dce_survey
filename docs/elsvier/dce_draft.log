@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4 NEXT) (preloaded format=pdflatex 2023.4.30)  3 NOV 2025 12:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4 NEXT) (preloaded format=pdflatex 2023.4.30)  26 NOV 2025 12:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -598,9 +598,6 @@ LaTeX Warning: Label `table:coefficients' multiply defined.
 
 LaTeX Warning: Label `table:coefficients' multiply defined.
 
-
-LaTeX Warning: Label `table:coefficients' multiply defined.
-
 )
 \openout1 = `dce_draft.aux'.
 
@@ -1041,7 +1038,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.8 ...abular}{@{}r@{}l@{}}(#1;& #2)\end{tabular}}
+l.7 ...abular}{@{}r@{}l@{}}(#1;& #2)\end{tabular}}
                                                   
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -1050,16 +1047,16 @@ or  <return>  to continue without it.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.18 ...s 15 km)             & 1.29^{***}  & 0.22^
-                                                  {*}       & 227.33   & 3.9...
+l.16 ... 15 km) × Age       & -0.12       & 0.23^
+                                                  {*}       & 241.91   & 0.5...
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.18 ...          & 1.29^{***}  & 0.22^{*}       &
-                                                   227.33   & 3.98^{***}   &...
+l.16 ...Age       & -0.12       & 0.23^{*}       &
+                                                   241.91   & 0.56         &...
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
 With luck, this will get me unwedged. But if you
@@ -1069,16 +1066,16 @@ my insertion and my current dilemma will both disappear.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.18 ...*}       & 227.33   & 3.98^{***}   & 0.26^
-                                                  {*}       & 277.75   \\
+l.16 ...*}       & 241.91   & 0.56         & 0.38^
+                                                  {*}       & 398.28   \\
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.18 ...227.33   & 3.98^{***}   & 0.26^{*}       &
-                                                   277.75   \\
+l.16 ...241.91   & 0.56         & 0.38^{*}       &
+                                                   398.28   \\
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
 With luck, this will get me unwedged. But if you
@@ -1088,16 +1085,16 @@ my insertion and my current dilemma will both disappear.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.21 ...vs 15 km)            & 2.41^{***}  & 0.41^
-                                                  {*}       & 426.13   & 7.0...
+l.19 ...s 15 km) × Age      & -0.53^{*}   & 0.42^
+                                                  {*}       & 443.71   & -0....
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.21 ...          & 2.41^{***}  & 0.41^{*}       &
-                                                   426.13   & 7.01^{***}   &...
+l.19 ... Age      & -0.53^{*}   & 0.42^{*}       &
+                                                   443.71   & -0.42        &...
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
 With luck, this will get me unwedged. But if you
@@ -1107,16 +1104,16 @@ my insertion and my current dilemma will both disappear.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.21 ...*}       & 426.13   & 7.01^{***}   & 0.47^
-                                                  {*}       & 489.27   \\
+l.19 ...*}       & 443.71   & -0.42        & 0.53^
+                                                  {*}       & 556.48   \\
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.21 ...426.13   & 7.01^{***}   & 0.47^{*}       &
-                                                   489.27   \\
+l.19 ...443.71   & -0.42        & 0.53^{*}       &
+                                                   556.48   \\
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
 With luck, this will get me unwedged. But if you
@@ -1126,16 +1123,16 @@ my insertion and my current dilemma will both disappear.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.24 ...m)                   & 1.01^{***}  & 0.17^
-                                                  {*}       & 177.91   & 3.4...
+l.22 ...) × Age             & -0.03       & 0.22^
+                                                  {*}       & 229.25   & -0....
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.24 ...          & 1.01^{***}  & 0.17^{*}       &
-                                                   177.91   & 3.47^{***}   &...
+l.22 ...          & -0.03       & 0.22^{*}       &
+                                                   229.25   & -0.87        &...
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
 With luck, this will get me unwedged. But if you
@@ -1145,16 +1142,16 @@ my insertion and my current dilemma will both disappear.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.24 ...*}       & 177.91   & 3.47^{***}   & 0.23^
-                                                  {*}       & 242.44   \\
+l.22 ...*}       & 229.25   & -0.87        & 0.30^
+                                                  {*}       & 312.89   \\
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.24 ...177.91   & 3.47^{***}   & 0.23^{*}       &
-                                                   242.44   \\
+l.22 ...229.25   & -0.87        & 0.30^{*}       &
+                                                   312.89   \\
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
 With luck, this will get me unwedged. But if you
@@ -1164,16 +1161,16 @@ my insertion and my current dilemma will both disappear.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.27 ...km)                  & 2.92^{***}  & 0.49^
-                                                  {*}       & 514.92   & 7.4...
+l.25 ...m) × Age            & -0.22       & 0.68^
+                                                  {*}       & 711.33   & -2....
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.27 ...          & 2.92^{***}  & 0.49^{*}       &
-                                                   514.92   & 7.42^{***}   &...
+l.25 ...          & -0.22       & 0.68^{*}       &
+                                                   711.33   & -2.61^{**}   &...
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
 With luck, this will get me unwedged. But if you
@@ -1183,16 +1180,16 @@ my insertion and my current dilemma will both disappear.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.27 ...*}       & 514.92   & 7.42^{***}   & 0.49^
-                                                  {*}       & 518.20   \\
+l.25 ...*}       & 711.33   & -2.61^{**}   & 0.51^
+                                                  {*}       & 537.71   \\
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.27 ...514.92   & 7.42^{***}   & 0.49^{*}       &
-                                                   518.20   \\
+l.25 ...711.33   & -2.61^{**}   & 0.51^{*}       &
+                                                   537.71   \\
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
 With luck, this will get me unwedged. But if you
@@ -1202,16 +1199,16 @@ my insertion and my current dilemma will both disappear.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.30 ...         & 21.93    & 1.24^{*}     & 0.08^
-                                                  {*}       & 86.71    \\
+l.28 ...vs 900 m) × Age     & 0.46^{*}    & 0.13^
+                                                  {*}       & 138.33   & -0....
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.30 ...21.93    & 1.24^{*}     & 0.08^{*}       &
-                                                   86.71    \\
+l.28 ...� Age     & 0.46^{*}    & 0.13^{*}       &
+                                                   138.33   & -0.86        &...
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
 With luck, this will get me unwedged. But if you
@@ -1221,16 +1218,16 @@ my insertion and my current dilemma will both disappear.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.33 ...(vs 900 m)           & 1.10^{***}  & 0.19^
-                                                  {*}       & 195.07   & 2.3...
+l.31 ...vs 900 m) × Age     & 0.08        & 0.27^
+                                                  {*}       & 282.31   & -0....
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.33 ...          & 1.10^{***}  & 0.19^{*}       &
-                                                   195.07   & 2.33^{***}   &...
+l.31 ...� Age     & 0.08        & 0.27^{*}       &
+                                                   282.31   & -0.51        &...
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
 With luck, this will get me unwedged. But if you
@@ -1240,16 +1237,16 @@ my insertion and my current dilemma will both disappear.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.33 ...*}       & 195.07   & 2.33^{***}   & 0.15^
-                                                  {*}       & 162.63   \\
+l.31 ...*}       & 282.31   & -0.51        & 0.16^
+                                                  {*}       & 168.98   \\
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.33 ...195.07   & 2.33^{***}   & 0.15^{*}       &
-                                                   162.63   \\
+l.31 ...282.31   & -0.51        & 0.16^{*}       &
+                                                   168.98   \\
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
 With luck, this will get me unwedged. But if you
@@ -1259,16 +1256,16 @@ my insertion and my current dilemma will both disappear.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.36 ...rage (vs none)       & 3.16^{***}  & 0.53^
-                                                  {*}       & 558.49   & 4.1...
+l.34 ...age (vs none) × Age & -0.16       & 0.67^
+                                                  {*}       & 700.45   & -1....
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.36 ...ne)       & 3.16^{***}  & 0.53^{*}       &
-                                                   558.49   & 4.10^{***}   &...
+l.34 ...e) × Age & -0.16       & 0.67^{*}       &
+                                                   700.45   & -1.24        &...
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
 With luck, this will get me unwedged. But if you
@@ -1278,16 +1275,16 @@ my insertion and my current dilemma will both disappear.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.36 ...*}       & 558.49   & 4.10^{***}   & 0.27^
-                                                  {*}       & 286.27   \\
+l.34 ...*}       & 700.45   & -1.24        & 0.31^
+                                                  {*}       & 327.92   \\
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.36 ...558.49   & 4.10^{***}   & 0.27^{*}       &
-                                                   286.27   \\
+l.34 ...700.45   & -1.24        & 0.31^{*}       &
+                                                   327.92   \\
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
 With luck, this will get me unwedged. But if you
@@ -1297,16 +1294,16 @@ my insertion and my current dilemma will both disappear.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.39 ...ace (vs none)        & 2.46^{***}  & 0.41^
-                                                  {*}       & 433.59   & 4.6...
+l.37 ...ce (vs none) × Age  & 0.24        & 0.58^
+                                                  {*}       & 610.13   & -1....
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.39 ...e)        & 2.46^{***}  & 0.41^{*}       &
-                                                   433.59   & 4.62^{***}   &...
+l.37 ...) × Age  & 0.24        & 0.58^{*}       &
+                                                   610.13   & -1.12        &...
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
 With luck, this will get me unwedged. But if you
@@ -1316,16 +1313,16 @@ my insertion and my current dilemma will both disappear.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.39 ...*}       & 433.59   & 4.62^{***}   & 0.31^
-                                                  {*}       & 322.78   \\
+l.37 ...*}       & 610.13   & -1.12        & 0.36^
+                                                  {*}       & 373.78   \\
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.39 ...433.59   & 4.62^{***}   & 0.31^{*}       &
-                                                   322.78   \\
+l.37 ...610.13   & -1.12        & 0.36^{*}       &
+                                                   373.78   \\
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
 With luck, this will get me unwedged. But if you
@@ -1335,16 +1332,16 @@ my insertion and my current dilemma will both disappear.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.45 ... 15 km) × 75+       & -0.33       & 0.21^
-                                                  {*}       & 224.54   & -0....
+l.40 ...                    & 1.32^{*}    & -1.00^
+                                                  {*}      & -1050.00 & 5.66...
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.45 ...75+       & -0.33       & 0.21^{*}       &
-                                                   224.54   & -0.00        &...
+l.40 ...          & 1.32^{*}    & -1.00^{*}      &
+                                                   -1050.00 & 5.66^{*}     &...
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
 With luck, this will get me unwedged. But if you
@@ -1354,301 +1351,16 @@ my insertion and my current dilemma will both disappear.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.45 ...*}       & 224.54   & -0.00        & 0.34^
-                                                  {*}       & 352.22   \\
+l.40 ...*}      & -1050.00 & 5.66^{*}     & -1.00^
+                                                  {*}      & -1050.00 \\
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.45 ...224.54   & -0.00        & 0.34^{*}       &
-                                                   352.22   \\
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.48 ...s 15 km) × 75+      & -0.68^{**}  & 0.39^
-                                                  {*}       & 407.07   & -1....
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.48 ... 75+      & -0.68^{**}  & 0.39^{*}       &
-                                                   407.07   & -1.84        &...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.48 ...*}       & 407.07   & -1.84        & 0.44^
-                                                  {*}       & 457.64   \\
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.48 ...407.07   & -1.84        & 0.44^{*}       &
-                                                   457.64   \\
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.51 ...) × 75+             & 0.02        & 0.23^
-                                                  {*}       & 241.88   & -0....
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.51 ...          & 0.02        & 0.23^{*}       &
-                                                   241.88   & -0.11        &...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.51 ...*}       & 241.88   & -0.11        & 0.28^
-                                                  {*}       & 297.53   \\
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.51 ...241.88   & -0.11        & 0.28^{*}       &
-                                                   297.53   \\
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.54 ...m) × 75+            & 0.07        & 0.67^
-                                                  {*}       & 700.88   & -2....
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.54 ...          & 0.07        & 0.67^{*}       &
-                                                   700.88   & -2.38^{**}   &...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.54 ...*}       & 700.88   & -2.38^{**}   & 0.43^
-                                                  {*}       & 446.97   \\
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.54 ...700.88   & -2.38^{**}   & 0.43^{*}       &
-                                                   446.97   \\
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.57 ...vs 900 m) × 75+     & 0.47^{*}    & 0.13^
-                                                  {*}       & 138.67   & -1....
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.57 ...� 75+     & 0.47^{*}    & 0.13^{*}       &
-                                                   138.67   & -1.43        &...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.60 ...vs 900 m) × 75+     & 0.04        & 0.26^
-                                                  {*}       & 268.29   & 0.3...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.60 ...� 75+     & 0.04        & 0.26^{*}       &
-                                                   268.29   & 0.32         &...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.60 ...*}       & 268.29   & 0.32         & 0.22^
-                                                  {*}       & 234.61   \\
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.60 ...268.29   & 0.32         & 0.22^{*}       &
-                                                   234.61   \\
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.63 ...age (vs none) × 75+ & -0.17       & 0.67^
-                                                  {*}       & 703.54   & -1....
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.63 ...e) × 75+ & -0.17       & 0.67^{*}       &
-                                                   703.54   & -1.03        &...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.63 ...*}       & 703.54   & -1.03        & 0.26^
-                                                  {*}       & 272.29   \\
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.63 ...703.54   & -1.03        & 0.26^{*}       &
-                                                   272.29   \\
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.66 ...ce (vs none) × 75+  & 0.25        & 0.61^
-                                                  {*}       & 636.79   & -1....
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.66 ...) × 75+  & 0.25        & 0.61^{*}       &
-                                                   636.79   & -1.32        &...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.66 ...*}       & 636.79   & -1.32        & 0.28^
-                                                  {*}       & 292.67   \\
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.66 ...636.79   & -1.32        & 0.28^{*}       &
-                                                   292.67   \\
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.69 ...                    & 1.48^{*}    & -1.00^
-                                                  {*}      &  & 3.19        ...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.69 ...          & 1.48^{*}    & -1.00^{*}      &
-                                                    & 3.19         & -1.00^{...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.69 ... -1.00^{*}      &  & 3.19         & -1.00^
-                                                  {*}      &  \\
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.69 ...      &  & 3.19         & -1.00^{*}      &
-                                                    \\
+l.40 ...-1050.00 & 5.66^{*}     & -1.00^{*}      &
+                                                   -1050.00 \\
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
 With luck, this will get me unwedged. But if you
@@ -1656,12 +1368,9 @@ really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
 
-Overfull \hbox (12.67065pt too wide) in paragraph at lines 6--92
+Overfull \hbox (11.95398pt too wide) in paragraph at lines 6--62
  [] 
  []
-
-
-LaTeX Warning: Float too large for page by 17.9621pt on input line 93.
 
 )
 <figures/wtp_age_interactions_own_rent_publication.png, id=269, 939.51pt x 867.
@@ -2931,10 +2640,10 @@ Package rerunfilecheck Info: File `dce_draft.out' has not changed.
 (rerunfilecheck)             Checksum: 79EC4E85686EED10E50BD2A3BD84BFEF;1956.
  ) 
 Here is how much of TeX's memory you used:
- 15572 strings out of 476331
- 256728 string characters out of 5797571
- 1984660 words of memory out of 5000000
- 35567 multiletter control sequences out of 15000+600000
+ 15573 strings out of 476331
+ 256752 string characters out of 5797571
+ 1983660 words of memory out of 5000000
+ 35568 multiletter control sequences out of 15000+600000
  526579 words of font info for 86 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,18n,76p,1075b,611s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -2960,7 +2669,7 @@ lic/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts
 ><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti9.pfb><C:/Program 
 Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKTeX
 /fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on dce_draft.pdf (30 pages, 1348071 bytes).
+Output written on dce_draft.pdf (30 pages, 1347261 bytes).
 PDF statistics:
  525 PDF objects out of 1000 (max. 8388607)
  110 named destinations out of 1000 (max. 500000)

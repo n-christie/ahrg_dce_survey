@@ -1,62 +1,63 @@
-
-\begin{table}
-\caption{Interaction effects - Age }
+\begin{table}[!htbp]
+\caption{Interaction Effects – Median Age}
 \begin{center}
 \begin{scriptsize}
-\begin{tabular}{l D{.}{.}{5.5} D{.}{.}{3.9} D{.}{.}{5.2} D{.}{.}{4.5} D{.}{.}{3.9} D{.}{.}{5.2}}
+\begin{threeparttable}
+
+\newcommand{\ci}[2]{\begin{tabular}{@{}r@{}l@{}}(#1;& #2)\end{tabular}}
+
+\begin{tabular}{l D{.}{.}{5.5} c D{.}{.}{5.2} D{.}{.}{4.5} c D{.}{.}{5.2}}
 \toprule
  & \multicolumn{3}{c}{Owner} & \multicolumn{3}{c}{Renter} \\
 \cmidrule(lr){2-4} \cmidrule(lr){5-7}
  & \multicolumn{1}{c}{Coef.} & \multicolumn{1}{c}{MRS} & \multicolumn{1}{c}{MWTP} & \multicolumn{1}{c}{Coef.} & \multicolumn{1}{c}{MRS} & \multicolumn{1}{c}{MWTP} \\
 \midrule
-Green space: 5 km (vs 15 km)             & 1.27^{***}  & 0.21^{*}       & 216.33   & 4.69^{***}   & 0.20^{*}       & 207.03   \\
-                                         & (0.16)      & [ 0.15;  0.26] &          & (1.01)       & [ 0.13;  0.26] &          \\
-Green space: 500 m (vs 15 km)            & 2.45^{***}  & 0.40^{*}       & 415.40   & 8.83^{***}   & 0.37^{*}       & 389.76   \\
-                                         & (0.21)      & [ 0.32;  0.47] &          & (1.62)       & [ 0.29;  0.45] &          \\
-Shops: 5 km (vs 15 km)                   & 1.11^{***}  & 0.18^{*}       & 188.26   & 2.38^{**}    & 0.10^{*}       & 105.24   \\
-                                         & (0.19)      & [ 0.11;  0.25] &          & (0.86)       & [ 0.03;  0.17] &          \\
-Shops: 500 m (vs 15 km)                  & 3.34^{***}  & 0.54^{*}       & 567.58   & 11.34^{***}  & 0.48^{*}       & 500.85   \\
-                                         & (0.24)      & [ 0.45;  0.63] &          & (2.11)       & [ 0.39;  0.57] &          \\
-Transit stop: 600 m (vs 900 m)           & 0.13        & 0.02           & 21.56    & 2.54^{**}    & 0.11^{*}       & 112.11   \\
-                                         & (0.15)      & [-0.03;  0.07] &          & (0.79)       & [ 0.05;  0.16] &          \\
-Transit stop: 300 m (vs 900 m)           & 1.05^{***}  & 0.17^{*}       & 177.41   & 3.72^{***}   & 0.16^{*}       & 164.25   \\
-                                         & (0.16)      & [ 0.11;  0.22] &          & (0.92)       & [ 0.10;  0.21] &          \\
-Parking: reserved garage (vs none)       & 3.16^{***}  & 0.51^{*}       & 537.21   & 6.91^{***}   & 0.29^{*}       & 305.27   \\
-                                         & (0.24)      & [ 0.42;  0.60] &          & (1.28)       & [ 0.23;  0.35] &          \\
-Parking: reserved space (vs none)        & 2.40^{***}  & 0.39^{*}       & 406.90   & 6.14^{***}   & 0.26^{*}       & 271.29   \\
-                                         & (0.22)      & [ 0.32;  0.46] &          & (1.22)       & [ 0.20;  0.32] &          \\
-Price                                    & -6.19^{***} &                &          & -23.78^{***} &                &          \\
-                                         & (0.50)      &                &          & (4.39)       &                &          \\
-Green space: 5 km (vs 15 km) × Old       & -0.16       & 0.24^{*}       & 249.79   & 1.80         & 0.41^{*}       & 426.31   \\
-                                         & (0.19)      & [ 0.17;  0.31] &          & (1.05)       & [ 0.25;  0.56] &          \\
-Green space: 500 m (vs 15 km) × Old      & -0.50^{*}   & 0.41^{*}       & 434.58   & 1.56         & 0.65^{*}       & 682.87   \\
-                                         & (0.23)      & [ 0.32;  0.51] &          & (1.10)       & [ 0.45;  0.85] &          \\
-Shops: 5 km (vs 15 km) × Old             & -0.07       & 0.22^{*}       & 233.14   & 0.86         & 0.20^{*}       & 213.37   \\
-                                         & (0.23)      & [ 0.13;  0.31] &          & (1.14)       & [ 0.07;  0.33] &          \\
-Shops: 500 m (vs 15 km) × Old            & -0.23       & 0.66^{*}       & 696.81   & -2.18^{*}    & 0.57^{*}       & 602.46   \\
-                                         & (0.24)      & [ 0.53;  0.80] &          & (1.11)       & [ 0.43;  0.72] &          \\
-Transit stop: 600 m (vs 900 m) × Old     & 0.49^{*}    & 0.13^{*}       & 138.47   & -0.51        & 0.13^{*}       & 133.50   \\
-                                         & (0.20)      & [ 0.06;  0.20] &          & (0.86)       & [ 0.02;  0.24] &          \\
-Transit stop: 300 m (vs 900 m) × Old     & 0.13        & 0.25^{*}       & 263.71   & 0.75         & 0.28^{*}       & 293.85   \\
-                                         & (0.21)      & [ 0.18;  0.33] &          & (0.95)       & [ 0.17;  0.39] &          \\
-Parking: reserved garage (vs none) × Old & -0.22       & 0.63^{*}       & 657.43   & -1.59        & 0.33^{*}       & 349.76   \\
-                                         & (0.26)      & [ 0.50;  0.75] &          & (0.89)       & [ 0.22;  0.45] &          \\
-Parking: reserved space (vs none) × Old  & 0.21        & 0.56^{*}       & 583.06   & -0.68        & 0.34^{*}       & 358.97   \\
-                                         & (0.25)      & [ 0.45;  0.66] &          & (1.13)       & [ 0.25;  0.43] &          \\
-Price × Old                              & 1.49^{*}    & -1.00^{*}      & -1050.00 & 7.81^{*}     & -1.00^{*}      & -1050.00 \\
-                                         & (0.58)      & [-1.36; -0.64] &          & (3.33)       & [-1.66; -0.34] &          \\
+
+Green space: 5 km (vs 15 km) × Age       & -0.12       & 0.23^{*}       & 241.91   & 0.56         & 0.38^{*}       & 398.28   \\
+                                         & (0.18)      & \multicolumn{1}{c}{\ci{0.16}{0.30}} &          & (0.88)       & \multicolumn{1}{c}{\ci{0.21}{0.54}} &          \\
+\addlinespace
+Green space: 500 m (vs 15 km) × Age      & -0.53^{*}   & 0.42^{*}       & 443.71   & -0.42        & 0.53^{*}       & 556.48   \\
+                                         & (0.23)      & \multicolumn{1}{c}{\ci{0.32}{0.53}} &          & (0.96)       & \multicolumn{1}{c}{\ci{0.32}{0.74}} &          \\
+\addlinespace
+Shops: 5 km (vs 15 km) × Age             & -0.03       & 0.22^{*}       & 229.25   & -0.87        & 0.30^{*}       & 312.89   \\
+                                         & (0.23)      & \multicolumn{1}{c}{\ci{0.12}{0.31}} &          & (0.98)       & \multicolumn{1}{c}{\ci{0.12}{0.47}} &          \\
+\addlinespace
+Shops: 500 m (vs 15 km) × Age            & -0.22       & 0.68^{*}       & 711.33   & -2.61^{**}   & 0.51^{*}       & 537.71   \\
+                                         & (0.23)      & \multicolumn{1}{c}{\ci{0.54}{0.81}} &          & (0.96)       & \multicolumn{1}{c}{\ci{0.33}{0.70}} &          \\
+\addlinespace
+Transit stop: 600 m (vs 900 m) × Age     & 0.46^{*}    & 0.13^{*}       & 138.33   & -0.86        & 0.04           & 46.98    \\
+                                         & (0.19)      & \multicolumn{1}{c}{\ci{0.06}{0.20}} &          & (0.80)       & \multicolumn{1}{c}{\ci{-0.06}{0.15}} &         \\
+\addlinespace
+Transit stop: 300 m (vs 900 m) × Age     & 0.08        & 0.27^{*}       & 282.31   & -0.51        & 0.16^{*}       & 168.98   \\
+                                         & (0.21)      & \multicolumn{1}{c}{\ci{0.19}{0.35}} &          & (0.69)       & \multicolumn{1}{c}{\ci{0.05}{0.27}} &          \\
+\addlinespace
+Parking: reserved garage (vs none) × Age & -0.16       & 0.67^{*}       & 700.45   & -1.24        & 0.31^{*}       & 327.92   \\
+                                         & (0.26)      & \multicolumn{1}{c}{\ci{0.53}{0.80}} &          & (0.81)       & \multicolumn{1}{c}{\ci{0.19}{0.43}} &          \\
+\addlinespace
+Parking: reserved space (vs none) × Age  & 0.24        & 0.58^{*}       & 610.13   & -1.12        & 0.36^{*}       & 373.78   \\
+                                         & (0.25)      & \multicolumn{1}{c}{\ci{0.47}{0.69}} &          & (0.94)       & \multicolumn{1}{c}{\ci{0.23}{0.48}} &          \\
+\addlinespace
+Price × Age                              & 1.32^{*}    & -1.00^{*}      & -1050.00 & 5.66^{*}     & -1.00^{*}      & -1050.00 \\
+                                         & (0.57)      & \multicolumn{1}{c}{\ci{-1.37}{-0.63}} &         & (2.77)       & \multicolumn{1}{c}{\ci{-1.76}{-0.24}} &         \\
+
 \midrule
 Num. obs.                                & 7110        &                &          & 1458         &                &          \\
-Log Likelihood                           & -3123.68    &                &          & -611.15      &                &          \\
-AIC                                      & 6355.35     &                &          & 1330.30      &                &          \\
-BIC                                      & 6726.29     &                &          & 1615.68      &                &          \\
-McFadden R²                              & 0.37        &                &          & 0.40         &                &          \\
-LR χ² (df=54)                            & 3609.20     &                &          & 798.92       &                &          \\
+Log Likelihood                           & -3134.69    &                &          & -617.88      &                &          \\
+AIC                                      & 6377.38     &                &          & 1343.75      &                &          \\
+BIC                                      & 6748.32     &                &          & 1629.13      &                &          \\
+McFadden R\textsuperscript{2}            & 0.36        &                &          & 0.39         &                &          \\
+LR $\chi^{2}$ (df=54)                    & 3587.18     &                &          & 785.46       &                &          \\
 p-value (LR)                             & 0.00        &                &          & 0.00         &                &          \\
 \bottomrule
-\multicolumn{7}{l}{\tiny{$^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$ (or Null hypothesis value outside the confidence interval).}}
 \end{tabular}
+
+\begin{tablenotes}
+\scriptsize
+\item \textit{Notes:} Estimation by maximum likelihood of the mixed logit model. Heteroskedasticity-robust standard errors in parentheses. Confidence intervals for MRS estimated via the delta method. Age is a dummy variable equal to one if a respondent is equal to or above the median age of the sample (72)(. $^{*}p < 0.05$; $^{**}p < 0.01$; $^{***}p < 0.001$.
+\end{tablenotes}
+
+\end{threeparttable}
 \end{scriptsize}
-\label{table:coefficients}
+\label{table:age_interactions}
 \end{center}
 \end{table}

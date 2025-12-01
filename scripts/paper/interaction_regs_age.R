@@ -69,7 +69,7 @@ df_model <- df_model %>%
     Health = case_when( VAR035 %in% c(1,2,3) ~ "Not very good",
                         VAR035 %in% c(4,5) ~ "Very good",
                         TRUE ~ NA_character_),
-    Old = if_else(age >=75, 1, 0)
+    Old = if_else(age >=72, 1, 0)
   ) 
 
 
@@ -103,22 +103,7 @@ df_model <- df_model %>%
     price_Old      = price_num      * Old
   )
 
-# --- Define main and interaction parameter names again ---
-attr_vars <- c(
-  "dist_green5km", "dist_green500m",
-  "dist_shops5km", "dist_shops500m",
-  "dist_trans600", "dist_trans300",
-  "park_space", "park_garage",
-  "price_num"
-)
 
-inter_vars <- c(
-  "green5km_Old", "green500_Old",
-  "shops5km_Old", "shops500_Old",
-  "trans600_Old", "trans300_Old",
-  "park_space_Old", "park_garage_Old",
-  "price_Old"
-)
 
 
 ## Create renter/owner subsets ----
@@ -158,7 +143,7 @@ mxl_isex_ret <- logitr(
     park_space      = "n",
     park_garage     = "n"
   ),
-  numDraws = 100,
+  numDraws = 200,
   numMultiStarts = 10,
   drawType = "sobol",
   correlation = TRUE
@@ -196,7 +181,7 @@ mxl_isex_own <- logitr(
     park_space      = "n",
     park_garage     = "n"
   ),
-  numDraws = 100,
+  numDraws = 200,
   numMultiStarts = 10,
   drawType = "sobol",
   correlation = TRUE
@@ -515,7 +500,7 @@ texreg(
   dcolumn            = TRUE,
   use.packages       = FALSE,
   na.replace         = "--",
-  caption            = "Interaction effects - 75 +",
+  caption            = "Interaction effects - median age",
   caption.above      = TRUE,
   fontsize           = "scriptsize",
   file               = here("docs/elsvier/tables", "mxl_age_inter.tex")
@@ -715,8 +700,40 @@ ggsave(
   dpi = 600
 )
 
+# Latent class ----
 
 
+# extract individual-level data
+indiv <- df_model %>% 
+  group_by(panelID) %>% 
+  slice(1) %>% 
+  ungroup() %>% 
+  select(panelID, age, income)
+
+
+df_model2 <- df_model %>%
+  left_join(indiv, by = "panelID")
+
+
+df_mlogit <- mlogit.data(
+  df_model2,
+  choice   = "choice",
+  shape    = "long",
+  chid.var = "obsID",
+  alt.var  = "altID",
+  id.var   = "panelID"
+)
+
+lcm_model <- gmnl(
+  choice ~ dist_green5km + dist_green500m +
+    dist_shops5km + dist_shops500m +
+    dist_trans600 + dist_trans300 +
+    park_space + park_garage + price_num 
+  | age + income,     # MUST be individual-specific
+  data  = df_mlogit,
+  model = "lc",
+  Q     = 3
+)
 
 
 
