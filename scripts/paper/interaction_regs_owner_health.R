@@ -139,7 +139,7 @@ mxl_health_rent <- logitr(
     park_space      = "n",
     park_garage     = "n"
   ),
-  numDraws = 100,
+  numDraws = 1000,
   numMultiStarts = 10,
   drawType = "sobol",
   correlation = TRUE
@@ -178,7 +178,7 @@ mxl_health_own <- logitr(
     park_space      = "n",
     park_garage     = "n"
   ),
-  numDraws = 100,
+  numDraws = 1000,
   numMultiStarts = 10,
   drawType = "sobol",
   correlation = TRUE

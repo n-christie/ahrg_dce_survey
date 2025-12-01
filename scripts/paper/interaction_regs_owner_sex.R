@@ -155,7 +155,7 @@ mxl_isex_ret <- logitr(
     park_space      = "n",
     park_garage     = "n"
   ),
-  numDraws = 100,
+  numDraws = 1000,
   numMultiStarts = 10,
   drawType = "sobol",
   correlation = TRUE
@@ -193,10 +193,12 @@ mxl_isex_own <- logitr(
     park_space      = "n",
     park_garage     = "n"
   ),
-  numDraws = 100,
+  numDraws = 1000,
   numMultiStarts = 10,
   drawType = "sobol",
-  correlation = TRUE
+  correlation = TRUE,
+  numCores = 8 
+  
 )
 
 screenreg(mxl_isex_own)
