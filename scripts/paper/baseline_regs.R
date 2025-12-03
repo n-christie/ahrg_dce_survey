@@ -82,16 +82,21 @@ valid.col    = FALSE))
 cost_name   <- "price_num"
 set.seed(12345)  # or any fixed number
 
-mnl <- logitr(
-  data    = df_model %>% filter(Own == "Owner" ) ,
+mxl_owner <- logitr(
+  data    = df_model %>% filter(Own == "Owner") ,
   outcome = "choice",
   obsID   = "obsID",
   panelID = "panelID",
-  pars    = c("dist_green","dist_shops","dist_trans","parking","price_num")
+  pars    = c("dist_green", "dist_shops", "dist_trans", "parking", "price_num"),
+  randPars = c(dist_green = 'n', dist_shops = 'n', dist_trans = 'n', parking = 'n'),
+  numMultiStarts = 10,
+  drawType = 'sobol',
+  numDraws = 1000,
+  correlation = TRUE
 )
 
-mxl <- logitr(
-  data    = df_model %>% filter(Own == "Owner") ,
+mxl_renter <- logitr(
+  data    = df_model %>% filter(Own == "Renter") ,
   outcome = "choice",
   obsID   = "obsID",
   panelID = "panelID",
@@ -103,7 +108,33 @@ mxl <- logitr(
   correlation = TRUE
 )
 
-screenreg(list(mnl,mxl))
+screenreg(list(mxl_owner,mxl_renter))
+
+
+saveRDS(mxl_renter, here("output/models", "mxl_renter_base.rds"))
+
+saveRDS(mxl_owner, here("output/models", "mxl_owner_base.rds"))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 library(broom)

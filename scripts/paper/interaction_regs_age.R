@@ -191,6 +191,16 @@ screenreg(mxl_isex_own)
 
 saveRDS(mxl_isex_own, here("output/models", "mxl_old_owner.rds"))
 
+
+
+
+
+
+
+
+
+
+
 # Make regression table -----
 
 mxl_old_own<- readRDS(here("output/models", "mxl_old_owner.rds"))
