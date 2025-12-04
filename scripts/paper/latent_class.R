@@ -183,7 +183,7 @@ head(class_probs)
 # Create data frame with class assignments
 unique_panels <- df_model %>%
   distinct(panelID, .keep_all = TRUE) %>%
-  select(panelID, age, Own, )
+  select(panelID, age, is_owner )
 
 class_assignments <- data.frame(
   panelID = unique(df_gmnl$id),
