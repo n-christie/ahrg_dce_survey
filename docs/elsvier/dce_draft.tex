@@ -4,7 +4,7 @@
 \def\ps@pprintTitle{%
  \let\@oddhead\@empty
  \let\@evenhead\@empty
- \let\@oddfoot\@empty
+S \let\@oddfoot\@empty
  \let\@evenfoot\@empty
 }
 \makeatother
@@ -60,6 +60,13 @@
 \usepackage{dcolumn}    % for D column alignment
 \usepackage{caption}    % optional, for better caption formatting
 \usepackage{amsmath}    % optional, for symbols like chi²
+\usepackage{siunitx}
+\newcommand{\mrs}[3]{%
+  \begin{tabular}{@{}c@{}}%
+  \num{#1} \\%
+  (\num{#2},\ \num{#3})%
+  \end{tabular}%
+}
 
 %\usepackage[nomarkers]{endfloat}
 \usepackage{setspace}
@@ -521,7 +528,7 @@ we use 100 Sobol draws and multiple random starting values to ensure convergence
 
 Our discussion begins with results from the baseline mixed logit (MXL) models, which exclude interaction terms and serve as a point of comparison for subsequent models that account for heterogeneity across household types. Tables \ref{tab:base_owner} and \ref{tab:base_renter} present the estimation results for respondents who own and rent their housing units, respectively. In both samples, positive (negative) coefficients indicate an increase (decrease) in average utility associated with the attribute level, relative to its reference level. Reference levels are specified as the least desirable alternative to aid in interpretation.
 
-\input{tables/base_reg_owner.tex}
+%\input{tables/base_reg_owner.tex}
 
 Across both tenure groups, all estimated coefficients exhibit the expected signs and a high degree of statistical significance. For most attributes, the mean coefficients are positive, implying that closer proximity to amenities or improved neighborhood features are preferred over their reference levels. The statistically significant standard deviation estimates further confirm the presence of unobserved preference heterogeneity among households, supporting the use of the mixed logit specification.
 
@@ -529,7 +536,7 @@ The marginal rates of substitution (MRS) are reported in column five and are com
 
 As shown in Table \ref{tab:base_owner}, homeowners are willing to pay substantial amounts for proximity to key neighborhood amenities. For instance, owners are, on average, willing to pay about 440 SEK per month to avoid living 15 km from the nearest green area and roughly 620 SEK per month to live within 500 m of shops. Access to parking is also highly valued, with MWTP estimates of approximately 615 SEK for a reserved garage and 511 SEK for a reserved parking space. These results suggest that accessibility and convenience are primary drivers of residential utility among homeowners.
 
-\input{tables/base_reg_renter.tex}
+%\input{tables/base_reg_renter.tex}
 
 Turning to renters, Table \ref{tab:base_renter} reveals similar preference patterns but with generally lower MWTP magnitudes. Renters are willing to pay about 618 SEK per month to reside within 500 m of green space and roughly 637 SEK for proximity to shops within 500 m—values that remain economically meaningful yet modestly below those of owners. Renters also show strong preferences for parking access, although their MWTP for a reserved garage (337 SEK) or space (307 SEK) is roughly half that of homeowners.
 
@@ -537,8 +544,9 @@ Comparing across tenure types, both groups place high value on proximity to gree
 
 Overall, these baseline results demonstrate robust and theoretically consistent patterns of residential preferences. The strong fit of the mixed logit models, along with significant random parameter estimates, supports their use as the preferred framework for the heterogeneity analyses that follow.
 
+\input{tables/mxl_base_table.tex}
 
-
+\input{tables/mwtp_base.tex}
 
 \clearpage
 
@@ -587,7 +595,7 @@ whereas the oldest group increasingly private parking and local environmental qu
 
 \subsubsection{Health}
 
-\input{tables/mxl_health_inter.tex}
+\input{tables/mxl_health_inter1.tex}
 
 
 
@@ -596,8 +604,8 @@ whereas the oldest group increasingly private parking and local environmental qu
 
 \subsubsection{Gender effects}
 
-\input{tables/mxl_health_interaction_own_rent.tex}
-
+%\input{tables/mxl_health_interaction_own_rent.tex}
+%
 \input{tables/mxl_sex_inter.tex}
 
 
@@ -631,15 +639,15 @@ By presenting hypothetical scenarios that varied in locational attributes such a
 
 \section{Appendix}
 
-\input{tables/base_reg_male.tex}
-
-\input{tables/base_reg_female.tex}
-
-\input{tables/base_reg_55_64.tex}
-\input{tables/base_reg_65_74.tex}
-\input{tables/base_reg_75.tex}
-\input{tables/base_reg_retired.tex}
-\input{tables/base_reg_notretired.tex}
+%\input{tables/base_reg_male.tex}
+%
+%\input{tables/base_reg_female.tex}
+%
+%\input{tables/base_reg_55_64.tex}
+%\input{tables/base_reg_65_74.tex}
+%\input{tables/base_reg_75.tex}
+%\input{tables/base_reg_retired.tex}
+%\input{tables/base_reg_notretired.tex}
 
 \clearpage
 

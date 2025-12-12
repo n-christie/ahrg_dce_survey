@@ -267,9 +267,19 @@ build_pair_compact <- function(model, label_map, scaler, cost_name) {
 ret  <- build_pair_compact(mxl_health_own,  label_map, scaler, cost_name)
 notr <- build_pair_compact(mxl_health_rent, label_map, scaler, cost_name)
 
+scaler_rent  <- 0.10 * 9000  # converts MRS to SEK/month
+scaler_own <- 0.10 * 10000  # converts MRS to SEK/month
+
+
+rent_m  <- build_pair_compact(mxl_health_rent,  label_map, scaler_rent, cost_name)
+own_m <- build_pair_compact(mxl_health_own, label_map, scaler_own, cost_name)
+
+
+
+
 screenreg(
-  list(ret$m_coef, ret$m_mrs, ret$m_mwtp,
-       notr$m_coef, notr$m_mrs, notr$m_mwtp),
+  list(own_m$m_coef, own_m$m_mrs, own_m$m_mwtp,
+       rent_m$m_coef, rent_m$m_mrs, rent_m$m_mwtp),
   custom.header      = list("Owner" = 1:3, "Renter" = 4:6),
   custom.model.names = c("Coef.", "MRS", "MWTP", "Coef.", "MRS", "MWTP"),
   custom.coef.names  = pretty_labels,
@@ -286,8 +296,8 @@ screenreg(
 
 
 texreg(
-  list(ret$m_coef, ret$m_mrs, ret$m_mwtp,
-       notr$m_coef, notr$m_mrs, notr$m_mwtp),
+  list(own_m$m_coef, own_m$m_mrs, own_m$m_mwtp,
+       rent_m$m_coef, rent_m$m_mrs, rent_m$m_mwtp),
   custom.header      = list("Owner" = 1:3, "Renter" = 4:6),
   custom.model.names = c("Coef.", "MRS", "MWTP", "Coef.", "MRS", "MWTP"),
   custom.coef.names  = pretty_labels,
@@ -300,7 +310,7 @@ texreg(
   caption            = "Mixed Logit with Health Interactions (Good vs Not): Coefficients, MRS (95% CI), and MWTP",
   caption.above      = TRUE,
   fontsize           = "scriptsize",
-  file               = here("docs/elsvier/tables", "mxl_health_inter.tex")
+  file               = here("docs/elsvier/tables", "mxl_health_inter1.tex")
 )
 
 

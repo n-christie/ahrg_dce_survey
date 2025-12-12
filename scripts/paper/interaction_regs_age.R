@@ -469,12 +469,12 @@ build_pair_compact <- function(model, label_map, scaler, cost_name) {
   list(m_coef = m_coef, m_mrs = m_mrs, m_mwtp = m_mwtp)
 }
 
+scaler_rent  <- 0.10 * 9000  # converts MRS to SEK/month
+scaler_own <- 0.10 * 10000  # converts MRS to SEK/month
 
 
-
-
-ret  <- build_pair_compact(mxl_old_own,  label_map, scaler, cost_name)
-notr <- build_pair_compact(mxl_old_ren, label_map, scaler, cost_name)
+rent_m  <- build_pair_compact(mxl_old_own,  label_map, scaler_rent, cost_name)
+own_m <- build_pair_compact(mxl_old_ren, label_map, scaler_own, cost_name)
 
 custom_header      <- list("Owner" = 1:3, "Renter" = 4:6)
 custom_model_names <- c("Coef.", "MRS", "MWTP", "Coef.", "MRS", "MWTP")
@@ -482,8 +482,8 @@ custom_model_names <- c("Coef.", "MRS", "MWTP", "Coef.", "MRS", "MWTP")
 
 
 screenreg(
-  list(ret$m_coef, ret$m_mrs, ret$m_mwtp,
-       notr$m_coef, notr$m_mrs, notr$m_mwtp),
+  list(own_m$m_coef, own_m$m_mrs, own_m$m_mwtp,
+       rent_m$m_coef, rent_m$m_mrs, rent_m$m_mwtp),
   custom.header      = custom_header,
   custom.model.names = custom_model_names,
   custom.coef.names  = pretty_labels,

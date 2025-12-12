@@ -1,91 +1,61 @@
-\begin{table}[!htbp]
-\caption{Mixed Logit with Health Interactions}
+
+\begin{table}
+\caption{Mixed Logit with Health Interactions (Good vs Not): Coefficients, MRS (95% CI), and MWTP}
 \begin{center}
 \begin{scriptsize}
-\begin{threeparttable}
-
-% --- define \ci macro for centered-on-comma CIs ---
-\newcommand{\ci}[2]{\begin{tabular}{@{}r@{}l@{}}(#1;& #2)\end{tabular}}
-
-\begin{tabular}{l D{.}{.}{5.5} c D{.}{.}{5.2} D{.}{.}{4.5} c D{.}{.}{5.2}}
+\begin{tabular}{l D{.}{.}{5.5} D{.}{.}{3.9} D{.}{.}{5.2} D{.}{.}{4.5} D{.}{.}{3.9} D{.}{.}{4.2}}
 \toprule
- & \multicolumn{3}{c}{Owners} & \multicolumn{3}{c}{Renters} \\
+ & \multicolumn{3}{c}{Owner} & \multicolumn{3}{c}{Renter} \\
 \cmidrule(lr){2-4} \cmidrule(lr){5-7}
  & \multicolumn{1}{c}{Coef.} & \multicolumn{1}{c}{MRS} & \multicolumn{1}{c}{MWTP} & \multicolumn{1}{c}{Coef.} & \multicolumn{1}{c}{MRS} & \multicolumn{1}{c}{MWTP} \\
 \midrule
-
-Green space: 5 km (vs 15 km)              & 0.91^{***}  & 0.18^{*}       & 188.30   & 2.34^{*}     & 0.18^{*}      & 187.03   \\
-                                          & (0.24)      & \multicolumn{1}{c}{\ci{0.07}{0.29}} &          & (1.06)       & \multicolumn{1}{c}{\ci{0.03}{0.32}} &          \\
-                                            \addlinespace
-Green space: 500 m (vs 15 km)             & 1.57^{***}  & 0.31^{*}       & 323.43   & 4.76^{**}    & 0.36^{*}      & 380.78   \\
-                                          & (0.29)      & \multicolumn{1}{c}{\ci{0.17}{0.45}} &          & (1.70)       & \multicolumn{1}{c}{\ci{0.15}{0.58}} &          \\
-                                            \addlinespace
-Shops: 5 km (vs 15 km)                    & 1.30^{***}  & 0.26^{*}       & 268.57   & 2.78^{*}     & 0.21^{*}      & 222.14   \\
-                                          & (0.28)      & \multicolumn{1}{c}{\ci{0.11}{0.40}} &          & (1.31)       & \multicolumn{1}{c}{\ci{0.01}{0.41}} &          \\
-                                            \addlinespace
-Shops: 500 m (vs 15 km)                   & 2.78^{***}  & 0.54^{*}       & 571.28   & 7.91^{***}   & 0.60^{*}      & 632.61   \\
-                                          & (0.31)      & \multicolumn{1}{c}{\ci{0.37}{0.72}} &          & (1.98)       & \multicolumn{1}{c}{\ci{0.36}{0.84}} &          \\
-                                            \addlinespace
-Transit stop: 600 m (vs 900 m)            & 0.86^{***}  & 0.17^{*}       & 177.57   & 1.39         & 0.11          & 111.30   \\
-                                          & (0.24)      & \multicolumn{1}{c}{\ci{0.06}{0.28}} &          & (0.91)       & \multicolumn{1}{c}{\ci{-0.03}{0.24}} &         \\
-                                            \addlinespace
-Transit stop: 300 m (vs 900 m)            & 1.31^{***}  & 0.26^{*}       & 270.45   & 2.63^{*}     & 0.20^{*}      & 210.30   \\
-                                          & (0.27)      & \multicolumn{1}{c}{\ci{0.13}{0.38}} &          & (1.03)       & \multicolumn{1}{c}{\ci{0.06}{0.34}} &          \\
-                                            \addlinespace
-Parking: reserved garage (vs none)        & 3.27^{***}  & 0.64^{*}       & 673.15   & 4.70^{***}   & 0.36^{*}      & 375.71   \\
-                                          & (0.36)      & \multicolumn{1}{c}{\ci{0.43}{0.85}} &          & (1.30)       & \multicolumn{1}{c}{\ci{0.20}{0.52}} &          \\
-                                            \addlinespace
-Parking: reserved space (vs none)         & 2.77^{***}  & 0.54^{*}       & 569.61   & 4.23^{**}    & 0.32^{*}      & 338.54   \\
-                                          & (0.34)      & \multicolumn{1}{c}{\ci{0.38}{0.71}} &          & (1.35)       & \multicolumn{1}{c}{\ci{0.18}{0.47}} &          \\
-                                            \addlinespace
-Price                                     & -5.10^{***} &                &          & -13.12^{***} &               &          \\
-                                          & (0.74)      &                &          & (2.90)       &               &          \\
-                                            \addlinespace
-Green space: 5 km (vs 15 km) × Good       & 0.33        & 0.23^{*}       & 243.79   & 2.78^{*}     & 0.33^{*}      & 345.98   \\
-                                          & (0.25)      & \multicolumn{1}{c}{\ci{0.18}{0.28}} &          & (1.11)       & \multicolumn{1}{c}{\ci{0.24}{0.42}} &          \\
-                                            \addlinespace
-Green space: 500 m (vs 15 km) × Good      & 0.70^{*}    & 0.42^{*}       & 445.92   & 2.80^{*}     & 0.49^{*}      & 511.20   \\
-                                          & (0.30)      & \multicolumn{1}{c}{\ci{0.35}{0.50}} &          & (1.25)       & \multicolumn{1}{c}{\ci{0.38}{0.60}} &          \\
-                                            \addlinespace
-Shops: 5 km (vs 15 km) × Good             & -0.25       & 0.20^{*}       & 206.70   & 0.31         & 0.20^{*}      & 208.46   \\
-                                          & (0.30)      & \multicolumn{1}{c}{\ci{0.13}{0.26}} &          & (1.27)       & \multicolumn{1}{c}{\ci{0.09}{0.30}} &          \\
-                                            \addlinespace
-Shops: 500 m (vs 15 km) × Good            & 0.51        & 0.61^{*}       & 643.80   & -1.15        & 0.44^{*}      & 457.10   \\
-                                          & (0.31)      & \multicolumn{1}{c}{\ci{0.52}{0.70}} &          & (1.08)       & \multicolumn{1}{c}{\ci{0.33}{0.54}} &          \\
-                                            \addlinespace
-Transit stop: 600 m (vs 900 m) × Good     & -0.58^{*}   & 0.05^{*}       & 54.92    & -1.30        & 0.01          & 6.18     \\
-                                          & (0.26)      & \multicolumn{1}{c}{\ci{0.01}{0.10}} &          & (1.14)       & \multicolumn{1}{c}{\ci{-0.06}{0.07}} &         \\
-                                            \addlinespace
-Transit stop: 300 m (vs 900 m) × Good     & -0.26       & 0.20^{*}       & 207.08   & -1.34        & 0.08^{*}      & 87.45    \\
-                                          & (0.29)      & \multicolumn{1}{c}{\ci{0.15}{0.25}} &          & (1.08)       & \multicolumn{1}{c}{\ci{0.02}{0.14}} &          \\
-                                            \addlinespace
-Parking: reserved garage (vs none) × Good & -0.27       & 0.56^{*}       & 587.34   & -0.85        & 0.25^{*}      & 259.98   \\
-                                          & (0.36)      & \multicolumn{1}{c}{\ci{0.48}{0.64}} &          & (0.93)       & \multicolumn{1}{c}{\ci{0.18}{0.32}} &          \\
-                                            \addlinespace
-Parking: reserved space (vs none) × Good  & -0.35       & 0.45^{*}       & 473.43   & -0.58        & 0.23^{*}      & 246.70   \\
-                                          & (0.34)      & \multicolumn{1}{c}{\ci{0.39}{0.51}} &          & (1.16)       & \multicolumn{1}{c}{\ci{0.17}{0.30}} &          \\
-                                            \addlinespace
-Price × Good                              & -0.25       & -1.00^{*}      &  & -2.40        & -1.00         &  \\
-                                          & (0.79)      & \multicolumn{1}{c}{\ci{-1.28}{-0.72}} &         & (3.36)       & \multicolumn{1}{c}{\ci{-2.01}{0.01}} &         \\
-                                            \addlinespace
-
+Green space: 5 km (vs 15 km)              & 0.73^{**}   & 0.15^{*}       & 146.68   & 1.24        & 0.13           & 115.64  \\
+                                          & (0.23)      & [ 0.05;  0.25] &          & (0.81)      & [-0.04;  0.30] &         \\
+Green space: 500 m (vs 15 km)             & 1.47^{***}  & 0.29^{*}       & 292.75   & 2.69^{**}   & 0.28^{*}       & 251.69  \\
+                                          & (0.29)      & [ 0.15;  0.43] &          & (1.01)      & [ 0.07;  0.49] &         \\
+Shops: 5 km (vs 15 km)                    & 1.10^{***}  & 0.22^{*}       & 220.13   & 1.71        & 0.18           & 160.01  \\
+                                          & (0.27)      & [ 0.08;  0.36] &          & (1.04)      & [-0.05;  0.41] &         \\
+Shops: 500 m (vs 15 km)                   & 2.74^{***}  & 0.55^{*}       & 548.05   & 5.10^{***}  & 0.53^{*}       & 476.56  \\
+                                          & (0.31)      & [ 0.37;  0.72] &          & (1.19)      & [ 0.28;  0.78] &         \\
+Transit stop: 600 m (vs 900 m)            & 0.82^{***}  & 0.16^{*}       & 164.14   & 0.91        & 0.09           & 85.13   \\
+                                          & (0.23)      & [ 0.05;  0.28] &          & (0.66)      & [-0.05;  0.24] &         \\
+Transit stop: 300 m (vs 900 m)            & 1.46^{***}  & 0.29^{*}       & 291.50   & 2.70^{***}  & 0.28^{*}       & 251.97  \\
+                                          & (0.28)      & [ 0.16;  0.42] &          & (0.76)      & [ 0.13;  0.43] &         \\
+Parking: reserved garage (vs none)        & 2.97^{***}  & 0.59^{*}       & 594.41   & 2.44^{**}   & 0.25^{*}       & 228.34  \\
+                                          & (0.35)      & [ 0.40;  0.79] &          & (0.80)      & [ 0.08;  0.42] &         \\
+Parking: reserved space (vs none)         & 2.57^{***}  & 0.51^{*}       & 512.79   & 2.75^{**}   & 0.28^{*}       & 256.48  \\
+                                          & (0.33)      & [ 0.35;  0.67] &          & (0.95)      & [ 0.12;  0.45] &         \\
+Price                                     & -5.00^{***} &                &          & -9.64^{***} &                &         \\
+                                          & (0.74)      &                &          & (2.46)      &                &         \\
+Green space: 5 km (vs 15 km) × Good       & 0.35        & 0.21^{*}       & 211.37   & 1.43        & 0.25^{*}       & 223.43  \\
+                                          & (0.25)      & [ 0.16;  0.26] &          & (0.99)      & [ 0.14;  0.35] &         \\
+Green space: 500 m (vs 15 km) × Good      & 0.67^{*}    & 0.42^{*}       & 416.12   & 1.60        & 0.40^{*}       & 359.62  \\
+                                          & (0.31)      & [ 0.34;  0.49] &          & (1.15)      & [ 0.27;  0.53] &         \\
+Shops: 5 km (vs 15 km) × Good             & -0.20       & 0.18^{*}       & 176.21   & 0.18        & 0.18^{*}       & 158.42  \\
+                                          & (0.29)      & [ 0.11;  0.24] &          & (1.13)      & [ 0.06;  0.29] &         \\
+Shops: 500 m (vs 15 km) × Good            & 0.28        & 0.59^{*}       & 590.28   & -0.48       & 0.43^{*}       & 386.53  \\
+                                          & (0.31)      & [ 0.50;  0.68] &          & (0.98)      & [ 0.32;  0.54] &         \\
+Transit stop: 600 m (vs 900 m) × Good     & -0.58^{*}   & 0.05^{*}       & 47.26    & -0.61       & 0.03           & 24.92   \\
+                                          & (0.25)      & [ 0.00;  0.09] &          & (0.76)      & [-0.04;  0.10] &         \\
+Transit stop: 300 m (vs 900 m) × Good     & -0.40       & 0.21^{*}       & 206.34   & -1.58^{*}   & 0.10^{*}       & 93.34   \\
+                                          & (0.29)      & [ 0.15;  0.26] &          & (0.79)      & [ 0.04;  0.17] &         \\
+Parking: reserved garage (vs none) × Good & -0.01       & 0.58^{*}       & 579.21   & 0.13        & 0.24^{*}       & 215.53  \\
+                                          & (0.36)      & [ 0.49;  0.67] &          & (0.82)      & [ 0.16;  0.31] &         \\
+Parking: reserved space (vs none) × Good  & -0.19       & 0.46^{*}       & 464.21   & 0.24        & 0.28^{*}       & 249.64  \\
+                                          & (0.34)      & [ 0.40;  0.53] &          & (0.96)      & [ 0.20;  0.36] &         \\
+Price × Good                              & -0.12       & -1.00^{*}      & -1000.00 & -1.12       & -1.00^{*}      & -900.00 \\
+                                          & (0.78)      & [-1.30; -0.70] &          & (2.47)      & [-1.76; -0.24] &         \\
 \midrule
-Num. obs.                                 & 7101        &                &          & 1440         &               &          \\
-Log Likelihood                            & -3123.35    &                &          & -600.89      &               &          \\
-AIC                                       & 6354.70     &                &          & 1309.79      &               &          \\
-BIC                                       & 6725.57     &                &          & 1594.50      &               &          \\
-McFadden R\textsuperscript{2}             & 0.37        &                &          & 0.40         &               &          \\
-LR $\chi^{2}$ (df=54)                     & 3597.38     &                &          & 794.47       &               &          \\
-p-value (LR)                              & 0.00        &                &          & 0.00         &               &          \\
+Num. obs.                                 & 7101        &                &          & 1440        &                &         \\
+Log Likelihood                            & -3142.92    &                &          & -616.86     &                &         \\
+AIC                                       & 6393.85     &                &          & 1341.71     &                &         \\
+BIC                                       & 6764.72     &                &          & 1626.42     &                &         \\
+McFadden R²                               & 0.36        &                &          & 0.38        &                &         \\
+LR χ² (df=54)                             & 3558.23     &                &          & 762.55      &                &         \\
+p-value (LR)                              & 0.00        &                &          & 0.00        &                &         \\
 \bottomrule
+\multicolumn{7}{l}{\tiny{$^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$ (or Null hypothesis value outside the confidence interval).}}
 \end{tabular}
-
-\begin{tablenotes}
-\scriptsize
-\item \textit{Notes:} Estimation by maximum likelihood of the mixed logit model. Heteroskedasticity-robust standard errors are reported in parentheses. MRS and MWTP estimates are computed following the procedure described in the text. Ninety-five percent confidence intervals for MRS are obtained using the delta method. Good is a dummy variable equal to one if self-reported health was "Good" or greater. $^{*}p < 0.05$; $^{**}p < 0.01$; $^{***}p < 0.001$.
-\end{tablenotes}
-
-\end{threeparttable}
 \end{scriptsize}
 \label{table:coefficients}
 \end{center}
