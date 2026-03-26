@@ -52,7 +52,14 @@ df_model <- df_model %>%
     
   )
 
+#save file----
 
+# df_out <- df_model %>% 
+#   select(RespondentID,personID,everything()) %>% 
+#   rename(self_report_health = VAR035) %>% 
+#   select(-contains("VAR"), - Age_T3, civil_status_T2, -bostadstyp, -ägandebostad, - income_qrt, - cost, -cost_diff, - price_con, -price_nom, -price_diff, - price_fac, -price_pp, - cost_new, - price_pct, -proportion_of_income, -age_group, -Civil )
+# 
+# saveRDS(df_out, here("data/formr", "dce_data.rds"))
 
 view(dfSummary(df_model %>% select(Sex,
                                    Age = Age_T3,
