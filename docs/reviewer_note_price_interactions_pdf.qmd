@@ -1,0 +1,455 @@
+---
+title: "Interpreting price × attribute interaction coefficients in a discrete choice experiment"
+subtitle: "A methodological note for reviewer response"
+date: today
+format:
+  pdf:
+    toc: true
+    toc-depth: 3
+    geometry: "margin=2.5cm"
+    fontsize: 11pt
+    fig-pos: "H"
+    colorlinks: true
+knitr:
+  opts_chunk:
+    fig.crop: false
+
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+This report was generated using AI under human direction. The contents have been reviewed and validated by Nick Christie.
+
+# Overview
+
+This note accompanies the price × attribute interaction analysis produced in response to a reviewer request. The reviewer asked to see the price coefficient interacted with each attribute level, expressed as a grid of coefficients.
+
+This is a legitimate specification to explore, but it raises several interpretive challenges. Most importantly, the price × attribute interaction model **does not produce MWTP estimates in SEK** — the interaction terms break the standard MWTP formula. This note works through each challenge in turn, and concludes that the MWTP estimates from the baseline model (Tables 3–4 of the paper) remain the most appropriate summary of how respondents value each attribute.
+
+```{r}
+#| label: load-packages
+library(pacman)
+p_load(here, broom, logitr, dplyr, tidyr, stringr, flextable, tibble, knitr, haven, ggplot2)
+
+# Set flextable defaults for clean PDF rendering
+set_flextable_defaults(fonts_ignore = TRUE)
+```
+
+```{r}
+#| label: load-data
+mxl_own_base   <- readRDS(here("output/models", "mxl_owner_base.rds"))
+mxl_rent_base  <- readRDS(here("output/models", "mxl_renter_base.rds"))
+mxl_own_inter  <- readRDS(here("output/models", "mxl_price_attr_own.rds"))
+mxl_rent_inter <- readRDS(here("output/models", "mxl_price_attr_rent.rds"))
+
+tdf_own_base   <- broom::tidy(mxl_own_base)   |> filter(!str_starts(term, "sd_"))
+tdf_rent_base  <- broom::tidy(mxl_rent_base)  |> filter(!str_starts(term, "sd_"))
+tdf_own_inter  <- broom::tidy(mxl_own_inter)  |> filter(!str_starts(term, "sd_"))
+tdf_rent_inter <- broom::tidy(mxl_rent_inter) |> filter(!str_starts(term, "sd_"))
+```
+
+# Model specification
+
+The paper uses a mixed logit (MXL) model with correlated random parameters. The baseline utility function for respondent $i$ choosing alternative $j$ in choice occasion $t$ is:
+
+$$
+U_{ijt} = \sum_{a} \beta_{ia} \cdot x_{ajt} + \beta_p \cdot \text{price}_{jt} + \varepsilon_{ijt}
+$$
+
+where $x_{ajt}$ are dummy-coded attribute levels, $\text{price}_{jt}$ is the price variable, and $\beta_{ia}$ are individual-level random coefficients drawn from a multivariate normal distribution.
+
+The **price × attribute interaction model** adds fixed interaction terms:
+
+$$
+U_{ijt} = \sum_{a} \beta_{ia} \cdot x_{ajt} + \beta_p \cdot \text{price}_{jt} + \sum_{a} \beta_{pa} \cdot (\text{price}_{jt} \times x_{ajt}) + \varepsilon_{ijt}
+$$
+
+The additional term $\beta_{pa}$ estimates whether the marginal disutility of price changes when a particular attribute level is present. If $\beta_{pa} > 0$, price is *less* disutilising when that attribute level is in the scenario.
+
+# Attribute coding and reference levels
+
+All attributes are **dummy-coded**: for each attribute with $k$ levels, $k - 1$ binary (0/1) indicator variables are created, with one level designated as the reference.
+
+```{r}
+#| label: reference-levels-table
+ref_tbl <- tribble(
+  ~Attribute,                   ~`Reference level (coded 0)`,   ~`Non-reference levels (coded 1)`,
+  "Distance to green space",    "15 km",                         "5 km; 500 m",
+  "Distance to shops",          "15 km",                         "5 km; 500 m",
+  "Distance to public transit", "900 m",                         "600 m; 300 m",
+  "Parking",                    "None",                          "Reserved space; Reserved garage",
+  "Housing cost",               "0% change (current cost)",      "-20%; +20%"
+)
+
+flextable(ref_tbl) |>
+  bold(part = "header") |>
+  set_table_properties(layout = "autofit") |>
+  theme_booktabs() |>
+  set_caption(caption = "Reference levels for each DCE attribute")
+```
+
+Each coefficient therefore represents the **utility change relative to the reference level**, not an absolute effect. A coefficient of 2.0 on `green5km` means "an option with green space 5 km away is preferred by 2.0 utility units over an otherwise identical option with green space 15 km away."
+
+# The non-symmetrical interval problem
+
+This is perhaps the most fundamental challenge in comparing coefficients across levels and attributes.
+
+## Unequal physical intervals within an attribute
+
+Each dummy variable is binary (0 or 1), so on the *variable scale* all dummies look equally sized. But the physical changes they represent are not equal:
+
+```{r}
+#| label: interval-table
+interval_tbl <- tribble(
+  ~Attribute,  ~Dummy,        ~`From (reference)`, ~`To`,           ~`Physical change`,
+  "Green space","green5km",   "15 km",             "5 km",          "-10 km",
+  "Green space","green500m",  "15 km",             "500 m",         "-14.5 km",
+  "Shops",      "shops5km",   "15 km",             "5 km",          "-10 km",
+  "Shops",      "shops500m",  "15 km",             "500 m",         "-14.5 km",
+  "Transit",    "trans600",   "900 m",             "600 m",         "-300 m",
+  "Transit",    "trans300",   "900 m",             "300 m",         "-600 m",
+  "Parking",    "park_space", "None",              "Reserved space","qualitative",
+  "Parking",    "park_garage","None",              "Reserved garage","qualitative"
+)
+
+flextable(interval_tbl) |>
+  bold(part = "header") |>
+  merge_v(j = "Attribute") |>
+  valign(j = "Attribute", valign = "top") |>
+  set_table_properties(layout = "autofit") |>
+  theme_booktabs() |>
+  set_caption(caption = "Physical magnitude of each attribute-level dummy variable")
+```
+
+The ratio $\beta_{\text{green500m}} / \beta_{\text{green5km}}$ is **not** the marginal utility per kilometre of green-space proximity. It is simply the contrast between two different reference-to-level gaps — one of 14.5 km and one of 10 km. Since the DCE did not include intermediate levels, we cannot interpolate between them.
+
+## Incommensurable units across attributes
+
+Beyond the within-attribute problem, coefficients across attributes represent physically incomparable interventions:
+
+- $\beta_{\text{green5km}}$: utility of reducing green-space distance by 10 km
+- $\beta_{\text{trans600}}$: utility of reducing transit distance by 300 m
+- $\beta_{\text{park\_garage}}$: utility of gaining access to a reserved garage (qualitative)
+
+All three values appear on the same utility scale, but the underlying quantities they describe — kilometres, metres, parking quality — share no common metric. Ranking attributes by coefficient magnitude does not rank them by "importance", because each coefficient reflects a physically different-sized change.
+
+**Consequence for the reviewer's coefficient grid:** The price × attribute interaction grid shows $\beta_{pa}$ for each attribute level. These coefficients are subject to both layers of non-comparability: (1) unequal physical intervals within attributes, and (2) incommensurable units across attributes. A larger $\beta_{p, \text{green5km}}$ relative to $\beta_{p, \text{trans600}}$ does not mean that price sensitivity is more strongly tied to green space than to transit — it partly reflects the different physical magnitudes of the two level differences.
+
+# Price coding
+
+## How price is measured
+
+The price variable in the DCE represents a percentage change from each respondent's planned monthly housing cost. In the model:
+
+$$
+\texttt{price\_num} = \frac{\texttt{raw\_price}}{100}, \quad \texttt{raw\_price} \in \{-20,\ 0,\ +20\}
+$$
+
+So `price_num` $\in$ \{-0.2, 0, 0.2\}: it is a **fraction of planned monthly cost**, not an absolute SEK amount.
+
+## Implications for coefficient interpretation
+
+A "one-unit change" in `price_num` would represent a 100% cost increase — an interval that does not appear in the data. The entire observed range is 0.4 units. The price coefficient $\beta_p \approx -6$ means:
+
+> "A 0.1-unit increase in `price_num` (i.e. a 10% increase in planned cost) reduces utility by approximately 0.6 units."
+
+This is only interpretable once anchored to a specific planned cost level.
+
+## Individual heterogeneity in the price anchor
+
+Because planned costs vary across respondents, the price coefficient absorbs a *distribution* of individual monetary references, not a fixed SEK unit.
+
+```{r}
+#| label: planned-cost-summary
+df_model <- readRDS(here("data/formr", "df_model.rds"))
+
+cost_summary <- df_model |>
+  mutate(
+    agandebostad = haven::as_factor(agandebostad),
+    Own          = if_else(agandebostad == "Ja", "Owner", "Renter"),
+    planed_cost  = if_else(as.numeric(planed_cost) == 0, NA_real_, as.numeric(planed_cost))
+  ) |>
+  distinct(panelID, .keep_all = TRUE) |>
+  group_by(Own) |>
+  summarise(
+    N                        = n(),
+    `Median (SEK)`           = median(planed_cost, na.rm = TRUE),
+    `Mean (SEK)`             = round(mean(planed_cost, na.rm = TRUE)),
+    `SD (SEK)`               = round(sd(planed_cost, na.rm = TRUE)),
+    `10% of median (scaler)` = median(planed_cost, na.rm = TRUE) * 0.10,
+    .groups = "drop"
+  )
+
+flextable(cost_summary) |>
+  bold(part = "header") |>
+  colformat_num(j = 3:6, big.mark = ",", digits = 0) |>
+  set_table_properties(layout = "autofit") |>
+  theme_booktabs() |>
+  set_caption(caption = "Planned monthly housing cost by tenure (SEK)")
+```
+
+The MWTP scaler (`0.10 × median planned cost`) anchors this to a 10% change at the group median — a convention that makes MWTP values concrete, but it means owner and renter MWTPs are on slightly different absolute scales.
+
+# The price × attribute interaction coefficients
+
+**Draw-count caveat:** The interaction models were estimated using 20 simulation draws for computational speed. Standard errors should be treated as approximate. Re-estimation with $\geq$ 500 Halton draws is recommended before drawing inferential conclusions from these results.
+
+## What they test
+
+Each interaction term takes the form:
+
+$$
+\texttt{p\_green5km} = \texttt{price\_num} \times \mathbb{1}[\text{green space} = 5\text{km}]
+$$
+
+This variable equals `price_num` when the scenario has 5 km green space, and 0 otherwise. Its coefficient $\beta_{p,\text{green5km}}$ captures: **does the marginal disutility of price change when green space is at 5 km?**
+
+## The coefficient grid
+
+```{r}
+#| label: interaction-coef-table
+sig_stars <- function(p) case_when(
+  is.na(p)   ~ "",
+  p < 0.001  ~ "***",
+  p < 0.01   ~ "**",
+  p < 0.05   ~ "*",
+  TRUE       ~ ""
+)
+
+fmt_coef <- function(est, se, p) {
+  if (is.na(est)) return("-")
+  paste0(sprintf("%.2f", est), sig_stars(p), " (", sprintf("%.2f", se), ")")
+}
+
+pull_cell <- function(tdf, term_name) {
+  r <- tdf[tdf$term == term_name, ]
+  if (nrow(r) == 0) return("-")
+  fmt_coef(r$estimate[1], r$std.error[1], r$p.value[1])
+}
+
+inter_map <- tribble(
+  ~label,                               ~attr_term,  ~inter_term,
+  "Green space: 5 km (vs 15 km)",        "green5km",  "p_green5km",
+  "Green space: 500 m (vs 15 km)",       "green500m", "p_green500m",
+  "Shops: 5 km (vs 15 km)",              "shops5km",  "p_shops5km",
+  "Shops: 500 m (vs 15 km)",             "shops500m", "p_shops500m",
+  "Transit stop: 600 m (vs 900 m)",      "trans600",  "p_trans600",
+  "Transit stop: 300 m (vs 900 m)",      "trans300",  "p_trans300",
+  "Parking: reserved garage (vs none)",  "garage",    "p_garage",
+  "Parking: reserved space (vs none)",   "space",     "p_space"
+)
+
+price_section <- tibble(
+  Section   = "Price",
+  Attribute = "Price",
+  Owner     = pull_cell(tdf_own_inter,  "price_num"),
+  Renter    = pull_cell(tdf_rent_inter, "price_num")
+)
+
+attr_section <- inter_map |>
+  rowwise() |>
+  mutate(
+    Section   = "Attribute coefficients",
+    Attribute = label,
+    Owner     = pull_cell(tdf_own_inter,  attr_term),
+    Renter    = pull_cell(tdf_rent_inter, attr_term)
+  ) |> ungroup() |> select(Section, Attribute, Owner, Renter)
+
+inter_section <- inter_map |>
+  rowwise() |>
+  mutate(
+    Section   = "Price x attribute interactions",
+    Attribute = paste0("Price x ", label),
+    Owner     = pull_cell(tdf_own_inter,  inter_term),
+    Renter    = pull_cell(tdf_rent_inter, inter_term)
+  ) |> ungroup() |> select(Section, Attribute, Owner, Renter)
+
+grid_df <- bind_rows(price_section, attr_section, inter_section)
+n1 <- 1; n2 <- 1 + nrow(attr_section); n3 <- n2 + nrow(inter_section)
+
+flextable(grid_df |> select(-Section)) |>
+  add_header_row(values = c("", "Owners", "Renters"), colwidths = c(1, 1, 1)) |>
+  bold(part = "header") |>
+  align(j = 2:3, align = "center") |>
+  bg(i = 1,             bg = "#e8e8e8") |> bold(i = 1) |>
+  bg(i = seq(2, n2),    bg = "#f7f7f7") |>
+  bg(i = seq(n2+1, n3), bg = "#eef4fb") |>
+  hline(i = n1, border = officer::fp_border(width = 1)) |>
+  hline(i = n2, border = officer::fp_border(width = 1)) |>
+  set_table_properties(layout = "autofit") |>
+  theme_booktabs() |>
+  add_footer_lines(paste0(
+    "Standard errors in parentheses. * p<0.05  ** p<0.01  *** p<0.001.\n",
+    "Grey: price coefficient. Light grey: attribute main effects (relative to reference level).\n",
+    "Blue: price x attribute interaction terms (the reviewer's requested coefficients)."
+  )) |>
+  set_caption(caption = "Coefficient grid: attribute effects and price x attribute interactions")
+```
+
+```{r}
+#| label: coef-heatmap
+#| fig-cap: "Coefficient heatmap: attribute main effects (Panel A) and price x attribute interactions (Panel B). Blue = negative coefficient; red = positive. Significance stars: * p<0.05  ** p<0.01  *** p<0.001."
+#| fig-height: 10
+#| fig-width: 6
+
+make_heat_rows <- function(tdf, group_label, panel_label, term_vec) {
+  tibble(level = inter_map$label, term_nm = term_vec) |>
+    left_join(tdf |> select(term_nm = term, estimate, p.value), by = "term_nm") |>
+    mutate(
+      group = group_label,
+      panel = panel_label,
+      txt   = case_when(
+        is.na(estimate) ~ "-",
+        p.value < 0.001 ~ paste0(sprintf("%.2f", estimate), "***"),
+        p.value < 0.01  ~ paste0(sprintf("%.2f", estimate), "**"),
+        p.value < 0.05  ~ paste0(sprintf("%.2f", estimate), "*"),
+        TRUE            ~ sprintf("%.2f", estimate)
+      )
+    ) |>
+    select(level, group, panel, estimate, txt)
+}
+
+panel_a <- "Panel A - Attribute main effects"
+panel_b <- "Panel B - Price x attribute interactions"
+
+heat_df <- bind_rows(
+  make_heat_rows(tdf_own_inter,  "Owners",  panel_a, inter_map$attr_term),
+  make_heat_rows(tdf_rent_inter, "Renters", panel_a, inter_map$attr_term),
+  make_heat_rows(tdf_own_inter,  "Owners",  panel_b, inter_map$inter_term),
+  make_heat_rows(tdf_rent_inter, "Renters", panel_b, inter_map$inter_term)
+) |>
+  mutate(
+    level = factor(level, levels = rev(inter_map$label)),
+    group = factor(group, levels = c("Owners", "Renters")),
+    panel = factor(panel, levels = c(panel_a, panel_b))
+  )
+
+ggplot(heat_df, aes(x = group, y = level, fill = estimate)) +
+  geom_tile(colour = "white", linewidth = 0.5) +
+  geom_text(aes(label = txt), size = 3) +
+  facet_wrap(~ panel, ncol = 1, scales = "free_y") +
+  scale_fill_gradient2(
+    low      = "#2166ac",
+    mid      = "white",
+    high     = "#d6604d",
+    midpoint = 0,
+    name     = "Coefficient",
+    na.value = "grey90"
+  ) +
+  labs(x = NULL, y = NULL) +
+  theme_minimal(base_size = 11) +
+  theme(
+    panel.grid = element_blank(),
+    strip.text = element_text(face = "bold", hjust = 0),
+    axis.text.y = element_text(size = 9)
+  )
+```
+
+**Why the colours cannot be directly compared:**
+
+1. **Different physical magnitudes per tile:** Each row represents a different-sized real-world change. A deep red for `green5km` (a 10 km improvement in green-space proximity) and a deep red for `trans300` (a 600 m improvement in transit distance) look identical on the heatmap but represent interventions that differ by a factor of ~17 in physical distance — and are in different units entirely.
+
+2. **Qualitative vs quantitative levels:** The parking rows represent a qualitative step (none → reserved space → reserved garage) with no natural metric. Colour intensity there carries no physical interpretation.
+
+3. **Price not on an absolute scale:** The price coefficient — and therefore the Panel B interaction coefficients — is anchored to individual planned costs, not a fixed SEK amount. Comparing the magnitude of `p_green5km` to `p_trans600` on the colour scale is similarly uninformative.
+
+4. **What the heatmap IS useful for:** The sign within a single cell tells you the direction of the effect. The most valid cross-cell comparison is within the same row across tenure groups (Owners vs Renters): same physical change, different respondent groups.
+
+## What can and cannot be read from this grid
+
+**Sign (directional interpretation — valid):** A positive $\beta_{pa}$ means respondents are *more* price-tolerant when that attribute level is present. A negative value means they are *more* price-sensitive in the presence of that level.
+
+**Magnitude (cross-attribute comparisons — not valid):** As discussed in Sections 3 and 4, the magnitudes are not directly comparable across attribute levels. A large $|\beta_{pa}|$ for one attribute does not mean price sensitivity is more strongly tied to that attribute than to another with a smaller coefficient — the physical sizes of the level changes differ.
+
+# Why the interaction model does not yield MWTP in SEK
+
+In the baseline model, MWTP is well-defined because the utility function is **linear in both the attribute and the price**:
+
+$$
+\text{MWTP}_a = -\frac{\beta_a}{\beta_p} \times \text{scaler}
+$$
+
+The ratio $-\beta_a / \beta_p$ is a constant — it does not depend on the values of other variables in the choice scenario.
+
+In the price × attribute interaction model, however, the picture changes. The partial derivative of utility with respect to the attribute is:
+
+$$
+\frac{\partial U}{\partial x_a} = \beta_a + \beta_{pa} \cdot \text{price\_num}
+$$
+
+The marginal utility of the attribute now **depends on the price level in the scenario**. Similarly, the effective price coefficient when attribute $a$ is present is $\beta_p + \beta_{pa}$. The MWTP therefore varies depending on which price scenario ($-0.2$, $0$, or $+0.2$) accompanies the attribute level — it is no longer a single number.
+
+**MWTP cannot be read from the interaction model:** Any attempt to compute a single MWTP from the price × attribute model requires choosing a specific price level at which to evaluate the derivative — an arbitrary decision that would drive the result. The values are not interpretable in SEK without this assumption. This is a further reason why the baseline model (which produces clean, scenario-independent MWTP estimates) is the preferred specification for the paper's main results.
+
+# MWTP from the baseline model
+
+Since the interaction model does not produce clean MWTP values, the table below shows the baseline MWTP (from Table 4 of the paper) — the recommended summary of attribute valuation.
+
+```{r}
+#| label: baseline-mwtp-table
+scaler_own  <- 0.10 * 10000
+scaler_rent <- 0.10 * 9000
+
+base_attr_map <- c(
+  "green5km"  = "dist_green5km",
+  "green500m" = "dist_green500 meter",
+  "shops5km"  = "dist_shops5km",
+  "shops500m" = "dist_shops500 meter",
+  "trans600"  = "dist_trans600",
+  "trans300"  = "dist_trans300",
+  "garage"    = "parkingreserverad garageplats",
+  "space"     = "parkingreserverad P-plats"
+)
+
+get_mwtp <- function(tdf, attr_term, scaler) {
+  beta_a <- tdf$estimate[tdf$term == attr_term]
+  beta_p <- tdf$estimate[tdf$term == "price_num"]
+  if (length(beta_a) == 0 || length(beta_p) == 0) return(NA_integer_)
+  round(-(beta_a / beta_p) * scaler)
+}
+
+mwtp_tbl <- inter_map |>
+  rowwise() |>
+  mutate(
+    `Owner MWTP`  = get_mwtp(tdf_own_base,  base_attr_map[[attr_term]], scaler_own),
+    `Renter MWTP` = get_mwtp(tdf_rent_base, base_attr_map[[attr_term]], scaler_rent)
+  ) |>
+  ungroup() |>
+  select(Attribute = label, `Owner MWTP`, `Renter MWTP`)
+
+flextable(mwtp_tbl) |>
+  add_header_row(
+    values    = c("", "Baseline model (SEK/month)"),
+    colwidths = c(1, 2)
+  ) |>
+  bold(part = "header") |>
+  align(j = 2:3, align = "center") |>
+  colformat_int(j = 2:3) |>
+  set_table_properties(layout = "autofit") |>
+  theme_booktabs() |>
+  add_footer_lines(paste0(
+    "MWTP = -(beta_attribute / beta_price) x scaler.\n",
+    "Scaler: 10% of median monthly planned housing cost (owners: 10,000 SEK; renters: 9,000 SEK).\n",
+    "Interpretation: estimated SEK/month a respondent would accept as a cost increase\n",
+    "in exchange for the stated improvement in each attribute, relative to its reference level."
+  )) |>
+  set_caption(caption = "MWTP estimates from the baseline mixed logit model (Table 4 of the paper)")
+```
+
+These values answer the reviewer's underlying question — "how much do respondents value each attribute?" — in a monetarily interpretable way. The price × attribute coefficient grid (Section 5) provides additional information about whether price sensitivity varies with attribute levels, but it operates on the utility scale rather than a monetary scale and should be treated as supplementary.
+
+# Summary and recommendation
+
+The price × attribute coefficient grid is produced as requested. The key interpretive points are:
+
+1. **Reference-level dependence:** All coefficients are contrasts vs the reference level. Changing the reference level changes all coefficients.
+
+2. **Non-symmetrical intervals:** Each dummy represents a different-sized physical change. Coefficient magnitudes are not directly comparable across levels or attributes.
+
+3. **Price scale:** `price_num` is a fraction of individual planned costs, not a fixed monetary unit. Raw price coefficients are only interpretable after applying a scaler.
+
+4. **No clean MWTP from the interaction model:** Because the marginal utility of an attribute depends on the price level in the interaction model ($\partial U / \partial x_a = \beta_a + \beta_{pa} \cdot \text{price}$), MWTP is not a scenario-independent quantity. The formula $-\beta_a / \beta_p$ does not apply.
+
+**Recommendation:** The MWTP table from the baseline model (reproduced in Section 7) directly answers the reviewer's question and should be the primary response. The price × attribute coefficient grid can accompany it as a supplementary specification check, with the caveats above noted clearly.
