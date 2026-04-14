@@ -36,11 +36,9 @@ dfSum <- surv_df |>
       "House", "Apartment/Condo"
     )),
     Retired         = haven::as_factor(VAR174_8),
-    health          = factor(case_when(
-      VAR035 %in% c(1, 2, 3) ~ "Not very good",
-      VAR035 %in% c(4, 5)    ~ "Very good",
-      TRUE                   ~ NA_character_
-    )),
+    health = haven::as_factor(VAR035) |>
+      forcats::fct_recode("Good" = "God") |>
+      forcats::fct_relevel("Poor", "Fairly", "Good", "Very good", "Excellent"),
     location = case_when(
       VAR010 == 1 ~ "City/town",
       VAR010 == 2 ~ "Urban/countryside",

@@ -64,37 +64,27 @@ label_map <- c(
 )
 
 # Build display table ----
-fmt_mrs  <- function(v, lo, hi) sprintf("%.2f (%.2f, %.2f)", v, lo, hi)
-fmt_mwtp <- function(v, lo, hi) sprintf("%d (%d, %d)", v, lo, hi)
+fmt_mwtp <- function(v, lo, hi) sprintf("%d\n(%d, %d)", v, lo, hi)
+
+idx <- match(mwtp_own$attribute, mwtp_rent$attribute)
 
 display <- tibble(
-  Attribute        = label_map[mwtp_own$attribute],
-  `Owner MRS`      = fmt_mrs(mwtp_own$mrs, mwtp_own$mrs_lo, mwtp_own$mrs_hi),
-  `Owner MWTP`     = fmt_mwtp(mwtp_own$mwtp, mwtp_own$mwtp_lo, mwtp_own$mwtp_hi),
-  `Renter MRS`     = fmt_mrs(mwtp_rent$mrs[match(mwtp_own$attribute, mwtp_rent$attribute)],
-                              mwtp_rent$mrs_lo[match(mwtp_own$attribute, mwtp_rent$attribute)],
-                              mwtp_rent$mrs_hi[match(mwtp_own$attribute, mwtp_rent$attribute)]),
-  `Renter MWTP`    = fmt_mwtp(mwtp_rent$mwtp[match(mwtp_own$attribute, mwtp_rent$attribute)],
-                               mwtp_rent$mwtp_lo[match(mwtp_own$attribute, mwtp_rent$attribute)],
-                               mwtp_rent$mwtp_hi[match(mwtp_own$attribute, mwtp_rent$attribute)])
+  Attribute     = label_map[mwtp_own$attribute],
+  `Owners`      = fmt_mwtp(mwtp_own$mwtp, mwtp_own$mwtp_lo, mwtp_own$mwtp_hi),
+  `Renters`     = fmt_mwtp(mwtp_rent$mwtp[idx], mwtp_rent$mwtp_lo[idx], mwtp_rent$mwtp_hi[idx])
 ) |>
   filter(!is.na(Attribute))
 
 # Build flextable ----
 ft <- flextable(display) |>
-  add_header_row(
-    values = c("", "Owners", "Renters"),
-    colwidths = c(1, 2, 2)
-  ) |>
   bold(part = "header") |>
   align(part = "header", align = "center") |>
-  align(j = 2:5, align = "center") |>
+  align(j = 2:3, align = "center") |>
   autofit() |>
   theme_booktabs() |>
   add_footer_lines(
-    "MRS = marginal rate of substitution (unitless ratio), estimated via delta method. 
-95% confidence intervals in parentheses. MWTP in SEK/month (10% of median monthly 
-housing cost: owners 10,000 SEK, renters 9,000 SEK)."
+    "MWTP in SEK/month (10% of median monthly housing cost: owners 10,000 SEK, renters 9,000 SEK). 
+95% confidence intervals in brackets, estimated via delta method."
   ) |>
   set_caption(caption = "Table 4. MWTP estimates: renters and owners")
 
