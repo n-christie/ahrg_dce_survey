@@ -1,0 +1,20 @@
+\begin{table}[!h]
+\centering
+\caption{Latent Class Model Comparison}
+\centering
+\begin{threeparttable}
+\begin{tabular}[t]{lrrrrrr}
+\toprule
+Model & Log Lik. & K & AIC & BIC & CAIC & Entropy\\
+\midrule
+MNL & -4344.3 & 9 & 8706.7 & 8750.5 & 8759.5 & --\\
+LC-2 & -4083.5 & 19 & 8205.0 & 8297.4 & 8316.4 & 0.635\\
+LC-3 & -3898.9 & 29 & 7855.9 & 7996.9 & 8025.9 & 0.682\\
+LC-4 & -3856.9 & 39 & 7791.8 & 7981.5 & 8020.5 & 0.732\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item BIC and CAIC use N = 957 respondents. Entropy closer to 1 = cleaner class separation.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

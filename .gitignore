@@ -5,3 +5,25 @@
 .passwords.R
 data
 .positai
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.spl
+*.synctex.gz
+*.dvi
+*.fff
+*.lof
+*.lot
+*.ttt
+
+# Compiled LaTeX output (regenerable)
+paper/tex/*.pdf
+
+# Large archive assets (reference PDFs, fonts)
+archive/reference_papers/
+archive/shiny/
+archive/survey_development/

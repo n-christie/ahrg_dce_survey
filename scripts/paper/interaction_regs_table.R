@@ -354,5 +354,5 @@ screenreg(
   booktabs           = TRUE,
   use.packages       = FALSE,
   na.replace         = "---"
-  # , file = here("docs/elsvier/tables","retired_mrs_dwtp.tex")  # uncomment to save
+  # , file = here("paper/tex/tables","retired_mrs_dwtp.tex")  # uncomment to save
 )

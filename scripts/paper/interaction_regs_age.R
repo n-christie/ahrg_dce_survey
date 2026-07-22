@@ -513,7 +513,7 @@ texreg(
   caption            = "Interaction effects - median age",
   caption.above      = TRUE,
   fontsize           = "scriptsize",
-  file               = here("docs/elsvier/tables", "mxl_age_inter.tex")
+  file               = here("paper/tex/tables", "mxl_age_inter.tex")
   
 )
 
@@ -702,7 +702,7 @@ combined_plot <- p_ret + p_notr + plot_layout(ncol = 2, guides = "collect") &
 combined_plot
 
 ggsave(
-  here("docs/elsvier/figures", "wtp_income_interactions_ret_notret_publication.png"),
+  here("paper/tex/figures", "wtp_income_interactions_ret_notret_publication.png"),
   plot = combined_plot,
   width = 13,
   height = 12,

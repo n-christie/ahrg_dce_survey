@@ -1,0 +1,27 @@
+\begin{table}[!h]
+\centering
+\caption{MWTP by Latent Class - 3-Class Solution (SEK/month)}
+\centering
+\begin{threeparttable}
+\begin{tabular}[t]{lrrr}
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{3}{c}{Latent Class} \\
+\cmidrule(l{3pt}r{3pt}){2-4}
+Attribute & Class 1 & Class 2 & Class 3\\
+\midrule
+Green space: 5 km (vs 15 km) & -35 & 481 & 267\\
+Green space: 500 m (vs 15 km) & 142 & 841 & 163\\
+Shops: 5 km (vs 15 km) & 114 & 33 & 390\\
+Shops: 500 m (vs 15 km) & 589 & 239 & 422\\
+Transit: 600 m (vs 900 m) & 51 & -143 & 274\\
+\addlinespace
+Transit: 300 m (vs 900 m) & 120 & 312 & 164\\
+Parking: reserved garage (vs none) & 192 & 175 & 1095\\
+Parking: reserved space (vs none) & 186 & 137 & 921\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item WTP = -(beta\_attr/beta\_price) x 900 SEK.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

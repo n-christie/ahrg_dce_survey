@@ -158,10 +158,10 @@ t1 <- table1::table1(~ Sex + age_group + civil_status_T2 + edu + health+ Retired
 latex_code <- table1:::doRender(t1, output = "latex")
 
 # 4. Write LaTeX code to file
-writeLines(as.character(latex_code),here("docs/elsvier/tables", "descriptive_table.tex"))
+writeLines(as.character(latex_code),here("paper/tex/tables", "descriptive_table.tex"))
 
 
-writeLines(t1, here("docs/elsvier/tables", "descriptive_table.tex"))
+writeLines(t1, here("paper/tex/tables", "descriptive_table.tex"))
 
 table1::t1flex(t1) |> 
   flextable::fontsize(size = 11) |> 

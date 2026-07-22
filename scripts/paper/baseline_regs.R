@@ -345,7 +345,7 @@ screenreg(
   caption.above = TRUE,
   fontsize = "scriptsize",
   na.replace = "--",
-  #file = here("docs/elsvier/tables", "mxl_base_table.tex")
+  #file = here("paper/tex/tables", "mxl_base_table.tex")
 )
 
 
@@ -575,7 +575,7 @@ mwtp_latex <- kbl(
   )
 
 # Save to file
-save_kable(mwtp_latex, here("docs/elsvier/tables", "mwtp_base.tex"))
+save_kable(mwtp_latex, here("paper/tex/tables", "mwtp_base.tex"))
 
 
 # -------------
@@ -605,7 +605,7 @@ texreg(
   digits = 1,
   booktabs = TRUE,
   dcolumn = TRUE,
-  file = here("docs/elsvier/tables","mwtp_renter_owner_table.tex")
+  file = here("paper/tex/tables","mwtp_renter_owner_table.tex")
 )
 
 
@@ -874,7 +874,7 @@ texreg(
   caption = "Base Specification - Renters",
   caption.above = TRUE,
   fontsize = "scriptsize",
-  file = here("docs/elsvier/tables","base_reg_owner.tex")
+  file = here("paper/tex/tables","base_reg_owner.tex")
 )
 
 htmlreg(

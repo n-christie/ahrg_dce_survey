@@ -273,7 +273,7 @@ texreg(
   caption            = "Mixed Logit with Age Interactions: Owners vs Renters (Coefficients and MWTP per Row)",
   caption.above      = TRUE,
   fontsize           = "scriptsize",
-  file               = here("docs/elsvier/tables","mxl_age_interactions_own_rent.tex")
+  file               = here("paper/tex/tables","mxl_age_interactions_own_rent.tex")
 )
 
 
@@ -457,7 +457,7 @@ combined_plot <- p_own + p_rent + plot_layout(ncol = 2, guides = "collect") &
 combined_plot
 
 ggsave(
-  here("docs/elsvier/figures", "wtp_age_interactions_own_rent_publication.png"),
+  here("paper/tex/figures", "wtp_age_interactions_own_rent_publication.png"),
   plot = combined_plot,
   width = 13,  # convert 835 px ≈ 8.35 cm
   height = 12 , # convert 792 px ≈ 7.92 cm
