@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(\"/mnt/c/Program Files/R/R-4.5.1/bin/Rscript.exe\" --vanilla scripts/paper/latent_class_analysis.R)",
+      "Bash(\"/mnt/c/Program Files/R/R-4.5.1/bin/Rscript.exe\" --vanilla scripts/paper/lc_results.R)",
+      "Bash(\"/mnt/c/Program Files/R/R-4.5.1/bin/Rscript.exe\" --vanilla scripts/paper/lc_debug.R)",
+      "Bash(grep -v \"^$\")",
+      "Bash(cp '/mnt/c/Users/nicka/Documents/Projects/!med/ahrg_dce_survey/docs/elsvier/tables/*.tex' /mnt/c/Users/nicka/Documents/Projects/!med/ahrg_dce_survey/paper/tex/tables/)",
+      "Bash(cp '/mnt/c/Users/nicka/Documents/Projects/!med/ahrg_dce_survey/docs/elsvier/figures/*' /mnt/c/Users/nicka/Documents/Projects/!med/ahrg_dce_survey/paper/tex/figures/)"
+    ]
+  }
+}
