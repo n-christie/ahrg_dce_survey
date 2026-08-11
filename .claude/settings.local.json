@@ -6,7 +6,16 @@
       "Bash(\"/mnt/c/Program Files/R/R-4.5.1/bin/Rscript.exe\" --vanilla scripts/paper/lc_debug.R)",
       "Bash(grep -v \"^$\")",
       "Bash(cp '/mnt/c/Users/nicka/Documents/Projects/!med/ahrg_dce_survey/docs/elsvier/tables/*.tex' /mnt/c/Users/nicka/Documents/Projects/!med/ahrg_dce_survey/paper/tex/tables/)",
-      "Bash(cp '/mnt/c/Users/nicka/Documents/Projects/!med/ahrg_dce_survey/docs/elsvier/figures/*' /mnt/c/Users/nicka/Documents/Projects/!med/ahrg_dce_survey/paper/tex/figures/)"
+      "Bash(cp '/mnt/c/Users/nicka/Documents/Projects/!med/ahrg_dce_survey/docs/elsvier/figures/*' /mnt/c/Users/nicka/Documents/Projects/!med/ahrg_dce_survey/paper/tex/figures/)",
+      "Read(//usr/bin/**)",
+      "Read(//usr/local/bin/**)",
+      "Bash('/mnt/c/Program Files/R/R-4.5.1/bin/Rscript.exe' -e ' *)",
+      "Bash('/mnt/c/Program Files/R/R-4.5.1/bin/Rscript.exe' --vanilla -e 'library\\(here\\); m <- readRDS\\(here\\('\\\\''output/models'\\\\'','\\\\''mxl_owner_base.rds'\\\\''\\)\\); cat\\(class\\(m\\), '\\\\''\\\\n'\\\\''\\); cat\\(names\\(m$coefficients\\), '\\\\''\\\\n'\\\\''\\)')",
+      "Bash('/mnt/c/Program Files/R/R-4.5.1/bin/Rscript.exe' --vanilla -e ' *)",
+      "Bash('/mnt/c/Program Files/R/R-4.5.1/bin/Rscript.exe' --vanilla -e 'library\\(here\\); library\\(broom\\); m_own <- readRDS\\(here\\('\\\\''output/models'\\\\'','\\\\''mxl_owner_base.rds'\\\\''\\)\\); t <- tidy\\(m_own\\); cat\\(sprintf\\('\\\\''%s\\\\t%.4f\\\\t%.4f\\\\t%.4f\\\\n'\\\\'', t$term, t$estimate, t$std.error, t$p.value\\)\\)')",
+      "Bash('/mnt/c/Program Files/R/R-4.5.1/bin/Rscript.exe' --vanilla -e 'library\\(here\\); library\\(broom\\); m <- readRDS\\(here\\('\\\\''output/models'\\\\'','\\\\''mxl_renter_base.rds'\\\\''\\)\\); t <- tidy\\(m\\); cat\\(sprintf\\('\\\\''%s\\\\t%.4f\\\\t%.4f\\\\t%.4f\\\\n'\\\\'', t$term, t$estimate, t$std.error, t$p.value\\)\\)')",
+      "Bash(\"/mnt/c/Program Files/R/R-4.5.1/bin/Rscript.exe\" --vanilla -e \" writeLines\\('check','C:/Temp/pkg_check.txt'\\) pkgs <- c\\('flextable','officer','openxlsx','writexl'\\) for \\(p in pkgs\\) { res <- tryCatch\\(find.package\\(p\\), error=function\\(e\\) 'NOT FOUND'\\) cat\\(p,'->',res,'\\\\n'\\) } \")",
+      "Read(//tmp/**)"
     ]
   }
 }
