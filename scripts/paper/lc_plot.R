@@ -1,6 +1,13 @@
 # lc_plot.R
-# LC-3 WTP figure highlighting green space.
-# Produces: output/figures/lc3_wtp.pdf + .png
+# LC-4 WTP figure highlighting green space.
+# Produces: output/figures/lc4_wtp.pdf + .png
+#
+# LC-4 (not LC-3) is used here to match the class count adopted in the paper
+# after the multi-start refit (2026-08-21): single-start BFGS had converged
+# to a meaningfully worse local optimum for the 4-class model, and once
+# refit, LC-4 beat LC-3 on AIC/BIC/CAIC. Class names below match Table 4 in
+# the manuscript -- keep them in sync if the class solution or naming
+# changes again.
 
 library(pacman)
 p_load(tidyverse, here, haven, gmnl, mlogit)
@@ -20,15 +27,26 @@ df_model <- readRDS(here("data/formr", "df_model.rds")) %>%
     ägandebostad = haven::as_factor(ägandebostad)
   )
 
-lc3 <- readRDS(here("output/models", "lc_3class.rds"))
+lc4 <- readRDS(here("output/models", "lc_4class.rds"))
 
 # ==============================================================================
 # WTP WITH DELTA-METHOD CIs
 # ==============================================================================
 
-vc    <- vcov(lc3)
-sm    <- summary(lc3)$CoefTable
-scale <- 900   # 10% of 9,000 SEK median monthly cost
+vc    <- vcov(lc4)
+sm    <- summary(lc4)$CoefTable
+
+# Scale: 10% of the pooled-sample MEDIAN planned monthly housing cost.
+# Table 3 (baseline_regs.R) uses tenure-specific medians (owners 10,000
+# SEK, renters 9,000 SEK); the pooled median is the right analogue for
+# these pooled-sample latent class models. A same-session edit briefly
+# switched this to the mean based on the wrong script (interaction_regs_
+# table.R generates a different table, not Table 3) -- reverted 2026-08-21.
+median_cost_overall <- median(
+  df_model %>% distinct(panelID, .keep_all = TRUE) %>% pull(planed_cost),
+  na.rm = TRUE
+)
+scale <- round(0.10 * median_cost_overall, 0)
 
 attr_vars <- c(
   "dist_green5km", "dist_green500 meter",
@@ -37,7 +55,7 @@ attr_vars <- c(
   "parkingreserverad garageplats", "parkingreserverad P-plats"
 )
 
-wtp_df <- map_dfr(1:3, function(q) {
+wtp_df <- map_dfr(1:4, function(q) {
   price_name <- paste0("class.", q, ".price_num")
   beta_p     <- sm[price_name, "Estimate"]
 
@@ -64,16 +82,25 @@ wtp_df <- map_dfr(1:3, function(q) {
 # LABELS AND GROUPING
 # ==============================================================================
 
-class_labels <- c(
-  "1" = "Class 1 · Shop-seekers (39%)",
-  "2" = "Class 2 · Nature-seekers (25%)",
-  "3" = "Class 3 · Car-centred (37%)"
+lc4_names <- c("Shop-oriented", "Green-space-oriented", "Price-sensitive\nshop-oriented", "Parking-oriented")
+
+lc4_shares_raw <- {
+  delta_idx <- grep("^\\(class\\)", rownames(sm))
+  deltas    <- c(0, sm[delta_idx, "Estimate"])
+  exp_d     <- exp(deltas)
+  round(exp_d / sum(exp_d) * 100, 1)
+}
+
+# Names wrap onto their own line (Class 3's "Price-sensitive shop-seekers"
+# is too long for a 4-panel facet strip otherwise).
+class_labels <- setNames(
+  paste0("Class ", 1:4, " ·\n", lc4_names, " (", lc4_shares_raw, "%)"),
+  as.character(1:4)
 )
 
-class_labels_short <- c(
-  "1" = "Class 1\nShop-seekers\n(39%)",
-  "2" = "Class 2\nNature-seekers\n(25%)",
-  "3" = "Class 3\nCar-centred\n(37%)"
+class_labels_short <- setNames(
+  paste0("Class ", 1:4, "\n", lc4_names, "\n(", lc4_shares_raw, "%)"),
+  as.character(1:4)
 )
 
 attr_labels <- c(
@@ -123,7 +150,7 @@ p <- ggplot(wtp_plot, aes(x = wtp, y = attr_f, fill = fill_col)) +
     width = 0.28, linewidth = 0.45, colour = "grey25"
   ) +
   geom_vline(xintercept = 0, colour = col_zero, linewidth = 0.4) +
-  facet_wrap(~ class_f, ncol = 3) +
+  facet_wrap(~ class_f, ncol = 4) +
   scale_fill_manual(
     values = c(green = col_green, other = col_other),
     guide  = "none"
@@ -131,7 +158,7 @@ p <- ggplot(wtp_plot, aes(x = wtp, y = attr_f, fill = fill_col)) +
   scale_x_continuous(
     labels = scales::label_dollar(prefix = "", suffix = " SEK"),
     breaks = c(-500, 0, 500, 1000),
-    limits = c(-300, 1200)
+    limits = c(-300, 1350)
   ) +
   labs(
     x       = "Marginal WTP (SEK/month)",
@@ -139,9 +166,10 @@ p <- ggplot(wtp_plot, aes(x = wtp, y = attr_f, fill = fill_col)) +
     title   = "Willingness to Pay by Latent Class",
     subtitle = paste0(
       "Green bars = green space attributes. ",
-      "95% CI from delta method. Scale = 10% of median monthly cost (9,000 SEK)."
+      "95% CI from delta method. Scale = 10% of median monthly cost (",
+      scales::comma(round(median_cost_overall, 0)), " SEK)."
     ),
-    caption = "N = 957 respondents. LC-3 model estimated via gmnl."
+    caption = "N = 957 respondents. LC-4 model estimated via gmnl."
   ) +
   theme_minimal(base_size = 10.5) +
   theme(
@@ -164,13 +192,13 @@ p <- ggplot(wtp_plot, aes(x = wtp, y = attr_f, fill = fill_col)) +
 
 dir.create(here("output", "figures"), showWarnings = FALSE)
 
-ggsave(here("output", "figures", "lc3_wtp.pdf"),
-       plot = p, width = 9, height = 4.2, device = cairo_pdf)
+ggsave(here("output", "figures", "lc4_wtp.pdf"),
+       plot = p, width = 11, height = 4.2, device = cairo_pdf)
 
-ggsave(here("output", "figures", "lc3_wtp.png"),
-       plot = p, width = 9, height = 4.2, dpi = 300)
+ggsave(here("output", "figures", "lc4_wtp.png"),
+       plot = p, width = 11, height = 4.2, dpi = 300)
 
-cat("Saved: output/figures/lc3_wtp.pdf + .png\n")
+cat("Saved: output/figures/lc4_wtp.pdf + .png\n")
 
 # ==============================================================================
 # ALSO: GREEN SPACE SPOTLIGHT — compare green WTP across classes
@@ -198,14 +226,14 @@ p2 <- ggplot(green_spot, aes(x = class_f, y = wtp)) +
   facet_wrap(~ attr_short, ncol = 2) +
   scale_y_continuous(
     labels = scales::label_dollar(prefix = "", suffix = " SEK"),
-    breaks = c(0, 200, 400, 600, 800)
+    breaks = c(0, 200, 400, 600, 800, 1000)
   ) +
   labs(
     x        = NULL,
     y        = "Marginal WTP (SEK/month)",
     title    = "Green Space WTP by Latent Class",
     subtitle = "95% CI from delta method.",
-    caption  = "N = 957 respondents. LC-3 model."
+    caption  = "N = 957 respondents. LC-4 model."
   ) +
   theme_minimal(base_size = 10.5) +
   theme(
@@ -221,10 +249,10 @@ p2 <- ggplot(green_spot, aes(x = class_f, y = wtp)) +
     plot.margin        = margin(8, 12, 8, 8)
   )
 
-ggsave(here("output", "figures", "lc3_green_spotlight.pdf"),
+ggsave(here("output", "figures", "lc4_green_spotlight.pdf"),
        plot = p2, width = 7, height = 4, device = cairo_pdf)
 
-ggsave(here("output", "figures", "lc3_green_spotlight.png"),
+ggsave(here("output", "figures", "lc4_green_spotlight.png"),
        plot = p2, width = 7, height = 4, dpi = 300)
 
-cat("Saved: output/figures/lc3_green_spotlight.pdf + .png\n")
+cat("Saved: output/figures/lc4_green_spotlight.pdf + .png\n")

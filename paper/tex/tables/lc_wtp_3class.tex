@@ -1,27 +1,27 @@
 \begin{table}[!h]
 \centering
-\caption{MWTP by Latent Class - 3-Class Solution (SEK/month)}
+\caption{MWTP by Latent Class - 3-Class Solution (SEK/month, 95\% CI)}
 \centering
 \begin{threeparttable}
-\begin{tabular}[t]{lrrr}
+\begin{tabular}[t]{llll}
 \toprule
 \multicolumn{1}{c}{ } & \multicolumn{3}{c}{Latent Class} \\
 \cmidrule(l{3pt}r{3pt}){2-4}
 Attribute & Class 1 & Class 2 & Class 3\\
 \midrule
-Green space: 5 km (vs 15 km) & -35 & 481 & 267\\
-Green space: 500 m (vs 15 km) & 142 & 841 & 163\\
-Shops: 5 km (vs 15 km) & 114 & 33 & 390\\
-Shops: 500 m (vs 15 km) & 589 & 239 & 422\\
-Transit: 600 m (vs 900 m) & 51 & -143 & 274\\
+Green space: 5 km (vs 15 km) & 578 (379, 777)* & 264 (152, 376)* & 20 (-9, 49)\\
+Green space: 500 m (vs 15 km) & 1036 (677, 1395)* & 379 (198, 560)* & 111 (75, 147)*\\
+Shops: 5 km (vs 15 km) & 99 (-29, 227) & 350 (178, 522)* & 119 (83, 155)*\\
+Shops: 500 m (vs 15 km) & 283 (143, 423)* & 645 (409, 881)* & 451 (389, 513)*\\
+Transit: 600 m (vs 900 m) & -162 (-266, -58)* & 169 (56, 282)* & 92 (55, 129)*\\
 \addlinespace
-Transit: 300 m (vs 900 m) & 120 & 312 & 164\\
-Parking: reserved garage (vs none) & 192 & 175 & 1095\\
-Parking: reserved space (vs none) & 186 & 137 & 921\\
+Transit: 300 m (vs 900 m) & 340 (194, 486)* & 331 (184, 478)* & 114 (86, 142)*\\
+Parking: reserved garage (vs none) & 159 (68, 250)* & 1508 (1031, 1985)* & 136 (97, 175)*\\
+Parking: reserved space (vs none) & 62 (-46, 170) & 1271 (909, 1633)* & 179 (145, 213)*\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
-\item WTP = -(beta\_attr/beta\_price) x 900 SEK.
+\item WTP = -(beta\_attr/beta\_price) x 900 SEK. 95\% CIs from the delta method. * = CI excludes zero.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}

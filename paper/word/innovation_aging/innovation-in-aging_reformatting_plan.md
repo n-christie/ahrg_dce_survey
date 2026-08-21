@@ -2,6 +2,34 @@
 
 Manuscript type: **Original Research Article** (250-word structured abstract; 6,000-word text cap; 50-reference cap; 5-element cap).
 
+## STATUS UPDATE 4 — class-selection justification documented (fills a real gap)
+
+Audited `scripts/paper/latent_class_analysis.R` line by line against the raw data and the four saved model objects (`output/models/lc_mnl_base.rds`, `lc_2class.rds`, `lc_3class.rds`, `lc_4class.rds`) to confirm the 3-class solution is actually justified, not just asserted. Found that **the choice of Q=3 was never documented anywhere** — not in code comments, not in the paper — only implicit in which model `lc_plot.R` happens to load. That's the gap this update closes.
+
+**Recomputed AIC/BIC/CAIC/entropy independently** (matches the script's own `model_fit` table exactly):
+
+| Model | Q | LogLik | K | AIC | BIC | CAIC | Entropy |
+|---|---|---|---|---|---|---|---|
+| MNL | 1 | -4344.3 | 9 | 8706.7 | 8750.5 | 8759.5 | — |
+| LC-2 | 2 | -4083.5 | 19 | 8205.0 | 8297.4 | 8316.4 | 0.635 |
+| LC-3 | 3 | -3898.9 | 29 | 7855.9 | 7996.9 | 8025.9 | 0.682 |
+| LC-4 | 4 | -3856.9 | 39 | 7791.8 | 7981.5 | 8020.5 | 0.732 |
+
+(N = 957 respondents used as sample size for BIC/CAIC, per the script's own footnote convention.)
+
+**Why 3, not 4, despite BIC technically still falling at Q=4:**
+- BIC improves by 453 points going 1→2 classes, another 300 points going 2→3, but only **~15 points** going 3→4 — an order-of-magnitude smaller gain, the classic diminishing-returns "elbow" at Q=3.
+- Entropy is modest throughout (0.64–0.73) and never reaches the conventional "good separation" threshold (~0.8) even at Q=4, so the 4-class solution doesn't buy materially cleaner class assignment either.
+- Substantively, LC-4's fourth class is small (9–14% of the sample under both the model-implied prior share and the modal/posterior assignment) and has a price coefficient (-9.42) more than double the magnitude of any other class-price estimate across all four models — consistent with a small, statistically unstable split rather than a genuine, well-populated fourth segment.
+
+**Suggested language for the manuscript** (fills the `[to finalize: one sentence on class selection criteria]` placeholder in the Abstract draft, Section 5 below, and can extend the Methods paragraph from Status Update 2):
+
+> Model selection favored a 3-class solution: relative fit (AIC, BIC, CAIC) improved sharply from one to two and two to three classes but only marginally from three to four, and the four-class solution's additional segment was small (9–14% of respondents) and less stable, so the 3-class model was retained as the most parsimonious solution with substantively interpretable, adequately sized segments.
+
+**Still open**: this sentence needs to actually be inserted into the docx Methods paragraph and the Abstract placeholder — this status update documents the justification and recommended text but doesn't touch the .docx files. Also worth double-checking against your own judgment on the entropy interpretation, since 0.68 (LC-3) is "moderate," not "good," separation — if a reviewer pushes on this, the honest answer is that classes are reasonably but not sharply separated, which is worth a sentence in the Limitations subsection rather than glossing over.
+
+---
+
 ## STATUS UPDATE 3 — class profiles added + a structural bug fixed
 
 Pulled `paper/word/tables/lc_class_profiles.html` and added the demographic-by-class breakdown as **Supplementary Table S5**. Also adopted your own class labels from that file — Shop-seekers, Nature-seekers, Car-centred — throughout Table 4, the Results text, and the Discussion, instead of generic "Class 1/2/3." Added one sentence to the Results latent-class paragraph summarizing the modal-class demographics (Car-centred slightly older, more likely homeowners, less likely female) with a pointer to Table S5.

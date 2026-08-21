@@ -180,23 +180,13 @@ summary(lc_2class_cov)
 class_probs <- lc_2class$Qir
 head(class_probs)
 
-# Create data frame with class assignments
 unique_panels <- df_model %>%
   distinct(panelID, .keep_all = TRUE) %>%
-  select(panelID, age, is_owner )
+  select(panelID, age, is_owner, Own, Hus, income)
 
-class_assignments <- data.frame(
-  panelID = unique(df_gmnl$id),
-  class_prob_1 = class_probs[, 1],
-  class_prob_2 = class_probs[, 2]
-) %>%
-  mutate(assigned_class = ifelse(class_prob_1 > class_prob_2, 1, 2))
-
-# Merge with demographics
 class_profiles <- class_assignments %>%
   left_join(unique_panels, by = "panelID")
 
-# Profile each class
 summary_by_class <- class_profiles %>%
   group_by(assigned_class) %>%
   summarise(
@@ -207,7 +197,6 @@ summary_by_class <- class_profiles %>%
     pct_house = mean(Hus == "House", na.rm = TRUE) * 100,
     avg_income = mean(income, na.rm = TRUE)
   )
-
 print(summary_by_class)
 
 # ------------------------------------------------------------------------------

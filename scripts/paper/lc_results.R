@@ -160,11 +160,12 @@ cat("LC-3:", paste(round(extract_class_shares(lc3) * 100, 1), "%", collapse = " 
 cat("LC-4:", paste(round(extract_class_shares(lc4) * 100, 1), "%", collapse = "  /  "), "\n")
 
 # ==============================================================================
-# 3. LC-2 AND LC-3 COEFFICIENTS
+# 3. COEFFICIENTS (LC-2, LC-3, LC-4)
 # ==============================================================================
 
 coefs_lc2 <- extract_lc_coefs(lc2, 2)
 coefs_lc3 <- extract_lc_coefs(lc3, 3)
+coefs_lc4 <- extract_lc_coefs(lc4, 4)
 
 cat("\n========================================\n")
 cat("LC-2 COEFFICIENTS\n")
@@ -190,41 +191,99 @@ coefs_lc3 %>%
   mutate(across(where(is.numeric), ~ round(., 3))) %>%
   print(n = 50)
 
+cat("\n========================================\n")
+cat("LC-4 COEFFICIENTS\n")
+cat("========================================\n")
+coefs_lc4 %>%
+  mutate(label = label_map[variable], sig = case_when(
+    p_value < 0.001 ~ "***", p_value < 0.01 ~ "**",
+    p_value < 0.05 ~ "*", TRUE ~ ""
+  )) %>%
+  select(Class = class, Attribute = label, Coef = estimate, SE = std_error, Sig = sig) %>%
+  mutate(across(where(is.numeric), ~ round(., 3))) %>%
+  print(n = 60)
+
 # ==============================================================================
 # 4. WTP BY CLASS
 # ==============================================================================
 
+# Pooled-sample median (not mean): Table 3 (baseline_regs.R) uses
+# tenure-specific medians (owners 10,000 SEK, renters 9,000 SEK); the latent
+# class models are fit on the pooled sample, so the pooled median is the
+# right analogue. Reverted 2026-08-21 after a same-session edit mistakenly
+# switched this to the mean based on the wrong script (interaction_regs_
+# table.R generates a different table, not Table 3).
 median_cost <- median(
   df_model %>% distinct(panelID, .keep_all = TRUE) %>% pull(planed_cost),
   na.rm = TRUE
 )
 scaler <- 0.10 * median_cost
 
-compute_lc_wtp <- function(coef_df, scale) {
-  price_row <- coef_df %>% filter(variable == "price_num")
-  coef_df %>%
-    filter(variable != "price_num") %>%
-    left_join(price_row %>% select(class, beta_price = estimate), by = "class") %>%
-    mutate(wtp = round(-(estimate / beta_price) * scale, 0))
+# SEs via the delta method (matches lc_plot.R): a ratio of two jointly-
+# estimated, correlated coefficients has its own sampling variance, so the
+# point estimate alone doesn't say whether a WTP is distinguishable from zero.
+compute_lc_wtp <- function(model, Q, scale) {
+  vc <- vcov(model)
+  sm <- summary(model)$CoefTable
+
+  map_dfr(1:Q, function(q) {
+    price_name <- paste0("class.", q, ".price_num")
+    beta_price <- sm[price_name, "Estimate"]
+
+    prefix   <- paste0("^class\\.", q, "\\.")
+    idx      <- grep(prefix, rownames(sm))
+    attr_idx <- idx[rownames(sm)[idx] != price_name]
+
+    map_dfr(attr_idx, function(i) {
+      attr_name <- rownames(sm)[i]
+      beta_attr <- sm[i, "Estimate"]
+
+      wtp  <- -(beta_attr / beta_price) * scale
+      grad <- c(-1 / beta_price, beta_attr / beta_price^2) * scale
+      V    <- vc[c(attr_name, price_name), c(attr_name, price_name)]
+      se   <- sqrt(as.numeric(t(grad) %*% V %*% grad))
+
+      tibble(
+        class    = q,
+        variable = sub(prefix, "", attr_name),
+        wtp      = round(wtp, 0),
+        se       = se,
+        lower    = wtp - 1.96 * se,
+        upper    = wtp + 1.96 * se,
+        p_value  = 2 * pnorm(-abs(wtp / se))
+      )
+    })
+  })
 }
 
-wtp_lc2 <- compute_lc_wtp(coefs_lc2, scaler)
-wtp_lc3 <- compute_lc_wtp(coefs_lc3, scaler)
+wtp_lc2 <- compute_lc_wtp(lc2, 2, scaler)
+wtp_lc3 <- compute_lc_wtp(lc3, 3, scaler)
+wtp_lc4 <- compute_lc_wtp(lc4, 4, scaler)
 
 cat("\n========================================\n")
 cat("WTP BY CLASS (SEK/month, scale =", round(scaler), ")\n")
 cat("========================================\n")
 cat("\n--- LC-2 ---\n")
 wtp_lc2 %>%
-  mutate(label = label_map[variable]) %>%
-  select(Class = class, Attribute = label, WTP = wtp) %>%
+  mutate(label = label_map[variable],
+         WTP = sprintf("%.0f (%.0f, %.0f)", wtp, lower, upper)) %>%
+  select(Class = class, Attribute = label, WTP) %>%
   pivot_wider(names_from = Class, values_from = WTP, names_prefix = "Class ") %>%
   print()
 
 cat("\n--- LC-3 ---\n")
 wtp_lc3 %>%
-  mutate(label = label_map[variable]) %>%
-  select(Class = class, Attribute = label, WTP = wtp) %>%
+  mutate(label = label_map[variable],
+         WTP = sprintf("%.0f (%.0f, %.0f)", wtp, lower, upper)) %>%
+  select(Class = class, Attribute = label, WTP) %>%
+  pivot_wider(names_from = Class, values_from = WTP, names_prefix = "Class ") %>%
+  print()
+
+cat("\n--- LC-4 ---\n")
+wtp_lc4 %>%
+  mutate(label = label_map[variable],
+         WTP = sprintf("%.0f (%.0f, %.0f)", wtp, lower, upper)) %>%
+  select(Class = class, Attribute = label, WTP) %>%
   pivot_wider(names_from = Class, values_from = WTP, names_prefix = "Class ") %>%
   print()
 
@@ -234,6 +293,7 @@ wtp_lc3 %>%
 
 prof2 <- profile_classes(lc2, 2)
 prof3 <- profile_classes(lc3, 3)
+prof4 <- profile_classes(lc4, 4)
 
 summarise_profiles <- function(df) {
   df %>%
@@ -263,6 +323,11 @@ cat("CLASS PROFILES (LC-3)\n")
 cat("========================================\n")
 print(as.data.frame(summarise_profiles(prof3)))
 
+cat("\n========================================\n")
+cat("CLASS PROFILES (LC-4)\n")
+cat("========================================\n")
+print(as.data.frame(summarise_profiles(prof4)))
+
 # ==============================================================================
 # 6. SAVE LaTeX TABLES
 # ==============================================================================
@@ -282,9 +347,11 @@ make_lc_texreg <- function(coef_df, q, shares, label_map) {
 
 shares2 <- extract_class_shares(lc2)
 shares3 <- extract_class_shares(lc3)
+shares4 <- extract_class_shares(lc4)
 
 tr_lc2 <- lapply(1:2, make_lc_texreg, coef_df = coefs_lc2, shares = shares2, label_map = label_map)
 tr_lc3 <- lapply(1:3, make_lc_texreg, coef_df = coefs_lc3, shares = shares3, label_map = label_map)
+tr_lc4 <- lapply(1:4, make_lc_texreg, coef_df = coefs_lc4, shares = shares4, label_map = label_map)
 
 texreg(
   tr_lc2,
@@ -306,6 +373,16 @@ texreg(
   file = here("paper/tex/tables", "lc_3class_coefs.tex")
 )
 
+texreg(
+  tr_lc4,
+  custom.model.names = paste0("Class ", 1:4),
+  custom.coef.names  = label_map,
+  stars = c(0.001, 0.01, 0.05), booktabs = TRUE, dcolumn = TRUE,
+  use.packages = FALSE, caption = "Latent Class Model (4-Class): Utility Coefficients",
+  caption.above = TRUE, fontsize = "scriptsize", na.replace = "--",
+  file = here("paper/tex/tables", "lc_4class_coefs.tex")
+)
+
 # Model fit table
 fit_out <- model_fit %>%
   mutate(Entropy = ifelse(is.na(Entropy), "--", sprintf("%.3f", Entropy))) %>%
@@ -322,26 +399,41 @@ kbl(fit_out, booktabs = TRUE, format = "latex",
 # WTP tables
 wtp_wide <- function(wtp_df, Q) {
   wtp_df %>%
-    mutate(Attribute = label_map[variable]) %>%
+    mutate(
+      Attribute = label_map[variable],
+      wtp_fmt   = sprintf("%.0f (%.0f, %.0f)%s", wtp, lower, upper,
+                           ifelse(p_value < 0.05, "*", ""))
+    ) %>%
     filter(!is.na(Attribute)) %>%
-    select(Attribute, class, wtp) %>%
-    pivot_wider(names_from = class, values_from = wtp, names_prefix = "Class ")
+    select(Attribute, class, wtp_fmt) %>%
+    pivot_wider(names_from = class, values_from = wtp_fmt, names_prefix = "Class ")
 }
 
 kbl(wtp_wide(wtp_lc2, 2), booktabs = TRUE, format = "latex",
-    caption = "MWTP by Latent Class - 2-Class Solution (SEK/month)", escape = FALSE) %>%
+    caption = "MWTP by Latent Class - 2-Class Solution (SEK/month, 95\\% CI)", escape = FALSE) %>%
   kable_classic(full_width = FALSE, latex_options = "hold_position") %>%
   add_header_above(c(" " = 1, "Latent Class" = 2)) %>%
-  footnote(general = paste0("WTP = -(beta_attr/beta_price) x ", round(scaler), " SEK."),
+  footnote(general = paste0("WTP = -(beta_attr/beta_price) x ", round(scaler),
+                             " SEK. 95% CIs from the delta method. * = CI excludes zero."),
            general_title = "", threeparttable = TRUE) %>%
   save_kable(here("paper/tex/tables", "lc_wtp_2class.tex"))
 
 kbl(wtp_wide(wtp_lc3, 3), booktabs = TRUE, format = "latex",
-    caption = "MWTP by Latent Class - 3-Class Solution (SEK/month)", escape = FALSE) %>%
+    caption = "MWTP by Latent Class - 3-Class Solution (SEK/month, 95\\% CI)", escape = FALSE) %>%
   kable_classic(full_width = FALSE, latex_options = "hold_position") %>%
   add_header_above(c(" " = 1, "Latent Class" = 3)) %>%
-  footnote(general = paste0("WTP = -(beta_attr/beta_price) x ", round(scaler), " SEK."),
+  footnote(general = paste0("WTP = -(beta_attr/beta_price) x ", round(scaler),
+                             " SEK. 95% CIs from the delta method. * = CI excludes zero."),
            general_title = "", threeparttable = TRUE) %>%
   save_kable(here("paper/tex/tables", "lc_wtp_3class.tex"))
+
+kbl(wtp_wide(wtp_lc4, 4), booktabs = TRUE, format = "latex",
+    caption = "MWTP by Latent Class - 4-Class Solution (SEK/month, 95\\% CI)", escape = FALSE) %>%
+  kable_classic(full_width = FALSE, latex_options = "hold_position") %>%
+  add_header_above(c(" " = 1, "Latent Class" = 4)) %>%
+  footnote(general = paste0("WTP = -(beta_attr/beta_price) x ", round(scaler),
+                             " SEK. 95% CIs from the delta method. * = CI excludes zero."),
+           general_title = "", threeparttable = TRUE) %>%
+  save_kable(here("paper/tex/tables", "lc_wtp_4class.tex"))
 
 cat("\n=== Tables saved to paper/tex/tables/ ===\n")

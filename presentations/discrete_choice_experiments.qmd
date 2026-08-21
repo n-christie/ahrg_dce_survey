@@ -1,0 +1,57 @@
+---
+title: "Discrete Choice Experiments"
+format: revealjs
+editor: source
+---
+
+
+## For today
+
+We'll take a look at Discrete Choice Experiments and see how they can be used in research.
+We'll be touching on such questions as:
+
+::: {.incremental}
+
+- Are Discrete Choice Experiments something I could use?
+- Are they hard to implement?
+- Why would I even want to use a Discrete Choice Experiment?
+- What the heck _is_ a Discrete Choice Experiment?
+
+:::
+
+
+::: {.notes}
+Speaker notes go here.
+:::
+
+## The aim today is to:
+
+- Learn about Discrete Choice Experiments - that's a mouthful, let's call them DCEs
+- Have a quick background on DCEs - where did they come from?
+- See how they work in practice
+- Test out a survey
+- Analyse the results
+- See other ways they are used in practice
+- Give you the tools to conduct them yourself.
+
+
+## Discrete Choice Experiments
+
+
+## DCE's - the background
+
+```{r}
+library(leaflet)
+library(tidyverse)
+leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addMarkers(lat = c(55.7047,55.68,55.72), lng = c(13.1910,13.3,13.1),
+             popup="The birthplace of R")
+  
+
+```
+
+
+```{r}
+
+```

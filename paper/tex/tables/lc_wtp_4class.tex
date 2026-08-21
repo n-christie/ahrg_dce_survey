@@ -1,0 +1,27 @@
+\begin{table}[!h]
+\centering
+\caption{MWTP by Latent Class - 4-Class Solution (SEK/month, 95\% CI)}
+\centering
+\begin{threeparttable}
+\begin{tabular}[t]{lllll}
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{4}{c}{Latent Class} \\
+\cmidrule(l{3pt}r{3pt}){2-5}
+Attribute & Class 1 & Class 2 & Class 3 & Class 4\\
+\midrule
+Green space: 5 km (vs 15 km) & -35 (-138, 68) & 593 (373, 813)* & 8 (-23, 39) & 244 (165, 323)*\\
+Green space: 500 m (vs 15 km) & 246 (103, 389)* & 1070 (684, 1456)* & 86 (51, 121)* & 198 (99, 297)*\\
+Shops: 5 km (vs 15 km) & 218 (46, 390)* & 62 (-73, 197) & 71 (31, 111)* & 357 (233, 481)*\\
+Shops: 500 m (vs 15 km) & 1238 (616, 1860)* & 303 (147, 459)* & 195 (141, 249)* & 463 (350, 576)*\\
+Transit: 600 m (vs 900 m) & 65 (-69, 199) & -129 (-233, -25)* & 44 (12, 76)* & 223 (119, 327)*\\
+\addlinespace
+Transit: 300 m (vs 900 m) & 252 (98, 406)* & 379 (224, 534)* & 43 (18, 68)* & 226 (123, 329)*\\
+Parking: reserved garage (vs none) & 444 (201, 687)* & 235 (114, 356)* & 33 (-2, 68) & 1179 (935, 1423)*\\
+Parking: reserved space (vs none) & 345 (167, 523)* & 174 (53, 295)* & 34 (-2, 70) & 1002 (816, 1188)*\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item WTP = -(beta\_attr/beta\_price) x 900 SEK. 95\% CIs from the delta method. * = CI excludes zero.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

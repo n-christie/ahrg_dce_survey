@@ -95,7 +95,63 @@ cat("Individuals:", n_ind, " | Choice tasks:", n_obs, "\n")
 # 3. FIT MNL AND LATENT CLASS MODELS
 # ==============================================================================
 
+# LC likelihood surfaces are not unimodal: an audit on 2026-08-21 found that
+# single-start BFGS (as fit here previously) converges to meaningfully worse
+# local optima at Q=3 (ULL ~ 0.22 below the best-found solution) and, more
+# severely, at Q=4 (ULL ~ 13.9 below best-found -- a different clustering of
+# the sample, not a minor refinement). Refitting from several random starting
+# vectors and keeping the best-converged log-likelihood fixes this; perturbing
+# the previously-saved solution alone was NOT enough to escape the Q=4 local
+# optimum in that audit, so diffuse random starts are used here.
+fit_lc_multistart <- function(Q, n_random = 8, n_perturb = 0, base_coef = NULL,
+                               seed_base = 1000, iterlim = 4000) {
+  npar <- 9 * Q + (Q - 1)
+  candidates <- list(default = NULL)
+  for (i in seq_len(n_random)) {
+    set.seed(seed_base + i)
+    candidates[[paste0("random", i)]] <- runif(npar, -2, 2)
+  }
+  if (!is.null(base_coef) && n_perturb > 0) {
+    for (i in seq_len(n_perturb)) {
+      set.seed(seed_base + 100 + i)
+      candidates[[paste0("perturb", i)]] <- base_coef + rnorm(npar, 0, 1)
+    }
+  }
+
+  best_ll <- -Inf; best_fit <- NULL; best_tag <- NA_character_
+  log_rows <- list()
+
+  for (tag in names(candidates)) {
+    fit <- tryCatch(
+      do.call(gmnl, list(
+        formula = choice ~ dist_green + dist_shops + dist_trans + parking + price_num | 0 | 0 | 0 | 1,
+        data = df_gmnl, model = "lc", Q = Q, panel = TRUE, method = "bfgs",
+        start = candidates[[tag]], iterlim = iterlim, print.level = 0
+      )),
+      error = function(e) e
+    )
+    if (inherits(fit, "error")) {
+      log_rows[[tag]] <- tibble(Q = Q, tag = tag, logLik = NA_real_, conv = NA_character_)
+      next
+    }
+    ll   <- as.numeric(logLik(fit))
+    conv <- fit$logLik$message
+    log_rows[[tag]] <- tibble(Q = Q, tag = tag, logLik = ll, conv = conv)
+    if (grepl("successful convergence", conv) && ll > best_ll) {
+      best_ll <- ll; best_fit <- fit; best_tag <- tag
+    }
+  }
+
+  cat("  multi-start log (Q =", Q, "):\n")
+  print(bind_rows(log_rows))
+  cat("  best:", best_tag, "| LL =", best_ll, "\n")
+
+  best_fit
+}
+
 cat("\n--- Fitting MNL baseline ---\n")
+# MNL's likelihood is globally concave (single mode), so a single BFGS start
+# is sufficient here -- unlike the LC models below.
 mnl_base <- gmnl(
   choice ~ dist_green + dist_shops + dist_trans + parking + price_num | 0,
   data  = df_gmnl,
@@ -103,37 +159,16 @@ mnl_base <- gmnl(
 )
 summary(mnl_base)
 
-cat("\n--- Fitting LC-2 ---\n")
-lc2 <- gmnl(
-  choice ~ dist_green + dist_shops + dist_trans + parking + price_num | 0 | 0 | 0 | 1,
-  data   = df_gmnl,
-  model  = "lc",
-  Q      = 2,
-  panel  = TRUE,
-  method = "bfgs"
-)
+cat("\n--- Fitting LC-2 (multi-start) ---\n")
+lc2 <- fit_lc_multistart(Q = 2, n_random = 8, seed_base = 2000)
 summary(lc2)
 
-cat("\n--- Fitting LC-3 ---\n")
-lc3 <- gmnl(
-  choice ~ dist_green + dist_shops + dist_trans + parking + price_num | 0 | 0 | 0 | 1,
-  data   = df_gmnl,
-  model  = "lc",
-  Q      = 3,
-  panel  = TRUE,
-  method = "bfgs"
-)
+cat("\n--- Fitting LC-3 (multi-start) ---\n")
+lc3 <- fit_lc_multistart(Q = 3, n_random = 8, seed_base = 3000)
 summary(lc3)
 
-cat("\n--- Fitting LC-4 ---\n")
-lc4 <- gmnl(
-  choice ~ dist_green + dist_shops + dist_trans + parking + price_num | 0 | 0 | 0 | 1,
-  data   = df_gmnl,
-  model  = "lc",
-  Q      = 4,
-  panel  = TRUE,
-  method = "bfgs"
-)
+cat("\n--- Fitting LC-4 (multi-start) ---\n")
+lc4 <- fit_lc_multistart(Q = 4, n_random = 8, seed_base = 4000)
 summary(lc4)
 
 # Save models
@@ -234,7 +269,20 @@ cat("\nLC-4 class shares:\n"); print(round(shares_lc4, 3))
 # ==============================================================================
 
 # WTP = -(beta_attribute / beta_price) * scale
-# Scale: 10% of overall median monthly housing cost
+# Scale: 10% of the pooled-sample MEDIAN monthly housing cost. Table 3
+# (baseline_regs.R) uses tenure-specific medians (owners 10,000 SEK,
+# renters 9,000 SEK, hardcoded there); the latent class models are fit on
+# the pooled sample, so the pooled median is the correct analogue. A
+# same-session edit briefly switched this to the mean after mistakenly
+# checking interaction_regs_table.R (a different table) instead of
+# baseline_regs.R for Table 3's actual convention -- reverted 2026-08-21
+# once Table 3's own footnote and code were checked directly.
+#
+# SEs via the delta method (same approach already used in lc_plot.R for the
+# LC-3 figure): a ratio of two jointly-estimated, correlated coefficients has
+# its own sampling variance, so the point estimate alone doesn't tell you
+# whether a given WTP is distinguishable from zero. Needs vcov(model), so this
+# takes the fitted model directly rather than the already-extracted coef_df.
 
 median_cost_overall <- median(
   df_model %>% distinct(panelID, .keep_all = TRUE) %>% pull(planed_cost),
@@ -244,19 +292,43 @@ scaler <- 0.10 * median_cost_overall
 
 cat("\nMedian planned cost:", median_cost_overall, "| WTP scale:", scaler, "\n")
 
-compute_lc_wtp <- function(coef_df, scale) {
-  price_row <- coef_df %>% filter(variable == "price_num")
-  coef_df %>%
-    filter(variable != "price_num") %>%
-    left_join(
-      price_row %>% select(class, beta_price = estimate),
-      by = "class"
-    ) %>%
-    mutate(wtp = -(estimate / beta_price) * scale)
+compute_lc_wtp <- function(model, Q, scale) {
+  vc <- vcov(model)
+  sm <- summary(model)$CoefTable
+
+  map_dfr(1:Q, function(q) {
+    price_name <- paste0("class.", q, ".price_num")
+    beta_price <- sm[price_name, "Estimate"]
+
+    prefix   <- paste0("^class\\.", q, "\\.")
+    idx      <- grep(prefix, rownames(sm))
+    attr_idx <- idx[rownames(sm)[idx] != price_name]
+
+    map_dfr(attr_idx, function(i) {
+      attr_name <- rownames(sm)[i]
+      beta_attr <- sm[i, "Estimate"]
+
+      wtp  <- -(beta_attr / beta_price) * scale
+      grad <- c(-1 / beta_price, beta_attr / beta_price^2) * scale
+      V    <- vc[c(attr_name, price_name), c(attr_name, price_name)]
+      se   <- sqrt(as.numeric(t(grad) %*% V %*% grad))
+
+      tibble(
+        class    = q,
+        variable = sub(prefix, "", attr_name),
+        estimate = beta_attr,
+        wtp      = wtp,
+        se       = se,
+        lower    = wtp - 1.96 * se,
+        upper    = wtp + 1.96 * se,
+        p_value  = 2 * pnorm(-abs(wtp / se))
+      )
+    })
+  })
 }
 
-wtp_lc2 <- compute_lc_wtp(coefs_lc2, scaler)
-wtp_lc3 <- compute_lc_wtp(coefs_lc3, scaler)
+wtp_lc2 <- compute_lc_wtp(lc2, 2, scaler)
+wtp_lc3 <- compute_lc_wtp(lc3, 3, scaler)
 
 # ==============================================================================
 # 7. CLASS MEMBERSHIP PROFILES (posterior probabilities)
@@ -454,12 +526,11 @@ kbl(
 
 # -- WTP table: LC-2 (LaTeX) --
 wtp_wide_lc2 <- wtp_lc2 %>%
-  select(variable, class, wtp) %>%
-  pivot_wider(names_from = class, values_from = wtp, names_prefix = "Class ") %>%
-  mutate(
-    Attribute = label_map[variable],
-    across(starts_with("Class"), ~ round(.x, 0))
-  ) %>%
+  mutate(wtp_fmt = sprintf("%.0f (%.0f, %.0f)%s", wtp, lower, upper,
+                            ifelse(p_value < 0.05, "*", ""))) %>%
+  select(variable, class, wtp_fmt) %>%
+  pivot_wider(names_from = class, values_from = wtp_fmt, names_prefix = "Class ") %>%
+  mutate(Attribute = label_map[variable]) %>%
   filter(!is.na(Attribute)) %>%
   select(Attribute, starts_with("Class"))
 
@@ -467,7 +538,7 @@ kbl(
   wtp_wide_lc2,
   booktabs = TRUE,
   format   = "latex",
-  caption  = "Marginal Willingness to Pay by Latent Class (2-Class Solution, SEK/month)",
+  caption  = "Marginal Willingness to Pay by Latent Class (2-Class Solution, SEK/month, 95\\% CI)",
   escape   = FALSE
 ) %>%
   kable_classic(full_width = FALSE, latex_options = "hold_position") %>%
@@ -478,7 +549,8 @@ kbl(
       round(scaler, 0),
       "$. Scale factor = 10\\\\% of median monthly housing cost (",
       round(median_cost_overall, 0),
-      " SEK/month)."
+      " SEK/month). 95\\\\% CIs from the delta method (accounting for the covariance ",
+      "between each attribute coefficient and the price coefficient). * = CI excludes zero."
     ),
     general_title = "",
     threeparttable = TRUE,
@@ -488,12 +560,11 @@ kbl(
 
 # -- WTP table: LC-3 (LaTeX) --
 wtp_wide_lc3 <- wtp_lc3 %>%
-  select(variable, class, wtp) %>%
-  pivot_wider(names_from = class, values_from = wtp, names_prefix = "Class ") %>%
-  mutate(
-    Attribute = label_map[variable],
-    across(starts_with("Class"), ~ round(.x, 0))
-  ) %>%
+  mutate(wtp_fmt = sprintf("%.0f (%.0f, %.0f)%s", wtp, lower, upper,
+                            ifelse(p_value < 0.05, "*", ""))) %>%
+  select(variable, class, wtp_fmt) %>%
+  pivot_wider(names_from = class, values_from = wtp_fmt, names_prefix = "Class ") %>%
+  mutate(Attribute = label_map[variable]) %>%
   filter(!is.na(Attribute)) %>%
   select(Attribute, starts_with("Class"))
 
@@ -501,7 +572,7 @@ kbl(
   wtp_wide_lc3,
   booktabs = TRUE,
   format   = "latex",
-  caption  = "Marginal Willingness to Pay by Latent Class (3-Class Solution, SEK/month)",
+  caption  = "Marginal Willingness to Pay by Latent Class (3-Class Solution, SEK/month, 95\\% CI)",
   escape   = FALSE
 ) %>%
   kable_classic(full_width = FALSE, latex_options = "hold_position") %>%
@@ -509,7 +580,8 @@ kbl(
   footnote(
     general = paste0(
       "WTP = $-(\\\\beta_{\\\\text{attribute}} / \\\\beta_{\\\\text{price}}) \\\\times ",
-      round(scaler, 0), "$."
+      round(scaler, 0),
+      "$. 95\\\\% CIs from the delta method. * = CI excludes zero."
     ),
     general_title = "",
     threeparttable = TRUE,
