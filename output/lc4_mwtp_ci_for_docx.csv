@@ -1,0 +1,33 @@
+class,variable,wtp,lower,upper
+1,dist_green5km,-35,-138,68
+1,dist_green500 meter,246,103,389
+1,dist_shops5km,218,46,390
+1,dist_shops500 meter,1238,616,1860
+1,dist_trans600,65,-69,199
+1,dist_trans300,252,98,406
+1,parkingreserverad garageplats,444,201,687
+1,parkingreserverad P-plats,345,167,523
+2,dist_green5km,593,373,813
+2,dist_green500 meter,1070,684,1456
+2,dist_shops5km,62,-73,197
+2,dist_shops500 meter,303,147,459
+2,dist_trans600,-129,-233,-25
+2,dist_trans300,379,224,534
+2,parkingreserverad garageplats,235,114,356
+2,parkingreserverad P-plats,174,53,295
+3,dist_green5km,8,-23,39
+3,dist_green500 meter,86,51,121
+3,dist_shops5km,71,31,111
+3,dist_shops500 meter,195,141,249
+3,dist_trans600,44,12,76
+3,dist_trans300,43,18,68
+3,parkingreserverad garageplats,33,-2,68
+3,parkingreserverad P-plats,34,-2,70
+4,dist_green5km,244,165,323
+4,dist_green500 meter,198,99,297
+4,dist_shops5km,357,233,481
+4,dist_shops500 meter,463,350,576
+4,dist_trans600,223,119,327
+4,dist_trans300,226,123,329
+4,parkingreserverad garageplats,1179,935,1423
+4,parkingreserverad P-plats,1002,816,1188
